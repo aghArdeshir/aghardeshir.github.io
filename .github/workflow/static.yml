@@ -38,7 +38,7 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Move blog to `/blog/`
-        run: mv -r blog/.vitepress/dist/* blog
+        run: cp -r blog/.vitepress/dist/* blog/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
