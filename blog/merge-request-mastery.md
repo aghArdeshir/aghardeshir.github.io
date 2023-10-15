@@ -6,8 +6,8 @@ outline: deep
 
 // TODO: DATE NEEDED
 
-::: info
-This is a warning.
+::: info Note
+This is a work in progress. Please come back later.
 :::
 
 This blog post is about making Merge Requests more "reviewable" and enhancing the value of code reviews.
