@@ -1,0 +1,13 @@
+{
+  "name": "aghardeshir.github.io",
+  "description": "Ardeshir Izadi's Personal Blog",
+  "scripts": {
+    "blog:dev": "vitepress dev blog",
+    "blog:build": "vitepress build blog",
+    "blog:preview": "vitepress preview blog"
+  },
+  "author": "Ardesir Izadi",
+  "devDependencies": {
+    "vitepress": "^1.0.0-rc.22"
+  }
+}
