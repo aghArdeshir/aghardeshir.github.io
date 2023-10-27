@@ -132,11 +132,19 @@ One trick I use when someone else has resolved my comment, is I unresolve it fir
 
 ## Final words
 
-Not caring about any of the notes above will exhaust the reviewer. An exhausted reviewer may overlook things, get lost in reviewing, take longer to review, or misunderstand the intentions. and the resulting software will either suck in quality or will be drowned in tech debts.
+Not caring about any of the notes above will exhaust the reviewer.
+An exhausted reviewer may overlook things, get lost in reviewing, take longer to review, or misunderstand the intentions.
+And the resulting software will either be of poor quality or will have lots of technical debts.
 
-Also not all of these considerations can be applied at the same time. All these considerations describe "perfection", if you can remember consciously to do them all, then bravo! But if not, also don't worry, just having the perfect in mind makes us get better and better with each journey. TODO: talk about trade-off, balance, teamculture, etc. probably with examples
+Also not all of these considerations can be applied at the same time.
+All these considerations describe a "perfection", if you can remember consciously to do them all, then bravo!
+But if not, also don't worry, just having the perfect in mind makes us get better and better with each journey.
+And, most importantly this is _my_ version of "perfection".
+You can decide based on your trade-offs (e.g. how fast you want a feature), team culture, discussions in the MR, etc... and have _your_ own version of "perfection".
+Feel free to use any of my suggestions though.
+The ultimate purpose of a good MR and a good review is to be able to deploy "safer" code, and keep the maintainability of the software at hand at a good level.
 
-Unfortunately, my blog does not have a comment section, but you can [open an issue or a discussion on GitHub](https://github.com/aghArdeshir/aghardeshir.github.io/) if you have anything to share, any idea, question, disagreement, or just want to contribute to this blog post. TODO: ADD A NOTE KE: all these are done to make reviewer's life easy, and to make changes that are deployed, safer. If your developer is comfortable with bigger changes (like they are asking you to ship a refactor alongside your PR) and you are most confident in your work (e.g. your software is backed up by good automated testsm), and based on your team culture etc... you are good to go. These things that I mentioned were jsut some highlights that I think are important to consider. But if you are comfortable with bigger changes, then go for it.
+Unfortunately, my blog does not have a comment section, but you can [open an issue or a discussion on GitHub](https://github.com/aghArdeshir/aghardeshir.github.io/) if you have anything to share, any idea, question, disagreement, or just want to contribute to this blog post.
 
 You can also [contact me on my LinkedIn profile](https://www.linkedin.com/in/ardeshir-izadi/).
 
