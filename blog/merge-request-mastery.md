@@ -109,12 +109,11 @@ When you are about to commit your changes locally, review each file one by one, 
 
 Also, try to describe what you did in a commit in 1 short line. If you can't, then it probably means something should be separated into another commit. The same is true about the MR title! If you cna't describe in 1 short line whatever you did in your MR, most probably it is a sign that some part of it could be separated into another task/MR.
 
-
 ## Use the description field when creating merge requests
 
 Make sure you include descriptions with your MR as much as possible, if applicable. If a task is assigned to you, the description of the task is some sort of business description that everyone understands. But sometimes the MRs need more technical clarification, for instance: "In this refactor MR I renamed variableA to VariableB because it more resembles what it holds, because this variable holds B, and A is a subset of B.". You can also include a bullet list to describe the reason of different changes in your MR. Note that this is also tricky like comments. Always consider: "If I'm writing a description for the merge request, then only the reviewer gets to read it. But is this description something that all the team should be aware of?" And if the answer is "yes", then most probably what you are writing as description should live inside the code as a comment.
 
-Code reviewers are humans, not rendering engines. If you added/changed a piece of code that contains a lot of styling changes, like `width: 280px; height: calc(100% - 20px); align-items: center; z-index: 2;` include a screenshot with the changed result. Or even better, setup a continuous deployment in your workflow to create a preview app out of every MR. So the reviewer can lunch the software that includes your changes with 1 click. 
+Code reviewers are humans, not rendering engines. If you added/changed a piece of code that contains a lot of styling changes, like `width: 280px; height: calc(100% - 20px); align-items: center; z-index: 2;` include a screenshot with the changed result. Or even better, setup a continuous deployment in your workflow to create a preview app out of every MR. So the reviewer can lunch the software that includes your changes with 1 click.
 
 Also, if you are using a tracking system like JIRA, you can include the link to the task in the description. This way the reviewer can quickly jump to the task and see what the task is about, what the stakeholders said about this task, what the acceptance criteria are, etc.
 
