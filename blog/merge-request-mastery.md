@@ -33,9 +33,10 @@ This approach makes the review process easier and faster, and the original merge
 ## Minimize the diff
 
 For every change in the MR, ask yourself:
-1) What can I do to reduce the diff here?
-2) Is this necessary for this MR?
-3) Can I separate concerns here to another MR/Task?
+
+1. What can I do to reduce the diff here?
+2. Is this necessary for this MR?
+3. Can I separate concerns here to another MR/Task?
 
 If the answer to any of these questions is "yes", you can either create a ticket for that particualr change,forget about it, and not include it in your original MR or quickly create a separate MR and ask your teammates to review it. (and again, forget about it)
 
@@ -73,8 +74,8 @@ Did a colleague leave a review on the refactor branch C? No worries, fix the ref
 
 Also do not be too eager to fix everything on your way. Do you see a badly named variable, a poorly designed function, or a file with corrupted spacing and indentations? You don't need to do it right away in your branch which you created for implementing something else. Each team and project has its way of handling "tasks". You can create a ticket and track it in your issue tracking system (be it JIRA, Trello, Github Projects, even shared TODO Lists). This way the management also knows about what needs to be fixed or refactored and can prioritize this. Sometimes it may not be in the current interest of the company to tackle every technical debt or even fix every bug right away. Even if it is, the managers need to "manage" and know what are you working on and what works need to be done, so they can plan for the future based on "workload", "the amount of time it takes a developer to do a certain task", and "the speed in which they can develop the software at hand". If you took 10 days to get a feature to production, but you've spent 3 days on refactoring, 1 day on fixing an unrelated bug, and takes a reviewer 1 day to review your giant diff, this can be misleading for managers, because:
 
-1) they think such a feature usually takes 10 days to implement, while it does not if you factor out the refactoring and bugfixing.
-2) they don't know about bugs that are present in the product, which results in them mitigating the importance of Quality Engineering in the process.
+1. they think such a feature usually takes 10 days to implement, while it does not if you factor out the refactoring and bugfixing.
+2. they don't know about bugs that are present in the product, which results in them mitigating the importance of Quality Engineering in the process.
 
 Usually, all you are facing is a badly engineered code, and you would "like" to see it in another way rather than it be blocking you. So creating a branch off of the main branch and doing the change, a refactor or anything else, should give you a green go to continue what you were working on. But again, creating a ticket for that makes it more observable and you can hear your teammates opinions about it. Maybe that refactoring idea you have is not a good one after all or maybe there is a hidden thing about that bad engineered code you missed.
 
