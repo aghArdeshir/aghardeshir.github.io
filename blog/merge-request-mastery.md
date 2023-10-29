@@ -14,9 +14,9 @@ This blog post is about making Merge Requests more "reviewable" and enhancing th
 
 ## Do not mix refactors with your intended changes
 
-Avoid mixing refactors and functional changes. Instead, create a separate merge request for the refactor before the main merge request. Clearly describe why you need this refactor. For instance: "For the task TASK-ID-123, service A cannot be used in component B for reasons 1, 2, and 3".
+Avoid mixing refactors and functional changes. Instead, create a separate merge request for the refactor before the main merge request. Clearly describe why you need this refactor. For instance: "For the task TASK-ID-123, ServiceA cannot be used in ComponentB for reasons 1, 2, and 3. I need this refactor, because I need to use ServiceA in ComponentB".
 
-Separating refactors prevents the reviewer from going through revieing a newly added 20-line function, only to discover later that this function was merely moved from another file. With a separate MR, the reviewer will only check if your "intention of moving" the function is correct, or if everything used in the function will work in its new environment, instead of checking if the logic of the moved function is correct. Because the logic has probably been there for a long time and your merge request has nothing to do with the content of it.
+Separating refactors prevents the reviewer from going through reviewing a newly added 20-lines function, only to discover later that this function was merely moved from another file. With a separate MR, in this example the reviewer will only check if your "intention of moving" the function is correct, or if everything used in the function will work in its new environment, rather than inspecting closely if the logic of the moved function is correct. Because the logic has probably been there for a long time and your merge request has nothing to do with the content of it.
 
 As another example, if you find the name of a variable unpleasant or misleading, cool, make a merge request that renames the variable only. Then, you can rebase your original branch on top of it and use the new variable name, without making your original merge request unnecessarily big and complicated.
 
