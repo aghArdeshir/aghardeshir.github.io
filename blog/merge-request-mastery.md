@@ -32,19 +32,17 @@ This approach makes the review process easier and faster, and the original merge
 
 ## Minimize the diff
 
-For every change in the MR, ask yourself:
+For every change you are about to do in your branch, ask yourself:
 
-1. What can I do to reduce the diff here?
-2. Is this necessary for this MR?
+1. Can I reduce the diff here?
+2. Can my task be considered done without what I'm currently doing?
 3. Can I separate concerns here to another MR/Task?
 
-If the answer to any of these questions is "yes", you can either create a ticket for that particualr change,forget about it, and not include it in your original MR or quickly create a separate MR and ask your teammates to review it. (and again, forget about it)
+If the answer to any of these questions is "yes", you can either create a ticket for that particualr change, and forget about it in your branch or quickly create a separate MR out of the _main_ branch and ask your teammates to review it. (and again, forget about it)
 
 This, again, makes the original merge request more "pure" and "focused".
 
-## Separation of concerns
-
-"Separation of concern" does not only apply to codes, components, services, tasks, etc. but also to MRs. Each MR should address one concern: "Fix a bug", "Add a new feature", "Refactor 1 thing", "Re-format the entire code", etc. This is also towards the "Minimize the diff" goal.
+"Separation of concern" does not only apply to codes, components, services, files and tasks. But also to MRs. Each MR should address one concern: "Fix a bug", "Add a new feature", "Refactor 1 thing", "Re-format the entire code", etc.
 
 ## Review your own MR before asking someone else to review it
 
