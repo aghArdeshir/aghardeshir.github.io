@@ -48,7 +48,7 @@ This, again, makes the original merge request more "pure" and "focused".
 
 ## Review your own MR before asking someone else to review it
 
-This is particularly helpful if you've faced and resolved conflicts in your branch. By doing this, you double-check if your changes are applied correctly in the final diff and ensure you don't have unintended changes in your MR.
+Self-review is particularly helpful if you've faced and resolved conflicts in your branch. By doing this, you double-check if your changes are applied correctly in the final diff and ensure you don't have unintended changes in your MR.
 
 Make sure you do this self-review in the reviewing platform that you always use to review other people's MRs. Because when you see your MR in those red and green colors and in that UI, you automatically go into your reviewer mode, but for your own MR. You start to see things that you didn't notice when you were authoring the code. You wear your critic glasses.
 
