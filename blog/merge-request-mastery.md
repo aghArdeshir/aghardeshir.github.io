@@ -24,7 +24,7 @@ This approach makes the review process easier and faster, and the original merge
 
 ## Do not mix formatting with your intended changes
 
-Similar to the previous point, avoid including unrelated file formatting with your changes. If you need to format some files, create a merge request that automatically formats "all files". The reviewer doesn't even need to read through the formatting merge request carefully, as you've already described in your merge request description that a tool automatically did this. (and tools can rarely be wrong).
+Similar to the previous point, avoid including unrelated file formatting with your changes. If you need to format some files, create a branch out of _main_ branch that automatically formats _all_ files. The reviewer doesn't even need to read through the formatting merge request carefully, as you've already described in your merge request description that a tool automatically did this. (and tools are _almost_ never wrong).
 
 No reviewer wants to sift through 400 lines of diff that only change indentations and replace single quotes with double quotes just to hunt down where the actual change is. (or miss it!)
 
