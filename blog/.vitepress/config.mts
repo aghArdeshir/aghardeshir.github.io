@@ -7,6 +7,8 @@ export default defineConfig({
   cleanUrls: true,
   base: '/blog/',
   themeConfig: {
+    logo: '../favicon.ico',
+
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
