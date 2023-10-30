@@ -35,8 +35,8 @@ jobs:
         run: npm install
       - name: Build
         run: npm run blog:build
-      - name: Echo LS
-        run: ls
+      - name: Echoing
+        run: echo "Hello World"
       - name: Move blog to `/blog/`
         run: cp -r blog/.vitepress/dist/* blog/
       - name: Setup Pages
