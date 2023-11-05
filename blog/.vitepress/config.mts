@@ -15,19 +15,44 @@ export default defineConfig({
       // { text: 'Examples', link: '/markdown-examples' }
     ],
 
+    externalLinkIcon: true,
+
     sidebar: [
       {
         text: 'Blog Posts',
         items: [
           // { text: 'Markdown Examples', link: '/markdown-examples' },
           // { text: 'Runtime API Examples', link: '/api-examples' }
-          { text: 'Merge Request Mastery', link: '/merge-request-mastery' }
-        ]
-      }
+          { text: 'Merge Request Mastery', link: '/merge-request-mastery' },
+        ],
+      },
     ],
 
+    darkModeSwitchLabel: 'Dark/Light mode',
+
+    lastUpdated: {
+      formatOptions: {
+        dateStyle: 'full',
+      },
+    },
+
+    docFooter: {
+      prev: 'My newer post',
+      next: 'My older post',
+    },
+
+    editLink: {
+      pattern:
+        'https://github.com/aghArdeshir/aghardeshir.github.io/edit/main/blog/:path',
+      text: 'Edit this post on GitHub',
+    },
+
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/aghArdeshir/aghardeshir.github.io' }
-    ]
-  }
-})
+      {
+        icon: 'github',
+        link: 'https://github.com/aghArdeshir/aghardeshir.github.io',
+      },
+      { icon: 'linkedin', link: 'https://www.linkedin.com/in/ardeshir-izadi/' },
+    ],
+  },
+});
