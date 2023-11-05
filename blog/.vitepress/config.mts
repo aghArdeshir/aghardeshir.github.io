@@ -1,9 +1,9 @@
-import { defineConfig } from 'vitepress'
+import { defineConfig } from 'vitepress';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "Ardeshir Izadi's Personal Blog",
-  description: "My thoughts and ideas as a Software Engineer",
+  title: "Ardeshir Izadi's Blog",
+  description: 'My thoughts and ideas as a Software Engineer',
   cleanUrls: true,
   base: '/blog/',
   themeConfig: {

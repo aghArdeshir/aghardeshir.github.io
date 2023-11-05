@@ -3,7 +3,7 @@
 layout: home
 
 hero:
-  name: "Ardeshir Izadi's Personal Blog"
+  name: "Ardeshir Izadi's Blog"
   text: "My thoughts and ideas as a Software Engineer"
   # tagline: My great project tagline
   actions:

@@ -1,2 +1,2 @@
 # aghardeshir.github.io
-Ardeshir Izadi's Personal Blog
+Ardeshir Izadi's Blog
