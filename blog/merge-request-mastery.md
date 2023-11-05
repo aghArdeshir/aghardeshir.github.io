@@ -143,6 +143,4 @@ The ultimate purpose of a good MR and a good review is to be able to deploy "saf
 
 Unfortunately, my blog does not have a comment section, but you can [open an issue or a discussion on GitHub](https://github.com/aghArdeshir/aghardeshir.github.io/) if you have anything to share, any idea, question, disagreement, or just want to contribute to this blog post.
 
-You can also [contact me on my LinkedIn profile](https://www.linkedin.com/in/ardeshir-izadi/).
-
 Thanks for reading! ❤️
