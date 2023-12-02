@@ -8,37 +8,34 @@ outline: deep
 This is a work in progress. Please come back later.
 :::
 
-This blog post is about making Merge Requests more "reviewable" and enhancing the value of code reviews. First I provide a TLDR version so you know the context of each point. Then I'll dive deep into each of them, with examples and philosophy behind it and my personal takes.
+This blog post is about making Merge Requests more "reviewable" and enhancing the value of code reviews. First I provide a TLDR version so you know the context of each point. Then I'll dive deep into each of them, with examples???? and philosophy behind it and my personal takes.
 
-- [**Do not mix refactors with your intended changes**](#do-not-mix-refactors-with-your-intended-changes): Keep refactors and functional changes separate. Make a different merge request for each refactor, explaining why it's needed. This makes the review process simpler and quicker, keeping the original merge request focused and uncomplicated.
-- [**Do not mix formatting with your intended changes**](#do-not-mix-formatting-with-your-intended-changes): Don't mix formatting changes with your main updates. If formatting is needed, create a separate branch that formats all files. This keeps the review process simple and fast, and the original merge request remains focused and clear.
-- [**Minimize the diff**](#minimize-the-diff): Simplify your branch changes by asking if you can make them smaller or complete your task without certain changes. Create separate tasks for additional changes, ensuring each merge request stays focused on one concern, such as fixing a bug or adding a feature.
-- [**Review your own MR before asking someone else to review it**](#review-your-own-mr-before-asking-someone-else-to-review-it): Check your own merge request before asking someone else to review it. Use your reviewing platform to catch issues you may have missed and ensure all CI checks pass to save time for reviewers.
-- [**Break the task at hand**](#break-the-task-at-hand): Break down big features into smaller, deliverable parts. Share your plan with the team, use feature flags if needed, and create separate merge requests for each piece. This makes reviews faster, feedback more focused, and the merging process safer.
+TLDR:
+For a good MR:
+- Minimize the diff
+  - break the task
+  - extract out refactors
+  - extract out formattings
+  - don't fix everything
+  - Review your own MR before asking anyone else (to make sure you only have related changes)
+- meaningful commits (see good commit convetions from good repositories on GitHub)
+- meaningful description (including media when needed)
+- let the comment author resolve comments
+
+- [**Minimize the diff**](#minimize-the-diff): Simplify your changes by asking yourself if you can make them smaller or complete your task without certain changes. Create separate tasks for additional changes, ensuring each merge request stays focused on one concern, such as fixing a bug or adding a feature.
+- [**Break the task at hand**](#break-the-task-at-hand): Break down big features into smaller, __deliverable__ parts. Share your plan with the team, use feature flags if needed, and create separate merge requests for each piece. This makes reviews faster, feedbacks more focused, and the merging process __safer__.
+- [**Extract out refactors into a separate MR**](#do-not-mix-refactors-with-your-intended-changes): Keep refactors and functional changes separate. Make a different merge request for each refactor, explaining why it's needed. This makes the review process of the original merge request focused and uncomplicated.
+- [**Extract out formattings into a separate MR**](#do-not-mix-formatting-with-your-intended-changes): Don't mix formatting changes with your main updates. If formatting is needed, create a separate branch that formats __all__ files. This also makes the original MR less complicated.
+- [**Dont fix everything**](#todo): Don't be eager to fix every problem or clean up every piece of code on your way. Best you can do is to create a ticket in your issue tracking system. Prioritize and decide about it with the team.
+- [**Review your own MR before asking someone else to review it**](#review-your-own-mr-before-asking-someone-else-to-review-it): Specially use the reviewing platform you always use to review other's MRs. Also ensure all CI checks pass to save time. Some problems can be catched using static checks only.
+- [**Meaningful commits**](#meaningful-commits): Make commits meaningful and separate. Use your IDE to stage specific and related changes separately, keeping things focused. Write concise commit messages and MR titles. If you can't, it __may__ be a sign your MR is doing more that one thing and should be broken into separate ones.
+- [**Use the description field**](#use-the-description-field-when-creating-merge-requests): Use the MR description for technical details or clarifications. And remember it is only for reviewers, not the whole team. Include screenshots when needed, like for styling changes and add the task link if you're using an issue tracking system.
+- [**Resolving comments on the MRs**](#resolving-comments-on-the-mrs-todo-make-the-title-of-this-part-better-like-on-comments-commenting-or-about-comments): Leave comments for the author of the comment to resolve. If you address one, reply to it (including a commit link if applicable). Don't resolve comments if you're not the author. If someone else resolves your comment, unresolve it first to verify and then resolve it again, so you know which ones are "really" reslved.
+
+// TODO: What do I do with things below?
+- [**Final words**](#final-words): Ignoring these may make reviews harder, leading to worse software or more technical issues. Remember these tips for improvement, adjust for your team, and aim for better code and easier maintenance.
 - [**Don't panic!**](#don-t-panic): Stay calm, start your task without waiting for all reviews. Create branches for dependencies and fix bugs separately. If you find issues, make a ticket instead of fixing immediately. This helps manage workload and priorities, keeping your MR focused for easier reviews.
 - [**Clean code!**](#clean-code): Create a neat merge request with clean code. Use clear variable names, simplify logic, and follow the "Don't make me think" principle. Add comments only when necessary to enhance code readability.
-- [**Meaningful commits**](#meaningful-commits): Make commits meaningful and separate, like "Create ComponentA" or "Fix argumentA." Use your IDE to stage specific changes, keeping things focused. Write concise commit messages and MR titles; if it's too long, break it into smaller tasks.
-- [**Use the description field when creating merge requests**](#use-the-description-field-when-creating-merge-requests): Use the MR description for technical details or clarifications, like explaining a refactor. Remember, it's mainly for reviewers. Include screenshots for styling changes and add the task link if you're using JIRA for easy reference.
-- [**Resolving comments on the MRs**](#resolving-comments-on-the-mrs-todo-make-the-title-of-this-part-better-like-on-comments-commenting-or-about-comments): Leave comments for the author to resolve. If you address one, note it with a commit link. Don't resolve comments if you're not the author. Resolving is the reviewer's right. If someone else resolves your comment, unresolve it first to verify and then resolve it again.
-- [**Final words**](#final-words): Ignoring these may make reviews harder, leading to worse software or more technical issues. Remember these tips for improvement, adjust for your team, and aim for better code and easier maintenance.
-
-## Do not mix refactors with your intended changes
-
-Avoid mixing refactors and functional changes. Instead, create a separate merge request for the refactor before the main merge request. Clearly describe why you need this refactor. For instance: "For the task TASK-ID-123, ServiceA cannot be used in ComponentB for reasons 1, 2, and 3. I need this refactor, because I need to use ServiceA in ComponentB".
-
-Separating refactors prevents the reviewer from going through reviewing a newly added 20-lines function, only to discover later that this function was merely moved from another file. With a separate MR, in this example the reviewer will only check if your "intention of moving" the function is correct, or if everything used in the function will work in its new environment, rather than inspecting closely if the logic of the moved function is correct. Because the logic has probably been there for a long time and your merge request has nothing to do with the content of it.
-
-As another example, if you find the name of a variable unpleasant or misleading, cool, make a merge request that renames the variable only. Then, you can rebase your original branch on top of it and use the new variable name, without making your original merge request unnecessarily big and complicated.
-
-This approach makes the review process easier and faster, and the original merge request remains "pure" and "focused".
-
-## Do not mix formatting with your intended changes
-
-Similar to the previous point, avoid including unrelated file formatting with your changes. If you need to format some files, create a branch out of _main_ branch that automatically formats _all_ files. The reviewer doesn't even need to read through the formatting merge request carefully, as you've already described in your merge request description that a tool automatically did this. (and tools are _almost_ never wrong).
-
-No reviewer wants to sift through 400 lines of diff that only change indentations and replace single quotes with double quotes just to hunt down where the actual change is. (or miss it!)
-
-This approach makes the review process easier and faster, and the original merge request remains "pure" and "focused".
 
 ## Minimize the diff
 
@@ -54,14 +51,6 @@ This, again, makes the original merge request more "pure" and "focused".
 
 "Separation of concern" does not only apply to codes, components, services, files and tasks. But also to MRs. Each MR should address one concern: "Fix a bug", "Add a new feature", "Refactor 1 thing", "Re-format the entire code", etc.
 
-## Review your own MR before asking someone else to review it
-
-Self-review is particularly helpful if you've faced and resolved conflicts in your branch. By doing this, you double-check if your changes are applied correctly in the final diff and ensure you don't have unintended changes in your MR.
-
-Make sure you do this self-review in the reviewing platform that you always use to review other people's MRs. Because when you see your MR in those red and green colors and in that UI, you automatically go into your reviewer mode, but for your own MR. You start to see things that you didn't notice when you were authoring the code. You wear your critic glasses.
-
-If your team uses a CI pipeline, ensure all CI checks pass before requesting a review. This can save time for the reviewer and prevent back-and-forth on issues that could be caught automatically by tools.
-
 ## Break the task at hand
 
 If you have a big feature, chances are you don't have to deliver it all at once. You can break large tasks into _deliverable_ chunks. Most of the time, even if the stakeholders say "No we can't deliver only a subset of that feature", you can still use a feature flag to ease the development process of an epic feature.
@@ -72,36 +61,35 @@ For example: you are handed with an epic feature Z, and you have a nice plan for
 
 The whole idea of breaking things is just for "safer" stuff to be merged. Breaking the task, makes them "safer", because the reviewer can give more "focused" feedbacks, and there is a smaller scope to test for and fewer things could break.
 
-## Don't panic!
+## Extract out refactors into a separate MR
 
-Don't panic. You don't have to postpone starting your task until every diverged MR is reviewed and merged. You can create branches on top of branches. If you need to implement Feature A, but it requires Bug B to be fixed, and to fix Bug B you need to refactor C first, then create Branch C: refactor and put it to review. Create a branch off from branch C, and name it branch B to fix the bug. Branch off from B: Branch A and implement your feature. Do not mix refactors and bugfixes with your feature implementation in one MR.
+Avoid mixing refactors and functional changes. Instead, create a separate merge request for the refactor before the main merge request. Clearly describe why you need this refactor. For instance: "For the task TASK-ID-123, ServiceA cannot be used in ComponentB for reasons 1, 2, and 3. I need this refactor, because I need to use ServiceA in ComponentB".
 
-Are you in the middle of implementing the feature and have already pushed 10 commits and now found a bug that needs to be fixed? Then branch off from your _main_ branch, do the bugfix or refactor, and then rebase your branch on top of it (or wait for it to be merged if you are not blocked, and then rebase on your _main_ branch). So you won't have those unrelated changes in your MR anymore.
+Separating refactors prevents the reviewer from going through reviewing a newly added 20-lines function, only to discover later that this function was merely moved from another file. With a separate MR, in this example the reviewer will only check if your "intention of moving" the function is correct, or if everything used in the function will work in its new environment, rather than inspecting closely if the logic of the moved function is correct. Because the logic has probably been there for a long time and your merge request has nothing to do with the content of it.
 
-Did a colleague leave a review on the refactor branch C? No worries, push the changes to refactor branch C, then rebase branch B on branch C, and then rebase branch A on branch B. If you find this approach overwhelming, you can just do git merge. Some UIs also help you with these. But doing `git rebase` is the cleanest and most logical way to do this (in my opinion).
+As another example, if you find the name of a variable unpleasant or misleading, cool, make a merge request that renames the variable only. Then, you can rebase your original branch on top of it and use the new variable name, without making your original merge request unnecessarily big and complicated.
 
-Plus, do not be too eager to fix everything on your way. Do you see a badly named variable, a poorly designed function, or a file with corrupted spacing and indentations? You don't need to do it right away in your branch, because it would be unrelated to what you are doing. Each team and project has their way of handling "tasks". You can create a ticket and track it in your issue tracking system (be it JIRA, Trello, Github Projects, even shared TODO Lists). This way the management also knows about what needs to be fixed or refactored and can prioritize this. Sometimes it may not be in the current interest of the company to tackle every technical debt or even fix every bug right away. Even if it is, the managers need to "manage" and know what are you working on and what works need to be done. Because they need to plan for the future based on "workload", "the amount of time it takes a developer to do a certain task", and "the speed in which they can develop the software at hand". If you took 10 days to get a feature to production, but you've spent 3 days on refactoring stuff, 1 day on fixing a bug on your way, and takes a reviewer 1 day to review your giant diff, this can be misleading for managers, because:
+This approach makes the review process easier and faster, and the original merge request remains "pure" and "focused".
 
-1. they think such a feature usually takes 10 days to implement, while it does not if you factor out the refactor and the bugfix (and the amount of time those two add to the review process).
-2. they don't know about bugs that are present in the product, which results in them mitigating the importance of Quality Engineering in the process. (which wouldn't happen if you've reported bugs you faced)
+## Extract out formattings into a separate MR
 
-Usually, all you are facing is a badly engineered code, and you would "like" to see it in another way rather than it be blocking you. So creating a branch off of the main branch and doing the change, a refactor or anything else, should give you a green go to continue what you were working on. But again, creating a ticket for that makes it more observable and you can hear your teammates opinions about it. Maybe that refactoring idea you have is not a good one after all or maybe there is a _hidden thing_ about that bad engineered code you missed.
+Similar to the previous point, avoid including unrelated file formatting with your changes. If you need to format some files, create a branch out of _main_ branch that automatically formats _all_ files. The reviewer doesn't even need to read through the formatting merge request carefully, as you've already described in your merge request description that a tool automatically did this. (and tools are _almost_ never wrong).
 
-We as Software Engineers always hear the slogan of "leaving a codebase better than you found it", but unnecessary and unrelated changes usually makes the MR unreviewable and the reviewers frustrated. To make your codebase and product better, tracking needed changes in your issue tracking system is the best bet I'd say.
+No reviewer wants to sift through 400 lines of diff that only change indentations and replace single quotes with double quotes just to hunt down where the actual change is. (or miss it!)
 
-## Clean code!
+This approach makes the review process easier and faster, and the original merge request remains "pure" and "focused".
 
-Yes! Clean Code! This may be too obvious and not necessarily fit in this blog post which is specifically about Merge Requests. But you can't talk about a good merge request and not mention clean coding!
+# Don't fix everything
 
-Clean code is crucial. When you're writing code, you understand what's happening. You know why you accessed the index `[0]` of an array and why that `if` statement is checking if the variable compares to `null`. Or that 20-line long function you wrote, is separated into 5 different meaningful steps in your mind, a neat algorithm! But; the reviewer does not know about that. They have to demystify everything. So make it clean: give nameable things a name. Instead of writing `if (user.actionsHistory.at(-1).type ==="undo")`, write `if (lastActionType ==="undo")` or `if (lastUserActionWasUndo)`.
+Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo Todo 
 
-It takes a lot of time, practice, consideration and consciousness to know what things you just know internally, and what things are obvious in the code. One practice that helps is the self-review of the code we talked earlier about. Have you heard the famous UI/UX slogan: "Don't make me think" ("me" refers to users)? It's about your software's UI/UX must be understandable enough for users to be able to understand and flow through it smoothly. The same exists for the MR: Don't make the reviewer think! Instead of writing an inline sort function like `users.sort((user1, user2) => user1.age > user2.age ? 1 : -1)` you can name it `usersSortedByAgeDescending` and use the variable insteaf, or maybe `Ascending`? Wait a minute...! 🤔 You see? Even I, the author, don't know what the hell that `1` or `-1` means. Does it make users sorted as Ascending or Descending? Because I have to correlate it with the greater than sign (`>`) and also I have to know the language's standard library specification by heart.
+## Review your own MR before asking someone else to review it
 
-In addition to that, clean coding refers to leaving comments in necessary places. Note that comments are a very tricky aspect of software development and clean coding. You need to know when you need comments, how much you need them, why you need comments, and when you are using comments just to avoid "fixing/cleaning" something in the code.
+Self-review is particularly helpful if you've faced and resolved conflicts in your branch. By doing this, you double-check if your changes are applied correctly in the final diff and ensure you don't have unintended changes in your MR.
 
-A sign that you need to add a comment to a section of the code is if the reviewer asks a question about it. If the reviewer asks a question about a section of the code, it means they didn't understand it. So you can either explain it in a comment or improve the code's readability. Don't just reply back in the thread. Put the comment in the code. If its a question for reviewer, its a question for everyone.
+Make sure you do this self-review in the reviewing platform that you always use to review other people's MRs. Because when you see your MR in those red and green colors and in that UI, you automatically go into your reviewer mode, but for your own MR. You start to see things that you didn't notice when you were authoring the code. You wear your critic glasses.
 
-There are too many clean coding principles, of course, and too many books, videos, articles, and websites dedicated to clean coding. I left these few examples here specifically about "naming variables" and "commenting in code" because I believe these are what are mostly overlooked.
+If your team uses a CI pipeline, ensure all CI checks pass before requesting a review. This can save time for the reviewer and prevent back-and-forth on issues that could be caught automatically by tools.
 
 ## Meaningful commits
 
@@ -137,6 +125,43 @@ The term "resolved" means that both the author of the merge request and the auth
 
 One trick I use when someone else has resolved my comment, is I unresolve it first, check it, and if all was good, I resolve it again, just so that the next time it says that this comment is resolved by me. ✅ And I don't know I don't need to expand it.
 
+
+// TODO: SHould I remove everything below this?
+
+## Don't panic!
+
+Don't panic. You don't have to postpone starting your task until every diverged MR is reviewed and merged. You can create branches on top of branches. If you need to implement Feature A, but it requires Bug B to be fixed, and to fix Bug B you need to refactor C first, then create Branch C: refactor and put it to review. Create a branch off from branch C, and name it branch B to fix the bug. Branch off from B: Branch A and implement your feature. Do not mix refactors and bugfixes with your feature implementation in one MR.
+
+Are you in the middle of implementing the feature and have already pushed 10 commits and now found a bug that needs to be fixed? Then branch off from your _main_ branch, do the bugfix or refactor, and then rebase your branch on top of it (or wait for it to be merged if you are not blocked, and then rebase on your _main_ branch). So you won't have those unrelated changes in your MR anymore.
+
+Did a colleague leave a review on the refactor branch C? No worries, push the changes to refactor branch C, then rebase branch B on branch C, and then rebase branch A on branch B. If you find this approach overwhelming, you can just do git merge. Some UIs also help you with these. But doing `git rebase` is the cleanest and most logical way to do this (in my opinion).
+
+Plus, do not be too eager to fix everything on your way. Do you see a badly named variable, a poorly designed function, or a file with corrupted spacing and indentations? You don't need to do it right away in your branch, because it would be unrelated to what you are doing. Each team and project has their way of handling "tasks". You can create a ticket and track it in your issue tracking system (be it JIRA, Trello, Github Projects, even shared TODO Lists). This way the management also knows about what needs to be fixed or refactored and can prioritize this. Sometimes it may not be in the current interest of the company to tackle every technical debt or even fix every bug right away. Even if it is, the managers need to "manage" and know what are you working on and what works need to be done. Because they need to plan for the future based on "workload", "the amount of time it takes a developer to do a certain task", and "the speed in which they can develop the software at hand". If you took 10 days to get a feature to production, but you've spent 3 days on refactoring stuff, 1 day on fixing a bug on your way, and takes a reviewer 1 day to review your giant diff, this can be misleading for managers, because:
+
+1. they think such a feature usually takes 10 days to implement, while it does not if you factor out the refactor and the bugfix (and the amount of time those two add to the review process).
+2. they don't know about bugs that are present in the product, which results in them mitigating the importance of Quality Engineering in the process. (which wouldn't happen if you've reported bugs you faced)
+
+Usually, all you are facing is a badly engineered code, and you would "like" to see it in another way rather than it be blocking you. So creating a branch off of the main branch and doing the change, a refactor or anything else, should give you a green go to continue what you were working on. But again, creating a ticket for that makes it more observable and you can hear your teammates opinions about it. Maybe that refactoring idea you have is not a good one after all or maybe there is a _hidden thing_ about that bad engineered code you missed.
+
+We as Software Engineers always hear the slogan of "leaving a codebase better than you found it", but unnecessary and unrelated changes usually makes the MR unreviewable and the reviewers frustrated. To make your codebase and product better, tracking needed changes in your issue tracking system is the best bet I'd say.
+
+## Clean code!
+
+Yes! Clean Code! This may be too obvious and not necessarily fit in this blog post which is specifically about Merge Requests. But you can't talk about a good merge request and not mention clean coding!
+
+Clean code is crucial. When you're writing code, you understand what's happening. You know why you accessed the index `[0]` of an array and why that `if` statement is checking if the variable compares to `null`. Or that 20-line long function you wrote, is separated into 5 different meaningful steps in your mind, a neat algorithm! But; the reviewer does not know about that. They have to demystify everything. So make it clean: give nameable things a name. Instead of writing `if (user.actionsHistory.at(-1).type ==="undo")`, write `if (lastActionType ==="undo")` or `if (lastUserActionWasUndo)`.
+
+It takes a lot of time, practice, consideration and consciousness to know what things you just know internally, and what things are obvious in the code. One practice that helps is the self-review of the code we talked earlier about. Have you heard the famous UI/UX slogan: "Don't make me think" ("me" refers to users)? It's about your software's UI/UX must be understandable enough for users to be able to understand and flow through it smoothly. The same exists for the MR: Don't make the reviewer think! Instead of writing an inline sort function like `users.sort((user1, user2) => user1.age > user2.age ? 1 : -1)` you can name it `usersSortedByAgeDescending` and use the variable insteaf, or maybe `Ascending`? Wait a minute...! 🤔 You see? Even I, the author, don't know what the hell that `1` or `-1` means. Does it make users sorted as Ascending or Descending? Because I have to correlate it with the greater than sign (`>`) and also I have to know the language's standard library specification by heart.
+
+In addition to that, clean coding refers to leaving comments in necessary places. Note that comments are a very tricky aspect of software development and clean coding. You need to know when you need comments, how much you need them, why you need comments, and when you are using comments just to avoid "fixing/cleaning" something in the code.
+
+A sign that you need to add a comment to a section of the code is if the reviewer asks a question about it. If the reviewer asks a question about a section of the code, it means they didn't understand it. So you can either explain it in a comment or improve the code's readability. Don't just reply back in the thread. Put the comment in the code. If its a question for reviewer, its a question for everyone.
+
+There are too many clean coding principles, of course, and too many books, videos, articles, and websites dedicated to clean coding. I left these few examples here specifically about "naming variables" and "commenting in code" because I believe these are what are mostly overlooked.
+
+
+
+
 ## Final words
 
 Not caring about any of the notes above will exhaust the reviewer.
@@ -161,3 +186,4 @@ Thanks for reading! ❤️
 // So they know what is going on
 //
 //
+// search for "TODO"s and Question makrs ("?") in the text, maybe I left some somewhere and forgot about it
