@@ -4,13 +4,23 @@ outline: deep
 
 # Merge Request Mastery
 
-// TODO: DATE NEEDED
-
 ::: info Note
 This is a work in progress. Please come back later.
 :::
 
-This blog post is about making Merge Requests more "reviewable" and enhancing the value of code reviews.
+This blog post is about making Merge Requests more "reviewable" and enhancing the value of code reviews. First I provide a TLDR version so you know the context of each point. Then I'll dive deep into each of them, with examples and philosophy behind it and my personal takes.
+
+- [**Do not mix refactors with your intended changes**](#do-not-mix-refactors-with-your-intended-changes): Keep refactors and functional changes separate. Make a different merge request for each refactor, explaining why it's needed. This makes the review process simpler and quicker, keeping the original merge request focused and uncomplicated.
+- [**Do not mix formatting with your intended changes**](#do-not-mix-formatting-with-your-intended-changes): Don't mix formatting changes with your main updates. If formatting is needed, create a separate branch that formats all files. This keeps the review process simple and fast, and the original merge request remains focused and clear.
+- [**Minimize the diff**](#minimize-the-diff): Simplify your branch changes by asking if you can make them smaller or complete your task without certain changes. Create separate tasks for additional changes, ensuring each merge request stays focused on one concern, such as fixing a bug or adding a feature.
+- [**Review your own MR before asking someone else to review it**](#review-your-own-mr-before-asking-someone-else-to-review-it): Check your own merge request before asking someone else to review it. Use your reviewing platform to catch issues you may have missed and ensure all CI checks pass to save time for reviewers.
+- [**Break the task at hand**](#break-the-task-at-hand): Break down big features into smaller, deliverable parts. Share your plan with the team, use feature flags if needed, and create separate merge requests for each piece. This makes reviews faster, feedback more focused, and the merging process safer.
+- [**Don't panic!**](#don-t-panic): Stay calm, start your task without waiting for all reviews. Create branches for dependencies and fix bugs separately. If you find issues, make a ticket instead of fixing immediately. This helps manage workload and priorities, keeping your MR focused for easier reviews.
+- [**Clean code!**](#clean-code): Create a neat merge request with clean code. Use clear variable names, simplify logic, and follow the "Don't make me think" principle. Add comments only when necessary to enhance code readability.
+- [**Meaningful commits**](#meaningful-commits): Make commits meaningful and separate, like "Create ComponentA" or "Fix argumentA." Use your IDE to stage specific changes, keeping things focused. Write concise commit messages and MR titles; if it's too long, break it into smaller tasks.
+- [**Use the description field when creating merge requests**](#use-the-description-field-when-creating-merge-requests): Use the MR description for technical details or clarifications, like explaining a refactor. Remember, it's mainly for reviewers. Include screenshots for styling changes and add the task link if you're using JIRA for easy reference.
+- [**Resolving comments on the MRs**](#resolving-comments-on-the-mrs-todo-make-the-title-of-this-part-better-like-on-comments-commenting-or-about-comments): Leave comments for the author to resolve. If you address one, note it with a commit link. Don't resolve comments if you're not the author. Resolving is the reviewer's right. If someone else resolves your comment, unresolve it first to verify and then resolve it again.
+- [**Final words**](#final-words): Ignoring these may make reviews harder, leading to worse software or more technical issues. Remember these tips for improvement, adjust for your team, and aim for better code and easier maintenance.
 
 ## Do not mix refactors with your intended changes
 
@@ -115,7 +125,7 @@ Code reviewers are humans, not rendering engines. If you added/changed a piece o
 
 Also, if you are using a tracking system like JIRA, you can include the link to the task in the description. This way the reviewer can quickly jump to the task and see what the task is about, what the stakeholders said about this task, what the acceptance criteria are, etc.
 
-## Resolving comments on the MRs
+## Resolving comments on the MRs (TODO: make the title of this part better, like "on comments", "commenting", or "about comments")
 
 Do not resolve the comments in the MR if you are not the author of the comment. Leave it for the author of the comment to resolve it. If you think you have resolved the comment, the best thing to do is to leave a note: "Thanks, Done!" preferably with a link to the commit that solves the requested change. This way the reviewer gets a chance to double-check the comment, make sure you understood the comment correctly, review the new change, and if all was good, they can resolve the comment, or, they can continue requesting changes or asking questions in the thread.
 
@@ -144,3 +154,10 @@ The ultimate purpose of a good MR and a good review is to be able to deploy "saf
 Unfortunately, my blog does not have a comment section, but you can [open an issue or a discussion on GitHub](https://github.com/aghArdeshir/aghardeshir.github.io/) if you have anything to share, any idea, question, disagreement, or just want to contribute to this blog post.
 
 Thanks for reading! ❤️
+
+// TODO: Ronald's feedback:
+// you should include a little bullet list with 1 to 2 sentences description of each point
+// and then start deep diving into each of them.
+// So they know what is going on
+//
+//
