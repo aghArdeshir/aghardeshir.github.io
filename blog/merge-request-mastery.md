@@ -33,11 +33,6 @@ For a good MR:
 - [**Use the description field**](#use-the-description-field-when-creating-merge-requests): Use the MR description for technical details or clarifications. And remember it is only for reviewers, not the whole team. Include screenshots when needed, like for styling changes and add the task link if you're using an issue tracking system.
 - [**Resolving comments on the MRs**](#resolving-comments-on-the-mrs-todo-make-the-title-of-this-part-better-like-on-comments-commenting-or-about-comments): Leave comments for the author of the comment to resolve. If you address one, reply to it (including a commit link if applicable). Don't resolve comments if you're not the author. If someone else resolves your comment, unresolve it first to verify and then resolve it again, so you know which ones are "really" reslved.
 
-// TODO: What do I do with things below?
-- [**Final words**](#final-words): Ignoring these may make reviews harder, leading to worse software or more technical issues. Remember these tips for improvement, adjust for your team, and aim for better code and easier maintenance.
-- [**Don't panic!**](#don-t-panic): Stay calm, start your task without waiting for all reviews. Create branches for dependencies and fix bugs separately. If you find issues, make a ticket instead of fixing immediately. This helps manage workload and priorities, keeping your MR focused for easier reviews.
-- [**Clean code!**](#clean-code): Create a neat merge request with clean code. Use clear variable names, simplify logic, and follow the "Don't make me think" principle. Add comments only when necessary to enhance code readability.
-
 ## Minimize the diff
 
 For every change you are about to do in your branch, ask yourself:
@@ -84,6 +79,15 @@ This approach also, makes review easier, faster, more pure and more focused.
 
 From time to time we try to "leave the codebase better than we found it". Although that sounds good, it adds unnecessary complications for the reviewer. If something needs to be better, it could become a ticket in your issue tracking system. Most probably it should be a "techincal story" rather than a user story if it is about codebase only.
 
+// TODO: Tidy up below here up to the next point a bit.
+
+Plus, do not be too eager to fix everything on your way. Do you see a badly named variable, a poorly designed function, or a file with corrupted spacing and indentations? You don't need to do it right away in your branch, because it would be unrelated to what you are doing. Each team and project has their way of handling "tasks". You can create a ticket and track it in your issue tracking system (be it JIRA, Trello, Github Projects, even shared TODO Lists). This way the management also knows about what needs to be fixed or refactored and can prioritize this. Sometimes it may not be in the current interest of the company to tackle every technical debt or even fix every bug right away. Even if it is, the managers need to "manage" and know what are you working on and what works need to be done. Because they need to plan for the future based on "workload", "the amount of time it takes a developer to do a certain task", and "the speed in which they can develop the software at hand". If you took 10 days to get a feature to production, but you've spent 3 days on refactoring stuff, 1 day on fixing a bug on your way, and takes a reviewer 1 day to review your giant diff, this can be misleading for managers, because:
+
+1. they think such a feature usually takes 10 days to implement, while it does not if you factor out the refactor and the bugfix (and the amount of time those two add to the review process).
+2. they don't know about bugs that are present in the product, which results in them mitigating the importance of Quality Engineering in the process. (which wouldn't happen if you've reported bugs you faced)
+
+Usually, all you are facing is a badly engineered code, and you would "like" to see it in another way rather than it be blocking you. So creating a branch off of the main branch and doing the change, a refactor or anything else, should give you a green go to continue what you were working on. But again, creating a ticket for that makes it more observable and you can hear your teammates opinions about it. Maybe that refactoring idea you have is not a good one after all or maybe there is a _hidden thing_ about that bad engineered code you missed.
+
 ### Review your own MR before asking someone else to review it
 
 By doing this, you double-check if your changes are applied correctly in the final diff and ensure you don't have unintended changes in your MR. It happens that we stage and commit changes by mistake, like an unnecessary logger, of a change we experimented with, but forgot to revert it at the end.
@@ -118,7 +122,7 @@ As another consideration, note that code reviewers are humans, not rendering eng
 
 Also, if you are using a tracking system like JIRA, you can include the link to the task in the description. This way the reviewer can quickly jump to the task and see what the task is about, what the stakeholders said about this task and what the acceptance criteria are. The more the reviewer knows about your changes, the better they can review, and the result is "safer" changes. Changes that don't break easily.
 
-## Resolving comments on the MRs (TODO: make the title of this part better, like "on comments", "commenting", or "about comments")
+## Comments
 
 Leave the "Resolve" button on comments for the author of the comment. If you think you have addressed a comment, the best thing to do is to leave a note: "Thanks, Done!" preferably with a link to the commit that solves the requested change if there is one. Or if not applicable, just reply to the comment why you did what you did, and leave it unresolved for them to come back and read the replies on their comments. This way the reviewer gets a chance to double-check the comment, make sure you understood the comment correctly, review the new change, and if all was good, they can resolve the comment, or, they can continue requesting changes or asking questions in the thread of the comment.
 
@@ -130,56 +134,18 @@ The term "resolved" means that both the author of the merge request and the auth
 
 One trick I use when someone else has resolved my comment, is I unresolve it first, check it, and if all was good, I resolve it again, just so that the next time it says this comment is resolved by me. ✅ And know I don't need to expand it.
 
-
-// TODO: SHould I remove everything below this?
-
-## Don't panic!
-
-Don't panic. You don't have to postpone starting your task until every diverged MR is reviewed and merged. You can create branches on top of branches. If you need to implement Feature A, but it requires Bug B to be fixed, and to fix Bug B you need to refactor C first, then create Branch C: refactor and put it to review. Create a branch off from branch C, and name it branch B to fix the bug. Branch off from B: Branch A and implement your feature. Do not mix refactors and bugfixes with your feature implementation in one MR.
-
-Are you in the middle of implementing the feature and have already pushed 10 commits and now found a bug that needs to be fixed? Then branch off from your _main_ branch, do the bugfix or refactor, and then rebase your branch on top of it (or wait for it to be merged if you are not blocked, and then rebase on your _main_ branch). So you won't have those unrelated changes in your MR anymore.
-
-Did a colleague leave a review on the refactor branch C? No worries, push the changes to refactor branch C, then rebase branch B on branch C, and then rebase branch A on branch B. If you find this approach overwhelming, you can just do git merge. Some UIs also help you with these. But doing `git rebase` is the cleanest and most logical way to do this (in my opinion).
-
-Plus, do not be too eager to fix everything on your way. Do you see a badly named variable, a poorly designed function, or a file with corrupted spacing and indentations? You don't need to do it right away in your branch, because it would be unrelated to what you are doing. Each team and project has their way of handling "tasks". You can create a ticket and track it in your issue tracking system (be it JIRA, Trello, Github Projects, even shared TODO Lists). This way the management also knows about what needs to be fixed or refactored and can prioritize this. Sometimes it may not be in the current interest of the company to tackle every technical debt or even fix every bug right away. Even if it is, the managers need to "manage" and know what are you working on and what works need to be done. Because they need to plan for the future based on "workload", "the amount of time it takes a developer to do a certain task", and "the speed in which they can develop the software at hand". If you took 10 days to get a feature to production, but you've spent 3 days on refactoring stuff, 1 day on fixing a bug on your way, and takes a reviewer 1 day to review your giant diff, this can be misleading for managers, because:
-
-1. they think such a feature usually takes 10 days to implement, while it does not if you factor out the refactor and the bugfix (and the amount of time those two add to the review process).
-2. they don't know about bugs that are present in the product, which results in them mitigating the importance of Quality Engineering in the process. (which wouldn't happen if you've reported bugs you faced)
-
-Usually, all you are facing is a badly engineered code, and you would "like" to see it in another way rather than it be blocking you. So creating a branch off of the main branch and doing the change, a refactor or anything else, should give you a green go to continue what you were working on. But again, creating a ticket for that makes it more observable and you can hear your teammates opinions about it. Maybe that refactoring idea you have is not a good one after all or maybe there is a _hidden thing_ about that bad engineered code you missed.
-
-We as Software Engineers always hear the slogan of "leaving a codebase better than you found it", but unnecessary and unrelated changes usually makes the MR unreviewable and the reviewers frustrated. To make your codebase and product better, tracking needed changes in your issue tracking system is the best bet I'd say.
-
-## Clean code!
-
-Yes! Clean Code! This may be too obvious and not necessarily fit in this blog post which is specifically about Merge Requests. But you can't talk about a good merge request and not mention clean coding!
-
-Clean code is crucial. When you're writing code, you understand what's happening. You know why you accessed the index `[0]` of an array and why that `if` statement is checking if the variable compares to `null`. Or that 20-line long function you wrote, is separated into 5 different meaningful steps in your mind, a neat algorithm! But; the reviewer does not know about that. They have to demystify everything. So make it clean: give nameable things a name. Instead of writing `if (user.actionsHistory.at(-1).type ==="undo")`, write `if (lastActionType ==="undo")` or `if (lastUserActionWasUndo)`.
-
-It takes a lot of time, practice, consideration and consciousness to know what things you just know internally, and what things are obvious in the code. One practice that helps is the self-review of the code we talked earlier about. Have you heard the famous UI/UX slogan: "Don't make me think" ("me" refers to users)? It's about your software's UI/UX must be understandable enough for users to be able to understand and flow through it smoothly. The same exists for the MR: Don't make the reviewer think! Instead of writing an inline sort function like `users.sort((user1, user2) => user1.age > user2.age ? 1 : -1)` you can name it `usersSortedByAgeDescending` and use the variable insteaf, or maybe `Ascending`? Wait a minute...! 🤔 You see? Even I, the author, don't know what the hell that `1` or `-1` means. Does it make users sorted as Ascending or Descending? Because I have to correlate it with the greater than sign (`>`) and also I have to know the language's standard library specification by heart.
-
-In addition to that, clean coding refers to leaving comments in necessary places. Note that comments are a very tricky aspect of software development and clean coding. You need to know when you need comments, how much you need them, why you need comments, and when you are using comments just to avoid "fixing/cleaning" something in the code.
-
-A sign that you need to add a comment to a section of the code is if the reviewer asks a question about it. If the reviewer asks a question about a section of the code, it means they didn't understand it. So you can either explain it in a comment or improve the code's readability. Don't just reply back in the thread. Put the comment in the code. If its a question for reviewer, its a question for everyone.
-
-There are too many clean coding principles, of course, and too many books, videos, articles, and websites dedicated to clean coding. I left these few examples here specifically about "naming variables" and "commenting in code" because I believe these are what are mostly overlooked.
-
-
-
+If the reviewer asks a question about a piece of code, in addition to replying to the comment, consider if that reply needs to live inside the code as well. If the reviewer does not understand one part easily and asks questions about it, chances are other teammates won't understand the code too. So in addition to replying in the comment thread, consider improving the code readability or adding a comment to the code so everyone understands it and not only the reviewer.
 
 ## Final words
 
-Not caring about any of the notes above will exhaust the reviewer.
-An exhausted reviewer may overlook things, get lost in reviewing, take longer to review, or misunderstand the intentions.
-And the resulting software will either be of poor quality or will have lots of technical debts.
+An exhausted reviewer may overlook things, get lost in reviewing, take longer to review, or misunderstand the intentions. And the resulting software will either be of poor quality or will have lots of technical debts. THe guidelines above help with making reviewer's life easier.
 
-Also not all of these considerations can be applied at the same time.
-All these considerations describe a "perfection", if you can remember consciously to do them all, then bravo!
-But if not, also don't worry, just having the perfect in mind makes us get better and better with each journey.
-And, most importantly this is _my_ version of "perfection".
-You can decide based on your trade-offs (e.g. how fast you want a feature), team culture, discussions in the MR, etc... and have _your_ own version of "perfection".
-Feel free to use any of my suggestions though.
-The ultimate purpose of a good MR and a good review is to be able to deploy "safer" code, and keep the maintainability of the software at hand at a good level.
+Not all of these considerations necessarily can be applied at the same time.
+All these considerations describe a "perfection". And our goal is not to reach the perfection, but to consgantly move towards it. Just having the perfect in mind makes us get better and better with each journey.
+And, most importantly this is __my__ version of "perfection".
+You can decide based on your trade-offs (e.g. how fast you want a feature), team culture, discussions in the MR, etc... and have __your__ own version of "perfection". Or even better: your __team__'s version of perfection
+Feel free to use any of my points as suggestions though.
+The ultimate purpose of a good MR and a good review is to be able to deploy "safer" code, and keep the maintainability of the software at a very good level.
 
 Unfortunately, my blog does not have a comment section, but you can [open an issue or a discussion on GitHub](https://github.com/aghArdeshir/aghardeshir.github.io/) if you have anything to share, any idea, question, disagreement, or just want to contribute to this blog post.
 
