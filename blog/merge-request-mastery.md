@@ -4,11 +4,15 @@ outline: deep
 
 # Merge Request Mastery
 
+#### A guide to improving code quality through valuable code reviews
+
 ::: info Note
 This is a work in progress. Please come back later.
 :::
 
-This blog post is about making Merge Requests more "reviewable" and enhancing the value of code reviews. First I provide a TLDR version so you know the context of each point. Then I'll dive deep into each of them, with the philosophy behind it and my takes.
+This blog post is about making Merge Requests more "reviewable" and enhancing the value of code reviews. Merge Requests (MRs) are a way to allow teams to collaborate on a codebase and make sure the code is up to the standards of the team and readable by everyone.
+
+First I provide a TLDR version so you know the context of each point. Then I'll dive deep into each of them, with the philosophy behind it and my takes.
 
 TLDR:
 For a good MR:
@@ -82,9 +86,9 @@ This approach also, makes review easier, faster, more "pure" and "focused".
 
 From time to time we try to "leave the codebase better than we found it". Sometimes you see a badly named variable, a poorly designed function, or a file with corrupted spacing and indentations and you want to just fix it on your way. Although that sounds good, it adds unnecessary complications for the reviewer and is probably unrelated to what your branch is about. If something needs to be fixed, it could become a ticket in your issue-tracking system. Either a "technical story" or a "user story".
 
-Another good advantage of leaving stuff for the issue-tracking system is the observability it gets from everyone. If you just fix something on your way, no one will ever know the amount of bugs and regressions the software has. Or if you refactor stuff on the way and make it better, no one will ever know the amount of technical debt the software has.
+Another good advantage of leaving stuff for the issue-tracking system is the observability it gets from everyone. If you quietly fix issues as you encounter them, no one else will have an understanding of the amount of bugs and regressions present in the software. Or if you refactor stuff on the way and make it better, no one will ever know how much technical debt the software has.
 
-If you fix everything on the way all that is observed from outside is tasks taking unnecessarily longer than expected.
+If you attempt to fix everything along the way, all that outside observers might notice is that tasks are taking longer than expected.
 
 Another disadvantage of fixing stuff on your way is others don't know how much bug the software has and hence they may neglect the importance of quality engineering.
 
@@ -102,7 +106,7 @@ If your team/repo uses a CI pipeline, ensure all CI checks pass before requestin
 
 Again, "separation of concerns" is not just about the code and services and classes (and MRs). Your commits should be separated and independent too.
 
-Separation in commits helps **you** more than the reviewer, as it makes your work organized and easy to track. Especially the more small chunks of the changes you stage and commit away, the more focused you will be on what you are doing now. Your working tree won't be cluttered with all sorts of changes. The same goes for your mind and thoughts.
+Separation in commits helps **you** more than the reviewer, as it makes your mind organized and easy to track. Especially the more small chunks of the changes you stage and commit away, the more focused you will be on what you are doing now. Your working tree won't be cluttered with all sorts of changes. The same goes for your mind and thoughts.
 
 Also, It may help the reviewer. Sometimes the reviewer may need to understand your thought process, instead of looking at the whole dumped diff. Just looking at the list of commits from oldest to newest, they can see what went on in your head. They may want to review your MR one isolated commit at a time. Then skimming through the list, they can safely ignore commits based on their commit message if they know the context.
 
@@ -116,7 +120,7 @@ Also, try to describe what you did in a commit in 1 concise line. If you can't, 
 
 Make sure you include descriptions with your MR as much as possible, if applicable. If a ticket is assigned to you, the description of the ticket in your issue-tracking system is some sort of business description that everyone understands, including non-technical people on your team. But sometimes the MRs need more technical clarifications, specifically for the person who is reviewing your code. Try using bullet lists and images when necessary to make reading the description easier.
 
-There is a tricky part to it though. Always consider: "If I'm writing a description for the merge request, then **only** the reviewer gets to read it. But is this description something that all the team should be aware of?" And if the answer is "yes", then what you are writing as a description should live inside the code. Either by comments in code or by using proper variable naming and clean-coding techniques. So everyone who reads the code knows about what you had to say.
+However, there's a tricky aspect to consider. Always ask yourself: "Is the description I'm writing for the merge request something that the entire team should be aware of?" If the answer is "yes", then this information should be included within the code itself, rather than as a description for the MR. Either by comments in code or by using proper variable naming and clean-coding techniques. So everyone who reads the code knows about what you had to say.
 
 As another consideration, note that code reviewers are humans, not rendering engines! If you added/changed a piece of code that contains a lot of styling changes, include a screenshot with the changed result. Some teams have continuous deployments that deploy a short-lived app out of every MR. If you do, also include a link for the preview app so the reviewer can interact with your changes and test them in action.
 
@@ -140,7 +144,7 @@ An exhausted reviewer may overlook things, get lost in reviewing, take longer to
 
 Not all of these considerations necessarily can be applied at the same time though. All these considerations describe "perfection". And our goal is not to reach perfection, but to constantly move towards it. Just having the perfect in mind makes us better and better with each journey.
 
-And, most importantly this is **my** version of "perfection". You can draw **your** perfection based on your metrics, e.g. how fast you want a feature, team culture, the way the team communicates, how discussions look like usually in an MR, etc... That's having **your** version of "perfection". Or even better: your **team**'s version of perfection
+And, most importantly, remember that this is **my** version of "perfection". You can draw **your** version of perfection based on your specific metrics, e.g. how fast you want a feature, team culture, the way the team communicates, how discussions look like usually in an MR, etc... That's having **your** version of "perfection". Or even better: your **team**'s version of perfection
 
 Feel free to use any of my suggestions above though. Or share with me if you have anything you are proud of.
 
@@ -154,4 +158,4 @@ Thanks for reading! ❤️
 // right now some of them have 1 underline and some have 2
 
 // TODO: Make sure the titles are correct, and their links also sound correct, and wherever linking to some parts of the app, the links are also correct.
-// TODO: we have 3 different sections that contain the same titles again and again: the first TLDR, that one-lie/one-paragraph description of each point, and then the deep dive. Make sure they are share the same title and the same link and the same .
+// TODO: we have 3 different sections that contain the same titles again and again: the first TLDR, that one-lie/one-paragraph description of each point, and then the deep dive. Make sure they are share the same title and the same link and the same.
