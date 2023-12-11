@@ -2,7 +2,7 @@
 outline: deep
 ---
 
-# Merge Request Mastery
+# 🎓 Merge Request Mastery
 
 <p class="subheading">A guide to enhancing code quality through valuable code reviews</p>
 
@@ -10,35 +10,37 @@ This blog post is about making Merge Requests more "reviewable" and enhancing th
 
 First I provide a short explanation so you know the context of each point. Then I'll dive deep into each of them, with the philosophy behind it and my takes.
 
-## TLDR
+## 📌 TLDR {#tldr}
 
 ::: details Super-short TLDR
 For a good MR:
 
-- Minimize the diff
-  - Break the task at hand
-  - Extract out refactors to separate MRs
-  - Extract out formattings to separate MRs
-  - Don't fix everything (unrelated stuff) on your way
-  - Review your own MR before asking anyone else to review it
-- Make sure CI passes
-- Choose meaningful commit messages
-- Write a description for the MR (including media when needed)
-- Let the comment authors resolve their own comment
+- 🔍 Minimize the diff
+  - 🪓 Break the task at hand
+  - 🔧 Extract out refactors to separate MRs
+  - 📏 Extract out formattings to separate MRs
+  - 🚧 Don't fix everything (unrelated stuff) on your way
+  - 🕵️ Review your own MR before asking anyone else to review it
+  - ✅ Make sure CI passes
+- 📝 Choose meaningful commit messages
+- 📋 Write a description for the MR (including media when needed)
+- 🗨️ Let the comment authors resolve their own comment
+- 🎯 Create your own version of perfection
   :::
 
-- [**Minimize the diff**](#minimize-the-diff): Simplify your changes by asking yourself if you can make them smaller or complete your task without certain changes. Create separate tasks for additional changes that don't belong to the concern of your MR, ensuring each Merge Request stays focused on one concern, such as fixing a bug or adding a feature.
-- [**Break the task at hand**](#break-the-task-at-hand): Break down big features into smaller, **deliverable** parts. Share your plan with the team through your issue-tracking system, use feature flags if needed, and create separate Merge Requests for each piece. This makes reviews faster, feedback more focused and useful, and the merging process **safer**.
-- [**Extract refactors into separate MRs**](#extract-refactors-into-separate-mrs): Keep refactors and functional changes separate. Make a different Merge Request for each refactor, explaining why it's needed. This makes the review of the original Merge Request focused and uncomplicated.
-- [**Extract formattings into separate MRs**](#extract-formattings-into-separate-mrs): Don't mix unnecessary formatting changes with your main updates. If formatting is needed, create a separate branch that formats **all** files of the project automatically using a formatting tool. This also makes the original MR less complicated and easier to read.
-- [**Don't fix everything on your way**](#don-t-fix-everything-on-your-way): Don't be eager to fix every problem or clean up every poorly-written piece of code on your way. The best you can do is to create a ticket in your issue-tracking system when you see a problem (either functional or technical). Prioritize and decide about them with the team.
-- [**Review your own MR before asking someone else to review it**](#review-your-own-mr-before-asking-someone-else-to-review-it): This helps you view your changes from a new perspective. To do this, make sure to use the reviewing platform you always use to review other MRs.
-- [**Make sure CI passes**](#make-sure-ci-passes): It helps save time to catch issues that can be caught automatically by tools rather than a manual review by a teammate.
-- [**Meaningful commits**](#meaningful-commits): Make commits meaningful and well-separated. Use your IDE to stage specific and related changes together, keeping things focused. Write concise commit messages (and also MR titles). If you can't make your commit message (or the MR title) concise, it **may** be a sign your Commit (or the MR) is doing more than one thing and could be broken into separate ones.
-- [**Write a description for the MR**](#write-a-description-for-the-mr): Use the description field for technical details or clarifications. And remember it is only for the reviewers of the MR, not the whole team or other developers who need to read the codebase. Include screenshots when needed (for UI changes). Include a link to the task if you're using an issue-tracking system.
-- [**Comments**](#comments): Don't resolve comments if you're not the author of them. If you address one, reply to it (including a commit link if applicable) so the author of the comment double-checks and resolves it if needed.
+- [**🔍 Minimize the diff**](#minimize-the-diff): Simplify your changes by asking yourself if you can make them smaller or complete your task without certain changes. Create separate tasks for additional changes that don't belong to the concern of your MR, ensuring each Merge Request stays focused on one concern, such as fixing a bug or adding a feature.
+- [**🪓 Break the task at hand**](#break-the-task): Break down big features into smaller, **deliverable** parts. Share your plan with the team through your issue-tracking system, use feature flags if needed, and create separate Merge Requests for each piece. This makes reviews faster, feedback more focused and useful, and the merging process **safer**.
+- [**🔧 Extract refactors into separate MRs**](#extract-refactors): Keep refactors and functional changes separate. Make a different Merge Request for each refactor, explaining why it's needed. This makes the review of the original Merge Request focused and uncomplicated.
+- [**📏 Extract formattings into separate MRs**](#extract-formattings): Don't mix unnecessary formatting changes with your main updates. If formatting is needed, create a separate branch that formats **all** files of the project automatically using a formatting tool. This also makes the original MR less complicated and easier to read.
+- [**🚧 Don't fix everything on your way**](#dont-fix-everything): Don't be eager to fix every problem or clean up every poorly-written piece of code on your way. The best you can do is to create a ticket in your issue-tracking system when you see a problem (either functional or technical). Prioritize and decide about them with the team.
+- [**🕵️ Review your own MR before asking someone else to review it**](#review-your-own-mr): This helps you view your changes from a new perspective. To do this, make sure to use the reviewing platform you always use to review other MRs.
+- [**✅ Make sure CI passes**](#make-ci-pass): It helps save time to catch issues that can be caught automatically by tools rather than a manual review by a teammate.
+- [**📝 Meaningful commits**](#meaningful-commits): Make commits meaningful and well-separated. Use your IDE to stage specific and related changes together, keeping things focused. Write concise commit messages (and also MR titles). If you can't make your commit message (or the MR title) concise, it **may** be a sign your Commit (or the MR) is doing more than one thing and could be broken into separate ones.
+- [**📋 Write a description for the MR**](#description-for-the-mr): Use the description field for technical details or clarifications. And remember it is only for the reviewers of the MR, not the whole team or other developers who need to read the codebase. Include screenshots when needed (for UI changes). Include a link to the task if you're using an issue-tracking system.
+- [**🗨️ Comments**](#comments): Don't resolve comments if you're not the author of them. If you address one, reply to it (including a commit link if applicable) so the author of the comment double-checks and resolves it if needed.
+- [**🎯 Final Words**](#conclusion): All these stuff matter because it helps us ship better software by making reviews more effective. And each team needs to have their own version of a good MR.
 
-## Minimize the diff
+## 🔍 Minimize the diff {#minimize-the-diff}
 
 For every change you are about to do in your branch, ask yourself:
 
@@ -55,7 +57,7 @@ This makes the original Merge Request more "pure" and "focused".
 
 ---
 
-### Break the task at hand
+### 🪓 Break the task at hand {#break-the-task}
 
 If you have a big feature, chances are you don't have to deliver it all at once. You can break large tasks into **deliverable** chunks. Most of the time, even if the stakeholders say "No! We can't deliver only a subset of that feature for business reasons", you can still use a feature flag to ease the development and deployment process of an epic feature. Delivering in small chunks also makes the deployment "safer": Because by breaking the task, the reviewer can give more "focused" feedback, there is a smaller scope to test for and fewer things could break.
 
@@ -65,7 +67,7 @@ Sometimes we, software developers, have a perfect plan in mind for breaking big 
 
 ---
 
-### Extract refactors into separate MRs
+### 🔧 Extract refactors into separate MRs {#extract-refactors}
 
 Avoid mixing refactors and functional changes. Instead, create a separate Merge Request for the needed refactors before the main Merge Request. Make sure to clearly describe why you need this refactor.
 
@@ -77,7 +79,7 @@ This approach makes the review process of both the refactor MR and the original 
 
 ---
 
-### Extract formattings into separate MRs
+### 📏 Extract formattings into separate MRs {#extract-formattings}
 
 Similar to the previous point, avoid including unrelated file formatting with your changes. If you need to format some files, create a branch out of the **main** branch that automatically formats **all** files. The reviewer doesn't even need to read through the formatting Merge Request carefully, as you've already described in your Merge Request that "this MR is only code formatting" and most probably a tool automatically did this and tools are **rarely** wrong. (tools being prettier, eslint, etc...)
 
@@ -87,7 +89,7 @@ This approach also, makes review easier, faster, more pure, and more focused.
 
 ---
 
-### Don't fix everything on your way
+### 🚧 Don't fix everything on your way {#dont-fix-everything}
 
 From time to time we adhere to this motto: "Leave the codebase better than you found it". Sometimes you see a badly named variable, a poorly designed function, a file with corrupted spacing and indentations, or a bug in the software and you want to just fix it on your way. Although that sounds good, it adds unnecessary complications for the reviewer and is probably unrelated to what your branch is about. If something needs to be fixed, it could become a ticket in your issue-tracking system. Either a "technical story" or a "user story".
 
@@ -97,7 +99,7 @@ If you attempt to fix everything along the way, all that outside observers might
 
 ---
 
-### Review your own MR before asking someone else to review it
+### 🕵️ Review your own MR before asking someone else to review it {#review-your-own-mr}
 
 By doing this, you double-check if your changes are applied correctly in the final diff and ensure you don't have unintended changes in your MR. It happens that we stage and commit changes by mistake, like an unnecessary logger, or a change we experimented with but forgot to revert it. This self-review is especially useful if you've faced and resolved conflicts.
 
@@ -105,11 +107,11 @@ Do this self-review in the reviewing platform you always use to review other peo
 
 ---
 
-### Make sure CI passes
+### ✅ Make sure CI passes {#make-ci-pass}
 
 If your team/repo uses a CI pipeline, ensure all CI checks pass before requesting a review. This can save time for both you and the reviewer by preventing unnecessary back-and-forth conversations on issues that could be caught automatically by tools.
 
-## Meaningful commits
+## 📝 Meaningful commits {#meaningful-commits}
 
 Again, "separation of concerns" is not just about the code and services and classes (and MRs). Your commits should be separated in their concerns too.
 
@@ -123,7 +125,7 @@ When you are about to commit your changes locally, review each file one by one, 
 
 Also, try to describe what you did in a commit in 1 concise line. If you can't, then it probably means something should be separated into another commit. The same is true about the MR title. If you can't describe in 1 concise line what you did in your MR, most probably it is a sign that some part of it could be separated into another task/MR.
 
-## Write a description for the MR
+## 📋 Write a description for the MR {#description-for-the-mr}
 
 Make sure you include descriptions with your MR as much as possible, if applicable. If a task is assigned to you, the description of the ticket in your issue-tracking system is a business description that everyone understands, including non-technical people on your team. But sometimes the MRs need more technical clarifications, specifically for the person who is reviewing your code. Try using bullet lists and images when necessary to make reading the description easier.
 
@@ -133,7 +135,7 @@ As another consideration, note that code reviewers are human beings, not renderi
 
 If you are using an issue-tracking system like JIRA, you can include the link to the task in the description. This way the reviewer can quickly jump to the task and see what the task is about, what the stakeholders said about this task, and what the acceptance criteria are. The more the reviewer knows about your changes, the better they can review them, and the result is "safer" changes. Robust features and changes that don't break other stuff. 💪
 
-## Comments
+## 🗨️ Comments {#comments}
 
 Leave the "Resolve" button on comments for the author of the comment. If you think you have addressed a requested change, the best thing to do is to leave a note: "Thanks, Done!" preferably with a link to the commit that solves the requested change. Or if the comment is just asking questions, reply to the question and, again, leave it unresolved for the reviewer to come back and read the replies on their comments. This way the reviewer gets a chance to double-check the comment, make sure you understood the comment correctly, review the new change if there is any, and if all is good, they can resolve the comment. Otherwise they can continue requesting changes or asking follow-up questions in the thread of the comment.
 
@@ -145,7 +147,7 @@ As a reviewer, one trick I use when someone else has resolved my comment, is I u
 
 Another good consideration related to comments is if the reviewer asks a question about a piece of code, in addition to replying to the comment, consider if that reply needs to live inside the code as well. If the reviewer does not understand one part easily and asks questions about it, chances are other teammates won't understand that particular piece of code too. So in addition to replying in the comment thread, consider improving the code readability or adding a comment to the code so everyone understands it and not only the reviewer.
 
-## Final words
+## 🎯 Final words {#conclusion}
 
 An exhausted reviewer may overlook things, get lost in reviewing, take longer to review, or misunderstand the intentions. The resulting software will either be of poor quality or will have lots of technical debt. The guidelines above help make the reviewer's life easier, and in return, we receive better software through better peer reviews. 💪 The ultimate purpose of a good MR and a good review is to be able to deploy "safer" code and keep the maintainability of the software at a very good level.
 
