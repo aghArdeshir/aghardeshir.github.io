@@ -162,4 +162,3 @@ Unfortunately, my blog does not have a comment section, but you can [open an iss
 Thanks for reading! ❤️
 
 // TODO: Read reviews of Mehran and Ronal again to make sure you addressed them all
-// TODO: give each section to chatGPT and ask it to decorate them with emojis
