@@ -125,6 +125,8 @@ When you are about to commit your changes locally, review each file one by one, 
 
 Also, try to describe what you did in a commit in 1 concise line. If you can't, then it probably means something should be separated into another commit. The same is true about the MR title. If you can't describe in 1 concise line what you did in your MR, most probably it is a sign that some part of it could be separated into another task/MR.
 
+To make your commits even more organized, set guidelines for how commit messages should look like in your team. One example is the Conventional Commits: Read [Here](https://www.conventionalcommits.org/en/v1.0.0/) or just browse commits of your favorite repository on GitHub to see how they organize their commit message history. Examples being [Angular](https://github.com/angular/angular/commits/main) and [freeCodeCamp](https://github.com/freeCodeCamp/freeCodeCamp/commits/main).
+
 ## 📋 Write a description for the MR {#description-for-the-mr}
 
 Make sure you include descriptions with your MR as much as possible, if applicable. If a task is assigned to you, the description of the ticket in your issue-tracking system is a business description that everyone understands, including non-technical people on your team. But sometimes the MRs need more technical clarifications, specifically for the person who is reviewing your code. Try using bullet lists and images when necessary to make reading the description easier.
