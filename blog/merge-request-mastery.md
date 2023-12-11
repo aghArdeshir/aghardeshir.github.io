@@ -162,5 +162,3 @@ Feel free to use any of my suggestions above though. Or share with me if you hav
 Unfortunately, my blog does not have a comment section, but you can [open an issue or a discussion on GitHub](https://github.com/aghArdeshir/aghardeshir.github.io/) if you have anything to share, any idea, question, disagreement, or want to contribute to this blog post in any other way.
 
 Thanks for reading! ❤️
-
-// TODO: Read reviews of Mehran and Ronal again to make sure you addressed them all
