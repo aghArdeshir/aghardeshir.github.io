@@ -38,7 +38,7 @@ For a good MR:
 - [**📝 Meaningful commits**](#meaningful-commits): Make commits meaningful and well-separated. Use your IDE to stage specific and related changes together, keeping things focused. Write concise commit messages (and also MR titles). If you can't make your commit message (or the MR title) concise, it **may** be a sign your Commit (or the MR) is doing more than one thing and could be broken into separate ones.
 - [**📋 Write a description for the MR**](#description-for-the-mr): Use the description field for technical details or clarifications. And remember it is only for the reviewers of the MR, not the whole team or other developers who need to read the codebase. Include screenshots when needed (for UI changes). Include a link to the task if you're using an issue-tracking system.
 - [**🗨️ Comments**](#comments): Don't resolve comments if you're not the author of them. If you address one, reply to it (including a commit link if applicable) so the author of the comment double-checks and resolves it if needed.
-- [**🎯 Final Words**](#conclusion): All these stuff matter because it helps us ship better software by making reviews more effective. And each team needs to have their own version of a good MR.
+- [**🎯 Final Words**](#conclusion): All these stuff matter because they help us ship better software by making reviews more effective. Each team needs to have their version of metrics for a good MR.
 
 ## 🔍 Minimize the diff {#minimize-the-diff}
 
@@ -63,7 +63,7 @@ If you have a big feature, chances are you don't have to deliver it all at once.
 
 You, as a Software Engineer, should help the management, stakeholders, and scrum master in this regard. Because only You will understand better where concerns can and should be separated from a technical point-of-view.
 
-Sometimes we, software developers, have a perfect plan in mind for breaking big stuff into smaller chunks. But this plan should not be only in our heads. We should communicate it with the team and reflect it in our issue-tracking system, in our branching and in the Merge Requests.
+Sometimes we, software developers, have a perfect plan in mind for breaking big stuff into smaller chunks. But this plan should not be only in our heads. We should communicate it with the team and reflect it in our issue-tracking system, in our branching, and the Merge Requests.
 
 ---
 
@@ -125,7 +125,7 @@ When you are about to commit your changes locally, review each file one by one, 
 
 Also, try to describe what you did in a commit in 1 concise line. If you can't, then it probably means something should be separated into another commit. The same is true about the MR title. If you can't describe in 1 concise line what you did in your MR, most probably it is a sign that some part of it could be separated into another task/MR.
 
-To make your commits even more organized, set guidelines for how commit messages should look like in your team. One example is the Conventional Commits: Read [Here](https://www.conventionalcommits.org/en/v1.0.0/) or just browse commits of your favorite repository on GitHub to see how they organize their commit message history. Examples being [Angular](https://github.com/angular/angular/commits/main) and [freeCodeCamp](https://github.com/freeCodeCamp/freeCodeCamp/commits/main).
+To make your commits even more organized, set guidelines for how commit messages should look in your team. One example is the Conventional Commits: Read [Here](https://www.conventionalcommits.org/en/v1.0.0/) or just browse commits of your favorite repository on GitHub to see how they organize their commit message history. Examples are [Angular](https://github.com/angular/angular/commits/main)'s' and [freeCodeCamp](https://github.com/freeCodeCamp/freeCodeCamp/commits/main)'s commit messages.
 
 ## 📋 Write a description for the MR {#description-for-the-mr}
 
@@ -139,7 +139,7 @@ If you are using an issue-tracking system like JIRA, you can include the link to
 
 ## 🗨️ Comments {#comments}
 
-Leave the "Resolve" button on comments for the author of the comment. If you think you have addressed a requested change, the best thing to do is to leave a note: "Thanks, Done!" preferably with a link to the commit that solves the requested change. Or if the comment is just asking questions, reply to the question and, again, leave it unresolved for the reviewer to come back and read the replies on their comments. This way the reviewer gets a chance to double-check the comment, make sure you understood the comment correctly, review the new change if there is any, and if all is good, they can resolve the comment. Otherwise they can continue requesting changes or asking follow-up questions in the thread of the comment.
+Leave the "Resolve" button on comments for the author of the comment. If you think you have addressed a requested change, the best thing to do is to leave a note: "Thanks, Done!" preferably with a link to the commit that solves the requested change. Or if the comment is just asking questions, reply to the question and, again, leave it unresolved for the reviewer to come back and read the replies on their comments. This way the reviewer gets a chance to double-check the comment, make sure you understood the comment correctly, review the new change if there is any, and if all is good, they can resolve the comment. Otherwise, they can continue requesting changes or asking follow-up questions in the thread of the comment.
 
 If anyone else resolves the reviewer's comment, they never know the conclusion on a question/request they had in their mind. The review process is not a one-time thing. It's more of a back-and-forth communication. Reviewers can use the "resolving" of the comments as a way to track their review process. Then one time they resolve a comment, they notice now all the comments are resolved by themselves, and if all comments are resolved and all files are viewed, it means the MR can be approved. ✅
 
