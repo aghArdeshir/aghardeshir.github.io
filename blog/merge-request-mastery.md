@@ -42,6 +42,8 @@ For a good MR:
 
 ## 🔍 Minimize the diff {#minimize-the-diff}
 
+"Separation of concerns" does not **only** apply to code, components, services, files, and tasks. But also to MRs. Each MR should address one concern: "Fix a bug", "Add a new feature", "Refactor 1 thing", "Re-format the entire code", etc.
+
 For every change you are about to do in your branch, ask yourself:
 
 1. Can I reduce the diff here?
@@ -52,8 +54,6 @@ For every change you are about to do in your branch, ask yourself:
 If the answer to any of these questions is "yes", you can either create a ticket for that particular change and forget about it in your branch or quickly create a separate MR out of the **main** branch and ask your teammates to review it. (and again, forget about it)
 
 This makes the original Merge Request more "pure" and "focused".
-
-"Separation of concerns" does not **only** apply to code, components, services, files, and tasks. But also to MRs. Each MR should address one concern: "Fix a bug", "Add a new feature", "Refactor 1 thing", "Re-format the entire code", etc.
 
 ---
 
