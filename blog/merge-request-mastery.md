@@ -21,7 +21,7 @@ For a good MR:
   - 📏 Extract out formattings to separate MRs
   - 🚧 Don't fix everything (unrelated stuff) on your way
   - 🕵️ Review your own MR before asking anyone else to review it
-  - ✅ Make sure CI passes
+- ✅ Make sure CI passes
 - 📝 Choose meaningful commit messages
 - 📋 Write a description for the MR (including media when needed)
 - 🗨️ Let the comment authors resolve their own comment
@@ -105,9 +105,7 @@ By doing this, you double-check if your changes are applied correctly in the fin
 
 Do this self-review in the reviewing platform you always use to review other people's MRs. Because when you see your MR in those red and green colors and in that UI, you automatically go into your reviewer mode, but for your own MR. You start to see things from a new perspective and notice things you missed when you were authoring the code. You wear your critic glasses for your code. Self-review helps a lot in delivering better code!
 
----
-
-### ✅ Make sure CI passes {#make-ci-pass}
+## ✅ Make sure CI passes {#make-ci-pass}
 
 If your team/repo uses a CI pipeline, ensure all CI checks pass before requesting a review. This can save time for both you and the reviewer by preventing unnecessary back-and-forth conversations on issues that could be caught automatically by tools.
 
