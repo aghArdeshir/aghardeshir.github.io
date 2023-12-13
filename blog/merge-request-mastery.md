@@ -44,26 +44,35 @@ For a good MR:
 
 "Separation of concerns" does not **only** apply to code, components, services, files, and tasks. But also to MRs. Each MR should address one concern: "Fix a bug", "Add a new feature", "Refactor 1 thing", "Re-format the entire code", etc.
 
-For every change you are about to do in your branch, ask yourself:
-
-1. Can I reduce the diff here?
-2. Can my task be considered done without what I'm currently doing?
-3. Can I separate concerns here to another MR/Task?
-4. Are the changes I'm currently doing unrelated to the other changes I was doing before this?
-
-If the answer to any of these questions is "yes", you can either create a ticket for that particular change and forget about it in your branch or quickly create a separate MR out of the **main** branch and ask your teammates to review it. (and again, forget about it)
-
-This makes the original Merge Request more "pure" and "focused".
+This makes the Merge Requests more **pure** and **focused**.
 
 ---
 
 ### 🪓 Break the task at hand {#break-the-task}
 
-If you have a big feature, chances are you don't have to deliver it all at once. You can break large tasks into **deliverable** chunks. Most of the time, even if the stakeholders say "No! We can't deliver only a subset of that feature for business reasons", you can still use a feature flag to ease the development and deployment process of an epic feature. Delivering in small chunks also makes the deployment "safer": Because by breaking the task, the reviewer can give more "focused" feedback, there is a smaller scope to test for and fewer things could break.
+If you have a big feature, chances are you don't have to deliver it all at once. You can break large tasks into **deliverable** chunks. Most of the time, even if business reasons disallow you to break a task, you can still use a feature flag to ease the development and deployment process of an epic feature. Delivering in small chunks also makes the deployment **safer**: Because by breaking the task, the reviewer can give more **focused** feedback, there is a smaller scope to test for and fewer things could break.
 
-You, as a Software Engineer, should help the management, stakeholders, and scrum master in this regard. Because only You will understand better where concerns can and should be separated from a technical point-of-view.
+We, as a Software Engineers, should help in this regard. Because only we understand better where concerns can and should be separated from a technical point-of-view.
 
-Sometimes we, software developers, have a perfect plan in mind for breaking big stuff into smaller chunks. But this plan should not be only in our heads. We should communicate it with the team and reflect it in our issue-tracking system, in our branching, and the Merge Requests.
+Sometimes we have a perfect plan in mind for breaking big stuff into smaller chunks. But this plan should not be only in our heads. We should communicate it with the team and reflect it in our issue-tracking system, in our branching, and in our Merge Requests.
+
+---
+
+### 🚧 Don't fix everything on your way {#dont-fix-everything}
+
+For every change you are about to do in your branch, ask yourself:
+
+1. Can my task be considered done without what I'm currently doing?
+2. Can I separate concerns here to another MR/Task?
+3. Are the changes I'm currently doing unrelated to the other changes I was doing before this?
+
+If the answer to any of these questions is "yes", probably you can either create a ticket for that particular change and forget about it in your branch or quickly create a separate MR out of the **main** branch and ask your teammates to review and merge it independently. (and again, forget about it)
+
+For various reasons, we developers, find ourselves doing things that are unrelated to what we were doing or what we should be doing. One is we simply get distracted easily by code. And the other reason is this motto: "Leave the codebase better than you found it", which sounds good, but we'll see in a moment. While developing, sometimes, on your way, you see a badly named variable, a poorly designed function, a file with corrupted spacing and indentations, or a bug in the software, and you want to just fix it on your way as it is a small tweak. Although that sounds good, it adds unnecessary complications for the reviewer and is probably unrelated to what your branch or assigned task is about. If something needs to be fixed, the best you can do is create a ticket in your issue-tracking system. Either a "technical ticket" or a "user story". This way you'll forget about it and can focus back on what you were doing.
+
+A good advantage of leaving stuff for the issue-tracking system is the observability it gets from everyone. If you quietly fix issues as you encounter them, no one else will have an understanding of the amount of bugs and regressions present in the software and your team may neglect the importance of quality engineering. Or if you refactor stuff on the way excessively, no one will ever know how much technical debt the software has. Apart from that, with a ticket, everyone can leave their opinion on what is the best approach for fixing what you've found, rather than you just patching stuff quickly while you are focused on something else.
+
+If you attempt to fix everything along the way, all that outside observers might notice is that tasks are taking longer than expected, because you are doing other stuff quietly.
 
 ---
 
@@ -86,16 +95,6 @@ Similar to the previous point, avoid including unrelated file formatting with yo
 No reviewer wants to sift through 400 lines of diff that only changes indentations and replaces single quotes with double quotes just to hunt down where the actual change is. (or miss it!)
 
 This approach also, makes review easier, faster, more pure, and more focused.
-
----
-
-### 🚧 Don't fix everything on your way {#dont-fix-everything}
-
-From time to time we adhere to this motto: "Leave the codebase better than you found it". Sometimes you see a badly named variable, a poorly designed function, a file with corrupted spacing and indentations, or a bug in the software and you want to just fix it on your way. Although that sounds good, it adds unnecessary complications for the reviewer and is probably unrelated to what your branch is about. If something needs to be fixed, it could become a ticket in your issue-tracking system. Either a "technical story" or a "user story".
-
-A good advantage of leaving stuff for the issue-tracking system is the observability it gets from everyone. If you quietly fix issues as you encounter them, no one else will have an understanding of the amount of bugs and regressions present in the software and your team may neglect the importance of quality engineering. Or if you refactor stuff on the way and make the codebase better, no one will ever know how much technical debt the software has. Apart from that, with a ticket, everyone can leave their opinion on what is the best approach for what you've found, rather than you just patching stuff while you are focused on something else.
-
-If you attempt to fix everything along the way, all that outside observers might notice is that tasks are taking longer than expected.
 
 ---
 
