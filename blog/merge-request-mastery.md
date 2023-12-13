@@ -100,9 +100,13 @@ This approach also, makes review easier, faster, more pure, and more focused.
 
 ### 🕵️ Review your own MR before asking someone else to review it {#review-your-own-mr}
 
-By doing this, you double-check if your changes are applied correctly in the final diff and ensure you don't have unintended changes in your MR. It happens that we stage and commit changes by mistake, like an unnecessary logger, or a change we experimented with but forgot to revert it. This self-review is especially useful if you've faced and resolved conflicts.
+While developing a branch, we sometimes do experimental stuff: we may put a logger in the code, or remove some part of the code just to test something, or any other form of experimental change that we did not mean to commit, but we may commit them by mistake. Not even by mistake, you may find a solution for your task and commit it, only to find a better solution for it some time later. You may forget to revert changes related to the first solution after you implement and commit the better one. This way you will end up with unwanted changes in your MR.
 
-Do this self-review in the reviewing platform you always use to review other people's MRs. Because when you see your MR in those red and green colors and in that UI, you automatically go into your reviewer mode, but for your own MR. You start to see things from a new perspective and notice things you missed when you were authoring the code. You wear your critic glasses for your code. Self-review helps a lot in delivering better code!
+Another way that unwanted diffs can end up in the MR is when we face and resolve conflicts. We can never be too careful when resolving conflicts, and as a result we may introduce a change that we did not mean to.
+
+No only self-review helps you spot unwanted changes, it also helps you double-check your overall approach. For instance, if you've worked for one week on the same branch, you need to double check if changes you made on day one, are aligned withe the changes you did on last day. You can double-check if your changes are on the same track and they all follow the same mindset. You get a birdview of your solution while self-reviewing your MR.
+
+Make sure to do this self-review in the reviewing platform you always use to review other people's MRs. Because when you see your MR in those red and green colors and in that UI, you automatically go into your reviewer mode, but for your own MR. You start to see things from a new perspective and notice things you missed when you were authoring the code. You wear your critic glasses for your code. Self-review helps a lot in delivering better code!
 
 ## ✅ Make sure CI passes {#make-ci-pass}
 
@@ -158,5 +162,5 @@ Unfortunately, my blog does not have a comment section, but you can [open an iss
 
 Thanks for reading! ❤️
 
-// TODO: we again have todos in the post. search and eliminate them
+// TODO: we again have todo s in the post. search and eliminate them
 // TODO: run SEO?Lighthouse checks to see how it performs in SEO
