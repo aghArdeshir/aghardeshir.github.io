@@ -78,13 +78,13 @@ If you attempt to fix everything along the way, all that outside observers might
 
 ### 🔧 Extract refactors into separate MRs {#extract-refactors}
 
-Avoid mixing refactors and functional changes. Instead, create a separate Merge Request for the needed refactors before the main Merge Request. Make sure to clearly describe why you need this refactor.
+Avoid mixing refactors and functional changes. Instead, create a separate Merge Request for the needed refactors before the main Merge Request. Make sure to clearly describe why you need this refactor. Or if you don't need a refactor at all in your branch, you just **feel** like some piece of code is bad-written, create a technical ticket for it for later.
 
-Separating refactors prevents the reviewer from going through reviewing a newly added 20-line long function, only to discover later that this function was merely moved from another file. With a separate MR intended only for a refactor, in this example, the reviewer will only check if your "intention of moving the function to another file" is correct, or if everything used in the function will work in its new environment, rather than inspecting closely if the logic of the moved function is correct. Because that function has probably been there for a long time and your Merge Request has nothing to do with the logic behind it.
+Separating refactors prevents the reviewer from going through reviewing a newly added 20-line long function, only to discover later that this function was merely moved from another file. With a separate MR intended only for a refactor, in this example, the reviewer will only check if your "intention of moving the function to another file" is correct, or if everything used in the function will work in its new environment. Rather than inspecting closely if the logic of the moved function is correct. Because that function has probably been there for a long time and your Merge Request has nothing to do with the logic behind it.
 
-As another example, if you find the name of a variable unpleasant or misleading, make a Merge Request that renames the variable only. Then, you can rebase your original branch on top of it and use the new variable name, without making your original Merge Request unnecessarily big and complicated. So the reviewer can only check one thing: if "the new variable name truly represents what it holds".
+As another example, if you find the name of a variable unpleasant or misleading, make a Merge Request that renames the variable only. Then, you can rebase your original branch on top of it and use the new variable name, without making your original Merge Request unnecessarily big and complicated. So the reviewer of the refactor merge request can only check one thing: if "the new variable name truly represents what it holds".
 
-This approach makes the review process of both the refactor MR and the original MR easier and faster, and the original Merge Request remains, again, "pure" and "focused".
+This approach makes the review process of both the refactor MR and the original MR easier and faster, and the original Merge Request remains, again, **pure** and **focused** on one thing.
 
 ---
 
