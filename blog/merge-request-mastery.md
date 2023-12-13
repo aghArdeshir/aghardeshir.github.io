@@ -4,11 +4,11 @@ outline: deep
 
 # 🎓 Merge Request Mastery
 
-<p class="subheading">A guide to enhancing code quality through valuable code reviews</p>
+<p class="subheading">A guide to create better Merge Requests for more effective code reviews</p>
 
-This blog post is about making Merge Requests more "reviewable" and enhancing the value of code reviews. Merge Requests (MRs) are a way to allow teams to collaborate on a codebase and make sure the code is up to the standards of the team and readable by everyone.
+Merge Requests (MRs) are a way to allow collaboration on a codebase and make sure the code is up to the decided standards and readable by everyone. This blog post is about making Merge Requests more reviewable and enhancing the quality and value of code reviews. A good merge request is essential because it allows more in-depth discussion about important parts and the result would be better code and better software. My goal in this blog post is to share with you what makes a good MR. A good MR takes form while the branch is in development. There are some things we need to take into consideration constantly while developing the branch to improve quality of our MRs.
 
-First I provide a short explanation so you know the context of each point. Then I'll dive deep into each of them, with the philosophy behind it and my takes.
+First I provide a short listed explanation so you know the context of each point. Then I'll dive deep into each of them, with the philosophy behind it and my takes.
 
 ## 📌 TLDR {#tldr}
 
