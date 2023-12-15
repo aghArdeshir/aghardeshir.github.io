@@ -138,7 +138,7 @@ As another consideration, note that code reviewers are human beings, not renderi
 
 If you are using an issue-tracking system like JIRA, you can include the link to the task in the description. This way the reviewer can quickly jump to the task and see what the task is about, what everyone said about this task, and what the acceptance criteria are. The more the reviewer knows about your changes, the better they can review them, and the result is **safer** changes. Robust features and changes that don't break other stuff. 💪
 
-Writing a description for MRs (and commits) not only benefit the reviewer at review time, but it also helps tracking code easier. If someone tracks down a piece of code to see when and why its introduced, they may end up in your MR. Then with a good description they know why you did those changes, and for which ticket they are intended. So these descriptions (and commit messages) also act as some sort of a document for the codebase at hand.
+Writing a description for MRs (and commits) not only benefit the reviewer at review time, but it also helps tracking code easier by acting as some sort of a document. If someone tracks down a code to see when and why its introduced, they may end up in your MR. Then with a good description they know why you did those changes, and for which ticket they are intended.
 
 ## 🗨️ Comments {#comments}
 
