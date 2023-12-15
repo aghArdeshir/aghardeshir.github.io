@@ -154,13 +154,13 @@ Another good consideration related to comments is if the reviewer asks a questio
 
 ## 🎯 Final words {#conclusion}
 
-An exhausted reviewer may overlook things, get lost in reviewing, take longer to review, or misunderstand the intentions. The resulting software will either be of poor quality or will have lots of technical debt. The guidelines above help make the reviewer's life easier, and in return, we receive better software through better peer reviews. 💪 The ultimate purpose of a good MR and a good review is to be able to deploy "safer" code and keep the maintainability of the software at a very good level.
+An exhausted reviewer may overlook things, get lost in reviewing, take longer to review, or misunderstand the intentions. The resulting software will either be of poor quality or will have lots of technical debt. The guidelines above help make the reviewer's life easier with a good MR, and in return, we receive better software through better peer reviews. 💪 The ultimate purpose of a good MR and a good review is to be able to deploy **safer** code and keep the maintainability of the software at a very good level.
 
-Not all of these considerations necessarily can be applied at the same time though. All these considerations describe "perfection". And our goal is not to reach perfection, but to constantly move towards it. Just having the perfect in mind makes us better and better with each journey.
+Not all of these considerations necessarily can be applied at the same time though. All these considerations describe some sort of **perfection**. And our goal is not to reach perfection, but to constantly move towards it. Just having the perfect in mind makes us better and better with each journey.
 
-And, most importantly, remember that this is **my** version of "perfection". You can draw **your** version of perfection based on your specific metrics, e.g. how fast you want a change, team culture, the way the team communicates, how discussions look like usually in an MR, etc... That's having **your** version of "perfection". Or even better: your **team**'s version of perfection
+And, most importantly, remember that this is **my** version of a good MR. You can draw **your**s, or event better: your **team**'s version of a good MR based on your specific metrics, e.g. how fast you want a change, team culture, the way the team communicates, how discussions look like usually in an MR, etc... And remember everything depends. From a task to another you will need a completely different sort of MR and considerations.
 
-Feel free to use any of my suggestions above though. Or share with me if you have anything you are proud of.
+Feel free to use any of my suggestions above though while creating your versions of good MR. Or share with me if you have any other consideration you are proud of.
 
 Unfortunately, my blog does not have a comment section, but you can [open an issue or a discussion on GitHub](https://github.com/aghArdeshir/aghardeshir.github.io/) if you have anything to share, any idea, question, disagreement, or want to contribute to this blog post in any other way.
 
