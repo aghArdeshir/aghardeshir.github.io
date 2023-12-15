@@ -22,7 +22,7 @@ For a good MR:
   - 🚧 Don't fix everything (unrelated stuff) on your way
   - 🕵️ Review your own MR before asking anyone else to review it
 - ✅ Make sure CI passes
-- 📝 Choose meaningful commit messages
+- 📝 Write meaningful commit messages
 - 📋 Write a description for the MR (including media when needed)
 - 🗨️ Let the comment authors resolve their own comment
 - 🎯 Create your own version of perfection
