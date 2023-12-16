@@ -158,7 +158,7 @@ An exhausted reviewer may overlook things, get lost in reviewing, take longer to
 
 Not all of these considerations necessarily can be applied at the same time though. All these considerations describe some sort of **perfection**. And our goal is not to reach perfection, but to constantly move towards it. Just having the perfect in mind makes us better and better with each journey.
 
-And, most importantly, remember that this is **my** version of a good MR. You can draw **your**s, or even better: your **team**'s version of a good MR based on your specific metrics, e.g. how fast you want a change, team culture, the way the team communicates, how discussions look like usually in an MR, etc... And remember everything depends. There are no strict rules, only considerations that are better **if** they could be done. From one task to another, you will need a completely different sort of MR and considerations. How good your MR is, also depends on your mood from one day to another.
+And, most importantly, remember that these are **my** guidelines for a good MR. You and your team may have different needs based on your metrics like speed of change, team culture, communication style, and so on. And remember everything depends. There are no strict rules, only considerations that are better **if** they could be done. From one task to another, you will need a completely different sort of MR and considerations. How good your MR is, also depends on your mood from one day to another.
 
 Feel free to use any of my suggestions above though while creating your versions of good MR. Or share with me if you have any other considerations you are proud of.
 
