@@ -44,7 +44,7 @@ For a good MR:
 
 ## 🔍 Minimize the diff {#minimize-the-diff}
 
-"Separation of concerns" does not **only** apply to code, components, services, files, and tasks. But also to MRs. Each MR should address one concern: "Fix a bug", "Add a new feature", "Refactor 1 thing", "Re-format the entire code", etc.
+"Separation of concerns" does not **only** apply to code, components, services, files, and tasks, but also to MRs. Each MR should address one concern: "Fix a bug", "Add a new feature", "Refactor 1 thing", "Re-format the entire code", etc.
 
 This makes the Merge Requests more **pure** and **focused**.
 
@@ -56,7 +56,7 @@ If you have a big feature, chances are you don't have to deliver it all at once.
 
 We, as Software Engineers, should help in this regard. Because only we understand better where concerns can and should be separated from a technical point-of-view.
 
-Sometimes we have a perfect plan in mind for breaking big stuff into smaller chunks. But this plan should not be only in our heads. We should communicate it with the team and reflect it in our issue-tracking system, in our branching, and our Merge Requests.
+Sometimes we have a perfect plan in mind for breaking big stuff into smaller chunks. This plan should not be only in our heads. We should communicate it with the team and reflect it in our issue-tracking system, in our branching, and our Merge Requests.
 
 ---
 
