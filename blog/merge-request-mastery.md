@@ -104,7 +104,7 @@ This approach also, makes review easier, faster, more pure, and more focused.
 
 ### 🕵️ Review your own MR before asking someone else to review it {#review-your-own-mr}
 
-While developing a branch, we sometimes do experimental stuff: we may put a logger in the code, or remove some part of the code just to test something, or any other form of experimental change that we did not mean to commit, but we may commit them by mistake. Not even by mistake, you may find a solution for your task and commit it, only to find a better solution for it sometime later. You may forget to revert changes related to the first solution after you implement and implement the better one. This way you will end up with unwanted changes in your MR.
+During development, we experiment with various solutions, we may put a logger in the code, or any other form of experimental change that we may unintentionally commit. Not even unintentionally, but also you may find a better solution than you already committed and you may forget to revert changes related to the former solution. This way you will end up with unwanted changes in your MR.
 
 Another way that unwanted diffs can end up in the MR is when we face and resolve conflicts. We can never be too careful when resolving conflicts, and as a result, we may introduce a change that we did not mean to.
 
