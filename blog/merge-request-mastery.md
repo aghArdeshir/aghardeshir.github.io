@@ -27,7 +27,7 @@ For a good MR:
 - 📝 Write meaningful commit messages
 - 📋 Write a description for the MR (including media when needed)
 - 🗨️ Let the comment authors resolve their own comment
-- 🎯 Create your own version of "What a god MR means"
+- 🎯 Create your own version of "What a good MR means"
   :::
 
 - [**🔍 Minimize the diff**](#minimize-the-diff): Simplify your changes by asking yourself if you can make them smaller or complete your task without certain changes. Create separate tasks/MRs for additional changes that don't belong to the concern of your current MR, ensuring each Merge Request stays focused on one concern, such as fixing a bug or adding a feature.
