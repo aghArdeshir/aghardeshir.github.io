@@ -118,9 +118,7 @@ If your team/repo uses a CI pipeline, ensure all CI checks pass before requestin
 
 ## 📝 Meaningful commits {#meaningful-commits}
 
-Again, "separation of concerns" is not just about the code and services and classes (and MRs). Your commits should be separated in their concerns too.
-
-Separation in commits helps **you** more than the reviewer, as it makes your mind organized and easy to track. Especially the more small chunks of the changes you stage and commit away, the more focused you will be on what you are doing now. Your working tree won't be cluttered with all sorts of changes. The same goes for your mind and thoughts.
+Meaningful and separated commits helps **you** more than the reviewer, as it makes your mind organized and easy to track. Especially the more small chunks of the changes you stage and commit away, the more focused you will be on what you are doing now. Your working tree won't be cluttered with all sorts of changes. The same goes for your mind and thoughts.
 
 Also, It may help the reviewer. Sometimes the reviewer may need to understand your thought process, instead of looking at the whole dumped diff. Just looking at the list of commits from oldest to newest, they can see what went on in your head. They may want to review your MR one isolated commit at a time. Then skimming through the list, they can safely ignore commits based on their commit message if they know the context.
 
@@ -128,7 +126,9 @@ In most IDEs, there are tools to help you do this more smoothly. IDEs allow you 
 
 When you are about to commit your changes locally, review each file one by one, then out of each file, stage the parts that fit together in one commit. When you have a lot of changes locally, chances are you can create more than one commit out of them.
 
-Also, try to describe what you did in a commit in 1 concise line. If you can't, then it probably means something should be separated into another commit. The same is true about the MR title. If you can't describe in 1 concise line what you did in your MR, most probably it is a sign that some part of it could be separated into another task/MR.
+Again, "separation of concerns" is not just about the code and services and classes (and MRs). Your commits should be separated in their concerns too.
+
+Try to describe what you did in a commit in 1 concise line. If you can't, then it probably means something should be separated into another commit. The same is true about the MR title. If you can't describe in 1 concise line what you did in your MR, most probably it is a sign that some part of it could be separated into another task/MR.
 
 ## 📋 Write a description for the MR {#description-for-the-mr}
 
