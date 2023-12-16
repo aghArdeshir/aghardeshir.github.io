@@ -106,7 +106,7 @@ While developing a branch, we sometimes do experimental stuff: we may put a logg
 
 Another way that unwanted diffs can end up in the MR is when we face and resolve conflicts. We can never be too careful when resolving conflicts, and as a result, we may introduce a change that we did not mean to.
 
-Not only does self-review help you spot unwanted changes, but it also helps you double-check your overall approach. For instance, if you've worked for one week on the same branch, you need to double-check if the changes you made on day one, are aligned with the changes you did on the last day. You can double-check if your changes are on the same track and they all follow the same mindset. You get a bird's view of your solution while self-reviewing your MR.
+Not only does self-review help you spot unwanted changes, but it also helps you double-check your overall approach. If you've worked on the same branch for a long time, you need to double-check if the changes you made on day one, are aligned with the changes you did on the last day. You can double-check if your changes are on the same track and they all follow the same mindset. You get a bird's view of your solution while self-reviewing your MR.
 
 Make sure to do this self-review in the reviewing platform you always use to review other people's MRs. Because when you see your MR in those red and green colors and in that UI, you automatically go into your reviewer mode, but for your own MR. You start to see things from a new perspective and notice things you missed when you were authoring the code. You wear your critic glasses for your code. Self-review helps a lot in delivering better code!
 
