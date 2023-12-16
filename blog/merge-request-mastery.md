@@ -94,7 +94,7 @@ This approach makes the review process of both the refactor MR and the original 
 
 ### 📏 Extract formattings into separate MRs {#extract-formattings}
 
-Similar to the previous point, avoid including unrelated file formatting with your changes. If you need to format some files, create a branch out of the **main** branch that automatically formats **all** files. The reviewer doesn't even need to read through the formatting Merge Request carefully, as you've already described in your Merge Request that "this MR is only code formatting" and most probably a tool automatically did this and tools are **rarely** wrong. (tools being prettier, eslint, etc...)
+Similar to the previous point, avoid including unrelated file formatting with your changes. If you need to format some files, create a branch out of the **main** branch and use a tool (prettier, eslint, etc...) that automatically formats **all** files. Because tools are **rarely** wrong. The reviewer doesn't even need to read through the formatting Merge Request carefully, as you've already described in your Merge Request that "this MR is only code formatting".
 
 No reviewer wants to sift through 400 lines of diff that only changes indentations and replaces single quotes with double quotes just to hunt down where the actual change is. (or miss it!)
 
