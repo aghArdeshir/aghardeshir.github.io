@@ -132,15 +132,15 @@ Try to describe what you did in a commit in 1 concise line. If you can't, then i
 
 ## 📋 Write a description for the MR {#description-for-the-mr}
 
-Make sure you include descriptions with your MR as much as possible, if applicable. If a task is assigned to you, the description of the ticket in your issue-tracking system is a business description that everyone understands, including non-technical people on your team. But sometimes the MRs need more technical clarifications, specifically for the person who is reviewing your code. Try using bullet lists and images when necessary to make reading the description easier.
+Make sure you include descriptions with your MR as much as possible, if applicable. Try using bullet lists and images when necessary to make reading the description easier.
 
-However, there's a tricky aspect to consider. Always ask yourself: "Is the description I'm writing for the Merge Request something that the entire team should be aware of? Rather than only the reviewer?" If the answer is "yes", then this information should be included within the code itself, rather than as a description for the MR. Either by comments in code or by using proper variable naming and clean-coding techniques, so everyone who reads the code knows about what you had in mind.
+Writing a description for MRs (and commits) not only benefits the reviewer at review time, but it also helps tracking code easier by acting as some sort of document. If someone tracks down a code to see when and why it's introduced, they may end up in your MR. Then with a good description, they know why you made those changes, and for which ticket they are intended.
+
+However, there's a tricky aspect to consider. Always ask yourself: "Is the description I'm writing for the Merge Request something that the entire team should be aware of? Rather than only the reviewer?" If the answer is "yes", then this information should be included within the code itself. Either by comments in code or by improving code readability, so everyone who reads the code knows about what you had in mind.
 
 As another consideration, note that code reviewers are human beings, not rendering engines! If you added/changed a piece of code that contains a lot of styling changes, include a screenshot with the changed result. Some teams have continuous deployments that deploy a short-lived app out of every MR. If you do, also include a link for the preview app so the reviewer can interact with your changes and test them in action.
 
-If you are using an issue-tracking system like JIRA, you can include the link to the task in the description. This way the reviewer can quickly jump to the task and see what the task is about, what everyone said about this task, and what the acceptance criteria are. The more the reviewer knows about your changes, the better they can review them, and the result is **safer** changes. Robust features and changes that don't break other stuff. 💪
-
-Writing a description for MRs (and commits) not only benefits the reviewer at review time, but it also helps tracking code easier by acting as some sort of document. If someone tracks down a code to see when and why it's introduced, they may end up in your MR. Then with a good description, they know why you made those changes, and for which ticket they are intended.
+If you are using an issue-tracking system like JIRA, you can also include the link to the task in the description. This way the reviewer can quickly jump to the task and see what the task is about, what everyone said about this task, and what the acceptance criteria are. The more the reviewer knows about your changes, the better they can review them, and the result is **safer** changes. Robust features and changes that don't break other stuff. 💪
 
 ## 🗨️ Comments {#comments}
 
