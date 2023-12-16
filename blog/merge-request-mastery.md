@@ -76,7 +76,9 @@ If you attempt to fix everything along the way, all that outside observers notic
 
 ### 🔧 Extract refactors into separate MRs {#extract-refactors}
 
-Avoid mixing refactors and functional changes. Instead, create a separate Merge Request for the needed refactors before the main Merge Request. Make sure to clearly describe why you need this refactor. Or if you don't need a refactor at all in your branch, you just **feel** like some piece of code is bad written, so create a technical ticket for it for later.
+Avoid mixing refactors and functional changes. Instead, create a separate Merge Request for the needed refactors before the main Merge Request. Make sure to clearly describe why you need this refactor.
+
+If you don't need a refactor at all in your branch, and you just **feel** like some piece of code is written poorly, then create a technical ticket and leave it for later.
 
 Separating refactors into their own MRs allows the reviewer to focus solely on the intention behind the refactor, such as moving a function to another file, rather than getting caught up in the logic of the function itself. This keeps the review process focused and efficient.
 
@@ -112,7 +114,7 @@ If your team/repo uses a CI pipeline, ensure all CI checks pass before requestin
 
 ## 📝 Meaningful commits {#meaningful-commits}
 
-Meaningful and separated commits helps **you** more than the reviewer, as it makes your mind organized and easy to track. Especially the more small chunks of the changes you stage and commit away, the more focused you will be on what you are doing now. Your working tree won't be cluttered with all sorts of changes. The same goes for your mind and thoughts.
+Creating meaningful and distinct commits not only assists the reviewer, but also helps keep your own thoughts and progress organized and easy to track. Especially the more small chunks of the changes you stage and commit away, the more focused you will be on what you are doing now. Your working tree won't be cluttered with all sorts of changes. The same goes for your mind and thoughts.
 
 Also, It may help the reviewer. Sometimes the reviewer may need to understand your thought process, instead of looking at the whole dumped diff. Just looking at the list of commits from oldest to newest, they can see what went on in your head. They may want to review your MR one isolated commit at a time. Then skimming through the list, they can safely ignore commits based on their commit message if they know the context.
 
@@ -128,7 +130,7 @@ Try to describe what you did in a commit in 1 concise line. If you can't, then i
 
 Make sure you include descriptions with your MR as much as possible, if applicable. Try using bullet lists and images when necessary to make reading the description easier.
 
-Writing a description for MRs (and commits) not only benefits the reviewer at review time, but it also acts as some sort of documentation for anyone who might need to track code later.
+Writing a description for MRs (and commits) not only benefits the reviewer at review time, but it also acts as a form of documentation for anyone who might need to trace back the code later.
 
 However, there's a tricky aspect to consider. If the information in the MR is crucial for the entire team, then this information should be included within the code itself. Either by comments in code or by improving code readability, so everyone who reads the code knows about what you had in mind.
 
@@ -152,7 +154,7 @@ An exhausted reviewer may overlook things, get lost in reviewing, take longer to
 
 Not all of these considerations necessarily can be applied at the same time though. All these considerations describe some sort of **perfection**. And our goal is not to reach perfection, but to constantly move towards it. Just having the perfect in mind makes us better and better with each journey.
 
-And, most importantly, remember that these are **my** guidelines for a good MR. You and your team may have different needs based on your metrics like speed of change, team culture, communication style, and so on. And remember everything depends. There are no strict rules, only considerations that are better **if** they could be done. From one task to another, you will need a completely different sort of MR and considerations. How good your MR is, also depends on your mood from one day to another.
+Most importantly, keep in mind that these guidelines for a good MR are based on my personal experience. You and your team may have different needs based on your metrics like speed of change, team culture, communication style, and so on. And remember everything depends. There are no strict rules, only considerations that are better **if** they could be done. From one task to another, you will need a completely different sort of MR and considerations. How good your MR is, also depends on your mood from one day to another.
 
 Feel free to use any of my suggestions above though while creating your versions of good MR. Or share with me if you have any other considerations you are proud of.
 
