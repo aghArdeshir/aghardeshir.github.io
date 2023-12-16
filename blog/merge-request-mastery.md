@@ -62,6 +62,10 @@ Sometimes we have a perfect plan in mind for breaking big stuff into smaller chu
 
 ### 🚧 Don't fix everything on your way {#dont-fix-everything}
 
+For various reasons, we developers, find ourselves doing things that are unrelated to what we were doing or what we should be doing. One is we simply get distracted easily by code. And the other reason is this motto: "Leave the codebase better than you found it", which sounds good, but we'll see in a moment....
+
+While developing, sometimes, on your way, you see a badly named variable, a poorly designed function, a file with corrupted spacing and indentations, or a bug in the software, and you want to just fix it on your way as it is a small tweak. Although that sounds good, it adds unnecessary complications for the reviewer and is probably unrelated to what your branch or assigned task is about. If something needs to be fixed, the best you can do is create a ticket in your issue-tracking system. Either a "technical ticket" or a "user story". This way you'll forget about it and can focus back on what you were doing. But if you need the refactor or bug fix for your current task and are blocked by it, then you can create a separate merge request for it.
+
 For every change you are about to do in your branch, ask yourself:
 
 1. Can my task be considered done without what I'm currently doing?
@@ -70,11 +74,9 @@ For every change you are about to do in your branch, ask yourself:
 
 If the answer to any of these questions is "yes", probably you can either create a ticket for that particular change and forget about it in your branch or quickly create a separate MR out of the **main** branch and ask your teammates to review and merge it independently if you need the refactor or bug fix. (and again, forget about it)
 
-For various reasons, we developers, find ourselves doing things that are unrelated to what we were doing or what we should be doing. One is we simply get distracted easily by code. And the other reason is this motto: "Leave the codebase better than you found it", which sounds good, but we'll see in a moment. While developing, sometimes, on your way, you see a badly named variable, a poorly designed function, a file with corrupted spacing and indentations, or a bug in the software, and you want to just fix it on your way as it is a small tweak. Although that sounds good, it adds unnecessary complications for the reviewer and is probably unrelated to what your branch or assigned task is about. If something needs to be fixed, the best you can do is create a ticket in your issue-tracking system. Either a "technical ticket" or a "user story". This way you'll forget about it and can focus back on what you were doing. But if you need the refactor or bug fix for your current task and are blocked by it, then you can create a separate merge request for it.
+A good advantage of leaving stuff for the issue-tracking system is the observability it gets from everyone. If you quietly fix issues as you encounter them, no one else will have an understanding of the amount of bugs and regressions present in the software and as a result your team may neglect the importance of quality engineering. Or if you refactor stuff on the way excessively, no one will ever know how much technical debt the software has. Apart from that, with a ticket, everyone can leave their opinion on what is the best approach for fixing what you've found, rather than just patching stuff quickly while you are focused on something else.
 
-A good advantage of leaving stuff for the issue-tracking system is the observability it gets from everyone. If you quietly fix issues as you encounter them, no one else will have an understanding of the amount of bugs and regressions present in the software and your team may neglect the importance of quality engineering. Or if you refactor stuff on the way excessively, no one will ever know how much technical debt the software has. Apart from that, with a ticket, everyone can leave their opinion on what is the best approach for fixing what you've found, rather than just patching stuff quickly while you are focused on something else.
-
-If you attempt to fix everything along the way, all that outside observers might notice is that tasks are taking longer than expected, because you are doing other stuff quietly.
+If you attempt to fix everything along the way, all that outside observers notice is that tasks are taking longer than expected, because you are doing other stuff quietly.
 
 ---
 
