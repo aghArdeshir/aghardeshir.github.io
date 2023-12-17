@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'url';
 import { defineConfig } from 'vitepress';
 
 // https://vitepress.dev/reference/site-config
@@ -54,5 +55,17 @@ export default defineConfig({
       },
       { icon: 'linkedin', link: 'https://www.linkedin.com/in/ardeshir-izadi/' },
     ],
+  },
+  vite: {
+    resolve: {
+      alias: [
+        {
+          find: /^.*\/VPHero\.vue$/,
+          replacement: fileURLToPath(
+            new URL('./CustomizedHero.vue', import.meta.url)
+          ),
+        },
+      ],
+    },
   },
 });
