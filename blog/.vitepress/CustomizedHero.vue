@@ -2,6 +2,8 @@
 import { type Ref, inject } from 'vue';
 import type { DefaultTheme } from 'vitepress/theme';
 import * as ViteDefaultTheme from 'vitepress/theme';
+import { useData } from 'vitepress';
+import BlogPostCard from './BlogPostCard.vue';
 
 const VPButton = ViteDefaultTheme.VPButton;
 const VPImage = ViteDefaultTheme.VPImage;
@@ -19,6 +21,8 @@ defineProps<{
   image?: DefaultTheme.ThemeableImage;
   actions?: HeroAction[];
 }>();
+
+const blogPosts = useData().frontmatter.value.hero.blogPosts;
 
 const heroImageSlotExists = inject('hero-image-slot-exists') as Ref<boolean>;
 </script>
@@ -46,6 +50,15 @@ const heroImageSlotExists = inject('hero-image-slot-exists') as Ref<boolean>;
             />
           </div>
         </div>
+
+        <hr style="margin-top: 30px" />
+        <div style="margin-block: 30px; font-size: 20px">My Blog Posts:</div>
+        <BlogPostCard
+          v-if="blogPosts"
+          v-for="post in blogPosts"
+          :key="post.title"
+          :post="post"
+        />
       </div>
 
       <div v-if="image || heroImageSlotExists" class="image">
