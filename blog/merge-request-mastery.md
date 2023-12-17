@@ -26,8 +26,8 @@ For a good MR:
 - ✅ Make sure CI passes
 - 📝 Write meaningful commit messages
 - 📋 Write a description for the MR (including media when needed)
-- 🗨️ Let the comment authors resolve their own comment
-- 🎯 Create your own version of "What a good MR means"
+- 🗨️ Let the comment authors resolve their comment
+- 🎯 Create your version of "What a good MR means"
   :::
 
 - [**🔍 Minimize the diff**](#minimize-the-diff): Simplify your changes by asking yourself if you can make them smaller or complete your task without certain changes. Create separate tasks/MRs for additional changes that don't belong to the concern of your current MR, ensuring each Merge Request stays focused on one concern, such as fixing a bug or adding a feature.
@@ -38,13 +38,13 @@ For a good MR:
   - [**🕵️ Review your own MR before asking someone else to review it**](#review-your-own-mr): This helps you view your changes and your approach from a new perspective. To do this, make sure to use the reviewing platform you always use to review other MRs.
 - [**✅ Make sure CI passes**](#make-ci-pass): It helps save time to catch issues that can be caught automatically by tools rather than a manual review by a teammate.
 - [**📝 Meaningful commits**](#meaningful-commits): Make commits meaningful and well-separated. Use your IDE to stage specific and related changes together, keeping things focused. Write concise commit messages (and also MR titles). If you can't make your commit message (or the MR title) concise, it **may** be a sign your Commit (or the MR) is doing more than one thing and could be broken into separate ones.
-- [**📋 Write a description for the MR**](#description-for-the-mr): Write some details about your decisions and reasoning behind them if applicable. And remember it is only for the reviewers of the MR, not the whole team or other developers who need to read the codebase. Include screenshots when needed (for UI changes). Include a link to the task if you're using an issue-tracking system.
+- [**📋 Write a description for the MR**](#description-for-the-mr): Write some details about your decisions and the reasoning behind them if applicable. And remember it is only for the reviewers of the MR, not the whole team or other developers who need to read the codebase. Include screenshots when needed (for UI changes). Include a link to the task if you're using an issue-tracking system.
 - [**🗨️ Comments**](#comments): Don't resolve comments if you're not the author of them. If you address one, reply to it (including a commit link if applicable) so the author of the comment double-checks and resolves it if agreed.
-- [**🎯 Final Words**](#conclusion): All these stuff matter because they help us ship better software by making reviews more effective. Each team needs to have their version of a good MR bsaed on their metrics decided by the whole team.
+- [**🎯 Final Words**](#conclusion): All these stuff matter because they help us ship better software by making reviews more effective. Each team needs to have their version of a good MR based on their metrics decided by the whole team.
 
 ## 🔍 Minimize the diff {#minimize-the-diff}
 
-"Separation of concerns" does not **only** apply to code, components, services, files, and tasks, but also to MRs. Each MR should address one concern: "Fix a bug", "Add a new feature", "Refactor 1 thing", "Re-format the entire code", etc.
+"Separation of concerns" does not **only** apply to code, components, services, files, and tasks but also to MRs. Each MR should address one concern: "Fix a bug", "Add a new feature", "Refactor 1 thing", "Re-format the entire code", etc.
 
 This makes the Merge Requests more **pure** and **focused**.
 
@@ -62,13 +62,13 @@ Sometimes we have a perfect plan in mind for breaking big stuff into smaller chu
 
 ### 🚧 Don't fix everything on your way {#dont-fix-everything}
 
-For various reasons, we developers, find ourselves doing things that are unrelated to what we were doing or what we should be doing. One is we simply get distracted easily by code. And the other reason is this motto: "Leave the codebase better than you found it", which sounds good, but we'll see in a moment....
+For various reasons, we developers, find ourselves doing things that are unrelated to what we were doing or what we should be doing. One is we simply get distracted easily by code. And the other reason is this motto: "Leave the codebase better than you found it", which sounds good, but we'll see in a moment...
 
 While developing, sometimes, on your way, you see a badly named variable, a poorly designed function, a file with corrupted spacing and indentations, or a bug in the software, and you want to just fix it on your way as it is a small tweak. Although that sounds good, it adds unnecessary complications for the reviewer and is probably unrelated to what your branch or assigned task is about. If something needs to be fixed, the best you can do is create a ticket in your issue-tracking system. Either a "technical ticket" or a "user story". This way you'll forget about it and can focus back on what you were doing.
 
 But if you need the refactor or bug fix for your current task and are blocked by it, then you can create a separate merge request for it.
 
-A good advantage of leaving stuff for the issue-tracking system is the observability it gets from everyone. If you quietly fix issues as you encounter them, no one else will have an understanding of the amount of bugs and regressions present in the software and as a result your team may neglect the importance of quality engineering. Or if you refactor stuff on the way excessively, no one will ever know how much technical debt the software has. Apart from that, with a ticket, everyone can leave their opinion on what is the best approach for fixing what you've found, rather than just patching stuff quickly while you are focused on something else.
+A good advantage of leaving stuff for the issue-tracking system is the observability it gets from everyone. If you quietly fix issues as you encounter them, no one else will have an understanding of the amount of bugs and regressions present in the software and as a result, your team may neglect the importance of quality engineering. Or if you refactor stuff on the way excessively, no one will ever know how much technical debt the software has. Apart from that, with a ticket, everyone can leave their opinion on what is the best approach for fixing what you've found, rather than just patching stuff quickly while you are focused on something else.
 
 If you attempt to fix everything along the way, all that outside observers notice is that tasks are taking longer than expected, because you are doing other stuff quietly.
 
@@ -92,7 +92,7 @@ This approach makes the review process of both the refactor MR and the original 
 
 Similar to the previous point, avoid including unrelated file formatting with your changes. If you need to format some files, create a branch out of the **main** branch and use a tool (prettier, eslint, etc...) that automatically formats **all** files. Because tools are **rarely** wrong. The reviewer doesn't even need to read through the formatting Merge Request carefully, as you've already described in your Merge Request that "this MR is only code formatting".
 
-No reviewer wants to sift through hundreds of lines of diff that only changes indentations and replaces single quotes with double quotes just to hunt down where the actual change is. (or miss it!)
+No reviewer wants to sift through hundreds of lines of diff that only change indentations and replace single quotes with double quotes just to hunt down where the actual change is. (or miss it!)
 
 This approach also, makes review easier, faster, more pure, and more focused.
 
@@ -100,11 +100,11 @@ This approach also, makes review easier, faster, more pure, and more focused.
 
 ### 🕵️ Review your own MR before asking someone else to review it {#review-your-own-mr}
 
-During development, we experiment with various solutions, we may put a logger in the code, or any other form of experimental change that we may unintentionally commit. Not even unintentionally, but also you may find a better solution than you already committed and you may forget to revert changes related to the former solution. This way you will end up with unwanted changes in your MR.
+During development, we experiment with various solutions, we may put a logger in the code, or any other form of experimental change that we may unintentionally commit. Not only unintentionally, but also you may find a better solution than you already committed and you may forget to revert changes related to the former solution. This way you will end up with unwanted changes in your MR.
 
 Another way that unwanted diffs can end up in the MR is when we face and resolve conflicts. We can never be too careful when resolving conflicts, and as a result, we may introduce a change that we did not mean to.
 
-Not only does self-review help you spot unwanted changes, but it also helps you double-check your overall approach. If you've worked on the same branch for a long time, you need to double-check if the changes you made on day one, are aligned with the changes you did on the last day. You can double-check if your changes are on the same track and they all follow the same mindset. You get a bird's view of your solution while self-reviewing your MR.
+Not only does self-review help you spot unwanted changes, but also helps you double-check your overall approach. If you've worked on the same branch for a long time, you need to double-check if the changes you made on day one, are aligned with the changes you did on the last day. You can double-check if your changes are on the same track and they all follow the same mindset. You get a bird's view of your solution while self-reviewing your MR.
 
 Make sure to do this self-review in the reviewing platform you always use to review other people's MRs. Because when you see your MR in those red and green colors and in that UI, you automatically go into your reviewer mode, but for your own MR. You start to see things from a new perspective and notice things you missed when you were authoring the code. You wear your critic glasses for your code. Self-review helps a lot in delivering better code!
 
@@ -114,7 +114,7 @@ If your team/repo uses a CI pipeline, ensure all CI checks pass before requestin
 
 ## 📝 Meaningful commits {#meaningful-commits}
 
-Creating meaningful and distinct commits not only assists the reviewer, but also helps keep your own thoughts and progress organized and easy to track. Especially the more small chunks of the changes you stage and commit away, the more focused you will be on what you are doing now. Your working tree won't be cluttered with all sorts of changes. The same goes for your mind and thoughts.
+Creating meaningful and distinct commits not only assists the reviewer but also helps keep your thoughts and progress organized and easy to track. Especially the more small chunks of the changes you stage and commit away, the more focused you will be on what you are doing now. Your working tree won't be cluttered with all sorts of changes. The same goes for your mind and thoughts.
 
 Also, It may help the reviewer. Sometimes the reviewer may need to understand your thought process, instead of looking at the whole dumped diff. Just looking at the list of commits from oldest to newest, they can see what went on in your head. They may want to review your MR one isolated commit at a time. Then skimming through the list, they can safely ignore commits based on their commit message if they know the context.
 
@@ -130,7 +130,7 @@ Try to describe what you did in a commit in 1 concise line. If you can't, then i
 
 Make sure you include descriptions with your MR as much as possible, if applicable. Try using bullet lists and images when necessary to make reading the description easier.
 
-Writing a description for MRs (and commits) not only benefits the reviewer at review time, but it also acts as a form of documentation for anyone who might need to trace back the code later.
+Writing a description for MRs (and commits) not only benefits the reviewer at review time but it also acts as a form of documentation for anyone who might need to trace back the code later.
 
 However, there's a tricky aspect to consider. If the information in the MR is crucial for the entire team, then this information should be included within the code itself. Either by comments in code or by improving code readability, so everyone who reads the code knows about what you had in mind.
 
@@ -144,7 +144,7 @@ The review process is not a one-time thing. It's more of a back-and-forth commun
 
 Leave the "Resolve" button on comments for the author of the comment. If you think you have addressed a requested change, the best thing to do is to leave a note: "Thanks, Done!" preferably with a link to the commit that solves the requested change. Or if the comment is just asking questions, reply to the question and, again, leave it unresolved for the reviewer to come back and read the replies on their comments. This way, we make sure the reviewer sees your reply, gets a chance to double-check the comment, makes sure you understood the comment correctly, reviews the new change if there is any, and if all is good, they can resolve the comment. Otherwise, they can continue requesting changes or asking follow-up questions in the thread of the comment. If anyone else resolves the reviewer's comment, they may never know the conclusion on a question/request they had in their mind.
 
-In this context, the term "resolved" means that both the author of the Merge Request and the author of the comment have come to a conclusion and agree to the current state of the code. 👍 It's obvious the author of the MR always agrees to the current state of the code. If they did not, they would have done things differently. So only if the comment author also agrees to the outcome of the conversation, then and only then does it mean the comment/thread is "resolved"! ✅
+In this context, the term "resolved" means that both the author of the Merge Request and the author of the comment have come to a conclusion and agree to the current state of the code. 👍 It's obvious the author of the MR always agrees with the current state of the code. If they did not, they would have done things differently. So only if the comment author also agrees to the outcome of the conversation, then and only then does it mean the comment/thread is "resolved"! ✅
 
 Another good consideration related to comments is if the reviewer asks a question about a piece of code, in addition to replying to the comment, consider if that reply needs to live inside the code as well. If the reviewer does not understand one part easily and asks questions about it, chances are other teammates won't understand that particular piece of code too. So in addition to replying in the comment thread, consider improving the code readability or adding a comment to the code so everyone understands it and not only the reviewer.
 
