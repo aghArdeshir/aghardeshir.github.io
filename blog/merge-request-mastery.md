@@ -14,7 +14,7 @@ First I provide a short explanation of each point so you know the context. Then 
 
 ## 📌 TLDR {#tldr}
 
-::: details Super-short TLDR
+::: details Super-short TLDR (click to expand)
 For a good MR:
 
 - 🔍 Minimize the diff
@@ -82,7 +82,7 @@ If you don't need a refactor at all in your branch, and you just **feel** like s
 
 Separating refactors into their own MRs allows the reviewer to focus solely on the intention behind the refactor, such as moving a function to another file, rather than getting caught up in the logic of the function itself. This keeps the review process focused and efficient.
 
-As another example, if you find the name of a variable unpleasant or misleading, make a Merge Request that renames the variable only. Then, you can rebase your original branch on top of it and use the new variable name, without making your original Merge Request unnecessarily big and complicated. So the reviewer of the refactor merge request can only check one thing: if "the new variable name truly represents what it holds".
+As another example, if you find the name of a variable unpleasant or misleading, make a Merge Request that renames the variable only. Then, you can rebase your original branch on top of it and use the new variable name, without making your original Merge Request unnecessarily big and complicated. So the reviewer of the refactor merge request can only check one thing: "if the new variable name truly represents what it holds".
 
 This approach makes the review process of both the refactor MR and the original MR easier and faster, and the original Merge Request remains, again, **pure** and **focused** on one thing.
 
@@ -124,7 +124,7 @@ When you are about to commit your changes locally, review each file one by one, 
 
 Again, "separation of concerns" is not just about the code and services and classes (and MRs). Your commits should be separated in their concerns too.
 
-Try to describe what you did in a commit in 1 concise line. If you can't, then it probably means something should be separated into another commit. The same is true about the MR title. If you can't describe in 1 concise line what you did in your MR, most probably it is a sign that some part of it could be separated into another task/MR.
+Try to describe what you did in a commit in one concise line. If you can't, then it probably means something should be separated into another commit. The same is true about the MR title. If you can't describe in one concise line what you did in your MR, most probably it is a sign that some part of it could be separated into another task/MR.
 
 ## 📋 Write a description for the MR {#description-for-the-mr}
 
