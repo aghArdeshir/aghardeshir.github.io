@@ -9,6 +9,7 @@
       body {
         padding: 80px;
         font-family: sans-serif;
+        display: flex;
       }
 
       aside {
@@ -30,6 +31,16 @@
           font-size: 1rem;
           padding-top: 20px;
           margin: 0;
+        }
+      }
+
+      .main-column {
+        margin-left: 40px;
+
+        & section h2 {
+          font-size: 1rem;
+          text-transform: uppercase;
+          color: #145fa8;
         }
       }
     </style>
@@ -69,5 +80,13 @@
         <a href="https://github.com/aghArdeshir"><b>GitHub/aghArdeshir</b></a>
       </div>
     </aside>
+
+    <div class="main-column">
+      <section>
+        <h2>
+          <img src="briefcase-svgrepo-com.svg" width="16" /> Work Experience
+        </h2>
+      </section>
+    </div>
   </body>
 </html>
