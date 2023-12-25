@@ -28,6 +28,18 @@ export const songs = {
       title: 'مُرد برام',
       artist: 'آق‌اردشیر',
     },
+    gheshreKhakestari: {
+      coverUrl:
+        'songs/aghArdeshir - Gheshre Khakestari/aghArdeshir - Gheshre Khakestari (Cover Photo).png',
+      songUrl:
+        'songs/aghArdeshir - Gheshre Khakestari/aghArdeshir - Gheshre Khakestari.mp3',
+      lyricsUrl:
+        'songs/aghArdeshir - Gheshre Khakestari/Gheshre Khakestari.lyrics.json',
+      bgColor: 'rgb(0, 4, 27)',
+      textColor: 'white',
+      title: 'قشر خاکستری',
+      artist: 'آق‌اردشیر',
+    },
   },
   nishkhand: {
     sarbasteyeYekSarbaz: {
