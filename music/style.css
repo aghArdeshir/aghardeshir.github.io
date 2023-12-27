@@ -54,6 +54,7 @@ body {
     sans-serif;
   padding-top: 280px;
   min-height: 100vh;
+  overflow: hidden;
 }
 
 .waveform {
