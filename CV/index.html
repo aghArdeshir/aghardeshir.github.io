@@ -42,88 +42,100 @@
           padding-bottom: 40px;
 
           & h2 {
-          font-size: 1rem;
-          text-transform: uppercase;
-          color: #145fa8;
-        }
+            font-size: 1rem;
+            text-transform: uppercase;
+            color: #145fa8;
+          }
 
-        & .job-experience-entry {
-          padding-top: 30px;
+          & .job-experience-entry {
+            padding-top: 30px;
 
-          & .work-experience-brief {
-            display: grid;
-            grid-template-rows: 1fr 1fr;
-            grid-template-columns: [time] 120px 30px [image] 80px [details] 1fr;
-            height: 80px;
+            & .work-experience-brief {
+              display: grid;
+              grid-template-rows: 1fr 1fr;
+              grid-template-columns: [time] 120px 30px [image] 80px [details] 1fr;
+              height: 80px;
 
-            & .start-date {
-              grid-row: 2;
-              grid-column: time;
-              align-self: end;
-              text-align: right;
-            }
+              & .start-date {
+                grid-row: 2;
+                grid-column: time;
+                align-self: end;
+                text-align: right;
+              }
 
-            & .end-date {
-              grid-row: 1;
-              grid-column: time;
-              align-self: start;
-              text-align: right;
-            }
+              & .end-date {
+                grid-row: 1;
+                grid-column: time;
+                align-self: start;
+                text-align: right;
+              }
 
-            & .timeline-border {
-              grid-row: 1 / span 2;
-              grid-column: 2 / span 1;
-              display: flex;
-              flex-direction: column;
-              align-items: center;
+              & .timeline-border {
+                grid-row: 1 / span 2;
+                grid-column: 2 / span 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
 
-              & .border-top-circle,
-              & .border-bottom-circle {
-                display: block;
-                width: 15px;
-                height: 15px;
-                background-color: transparent;
-                border: 5px solid black;
+                & .border-top-circle,
+                & .border-bottom-circle {
+                  display: block;
+                  width: 15px;
+                  height: 15px;
+                  background-color: transparent;
+                  border: 5px solid black;
+                  border-radius: 50%;
+                  position: relative;
+                  box-sizing: border-box;
+                }
+
+                & .border-vertical-line {
+                  display: block;
+                  background-color: black;
+                  width: 5px;
+                  height: 70%;
+                  position: relative;
+                }
+
+                & .border-bottom-circle {
+                  background-color: black;
+                }
+              }
+
+              & img {
+                grid-row: 1 / span 2;
+                grid-column: image;
                 border-radius: 50%;
-                position: relative;
-                box-sizing: border-box;
+                background-color: #eeeeee;
+                align-self: center;
               }
 
-              & .border-vertical-line {
-                display: block;
-                background-color: black;
-                width: 5px;
-                height: 70%;
-                position: relative;
+              & .details-title-duration {
+                grid-row: 1;
+                grid-column: details;
+                align-self: end;
               }
 
-              & .border-bottom-circle {
-                background-color: black;
+              & .details-company-location {
+                grid-row: 2;
+                grid-column: details;
               }
             }
 
-            & img {
-              grid-row: 1 / span 2;
-              grid-column: image;
-              border-radius: 50%;
-              background-color: #eeeeee;
-              align-self: center;
-            }
-
-            & .details-title-duration {
-              grid-row: 1;
-              grid-column: details;
-              align-self: end;
-            }
-
-            & .details-company-location {
-              grid-row: 2;
-              grid-column: details;
+            & .job-description {
+              padding-left: 160px;
             }
           }
 
-          & .job-description {
-            padding-left: 160px;
+          .tools-and-skills {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+
+            & > * {
+              width: 50%;
+              margin-top: 10px;
+              padding-bottom: 20px;
             }
           }
         }
@@ -470,8 +482,151 @@
           happened in 2019, between "Hasin" and "Faraz Pajohan".
         </small>
       </section>
+
+      <!-- TECH SKILLS -->
+      <section>
+        <h2>
+          <img src="briefcase-svgrepo-com.svg" width="16" /> Tools & Skills
+        </h2>
+
+        <div class="tools-and-skills">
+          <b>JavaScript</b>
+          <small>
+            Confident enough to know I can build eveything I see with it
+          </small>
+
+          <b>DOM</b>
+          <small>
+            Know it and love it. I also love the challenge of re-implementing
+            everythings that modern frameworks and UI libraries can do with pure
+            DOM.
+          </small>
+
+          <b>React</b>
+          <small>
+            Have 4 years of full-time employed experience with it, and got
+            pretty deep while working on a website builder
+          </small>
+
+          <b>Vue</b>
+          <small>
+            Had experience with it fro more than 1 year. Got enough knowledge
+            with it while migrating a really complex project from Vue 2 to VUe
+            3. One that involved communicating our declarative state to an
+            imperative canvas library!
+          </small>
+
+          <b>AngularJS</b>
+          <small>
+            Worked for 2 full years with it, but don't remember much now.
+            Specially it was the first years of my career. I did not look at
+            things so much deep and conceptually back then.
+          </small>
+
+          <b>Angular</b>
+          <small>
+            Not much experience. Only a few months of professional experience.
+            Angular was the one that taught me TypeScript. But after learning
+            React and Vue, I always considered Angular as forcing us to
+            over-structure the code-base. Sometimes we want quick and dirty
+            while prototyping!
+          </small>
+
+          <b>Frontend E2E testing</b>
+          <small> Have done a few. With CyPress and Selenium. </small>
+
+          <b>NGINX</b>
+          <small>
+            I've fired up a few random personal projects on Linux VPSs. And were
+            a full stack developer for one year at Faraz Pajohan and I set up
+            the web application there.
+          </small>
+
+          <b>Linux Administration</b>
+          <small>
+            Very very basic knowledge! But enough to be able to turn a
+            fresh-installed linux distro (does not matter what distro much) into
+            a working web server. And enough to find my way around problems by
+            searching for them online. My top-notch noticable experiences are
+            building Ardour on my Ubuntu, and installing Arch linux following
+            its documentation.
+          </small>
+
+          <b>RegEx</b>
+          <small>
+            Once I realized I know nothing about them, and went to HackerRank
+            and solved A LOT of challenges. Now I am most comfortable with it.
+            The best feeling is when a colleauge asks for help about it and I am
+            able to help. 😎
+          </small>
+
+          <b>Git</b>
+          <small>
+            I love Git. And I've used it almost everywhere I was (except a few
+            months on a project I used SVN). I've been on GitHub, GitLab,
+            ButBucket, and just Git servers! I do "rebase" instead of "merge"
+            and I squash when necessary. I even resurrected "lost" work using
+            <code>git reflog</code>.
+          </small>
+
+          <b>React Native</b>
+          <small>
+            Most basic knowledge! Just have bootstrapped two projects with it
+            and abandoned them. Just enough to know the basic concepts of how it
+            works.
+          </small>
+
+          <b>TypeScript</b>
+          <small>
+            I am comfortable with it. Never got really deep with it. But never
+            was also left hanging with it. I can get good use of utility types,
+            type guards and template types where necessary.
+          </small>
+
+          <b>Node.js</b>
+          <small>
+            Fired up a few web backend projects with it, including one for
+            production at Faraz Pajohan. Used Express, MySQL, MongoDB, InfluxDB,
+            and Socket.IO with it.
+          </small>
+
+          <b>Express</b>
+          <small>
+            Not too advanced. Not too basic. Enough to launch a full RESTful API
+            with it with enough complexity and still keep it clean!
+          </small>
+
+          <b>MongoDB</b>
+          <small>
+            Most basic knowledge. Always loved it because it was easy 👀
+          </small>
+
+          <b>HTML</b>
+          <small>YES!</small>
+
+          <b>CSS</b>
+          <small>
+            I always accomplished what I wanted with it without knowing how!
+            Happens rarely recently. (I mean the "without knowing how" part)
+          </small>
+
+          <b>C++</b>
+          <small>
+            I've built a very basic 2D move and shoot game with SFML, wrote a
+            network packet classifier with CUDA and modified a CGI web service
+            written in C here and there.
+          </small>
+
+          <b>CUDA</b>
+          <small>
+            I know the concepts behind it, why and how this whole computing on
+            GPU is cool and implemented a network packet classifier with CUDA.
+          </small>
+        </div>
+      </section>
     </div>
   </body>
 </html>
 
 <!-- TODO: Double check to make sure durations and starting dates and ending dates are correct -->
+<!-- TODO: improve most parts of it with the help of ChatGPT -->
