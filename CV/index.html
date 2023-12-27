@@ -127,6 +127,32 @@
             }
           }
 
+          .gap-indicator {
+            border-left: 5px solid black;
+            margin-left: 133px;
+            padding: 20px;
+            position: relative;
+
+            ::before {
+              content: '🢙';
+              top: -15px;
+            }
+
+            ::before,
+            ::after {
+              width: 10px;
+              height: 10px;
+              font-size: 21px;
+              position: absolute;
+              left: -8px;
+            }
+
+            ::after {
+              content: '🢛';
+              bottom: 2px;
+            }
+          }
+
           .tools-and-skills {
             display: flex;
             flex-direction: row;
@@ -284,7 +310,7 @@
         <div class="job-experience-entry">
           <div class="work-experience-brief">
             <span class="end-date">May 2021</span>
-            <span class="start-date">March 2019</span>
+            <span class="start-date">April 2019</span>
             <span class="timeline-border">
               <span class="border-top-circle"></span>
               <span class="border-vertical-line"></span>
@@ -335,10 +361,32 @@
           </div>
         </div>
 
+        <div class="gap-indicator">
+          <small>
+            There were two other jobs removed from here, because for both of
+            them, I joined for the probabation period and left afterwards. One
+            was a big one specialized in stock, trading and investment platforms
+            and I worked on a product for future exchanges. The other one was a
+            small company working on a manager app (docs + calendar + TODO list
+            + etc...) and it was working on 3 native platforms: Web, Android and
+            Windows. I was working on the Web. The reason I left the first one
+            after the probabation period was lack of knowledgable people there
+            (despite the company size, for which I met >50 developers
+            everyday!). I did not see any potential for growth. And the reason I
+            left the latter, despite the previous one I was surrounded by really
+            genius people here, and I learned a lot even in those short ~1.5
+            months. The problem though was the excessive working culture there.
+            Working for 12 hours is OK if it happens from time to time, but do
+            it everyday and it starts harming your life. Both of these ~1.5
+            months experiences happened in 2019, between "Hasin" and "Faraz
+            Pajohan".
+          </small>
+        </div>
+
         <!-- HASIN -->
         <div class="job-experience-entry">
           <div class="work-experience-brief">
-            <span class="end-date">March 2019</span>
+            <span class="end-date">February 2019</span>
             <span class="start-date">May 2017</span>
             <span class="timeline-border">
               <span class="border-top-circle"></span>
@@ -420,7 +468,12 @@
           </div>
         </div>
 
-        <!-- TODO: Indicate gap here Military Service -->
+        <div class="gap-indicator">
+          <small>
+            The gap here is the mandatory military service I did in Iran for 2
+            years.
+          </small>
+        </div>
 
         <!-- Susha -->
         <div class="job-experience-entry">
@@ -470,25 +523,6 @@
             </p>
           </div>
         </div>
-
-        <!-- TODO: Move the gap below in the correct place where this gap happened -->
-        <small>
-          * There were two other jobs removed from here, because for both of
-          them, I joined for the probabation period and left afterwards. One was
-          a big one specialized in stock, trading and investment platforms and I
-          worked on a product for future exchanges. The reason I left after the
-          probabation period was lack of knowledgable people there (despite the
-          company size, for which I met >50 developers everyday!). I did not see
-          any potential for growth. The other one was a small company working on
-          a manager app (docs + calendar + TODO list + etc...) and it was
-          working on 3 native platforms: Web, Android and Windows. I was working
-          on the Web. Despite the previous one I was surrounded by really genius
-          people here, and I learned a lot even in those short ~1.5 months. The
-          problem though was the excessive working culture there. Working for 12
-          hours is OK and happens from time to time, but do it everyday and it
-          starts harming your life. Both of these ~1.5 months experiences
-          happened in 2019, between "Hasin" and "Faraz Pajohan".
-        </small>
       </section>
 
       <!-- TECH SKILLS -->
