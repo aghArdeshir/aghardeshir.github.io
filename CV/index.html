@@ -60,9 +60,11 @@
 
           & .job-experience-entry {
             padding-top: 30px;
+            line-height: 1.4rem;
 
             & .work-experience-brief {
               display: grid;
+              grid-gap: 5px;
               grid-template-rows: 1fr 1fr;
               grid-template-columns: [time] 120px 30px [image] 80px [details] 1fr;
               height: 80px;
@@ -130,6 +132,13 @@
               & .details-company-location {
                 grid-row: 2;
                 grid-column: details;
+              }
+
+              .details-title-duration,
+              .details-company-location {
+                b {
+                  margin-right: 5px;
+                }
               }
             }
 
