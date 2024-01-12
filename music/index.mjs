@@ -91,11 +91,6 @@ wavesurfer.on('audioprocess', function (currentTime) {
     return;
   }
 
-  if (index === 0 && lyrics[index].time - ANIMATION_DURATION > currentTime) {
-    lyricsDom.innerHTML = '';
-    return;
-  }
-
   setLyricsText(lyrics[index].text);
   if (lyrics[index - 1]) {
     setLyricsBackupText(lyrics[index - 1].text);
