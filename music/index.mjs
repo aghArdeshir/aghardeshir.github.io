@@ -35,7 +35,7 @@ let lyricsText = '';
 let lyricsBackupText = '';
 
 function setLyricsText(text = '') {
-  lyricsText = text || '';
+  lyricsText = text;
 
   lyricsDom.style.transition = '';
   lyricsDom.style.top = '90px';
@@ -53,7 +53,7 @@ function setLyricsText(text = '') {
 }
 
 function setLyricsBackupText(text = '') {
-  lyricsBackupText = text || '';
+  lyricsBackupText = text;
 
   lyricsBackupDom.style.transition = '';
   lyricsBackupDom.style.top = '50px';
