@@ -76,11 +76,19 @@ const wavesurfer = WaveSurfer.create({
 
 wavesurfer.load(song.songUrl);
 
+let lastIndex = -1;
+
 wavesurfer.on('audioprocess', function (currentTime) {
   const index =
     lyrics.findIndex(
       (member) => member.time - ANIMATION_DURATION >= currentTime
     ) - 1;
+
+  if (index === lastIndex) {
+    return;
+  }
+
+  lastIndex = index;
 
   if (index < 0) {
     lyricsDom.innerHTML = '';
@@ -88,15 +96,11 @@ wavesurfer.on('audioprocess', function (currentTime) {
   }
 
   const newLyricsText = lyrics[index].text;
-  if (newLyricsText !== lyricsText) {
-    setLyricsText(newLyricsText);
-  }
+  setLyricsText(newLyricsText);
 
   if (lyrics[index - 1]) {
     const newLyricsBackupText = lyrics[index - 1].text;
-    if (newLyricsBackupText !== lyricsBackupText) {
-      setLyricsBackupText(newLyricsBackupText);
-    }
+    setLyricsBackupText(newLyricsBackupText);
   }
 });
 
