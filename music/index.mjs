@@ -35,43 +35,39 @@ let lyricsText = '';
 let lyricsBackupText = '';
 
 function setLyricsText(text = '') {
-  if (lyricsText !== text) {
-    lyricsText = text || '';
+  lyricsText = text || '';
 
-    lyricsDom.style.transition = '';
-    lyricsDom.style.top = '90px';
-    lyricsDom.style.fontSize = CSS_SMALL_FONT_SIZE;
-    lyricsDom.style.opacity = '0.5';
+  lyricsDom.style.transition = '';
+  lyricsDom.style.top = '90px';
+  lyricsDom.style.fontSize = CSS_SMALL_FONT_SIZE;
+  lyricsDom.style.opacity = '0.5';
 
-    lyricsDom.innerHTML = lyricsText;
+  lyricsDom.innerHTML = lyricsText;
 
-    setTimeout(() => {
-      lyricsDom.style.transition = CSS_TRANSITION_ALL;
-      lyricsDom.style.top = CSS_TOP;
-      lyricsDom.style.fontSize = CSS_FONT_SIZE;
-      lyricsDom.style.opacity = '1';
-    }, ANIMATION_DURATION * 1000);
-  }
+  setTimeout(() => {
+    lyricsDom.style.transition = CSS_TRANSITION_ALL;
+    lyricsDom.style.top = CSS_TOP;
+    lyricsDom.style.fontSize = CSS_FONT_SIZE;
+    lyricsDom.style.opacity = '1';
+  }, ANIMATION_DURATION * 1000);
 }
 
 function setLyricsBackupText(text = '') {
-  if (lyricsBackupText !== text) {
-    lyricsBackupText = text || '';
+  lyricsBackupText = text || '';
 
-    lyricsBackupDom.style.transition = '';
-    lyricsBackupDom.style.top = '50px';
-    lyricsBackupDom.style.fontSize = CSS_FONT_SIZE;
-    lyricsBackupDom.style.opacity = '1';
+  lyricsBackupDom.style.transition = '';
+  lyricsBackupDom.style.top = '50px';
+  lyricsBackupDom.style.fontSize = CSS_FONT_SIZE;
+  lyricsBackupDom.style.opacity = '1';
 
-    lyricsBackupDom.innerHTML = lyricsBackupText;
+  lyricsBackupDom.innerHTML = lyricsBackupText;
 
-    setTimeout(() => {
-      lyricsBackupDom.style.transition = CSS_TRANSITION_ALL;
-      lyricsBackupDom.style.top = CSS_TOP;
-      lyricsBackupDom.style.fontSize = CSS_SMALL_FONT_SIZE;
-      lyricsBackupDom.style.opacity = '0.5';
-    }, ANIMATION_DURATION * 1000);
-  }
+  setTimeout(() => {
+    lyricsBackupDom.style.transition = CSS_TRANSITION_ALL;
+    lyricsBackupDom.style.top = CSS_TOP;
+    lyricsBackupDom.style.fontSize = CSS_SMALL_FONT_SIZE;
+    lyricsBackupDom.style.opacity = '0.5';
+  }, ANIMATION_DURATION * 1000);
 }
 
 const wavesurfer = WaveSurfer.create({
@@ -91,9 +87,16 @@ wavesurfer.on('audioprocess', function (currentTime) {
     return;
   }
 
-  setLyricsText(lyrics[index].text);
+  const newLyricsText = lyrics[index].text;
+  if (newLyricsText !== lyricsText) {
+    setLyricsText(newLyricsText);
+  }
+
   if (lyrics[index - 1]) {
-    setLyricsBackupText(lyrics[index - 1].text);
+    const newLyricsBackupText = lyrics[index - 1].text;
+    if (newLyricsBackupText !== lyricsBackupText) {
+      setLyricsBackupText(newLyricsBackupText);
+    }
   }
 });
 
