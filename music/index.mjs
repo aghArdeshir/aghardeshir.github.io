@@ -77,7 +77,9 @@ function setLyricsBackupText(text = '') {
 const wavesurfer = WaveSurfer.create({
   container: '#waveform',
 });
+
 wavesurfer.load(song.songUrl);
+
 wavesurfer.on('audioprocess', function (currentTime) {
   const index =
     lyrics.findIndex(
