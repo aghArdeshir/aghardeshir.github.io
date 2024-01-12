@@ -11,7 +11,7 @@ const song = [
 
 const lyrics = await (await fetch(song.lyricsUrl)).json();
 
-document.getElementsByClassName('cover-art')[0].src = song.coverUrl;
+document.querySelector('.cover-art').src = song.coverUrl;
 document.querySelector('.title-persian').textContent = song.title;
 document.querySelector('.artist-persian').textContent = song.artist;
 document.body.style.color = song.textColor;
