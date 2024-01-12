@@ -40,6 +40,15 @@ export const songs = {
       title: 'قشر خاکستری',
       artist: 'آق‌اردشیر',
     },
+    dogaanegi: {
+      coverUrl: 'songs/aghArdeshir - Dogaanegi/Dogaanegi.png',
+      songUrl: 'songs/aghArdeshir - Dogaanegi/aghArdeshir - Dogaanegi.mp3',
+      lyricsUrl: 'songs/aghArdeshir - Dogaanegi/Dogaanegi.lyrics.json',
+      bgColor: 'rgb(0, 4, 27)',
+      textColor: 'white',
+      title: 'دو گانگی',
+      artist: 'آق‌اردشیر',
+    },
   },
   nishkhand: {
     sarbasteyeYekSarbaz: {

@@ -6,7 +6,8 @@ const song = [
   songs.aghArdeshir.tann4,
   songs.aghArdeshir.mordBaram,
   songs.aghArdeshir.gheshreKhakestari,
-][4];
+  songs.aghArdeshir.dogaanegi,
+][5];
 
 fetch(song.lyricsUrl)
   .then((res) => res.json())
@@ -104,7 +105,9 @@ fetch(song.lyricsUrl)
       }
     });
 
-    setTimeout(() => {
-      wavesurfer.play();
-    }, 5000);
+    document.addEventListener('click', () => {
+      setTimeout(() => {
+        wavesurfer.playPause();
+      }, 1000);
+    });
   });
