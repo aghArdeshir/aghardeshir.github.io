@@ -1,5 +1,11 @@
 import { songs } from './songs/songs.mjs';
 
+const ANIMATION_DURATION = 0.3;
+const CSS_TOP = '10px';
+const CSS_FONT_SIZE = '18px';
+const CSS_SMALL_FONT_SIZE = '0px';
+const CSS_TRANSITION_ALL = `all ${ANIMATION_DURATION}s ease-out`;
+
 const song = [
   songs.aghArdeshir.badAzBad,
   songs.nishkhand.sarbasteyeYekSarbaz,
@@ -22,12 +28,6 @@ backgroundContainerDom.style.backgroundImage = `url("${song.coverUrl}")`;
 const secondaryBackgroundDom = document.querySelector('.secondary-background');
 secondaryBackgroundDom.style.backgroundColor = song.bgColor;
 
-const animationDuration = 0.3;
-const cssTransition = `all ${animationDuration}s ease-out`;
-const cssTop = '10px';
-const cssFontSize = '18px';
-const cssSmallFontSize = '0px';
-
 const lyricsDom = document.getElementById('lyrics');
 const lyricsBackupDom = document.getElementById('lyrics-backup');
 
@@ -40,17 +40,17 @@ function setLyricsText(text = '') {
 
     lyricsDom.style.transition = '';
     lyricsDom.style.top = '90px';
-    lyricsDom.style.fontSize = cssSmallFontSize;
+    lyricsDom.style.fontSize = CSS_SMALL_FONT_SIZE;
     lyricsDom.style.opacity = '0.5';
 
     lyricsDom.innerHTML = lyricsText;
 
     setTimeout(() => {
-      lyricsDom.style.transition = cssTransition;
-      lyricsDom.style.top = cssTop;
-      lyricsDom.style.fontSize = cssFontSize;
+      lyricsDom.style.transition = CSS_TRANSITION_ALL;
+      lyricsDom.style.top = CSS_TOP;
+      lyricsDom.style.fontSize = CSS_FONT_SIZE;
       lyricsDom.style.opacity = '1';
-    }, animationDuration * 1000);
+    }, ANIMATION_DURATION * 1000);
   }
 }
 
@@ -60,17 +60,17 @@ function setLyricsBackupText(text = '') {
 
     lyricsBackupDom.style.transition = '';
     lyricsBackupDom.style.top = '50px';
-    lyricsBackupDom.style.fontSize = cssFontSize;
+    lyricsBackupDom.style.fontSize = CSS_FONT_SIZE;
     lyricsBackupDom.style.opacity = '1';
 
     lyricsBackupDom.innerHTML = lyricsBackupText;
 
     setTimeout(() => {
-      lyricsBackupDom.style.transition = cssTransition;
-      lyricsBackupDom.style.top = cssTop;
-      lyricsBackupDom.style.fontSize = cssSmallFontSize;
+      lyricsBackupDom.style.transition = CSS_TRANSITION_ALL;
+      lyricsBackupDom.style.top = CSS_TOP;
+      lyricsBackupDom.style.fontSize = CSS_SMALL_FONT_SIZE;
       lyricsBackupDom.style.opacity = '0.5';
-    }, animationDuration * 1000);
+    }, ANIMATION_DURATION * 1000);
   }
 }
 
@@ -81,7 +81,7 @@ wavesurfer.load(song.songUrl);
 wavesurfer.on('audioprocess', function (currentTime) {
   const index =
     lyrics.findIndex(
-      (member) => member.time - animationDuration >= currentTime
+      (member) => member.time - ANIMATION_DURATION >= currentTime
     ) - 1;
 
   if (index < 0) {
@@ -89,7 +89,7 @@ wavesurfer.on('audioprocess', function (currentTime) {
     return;
   }
 
-  if (index === 0 && lyrics[index].time - animationDuration > currentTime) {
+  if (index === 0 && lyrics[index].time - ANIMATION_DURATION > currentTime) {
     lyricsDom.innerHTML = '';
     return;
   }
