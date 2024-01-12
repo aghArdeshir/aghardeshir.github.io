@@ -2,7 +2,7 @@ import { songs } from './songs/songs.mjs';
 
 const ANIMATION_DURATION = 0.3;
 const CSS_TOP = '10px';
-const CSS_FONT_SIZE = '18px';
+const CSS_NORMAL_FONT_SIZE = '18px';
 const CSS_SMALL_FONT_SIZE = '0px';
 const CSS_TRANSITION_ALL = `all ${ANIMATION_DURATION}s ease-out`;
 
@@ -47,7 +47,7 @@ function setLyricsText(text = '') {
   requestAnimationFrame(() => {
     lyricsDom.style.transition = CSS_TRANSITION_ALL;
     lyricsDom.style.top = CSS_TOP;
-    lyricsDom.style.fontSize = CSS_FONT_SIZE;
+    lyricsDom.style.fontSize = CSS_NORMAL_FONT_SIZE;
     lyricsDom.style.opacity = '1';
   });
 }
@@ -57,7 +57,7 @@ function setLyricsBackupText(text = '') {
 
   lyricsBackupDom.style.transition = '';
   lyricsBackupDom.style.top = '50px';
-  lyricsBackupDom.style.fontSize = CSS_FONT_SIZE;
+  lyricsBackupDom.style.fontSize = CSS_NORMAL_FONT_SIZE;
   lyricsBackupDom.style.opacity = '1';
 
   lyricsBackupDom.innerHTML = lyricsBackupText;
