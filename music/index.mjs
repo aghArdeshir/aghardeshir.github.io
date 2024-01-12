@@ -44,12 +44,12 @@ function setLyricsText(text = '') {
 
   lyricsDom.innerHTML = lyricsText;
 
-  setTimeout(() => {
+  requestAnimationFrame(() => {
     lyricsDom.style.transition = CSS_TRANSITION_ALL;
     lyricsDom.style.top = CSS_TOP;
     lyricsDom.style.fontSize = CSS_FONT_SIZE;
     lyricsDom.style.opacity = '1';
-  }, ANIMATION_DURATION * 1000);
+  });
 }
 
 function setLyricsBackupText(text = '') {
@@ -62,12 +62,12 @@ function setLyricsBackupText(text = '') {
 
   lyricsBackupDom.innerHTML = lyricsBackupText;
 
-  setTimeout(() => {
+  requestAnimationFrame(() => {
     lyricsBackupDom.style.transition = CSS_TRANSITION_ALL;
     lyricsBackupDom.style.top = CSS_TOP;
     lyricsBackupDom.style.fontSize = CSS_SMALL_FONT_SIZE;
     lyricsBackupDom.style.opacity = '0.5';
-  }, ANIMATION_DURATION * 1000);
+  });
 }
 
 const wavesurfer = WaveSurfer.create({
