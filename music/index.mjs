@@ -1,3 +1,4 @@
+import WaveSurfer from './wavesurfer.mjs';
 import { songs } from './songs/songs.mjs';
 
 const ANIMATION_DURATION = 0.3;
