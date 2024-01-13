@@ -26,9 +26,6 @@ document.body.style.color = song.textColor;
 const backgroundContainerDom = document.querySelector('.background-container');
 backgroundContainerDom.style.backgroundImage = `url("${song.coverUrl}")`;
 
-const secondaryBackgroundDom = document.querySelector('.secondary-background');
-secondaryBackgroundDom.style.backgroundColor = song.bgColor;
-
 const lyricsDom = document.getElementById('lyrics');
 const lyricsBackupDom = document.getElementById('lyrics-backup');
 
