@@ -1,15 +1,17 @@
 .title-persian,
 .artist-persian {
-  text-align: center;
+  text-align: right;
+  padding-right: 165px;
 }
 
 .artist-persian {
   margin-top: -5px;
-  font-size: 12px;
+  font-size: 40px;
+  margin-bottom: 0;
 }
 
 .title-persian {
-  font-size: 30px;
+  font-size: 60px;
   margin: 0;
 }
 
@@ -38,9 +40,18 @@
 }
 
 .cover-art {
-  background-color: grey;
   display: block;
   margin: auto;
+  padding-bottom: 30px;
+}
+
+.artist-persian,
+.title-persian,
+.lyrics,
+.lyrics-backup,
+.waveform,
+.cover-art {
+  opacity: 70%;
 }
 
 body {
@@ -48,7 +59,7 @@ body {
   line-height: 1.7;
   font-family: Vazir, Tahoma, 'DejaVu Sans', helvetica, arial, freesans,
     sans-serif;
-  padding-top: 280px;
+  padding-top: 240px;
   min-height: 100vh;
   overflow: hidden;
 }
@@ -56,18 +67,22 @@ body {
 .waveform {
   position: relative;
   margin-top: -20px;
+  width: 80vw;
+  padding-left: 10vw;
+  padding-top: 80px;
 }
 
 .background-container {
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center center;
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   z-index: -2;
-  filter: blur(40px);
+  filter: blur(400px);
 }
 
 .secondary-background {

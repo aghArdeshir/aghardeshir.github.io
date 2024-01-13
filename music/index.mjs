@@ -3,7 +3,7 @@ import { songs } from './songs/songs.mjs';
 
 const ANIMATION_DURATION = 0.3;
 const CSS_TOP = '10px';
-const CSS_NORMAL_FONT_SIZE = '18px';
+const CSS_NORMAL_FONT_SIZE = '40px';
 const CSS_SMALL_FONT_SIZE = '0px';
 const CSS_TRANSITION_ALL = `all ${ANIMATION_DURATION}s ease-out`;
 
@@ -73,6 +73,9 @@ function setLyricsBackupText(text = '') {
 
 const wavesurfer = WaveSurfer.create({
   container: '#waveform',
+  waveColor: song.textColor,
+  barWidth: 10,
+  height: 100,
 });
 
 wavesurfer.load(song.songUrl);
