@@ -1,8 +1,8 @@
 import WaveSurfer from './wavesurfer.mjs';
 import { songs } from './songs/songs.mjs';
 
-const ANIMATION_DURATION = 0.3;
-const CSS_TOP = '10px';
+const ANIMATION_DURATION = 0.2;
+const CSS_TOP = '20px';
 const CSS_NORMAL_FONT_SIZE = '40px';
 const CSS_SMALL_FONT_SIZE = '0px';
 const CSS_TRANSITION_ALL = `all ${ANIMATION_DURATION}s ease-out`;
@@ -36,7 +36,7 @@ function setLyricsText(text = '') {
   lyricsText = text;
 
   lyricsDom.style.transition = '';
-  lyricsDom.style.top = '90px';
+  lyricsDom.style.top = '120px';
   lyricsDom.style.fontSize = CSS_SMALL_FONT_SIZE;
   lyricsDom.style.opacity = '0.5';
 
