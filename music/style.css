@@ -22,7 +22,6 @@
   max-height: 80px;
   display: block;
   min-height: 80px;
-  overflow: hidden;
   margin: 0;
   padding: 0;
 }
@@ -33,7 +32,6 @@
   max-height: 40px;
   display: block;
   min-height: 40px;
-  overflow: hidden;
   position: relative;
   margin: 0;
   padding: 0;
@@ -61,7 +59,6 @@ body {
     sans-serif;
   padding-top: 240px;
   min-height: 100vh;
-  overflow: hidden;
 }
 
 .waveform {
@@ -94,5 +91,4 @@ body {
   z-index: -1;
   position: fixed;
   opacity: 0.72;
-  overflow: hidden;
 }
