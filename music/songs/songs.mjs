@@ -41,7 +41,7 @@ export const songs = {
       songUrl: 'songs/aghArdeshir - Dogaanegi/aghArdeshir - Dogaanegi.mp3',
       lyricsUrl: 'songs/aghArdeshir - Dogaanegi/Dogaanegi.lyrics.json',
       textColor: 'white',
-      title: 'دو گانگی',
+      title: 'دوگانگی',
       artist: 'آق‌اردشیر',
     },
   },
