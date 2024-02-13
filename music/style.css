@@ -61,6 +61,7 @@ body {
     sans-serif;
   padding-top: 240px;
   min-height: 100vh;
+  overflow: hidden;
 }
 
 .waveform {
@@ -93,4 +94,25 @@ body {
   z-index: -1;
   position: fixed;
   opacity: 0.72;
+}
+
+@media all and (min-width: 1920px) {
+  section {
+    display: flex;
+    flex-direction: row-reverse;
+    padding-right: 10vw;
+  }
+
+  .artist-and-lyrics {
+    flex: 1;
+  }
+
+  .cover-art {
+    width: 600px;
+    height: 600px;
+  }
+
+  body {
+    padding-top: 120px;
+  }
 }
