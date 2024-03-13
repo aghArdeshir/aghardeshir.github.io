@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Holland2Stay easy filters</title>
+  </head>
+  <body>
+    <button onclick="openall()">open all</button>
+    <script>
+      function openall() {
+        const links = document.querySelectorAll('a');
+        console.log('iinks', links);
+        links.forEach((link) => {
+          window.open(link.href, '_blank');
+        });
+      }
+
+      const availability = [
+        '&available_to_book%5Bfilter%5D=Available+to+book%2C179',
+        '&available_to_book%5Bfilter%5D=Available+in+lottery%2C336',
+      ];
+
+      const city = [
+        '&city%5Bfilter%5D=Amsterdam%2C24',
+        '&city%5Bfilter%5D=Haarlem%2C616',
+        '&city%5Bfilter%5D=Utrecht%2C27',
+      ];
+
+      const numberOfRooms = [
+        '&no_of_rooms%5Bfilter%5D=Studio%2C104',
+        '&no_of_rooms%5Bfilter%5D=1%2C105',
+        '&no_of_rooms%5Bfilter%5D=2%2C106',
+      ];
+
+      const baseUrl = 'https://holland2stay.com/residences?page=1';
+
+      const allVariations = [];
+
+      for (let i = 0; i < availability.length; i++) {
+        for (let j = 0; j < city.length; j++) {
+          for (let k = 0; k < numberOfRooms.length; k++) {
+            allVariations.push(
+              baseUrl + availability[i] + city[j] + numberOfRooms[k]
+            );
+          }
+        }
+      }
+
+      allVariations.forEach((variation) => {
+        const a = document.createElement('a');
+        a.style.fontSize = '20px';
+        a.style.margin = '5px';
+        a.style.display = 'block';
+        a.href = variation;
+        a.innerText = variation;
+        document.body.appendChild(a);
+        document.body.appendChild(document.createElement('br'));
+        a.target = '_blank';
+      });
+
+      document.querySelector('a').focus();
+    </script>
+  </body>
+</html>
