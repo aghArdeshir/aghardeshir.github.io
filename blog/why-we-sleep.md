@@ -6,11 +6,11 @@ outline: deep
 
 Recently I finished reading a book called "Why We Sleep" by "Matthew Walker".
 
-It was so good that I felt I had to share it in a blog post.
+It was so good that  I had to share it in a blog post.
 
 ![Why We Sleep by Matthew Walker](./why-we-sleep-cover.jpg)
 
-The book first forms a question: "Why did evolution design sleep, while it does not seem to be beneficial: because you can't search for food while asleep and also also can't protect yourself from predators in case of attack." If that question makes you curious too, or if you think sleeping is a waste of time, or if you don't really feel awake & energetic during the day, or if you sleep less than 7:30~8:30 hours a night, then I highly recommend this book to you. This book helps you (as it helped me) love the sleep and even get excited about it.
+The book first forms a question: "Why did evolution design sleep, while it does not seem to be beneficial in any evolutionary way? You can't search for food while asleep and also also can't protect yourself from predators in case of attack." If that question makes you curious too, or if you think sleeping is a waste of time, or if you don't really feel awake and energetic during the day, or if you sleep less than 7:30~8:30 hours a night, then I highly recommend this book to you. This book helps you fall in love with sleep and get excited about it.
 
 Here I list the most interesting topics you can learn about by reading this scientific book:
 
@@ -27,7 +27,7 @@ Here I list the most interesting topics you can learn about by reading this scie
 - How are Schizophrenia and sleep related?
 - Why do we have "night owls" and "morning larks" in society beside each other? (this one was a very interesting evolutionary story)
 - What are the evolutionary advantages of sleep for human beings?
-- Why and How different colors in light spectrum "trick" our brain into thinking it is wake time or sleep time? Specifically why & how "blue light" at night harms your sleep?
+- Why and How different colors in light spectrum "trick" our brain into thinking it is wake time or sleep time? Specifically why and how "blue light" at night harms your sleep?
 - What is the fight-or-flight response?
 - How do we feel passage of time while asleep and while dreaming?
 - So many people claim they can predict your future based on your dreams! But can scientists actually predict your dreams by your waking life?
