@@ -15,19 +15,19 @@ The book first forms a question: "Why did evolution design sleep, while it does 
 Here I list the most interesting topics you can learn about by reading this scientific book:
 
 - What is dreaming? Why we dream? Why do dreams feel weird? How are dreams formed?
-- When did sleep form during evolution? Was it even formed during evolution? Or was it all sleep and then "wakefulness" emerged?
+- When did sleep form during evolution? Was it even formed during evolution? Or was it all sleep and then **wakefulness** emerged?
 - How sleep differs in different animals (compared to human beings)?
 - Why was sleep deprivation record banned from Guiness World Records book?
 - What is Lucid dreaming? Can science prove lucid dreaming?
 - Why some companies pay bonuses to their employees who sleep more (and why every company should start doing so for their own benefit)?
 - What are different stages of sleep (REM and NREM) and how do they affect your overal physical and mental health?
-- How coffe (caffeine in general) makes you "feel" more awake and alive? (You will love your daily coffe **less** after learning about effects of it)
+- How coffe (caffeine in general) makes you **feel** more awake and alive? (You will love your daily coffe **less** after learning about effects of it)
 - How are ADHD and sleep related?
 - How are Alzheimer and sleep related?
 - How are Schizophrenia and sleep related?
 - Why do we have "night owls" and "morning larks" in society beside each other? (this one was a very interesting evolutionary story)
 - What are the evolutionary advantages of sleep for human beings?
-- Why and How different colors in light spectrum "trick" our brain into thinking it is wake time or sleep time? Specifically why and how "blue light" at night harms your sleep?
+- Why and How different colors in light spectrum **trick** our brain into thinking it is wake time or sleep time? Specifically why and how **blue light** at night harms your sleep?
 - What is the fight-or-flight response?
 - How do we feel passage of time while asleep and while dreaming?
 - So many people claim they can predict your future based on your dreams! But can scientists actually predict your dreams by your waking life?
@@ -42,7 +42,7 @@ Here I list the most interesting topics you can learn about by reading this scie
 - Does sleep loss impact genes?
 - Why we hate (and should keep hating) morning alarm clocks? (this one made me think about when was the last time I woke up naturally as a result of sufficient/adequate sleep!)
 - Why and how does jet lag happen?
-- The myht of "I need lesser amount of sleep": Is it really true that some people claim they need less sleep to function "normally"? (Spoiler: Hell no!)
+- The myht of "I need lesser amount of sleep": Is it really true that some people claim they need less sleep to function **normally**? (Spoiler: Hell no!)
 - How does enough sleep relate to overal health, immune system, heart disease, heart attacks, etc...?
 - What is microsleep?
 - How does brain work in general? (in this book you will read mostly about parts that relate directly or indirectly to sleeping and dreaming)
