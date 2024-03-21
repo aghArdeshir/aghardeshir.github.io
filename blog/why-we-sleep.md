@@ -60,3 +60,5 @@ Here I list the most interesting topics you can learn about by reading this scie
 And a lots of other cool tips about how you could optimize and benefit from your sleep, plus lots of interesting experiments done on humans and lab rats and spiders! and the findings.
 
 And these are only the interesting facts I remembered about. Definitely this book was loaded with science, interesting facts and thought-provoking ideas. It helped me a lot, I feel more awake, energetic, disciplined and focused after reading this book and I'm sure you'll do too.
+
+Thanks for reading! ❤️
