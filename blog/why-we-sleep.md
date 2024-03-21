@@ -41,7 +41,7 @@ Here I list the most interesting topics you can learn about by reading this scie
 - How much sleep deprivation is equivalent to being legally drunk? (And you are still allowed to drive legally while this much sleep-deprived and even more) How much of car crashes relate to sleep deprivation?
 - What does modern science have to say about Sigmund Freud's dream interpretations?
 - Does sleep loss impact genes?
-- Why do we hate (and should keep hating) morning alarm clocks? (this one made me think about when was the last time I woke up naturally as a result of sufficient/adequate sleep!)
+- Why do we hate (and should keep hating) morning alarm clocks? (this one made me think about when was the last time I woke up naturally, without an alarm clock, as a result of sufficient/adequate sleep!)
 - Why and how does jet lag happen?
 - The myth of "I need a lesser amount of sleep": Is it true that some people claim they need less sleep to function **normally**? (Spoiler: Hell no!)
 - How does enough sleep relate to overall health, immune system, heart disease, heart attacks, etc...?
