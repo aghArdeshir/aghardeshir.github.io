@@ -10,7 +10,6 @@ It was so good that I had to share it in a blog post.
 
 ![Why We Sleep by Matthew Walker](./why-we-sleep-cover.jpg '"Why We Sleep" by "Matthew Walker"')
 
-
 The book first forms a question: "Why did evolution design sleep, when it does not seem to be beneficial in any evolutionary way? You can't search for food while asleep and also also can't protect yourself from predators in case of attack." If that question makes you curious too, or if you think sleeping is a waste of time, or if you don't feel awake and energetic during the day, or if you sleep less than 7:30~8:30 hours a night, then I highly recommend this book to you. This book helps you fall in love with sleep, get excited about it, and see immediate good results in your life.
 
 Here I list the most interesting topics you can learn about by reading this scientific book:
@@ -62,4 +61,9 @@ And lots of other cool tips about how you could optimize and benefit from your s
 
 And these are only the interesting facts I remembered about. This book was loaded with science, interesting facts, and thought-provoking ideas. It helped me a lot, I feel more awake, energetic, disciplined, and focused after reading this book and I'm sure you'll do too.
 
+## Key Takeaway
+
+In this era, most of us don't have enough sleep, or we don't have the quality sleep we should. No matter how sharp and productive I **felt** I was on on days I slept less than 8 hours a night, after changing my sleep routine to get adequate sleep, I witnessed life-changing results. I'm paying active attention to days followed by enough sleep and days followed by lack of sleep / bad sleep. The differences are very much noticable. It is surprising how you can see the effects of good sleep on your attention level and energy level immediately; rather than having to apply it for weeks.
+
 Thanks for reading! ❤️
+
