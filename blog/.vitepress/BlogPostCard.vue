@@ -39,6 +39,7 @@ a.card {
   color: inherit;
   transition: all 0.2s ease-in-out;
   max-width: 800px;
+  margin-bottom: 1rem;
 }
 
 h2 {
