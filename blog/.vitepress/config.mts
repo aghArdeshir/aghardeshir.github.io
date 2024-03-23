@@ -23,9 +23,9 @@ export default defineConfig({
       {
         text: 'Blog Posts',
         items: [
-          // { text: 'Markdown Examples', link: '/markdown-examples' },
-          // { text: 'Runtime API Examples', link: '/api-examples' }
+          // TODO: Woule be best if these items were read from the index.md file
           { text: 'Merge Request Mastery', link: '/merge-request-mastery' },
+          { text: 'Why We Sleep (book)', link: '/why-we-sleep' },
         ],
       },
     ],
