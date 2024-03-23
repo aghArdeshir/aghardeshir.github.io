@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useData } from 'vitepress';
+import { useData } from "vitepress";
 
 const { site } = useData();
 
@@ -12,7 +12,7 @@ const { post } = defineProps<{
   };
 }>();
 
-const link = (site.value.base + post.link).replace('//', '/');
+const link = (site.value.base + post.link).replace("//", "/");
 </script>
 
 <template>
@@ -66,4 +66,17 @@ span.read-more {
   grid-row: 3 / 4;
   text-align: right;
 }
+
+.read-more {
+  position: relative;
+  left: 0;
+  transition: all 0.2s;
+}
+
+a.card:hover {
+  .read-more {
+    left: 5px;
+  }
+}
 </style>
+
