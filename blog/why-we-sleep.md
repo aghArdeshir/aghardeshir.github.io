@@ -8,7 +8,8 @@ Recently I finished reading a book called "Why We Sleep" by "Matthew Walker".
 
 It was so good that I had to share it in a blog post.
 
-![Why We Sleep by Matthew Walker](./why-we-sleep-cover.jpg)
+![Why We Sleep by Matthew Walker](./why-we-sleep-cover.jpg '"Why We Sleep" by "Matthew Walker"')
+
 
 The book first forms a question: "Why did evolution design sleep, when it does not seem to be beneficial in any evolutionary way? You can't search for food while asleep and also also can't protect yourself from predators in case of attack." If that question makes you curious too, or if you think sleeping is a waste of time, or if you don't feel awake and energetic during the day, or if you sleep less than 7:30~8:30 hours a night, then I highly recommend this book to you. This book helps you fall in love with sleep, get excited about it, and see immediate good results in your life.
 
