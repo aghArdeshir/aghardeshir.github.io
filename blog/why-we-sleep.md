@@ -6,7 +6,7 @@ outline: deep
 
 Recently I finished reading a book called "Why We Sleep" by "Matthew Walker".
 
-It was so good that  I had to share it in a blog post.
+It was so good that I had to share it in a blog post.
 
 ![Why We Sleep by Matthew Walker](./why-we-sleep-cover.jpg)
 
