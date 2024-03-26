@@ -58,11 +58,11 @@ Here I list the most interesting topics you can learn about by reading this scie
 
 And lots of other cool tips about how you could optimize and benefit from your sleep, plus lots of interesting experiments done on humans and lab rats and spiders! and the findings.
 
-And these are only the interesting facts I remembered about. This book was loaded with science, interesting facts, and thought-provoking ideas. It helped me a lot, I feel more awake, energetic, disciplined, and focused after reading this book and I'm sure you'll do too.
+And these are only the interesting facts I remembered about. This book was loaded with science, interesting facts, and thought-provoking ideas. It helped me a lot, I feel more awake, energetic, disciplined, and focused after reading this book and applying what I learned, and I'm sure you'll do too.
 
 ## Key Takeaway
 
-In this era, most of us don't have enough sleep, or we don't have the quality sleep we should. No matter how sharp and productive I **felt** I was on on days I slept less than 8 hours a night, after changing my sleep routine to get adequate sleep, I witnessed life-changing results. I'm paying active attention to days followed by enough sleep and days followed by lack of sleep / bad sleep. The differences are very much noticable. It is surprising how you can see the effects of good sleep on your attention level and energy level immediately; rather than having to apply it for weeks.
+In this era, most of us don't have enough sleep, or we don't have the quality sleep we should. No matter how sharp and productive I **felt** I was on days I slept less than 8 hours a night, after changing my sleep routine to get adequate sleep, I witnessed life-changing results. I'm paying active attention to days followed by enough sleep and days followed by lack of sleep / bad sleep. The differences are very noticeable. It is surprising how you can see the effects of good sleep on your attention level and energy level immediately; rather than having to apply it for weeks.
 
 Thanks for reading! ❤️
 
