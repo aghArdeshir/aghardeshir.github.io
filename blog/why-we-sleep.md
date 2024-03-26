@@ -34,7 +34,6 @@ Here I list the most interesting topics you can learn about by reading this scie
 - What is Circadian rhythm?
 - How do your sleep needs change while you grow up?
 - What is the relation between sleeping, dreaming, and creativity? How does sleeping help with creativity?
-- What roles did sleep (and the way we sleep) play in our evolution?
 - How does sleeping in trees differ from sleeping on the ground? What role did this change play in our evolution? How did the discovery of fire help in this regard?
 - Why do eyes move while dreaming?
 - What is the clinical definition of insomnia?
