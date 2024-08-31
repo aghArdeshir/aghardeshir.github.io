@@ -46,7 +46,7 @@ There is this idea I've been thinking about a lot. A very fair lottery:
 
 ## Blockers / Unknowns
 
-- The last time I started working on it, based on research, the payment gateways (stripe, etc...) charged a lot of money (around 30%), which affects the outcome and mekes it faaaar less appealing. ChatGPT said using SEPA would be less expensive, haven't looked into that yet. Maybe I can start small, limiting by the country (Netherlands) and then grow (Not even sure if that is zero-cost or cheap). Also ChatGPT said negotations are possilbe, for instance with stripe, adyen, etc... to charge less money.
+- The last time I started working on it, based on research, the payment gateways (stripe, etc...) charged a lot of money (around 30%), which affects the outcome and makes it far less appealing. ChatGPT said using SEPA would be less expensive, haven't looked into that yet. Maybe I can start small, limiting by the country (Netherlands) and then grow (Not even sure if that is zero-cost or cheap). Also ChatGPT said negotiations are possible, for instance with stripe, Adyen, etc... to charge less money.
 - There is possibly a huge huge huge deal of legal stuff to know: Lottery regulations, taxing, etc... . Those need to be figured out and dealt with as well.
 - How can I prove the code deployed and functioning in the production, is the same open source code people see in the repo?
 
@@ -56,15 +56,15 @@ There is this idea I've been thinking about a lot. A very fair lottery:
   - However, there is a challenge here. Imagine we have the super perfect code, readable, secure and everyone trusts the code. But how do you prove that this is the code in production? One can show you one code and deploy another code to prod. Its something that I haven't solved yet. One solution could be a third-party platform designed specifically for this. For instance something like linode+netlify that its only input is a GitHub repo. So as long as that third-party service confirms a website/domain/product is deployed from a GitHub repo, then its trusted that it is the same code. However not everything can be public: Secrets, API Keys, etc...
 - Not sure why, but I believe simple files (JSON/CSV) are more suitable for this project than databases. Each round of lottery could be a folder, each participant or payment record becomes a file. Code will be less complicated (no SQL), more pure (Node.js supports files natively) and less setup required to get running (a Node.js runtime is enough - or, the Dockerfile becomes much much simpler).
 - We don't need that much information from participants. If 100,000 participants have paid 1 dollar, and 1 is going to win, we don't really need that much information from the 99,999 people who has not won. We actually need none! We just need their 1 euro payment. For that, participants do not need to login. So when paying we ask for their email or phone number, or whatever means they are comfortable getting contacted with. And we may get the last 3 or 4 digits of their IBAN or account number, that in case of winning, the money will be credited into. And after a lottery is done, we can get rid of all data (files). We can keep on to them for another year, just in case, and then get rid of them.
-- We can have multiple algorithms for generating a random number/winner. Some purely techincal (JS' `Math.random()`), some dependent on the real world event (example: what value will S&P500 have the next Wednesdat at 11:30). There should be a page for people submitting their ideas of generating randomness (maybe they could get money fo it), and there should be a page explaining the random methods used in the simplest language possible for everybody.
+- We can have multiple algorithms for generating a random number/winner. Some purely technical (JS' `Math.random()`), some dependent on the real world event (example: what value will S&P500 have the next Wednesday at 11:30). There should be a page for people submitting their ideas of generating randomness (maybe they could get money fo it), and there should be a page explaining the random methods used in the simplest language possible for everybody.
 - We can include twists as well: a lottery can have multiple winners, its not always only one person.
-- The website administration Authentication must be done through third party. No self-hosted authentication method can be secure enough. Use Google OAuth or other well established and secure methods to log in the admin. And, the admin must be hard coded in the deployed app, (as environement variables probably), like: `ADMIN_EMAIL=<someone>@gmail.com`. This way we harden the checking of who is admin.
+- The website administration Authentication must be done through third party. No self-hosted authentication method can be secure enough. Use Google OAuth or other well established and secure methods to log in the admin. And, the admin must be hard coded in the deployed app, (as environment variables probably), like: `ADMIN_EMAIL=<someone>@gmail.com`. This way we harden the checking of who is admin.
 - We get the last few digits of the IBAN to prevent fraud. We call the person by their provided contact method and ask for the full IBAN. If it didn't match with what they provided at the beginning, its cancelled. No change! (We should also communicate this when users are choosing to participate)
 - If we contact a winner and they do not respond, we give them a few days and contact several other times, and if still unreachable, we rune the random number generator again and choose another winner.
 
 ## Names?
 
-- I thought of several names for this businees:
+- I thought of several names for this business:
   - "Fairest Lottery"
   - "Buy a Dream"
   - "A Million Dreams"
@@ -73,4 +73,4 @@ There is this idea I've been thinking about a lot. A very fair lottery:
 
 ## History / Origin
 
-- This idea came to me when I was overwhelmed by how expensive it is to buy a home in the Nethrelands. Thought what if there is a lottery that gave me this money, and it was easy to trust the lottery. This idea is to fulfill the role of that lottery I was dreaming about.
+- This idea came to me when I was overwhelmed by how expensive it is to buy a home in the Netherlands. Thought what if there is a lottery that gave me this money, and it was easy to trust the lottery. This idea is to fulfill the role of that lottery I was dreaming about.
