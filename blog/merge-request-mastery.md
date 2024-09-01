@@ -21,7 +21,7 @@ For a good MR:
   - 🪓 Break the task at hand
   - 🚧 Don't fix everything (unrelated stuff) on your way
   - 🔧 Extract out refactors to separate MRs
-  - 📏 Extract out formattings to separate MRs
+  - 📏 Extract out formatting to separate MRs
   - 🕵️ Review your own MR before asking anyone else to review it
 - ✅ Make sure CI passes
 - 📝 Write concise commit messages
@@ -34,7 +34,7 @@ For a good MR:
   - [**🪓 Break the task at hand**](#break-the-task): Break down big features into smaller, **deliverable** parts. Share your plan with the team through your issue-tracking system, use feature flags if needed, and create separate Merge Requests for each piece. This makes reviews faster, feedback more focused and useful, and the merging process **safer**.
   - [**🚧 Don't fix everything on your way**](#dont-fix-everything): Don't be eager to fix every problem or clean up every poorly-written piece of code on your way. The best you can do is to create a ticket in your issue-tracking system when you see a problem (either functional or technical). Prioritize and decide about them with the team.
   - [**🔧 Extract refactors into separate MRs**](#extract-refactors): Keep refactors and functional changes separate. Make a different Merge Request for each refactor, explaining why it's needed. This makes the review of the original Merge Request focused and uncomplicated.
-  - [**📏 Extract formattings into separate MRs**](#extract-formattings): Don't mix unnecessary formatting changes with your main updates. If formatting is needed, create a separate branch that formats **all** files of the project automatically using a formatting tool. This also makes the original MR less complicated and easier to read.
+  - [**📏 Extract formatting into separate MRs**](#extract-formatting): Don't mix unnecessary formatting changes with your main updates. If formatting is needed, create a separate branch that formats **all** files of the project automatically using a formatting tool. This also makes the original MR less complicated and easier to read.
   - [**🕵️ Review your own MR before asking someone else to review it**](#review-your-own-mr): This helps you view your changes and your approach from a new perspective. To do this, make sure to use the reviewing platform you always use to review other MRs.
 - [**✅ Make sure CI passes**](#make-ci-pass): It helps save time to catch issues that can be caught automatically by tools rather than a manual review by a teammate.
 - [**📝 Meaningful commits**](#meaningful-commits): Make commits meaningful and well-separated. Use your IDE to stage specific and related changes together, keeping things focused. Write concise commit messages (and also MR titles). If you can't make your commit message (or the MR title) concise, it **may** be a sign your Commit (or the MR) is doing more than one thing and could be broken into separate ones.
@@ -88,7 +88,7 @@ This approach makes the review process of both the refactor MR and the original 
 
 ---
 
-### 📏 Extract formattings into separate MRs {#extract-formattings}
+### 📏 Extract formatting into separate MRs {#extract-formatting}
 
 Similar to the previous point, avoid including unrelated file formatting with your changes. If you need to format some files, create a branch out of the **main** branch and use a tool (prettier, eslint, etc...) that automatically formats **all** files. Because tools are **rarely** (read **never**) wrong. The reviewer doesn't even need to read through the formatting Merge Request carefully, as you've already mentioned in the description that "this MR is only code formatting".
 
