@@ -40,13 +40,21 @@ This is too raw and some flaws are obvious:
 
 - A hateful team of only a few have potential to brutally sabotage every new package with only 1 contributor.
 - Attacks similar to 51% attack sound like to be easy to carry on an even larger project in such a platform.
-- There should be mechanism of weighing people's votes. Imagine there have been 100 good approved changes recently on various projects, and there is this one person who has left down votes on every one of them. We can conclude that this person is probably trying to break stuff rather than fix stuff. Then that person's vote weight should be lowered.
+- There should be mechanism of weighing people's votes. Imagine there have been 100 good approved changes recently on various projects, and there is this one person who has left down-votes on every one of them. We can conclude that this person is probably trying to break stuff rather than fix stuff. Then that person's vote weight should be lowered.
 - Imagine you run a country on this basis: every single change requires people to vote and you just do as most people desire. I imagine the outcome won't be a good living situation. The same could be true for a piece of software. What majority believe cannot mean its 100% a good change. As another example, think of Instagram; Is any post with more likes necessarily better than any post with less likes?
 - Imagine a giant company (let's say Google) depends on a project, and somebody presents a change that is not aligned with Google's goals. Even though that change could be a good change, Google can easily vote against it using its human power: so many good developers that have been already contributing to various projects and gaining reputation. Their votes will take over causing monopoly-dictatorship even on most free open source project platform.
 - How would you handle reports of users in such a platform? If a few people report that somebody is trying to ruin a project, or someone is spamming, or being disruptive, misinformation or disinformation, etc...; how would you behave? Manual human intervention means a single person's belief/point-of-view takes precedence, ruining the whole democracy and voting system. And not acting at all could also result in different kind of problem: think of people posting porn everywhere when there is no reporting system in place.
+- I imagine a situation that a good proposed change is up for voting, so many people left up votes, but some people that left down votes prevents the change from being merged. And then a person from the up voters mentions a down voter like: "@someone I see you left down votes, but I didn't see any backing-up comment from you. Would you please leave a comment and explain why you disagree to this change.", or even "@someone, you previously mentioned you disagree because of X, but @another-one described the situation and it covers also your concern. Would you mind changing your vote to an up-vote if you agree". What if no one ever backs-up their down vote or up-vote in a persuasive way. Can that vote be disregarded?
 
-But, is voting the ultimate solution? There should be some other (maybe combinatorial) method that would be more robust for maintaining ownerless projects in a democracy-like environment. Maybe include time: "If after 1 month, number of up votes were at least two times of down votes, merge!"
+But, is voting the ultimate solution? There should be some other (maybe combinatorial) method that would be more robust for maintaining ownerless projects in a democracy-like environment. Maybe include time: "If after 1 month, number of up-votes were at least two times of down-votes, merge!"
 
 ## Conclusion
 
 What I'm trying to achieve is open source projects that will be active as long as they have contributors; vs. a project being active as long as its maintainer is maintaining it. (Consider TextMate as a bad example). In addition, a well-established project in such a democracy world, will have less/none suddens pivots or vandalism (think of the `left-pad` incidence). Such an **Ownerless Open Source Project** could be easily trusted to rely on.
+
+## Next Actions
+
+- A POC with a few sample Git repos hosted in it.
+- A few mock users called actor 1, actor 2, ..., actor 5.
+- A few sample code proposals to the project.
+- Acting as those mock users to up-vote and down-vote the proposed change and see how the system behaves.

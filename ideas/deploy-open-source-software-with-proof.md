@@ -35,3 +35,11 @@ There should be such a platform that accepts GitHub/GitLab repos and some enviro
     - ...
 
 - As another cherry on top, we can have contributions/donations system for open-source deployed website, with transparency of how much the maintenance of this deployment costs and how much people are contributing to this. So as the developer of the project, all you need is the code. You ask to deploy it, and people contribute to maintenance cost if they find your app useful.
+
+## Flaw
+
+- In such a situation, the domain needs to be handled by the automated-deployer software, which is not ideal for most of businesses/applications. Is there a way that we do not manage the domain, but still be 100% sure that code is not tampered with upon deploy?
+
+## Next Actions
+
+- Almost have no idea how automated deploying works. Get a VPS with a static IP, create a platform that we can upload zip files containing code (simple APIs written in Node.js or static HTMLs) and expect it to host them under a route (or subdomain, if there is a domain).

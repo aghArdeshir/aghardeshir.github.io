@@ -74,3 +74,7 @@ There is this idea I've been thinking about a lot. A very fair lottery:
 ## History / Origin
 
 - This idea came to me when I was overwhelmed by how expensive it is to buy a home in the Netherlands. Thought what if there is a lottery that gave me this money, and it was easy to trust the lottery. This idea is to fulfill the role of that lottery I was dreaming about.
+
+## Next Actions
+
+- I guess the best real-world action to take as next step is to get a POC of payment done in my website. Identify different payment methods, create a POC that I can go online and pay 1 euro in any way possible.
