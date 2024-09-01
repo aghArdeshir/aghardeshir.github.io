@@ -42,4 +42,8 @@ There should be such a platform that accepts GitHub/GitLab repos and some enviro
 
 ## Next Actions
 
+- The real next action is to get a VPS with static IP, from AWS or GC.
+
+Then:
+
 - Almost have no idea how automated deploying works. Get a VPS with a static IP, create a platform that we can upload zip files containing code (simple APIs written in Node.js or static HTMLs) and expect it to host them under a route (or subdomain, if there is a domain).

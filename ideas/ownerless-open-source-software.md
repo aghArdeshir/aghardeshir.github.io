@@ -54,6 +54,11 @@ What I'm trying to achieve is open source projects that will be active as long a
 
 ## Next Actions
 
+- The very first real action is to get a VPS with a static IP. That's how I know to start doing stuff.
+- Then create a git repo there and verify that you can actually pull and push to it.
+
+Then:
+
 - A POC with a few sample Git repos hosted in it.
 - A few mock users called actor 1, actor 2, ..., actor 5.
 - A few sample code proposals to the project.
