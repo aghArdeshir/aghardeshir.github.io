@@ -78,7 +78,7 @@ Such a platform/system could also have deployments builtin. Let me giev you an e
 - There are free solutions on the market, but they are all local to my device, what I need is to create a family account, invite my partner and maybe my children to the same account
 - Everyone in my family should be able to see/edit/add/update transactions they did, so over months we get a beautiful chart to analyze our finances
 - The only solutions on the market for being able to have shared accounts are paid apps, which makes sense, because then they have to host your data, and keep their service running
-- But all of those apps are more expensive than one may expect, because in addition to keeping the service running, they have to pay the develoeprs, support team, employees in general, taxes, etc...
+- But all of those apps are more expensive than one may expect, because in addition to keeping the service running, they have to pay the developers, support team, employees in general, advertisement, taxes, etc...
 - I could go for them to satisfy my need, but I prefer to pay less money (of course!) or maybe I live in a country and I'm not able to purchase that software online, because the payment gateway works only in some countries
 - What other options do I have to have such a software to share with my family withtout having to pay this much or having to pay at all?
 - Aha! I "initiate" an expense-manager software in an Ownerless Software, Ownerless Deploy and Onwerless Data platform
@@ -88,6 +88,7 @@ Such a platform/system could also have deployments builtin. Let me giev you an e
 - As soon as people start funding it, the app becomes online, based on the configurations provided to it. The platform would be in charge of providing the domain name, the IP and deployments; all based on the configurations made. It can be a simple docker compose file, and a text file containing a subdomain!
 - Now if people find this idea/POC useful and see potential for growing, they will keep contributing to it, both in code, and in money. The good part: the amount you need to pay for using this service will be much much less than an average app on the market. Another good part: rich people also pay for poor people.
 - Also I'm not the only one with this need. Definitely there are other people around the world, who feel this, they will find this and everyone will contribute. And it is guaranteed that as longs as people find this useful and be active on it, both technically and financially, this app will keep working and growing, making families managing their finances easier.
+- Also people can contribute in form of advertising this app, it does not
 
 ## The Why
 
@@ -100,4 +101,5 @@ Now that you know what I have in mind, I can also tell you why I have this in mi
 ## Challenges
 
 - Probably you will be much much limited in terms of deploy. Like, you can't use AWS or GCP, because someone needs to "Own" a resource/organiztion created in those platforms! Unless we create an "Ownerless Cloud!" (Don't get me started on that one!)
+- THe problem above is not specific to clouds, What if an ownerless OSS is supposed to be deployed in any kind of app store, like Google Play for Androids? Then it needs an owner. (can the platform also work as an agent in this case? Automatically build and deploy apps to app store?)
 - What are the incentives of people contributing to code even if project raises so much money (maybe the platform can give away parts of the donation for people who fix issues ? Hmm... that would be cool)
