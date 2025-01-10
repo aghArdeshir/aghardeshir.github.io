@@ -77,7 +77,16 @@ Such a platform/system could also have deployments builtin. Let me giev you an e
 - I want to track my family expenses so I can control my finances
 - There are free solutions on the market, but they are all local to my device, what I need is to create a family account, invite my partner and maybe my children to the same account
 - Everyone in my family should be able to see/edit/add/update transactions they did, so over months we get a beautiful chart to analyze our finances
-- 
+- The only solutions on the market for being able to have shared accounts are paid apps, which makes sense, because then they have to host your data, and keep their service running
+- But all of those apps are more expensive than one may expect, because in addition to keeping the service running, they have to pay the develoeprs, support team, employees in general, taxes, etc...
+- I could go for them to satisfy my need, but I prefer to pay less money (of course!) or maybe I live in a country and I'm not able to purchase that software online, because the payment gateway works only in some countries
+- What other options do I have to have such a software to share with my family withtout having to pay this much or having to pay at all?
+- Aha! I "initiate" an expense-manager software in an Ownerless Software, Ownerless Deploy and Onwerless Data platform
+- I go in the platform (you can imagine a UI like GitHub's), I click "Create New Repository", I "initiate" my idea, probably by giving it a title, a README.md, the smallest POC, and some deployment configurations
+- For starters imagine this as the scope of POC: app is a web-app, you can register with email and password, login, create a family, name the family, invite people to the family by their emails, each family can have multiple accounts, you can add transactions to each account, along with amount, date category and descriptions, and everything is stored on a sqlite db on the server. Imagine simple HTML in the front and Node.js and sqlite in the back; nothing fancy.
+- You initiate and configure this and click "create". Then the repo is online, everyone can see it, just as you can see it. The code, the proposal, and the deployment configurations are all live, however the app itself is not online yet, until people start fundraising it.
+- As soon as people start funding it, the app becomes online, based on the configurations provided to it. The platform would be in charge of providing the domain name, the IP and deployments; all based on the configurations made. It can be a simple docker compose file, and a text file containing a subdomain!
+- Now if people find this idea/POC useful and see potential for growing, they will keep contributing to it, both in code, and in money. The good part: the amount you need to pay for using this service will be much much less than an average 
 
 ## The Why
 
@@ -85,4 +94,9 @@ Now that you know what I have in mind, I can also tell you why I have this in mi
 
 - For any reason the maintainer stops maintainig the OSS
 - One needs to spread an idea of a solution rather than the implemented solution and give it in hands of people (including themsleves) in hope of receiving back the implemented solution
-- For me, growing up in a country in which you could be fined, imprisoned or even executed for expressing your opinions and beliefs, developing some sorts of software could have consequences. Imagine you are an activist for the rights of __BLANK__ and want to create a website for rights of __BLANK__, but your government arrest every activist of rights of __BLANK__. So having commits on an OSS on GitHub, having a registered domain udner your name, or having a host for your files, which is bought by your details and your credit card, in a Totalitarianism country, could totally get you arrested.
+- For me, growing up in a country in which you could be fined, imprisoned or even executed for expressing your opinions and beliefs, developing some sorts of software could have consequences. Imagine you are an activist for the rights of __BLANK__ and want to create a website for rights of __BLANK__, but your government arrest every activist of rights of __BLANK__. So having commits on an OSS on GitHub, having a registered domain udner your name, or having a host for your files, which is bought by your details and your credit card, in a Totalitarianism country, could totally get you arrested. (TODO: This also depends on being able to have anonymous or psuedoanonymous users on the platform )
+
+## Challenges
+
+- Probably you will be much much limited in terms of deploy. Like, you can't use AWS or GCP, because someone needs to "Own" a resource/organiztion created in those platforms! Unless we create an "Ownerless Cloud!" (Don't get me started on that one!)
+- What are the incentives of people contributing to code even if project raises so much money (maybe the platform can give away parts of the donation for people who fix issues ? Hmm... that would be cool)
