@@ -26,6 +26,12 @@
         ctx.strokeStyle = "white";
         ctx.strokeRect(rect.x, rect.y, rect.width, rect.height);
 
+        ctx.strokeStyle = "green";
+        ctx.beginPath();
+        ctx.moveTo(rect.x + rect.width, rect.y + rect.height * 0.25);
+        ctx.lineTo(rect.x + rect.width, rect.y + rect.height * 0.75);
+        ctx.stroke();
+
         ctx.fillStyle = "green";
         ctx.beginPath();
         ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
