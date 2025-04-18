@@ -19,6 +19,25 @@
       };
       const direction = { x: 1, y: 0 };
       const ballSpeed = 2;
+      const lineLength = 200;
+      const line = [
+        {
+          x: rect.x,
+          y: rect.y,
+          length: lineLength,
+        },
+        {
+          x: 0,
+          y: 0,
+          length: 0,
+        },
+      ];
+      const lineSpeed = 0.8;
+
+      const rectTopRight = {
+        x: rect.x + rect.width,
+        y: rect.y,
+      };
 
       function rerender() {
         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -26,10 +45,16 @@
         ctx.strokeStyle = "white";
         ctx.strokeRect(rect.x, rect.y, rect.width, rect.height);
 
-        ctx.strokeStyle = "green";
+        ctx.strokeStyle = "red";
         ctx.beginPath();
-        ctx.moveTo(rect.x + rect.width, rect.y + rect.height * 0.25);
-        ctx.lineTo(rect.x + rect.width, rect.y + rect.height * 0.75);
+        if (line[0].length) {
+          ctx.moveTo(line[0].x, line[0].y);
+          ctx.lineTo(line[0].x + line[0].length, line[0].y);
+        }
+        if (line[1].length) {
+          ctx.lineTo(line[1].x, line[1].y);
+          ctx.lineTo(line[1].x, line[1].y + line[1].length);
+        }
         ctx.stroke();
 
         ctx.fillStyle = "green";
@@ -43,6 +68,11 @@
       requestAnimationFrame(rerender);
 
       setInterval(() => {
+        moveBall();
+        moveLine();
+      }, 1);
+
+      function moveBall() {
         ball.x += direction.x * ballSpeed;
         ball.y += direction.y * ballSpeed;
 
@@ -62,7 +92,28 @@
         } else if (hitTopWall) {
           direction.y = 1;
         }
-      }, 1);
+      }
+
+      function moveLine() {
+        const isOnTopEdge = line[0].x + line[0].length <= rect.x + rect.width;
+        const sharesTopAndRightEdge =
+          line[0].x < rect.x + rect.width &&
+          line[0].x + line[0].length > rect.x + rect.width;
+
+        if (isOnTopEdge) {
+          line[1].length = 0;
+          line[1].x = 0;
+          line[1].y = 0;
+          line[0].x += lineSpeed;
+        } else if (sharesTopAndRightEdge) {
+          line[0].length = rectTopRight.x - line[0].x;
+          line[0].x += lineSpeed;
+
+          line[1].length = lineLength - line[0].length;
+          line[1].x = rectTopRight.x;
+          line[1].y = rectTopRight.y + lineSpeed;
+        }
+      }
 
       function randomBool() {
         return Math.random() < 0.5;
@@ -71,6 +122,10 @@
       function randomSign() {
         return randomBool() ? 1 : -1;
       }
+
+      setInterval(() => {
+        window.location.reload();
+      }, 10000);
     </script>
   </body>
 </html>
