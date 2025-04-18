@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body style="background: black; margin: 0">
+    <canvas width="600" height="600" style="border: 1px solid white"></canvas>
+
+    <script>
+      const ctx = document.querySelector("canvas").getContext("2d");
+
+      const rect = { x: 100, y: 100, width: 400, height: 400 };
+      const ball = {
+        x: rect.x + rect.width / 2,
+        y: rect.y + rect.height / 2,
+        radius: 20,
+      };
+      const direction = { x: 1, y: 0 };
+      const ballSpeed = 2;
+
+      function rerender() {
+        ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+        ctx.strokeStyle = "white";
+        ctx.strokeRect(rect.x, rect.y, rect.width, rect.height);
+
+        ctx.fillStyle = "green";
+        ctx.beginPath();
+        ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+        ctx.fill();
+
+        requestAnimationFrame(rerender);
+      }
+
+      requestAnimationFrame(rerender);
+
+      setInterval(() => {
+        ball.x += direction.x * ballSpeed;
+        ball.y += direction.y * ballSpeed;
+
+        const hitRightWall = ball.x + ball.radius > rect.x + rect.width;
+        const hitLeftWall = ball.x - ball.radius < rect.x;
+        const hitBottomWall = ball.y + ball.radius > rect.y + rect.height;
+        const hitTopWall = ball.y - ball.radius < rect.y;
+
+        if (hitRightWall) {
+          direction.x = -1;
+        } else if (hitLeftWall) {
+          direction.x = 1;
+        }
+
+        if (hitBottomWall) {
+          direction.y = -1;
+        } else if (hitTopWall) {
+          direction.y = 1;
+        }
+      }, 1);
+
+      function randomBool() {
+        return Math.random() < 0.5;
+      }
+
+      function randomSign() {
+        return randomBool() ? 1 : -1;
+      }
+    </script>
+  </body>
+</html>
