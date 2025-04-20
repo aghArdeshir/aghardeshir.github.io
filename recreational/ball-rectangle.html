@@ -126,6 +126,10 @@
           line[1].length = lineLength;
           line[1].x = rectTopRight.x;
           line[1].y = line[1].y + lineSpeed;
+
+          if (line[0].x > rectTopRight.x) {
+            line[0].x = rectTopRight.x;
+          }
         }
       }
 
