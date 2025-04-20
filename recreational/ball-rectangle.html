@@ -32,7 +32,7 @@
           length: 0,
         },
       ];
-      const lineSpeed = 0.8;
+      const lineSpeed = 0.5;
 
       const rectTopRight = {
         x: rect.x + rect.width,
@@ -100,6 +100,8 @@
           line[0].x < rect.x + rect.width &&
           line[0].x + line[0].length > rect.x + rect.width;
 
+        const isOnRightEdge = line[0].x >= rectTopRight.x;
+
         if (isOnTopEdge) {
           line[1].length = 0;
           line[1].x = 0;
@@ -112,6 +114,13 @@
           line[1].length = lineLength - line[0].length;
           line[1].x = rectTopRight.x;
           line[1].y = rectTopRight.y + lineSpeed;
+        } else if (isOnRightEdge) {
+          line[0].length = 0;
+          line[0].x += rectTopRight.x;
+
+          line[1].length = lineLength;
+          line[1].x = rectTopRight.x;
+          line[1].y = line[1].y + lineSpeed;
         }
       }
 
