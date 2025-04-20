@@ -17,8 +17,8 @@
         y: rect.y + rect.height / 2,
         radius: 20,
       };
-      const direction = { x: 1, y: 0 };
-      const ballSpeed = 2;
+      const direction = { x: Math.random(), y: Math.random() };
+      const ballSpeed = 1;
       const lineLength = 200;
       const line = [
         {
@@ -73,8 +73,9 @@
       }, 1);
 
       function moveBall() {
-        ball.x += direction.x * ballSpeed;
-        ball.y += direction.y * ballSpeed;
+        const magnitude = Math.sqrt(direction.x ** 2 + direction.y ** 2);
+        ball.x += (direction.x / magnitude) * ballSpeed;
+        ball.y += (direction.y / magnitude) * ballSpeed;
 
         const hitRightWall = ball.x + ball.radius > rect.x + rect.width;
         const hitLeftWall = ball.x - ball.radius < rect.x;
