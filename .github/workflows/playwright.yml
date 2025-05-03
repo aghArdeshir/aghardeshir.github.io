@@ -1,11 +1,11 @@
-name: Playwright Tests
+name: World MMO Playwright Tests
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
 jobs:
-  worldmmo-test:
+  test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
