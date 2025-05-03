@@ -1,0 +1,17 @@
+{
+  "name": "worldmmo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite ./src"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.52.0",
+    "@types/node": "^22.15.3"
+  }
+}
+
