@@ -1,9 +1,18 @@
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { defineConfig, devices } from '@playwright/test';
 
 const testEnv = JSON.parse(readFileSync('./.test-env.json', 'utf-8'));
 for (const [key, value] of Object.entries(testEnv)) {
 	process.env[key] = value;
+}
+
+if (existsSync('./.test-env-override.json')) {
+	const testEnvOverride = JSON.parse(
+		readFileSync('./.test-env-override.json', 'utf-8'),
+	);
+	for (const [key, value] of Object.entries(testEnvOverride)) {
+		process.env[key] = value;
+	}
 }
 
 /**
