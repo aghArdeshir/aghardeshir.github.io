@@ -4,12 +4,12 @@ on:
     branches: [main]
     paths:
       - 'worldmmo/**'
-      - '.github/workflows'
+      - '.github/workflows/**'
   pull_request:
     branches: [main]
     paths:
       - 'worldmmo/**'
-      - '.github/workflows'
+      - '.github/workflows/**'
 jobs:
   worldmmo-test:
     defaults:
