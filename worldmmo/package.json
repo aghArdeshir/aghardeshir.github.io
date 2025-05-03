@@ -6,7 +6,8 @@
     "test": "playwright test",
     "build": "vite build ./src --outDir ../dist",
     "preview": "vite preview",
-    "dev": "vite ./src"
+    "dev": "vite ./src",
+    "install-playwright": "playwright install --with-deps"
   },
   "keywords": [],
   "author": "",
