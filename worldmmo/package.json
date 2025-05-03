@@ -1,21 +1,22 @@
 {
-  "name": "worldmmo",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "playwright test",
-    "build": "vite build ./src --outDir ../dist",
-    "preview": "vite preview",
-    "dev": "vite ./src",
-    "install-playwright": "playwright install --with-deps"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
-  "devDependencies": {
-    "@playwright/test": "^1.52.0",
-    "@types/node": "^22.15.3",
-    "vite": "^6.3.4"
-  }
+	"name": "worldmmo",
+	"version": "1.0.0",
+	"main": "index.js",
+	"scripts": {
+		"test": "playwright test",
+		"build": "vite build ./src --outDir ../dist",
+		"preview": "vite preview",
+		"dev": "vite ./src",
+		"install-playwright": "playwright install --with-deps"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"description": "",
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"@playwright/test": "^1.52.0",
+		"@types/node": "^22.15.3",
+		"vite": "^6.3.4"
+	}
 }
