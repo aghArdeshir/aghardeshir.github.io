@@ -7,7 +7,8 @@
 		"build": "vite build ./src --outDir ../dist",
 		"preview": "vite preview",
 		"dev": "vite ./src",
-		"install-playwright": "playwright install --with-deps"
+		"install-playwright": "playwright install --with-deps",
+		"format": "biome format --write"
 	},
 	"keywords": [],
 	"author": "",
