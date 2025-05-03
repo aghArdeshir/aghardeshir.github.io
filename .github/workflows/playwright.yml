@@ -2,8 +2,14 @@ name: World MMO Playwright Tests
 on:
   push:
     branches: [main]
+    paths:
+      - 'worldmmo/**'
+      - '.github/workflows'
   pull_request:
     branches: [main]
+    paths:
+      - 'worldmmo/**'
+      - '.github/workflows'
 jobs:
   worldmmo-test:
     defaults:
