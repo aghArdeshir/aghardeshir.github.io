@@ -1,7 +1,6 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from '@playwright/test';
 
-test("initial smoke test", async ({ page }) => {
+test('initial smoke test', async ({ page }) => {
 	await page.goto('/');
-  await expect(page).toHaveTitle(/World MMO/);
+	await expect(page).toHaveTitle(/World MMO/);
 });
-
