@@ -1,8 +1,13 @@
+import { Money } from "./Money";
+
 export class Header {
+  money = new Money();
+
   render(rootContainer: HTMLElement) {
     const headerDom = document.createElement("div");
     headerDom.className = "header";
     rootContainer.appendChild(headerDom);
-    headerDom.textContent = "World MMO Header";
+
+    this.money.render(headerDom);
   }
 }
