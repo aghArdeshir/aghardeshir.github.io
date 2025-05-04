@@ -42,13 +42,9 @@ export class World {
       cellsContainer.appendChild(rowDom);
       for (const cell of row) {
         columnNumber++;
-        const cellDom = document.createElement("div");
-        cellDom.className = "cell";
-        cellDom.style.width = `${Cell.CELL_WIDTH}px`;
-        cellDom.style.height = `${Cell.CELL_HEIGHT}px`;
-
-        cellDom.textContent = `${rowNumber},${columnNumber}`;
-        rowDom.appendChild(cellDom);
+        cell.setRowNumber(rowNumber);
+        cell.setColumnNumber(columnNumber);
+        cell.render(rowDom)
       }
     }
   }
