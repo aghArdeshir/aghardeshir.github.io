@@ -3,14 +3,14 @@ export class Cell {
   static CELL_WIDTH = 40;
   static CELL_HEIGHT = 40;
 
-  rowNumber: number = 0;
-  columnNumber: number = 0;
+  lotitude: number = 0;
+  longitude: number = 0;
 
   setRowNumber(rowNumber: number) {
-    this.rowNumber = rowNumber;
+    this.lotitude = rowNumber;
   }
   setColumnNumber(columnNumber: number) {
-    this.columnNumber = columnNumber;
+    this.longitude = columnNumber;
   }
 
   render(rowDom: HTMLDivElement) {
@@ -19,7 +19,7 @@ export class Cell {
     cellDom.style.width = `${Cell.CELL_WIDTH}px`;
     cellDom.style.height = `${Cell.CELL_HEIGHT}px`;
 
-    cellDom.textContent = `${this.rowNumber},${this.columnNumber}`;
+    cellDom.textContent = `${this.lotitude},${this.longitude}`;
     rowDom.appendChild(cellDom);
   }
 }
