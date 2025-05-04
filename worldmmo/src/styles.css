@@ -1,15 +1,45 @@
+* {
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+html{
+  height: 100%; /* Full height of the viewport */
+  overflow: hidden; /* Prevent scrolling on the html element */
+}
+
 body {
   background-color: black;
   color: white;
   margin: 0;
+  overflow: hidden; /* Prevent body scrolling */
+}
+
+.root-container {
+  height: 100vh; /* Full height of the viewport */
+}
+
+.header {
+  height: 50px;
+  border-bottom: 1px solid white;
+}
+
+.footer {
+  height: 50px;
+  border-top: 1px solid white;
+}
+
+.cells-container {
+  overflow: auto; /* Enable vertical scrolling */
+  max-height: calc(100vh - 100px); /* Full height minus header and footer */
 }
 
 .row {
-  display: flex;
-  flex-direction: row;
+  display: block;
+  white-space: nowrap;
 }
 
 .cell {
+  display: inline-block;
   border: 1px solid white;
   overflow: hidden;
   text-overflow: ellipsis;

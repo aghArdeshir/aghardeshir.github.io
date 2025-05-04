@@ -6,12 +6,15 @@ const cells: Cell[][] = [];
 
 window.world = world;
 
-const rootContainerDom = document.createElement("div");
-rootContainerDom.style.width = `${World.WORLD_WIDTH * Cell.CELL_WIDTH}px`;
-rootContainerDom.style.height = `${World.WORLD_HEIGHT * Cell.CELL_HEIGHT}px`;
-document.body.appendChild(rootContainerDom);
+const rootContainer = document.createElement("div");
+rootContainer.className = "root-container";
+document.body.appendChild(rootContainer);
 
 function renderCells() {
+  const cellsContainer = document.createElement("div");
+  cellsContainer.className = "cells-container";
+  rootContainer.appendChild(cellsContainer);
+
   for (let i = 0; i < World.WORLD_HEIGHT; i++) {
     cells[i] = [];
     for (let j = 0; j < World.WORLD_WIDTH; j++) {
@@ -26,7 +29,8 @@ function renderCells() {
     columnNumber = 0;
     const rowDom = document.createElement("div");
     rowDom.className = "row";
-    rootContainerDom.appendChild(rowDom);
+    rowDom.style.height = `${Cell.CELL_HEIGHT}px`;
+    cellsContainer.appendChild(rowDom);
     for (const cell of row) {
       columnNumber++;
       const cellDom = document.createElement("div");
@@ -40,4 +44,21 @@ function renderCells() {
   }
 }
 
+function renderHeader() {
+  const headerDom = document.createElement("div");
+  headerDom.className = "header";
+  rootContainer.appendChild(headerDom);
+  headerDom.textContent = "World MMO Header";
+}
+
+function renderFooter() {
+  const footerDom = document.createElement("div");
+  footerDom.className = "footer";
+  rootContainer.appendChild(footerDom);
+  footerDom.textContent = "World MMO Footer";
+}
+
+renderHeader();
 renderCells();
+renderFooter();
+
