@@ -4,6 +4,7 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "playwright test",
+    "test:ui": "playwright test --ui",
 		"build": "vite build ./src --outDir ../dist",
 		"preview": "vite preview",
 		"dev": "vite ./src",
