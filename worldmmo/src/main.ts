@@ -11,6 +11,7 @@ rootContainerDom.style.width = `${World.WORLD_WIDTH * Cell.CELL_WIDTH}px`;
 rootContainerDom.style.height = `${World.WORLD_HEIGHT * Cell.CELL_HEIGHT}px`;
 document.body.appendChild(rootContainerDom);
 
+function renderCells() {
 for (let i = 0; i < World.WORLD_HEIGHT; i++) {
 	cells[i] = [];
 	for (let j = 0; j < World.WORLD_WIDTH; j++) {
@@ -37,3 +38,6 @@ for (const row of cells) {
 		rowDom.appendChild(cellDom);
 	}
 }
+}
+
+renderCells();
