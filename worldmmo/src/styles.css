@@ -1,0 +1,20 @@
+body {
+  background-color: black;
+  color: white;
+  margin: 0;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.cell {
+  border: 1px solid white;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &:hover {
+    background-color: #444;
+  }
+}
