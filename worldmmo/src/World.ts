@@ -1,4 +1,4 @@
-import { Cell } from "./Cell";
+import { Cell } from "./cell/Cell";
 import { Footer } from "./Footer";
 import { Header } from "./header/Header";
 
