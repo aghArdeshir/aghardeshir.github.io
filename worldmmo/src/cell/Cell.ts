@@ -1,3 +1,5 @@
+import { CellPopup } from "./CellPopup";
+
 // biome-ignore lint/complexity/noStaticOnlyClass: Will be done later
 export class Cell {
   static CELL_WIDTH = 40;
@@ -21,5 +23,12 @@ export class Cell {
 
     cellDom.textContent = `${this.lotitude},${this.longitude}`;
     rowDom.appendChild(cellDom);
+
+    cellDom.onclick = this.onClick.bind(this);
+  }
+
+  onClick() {
+    const cellPopup = new CellPopup();
+    cellPopup.render();
   }
 }
