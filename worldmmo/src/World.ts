@@ -1,4 +1,5 @@
 import { Cell } from "./cell/Cell";
+import { CellPopup } from "./cell/CellPopup";
 import { Footer } from "./Footer";
 import { Header } from "./header/Header";
 
@@ -28,6 +29,10 @@ export class World {
       this.cells[i] = [];
       for (let j = 0; j < World.WORLD_WIDTH; j++) {
         this.cells[i][j] = new Cell();
+        this.cells[i][j].onClick(() => {
+          const cellPopup = new CellPopup();
+          cellPopup.render();
+        });
       }
     }
 

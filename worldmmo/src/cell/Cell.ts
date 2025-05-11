@@ -14,6 +14,9 @@ export class Cell {
   setColumnNumber(columnNumber: number) {
     this.#longitude = columnNumber;
   }
+
+  onClick(callback: () => void) {
+    this.#onClick = callback;
   }
 
   render(rowDom: HTMLDivElement) {
@@ -25,11 +28,6 @@ export class Cell {
     cellDom.textContent = `${this.#lotitude},${this.#longitude}`;
     rowDom.appendChild(cellDom);
 
-    cellDom.onclick = this.onClick.bind(this);
-  }
-
-  onClick() {
-    const cellPopup = new CellPopup();
-    cellPopup.render();
+    cellDom.onclick = this.#onClick;
   }
 }

@@ -13,7 +13,7 @@ export class CellPopup {
     cellPopupDom.appendChild(closeButton);
 
     const installFactoryButton = document.createElement("button");
-    installFactoryButton.textContent = "Install Factory";
+    installFactoryButton.textContent = "Install Factory  (-10 money) (+10/s growth)";
     installFactoryButton.onclick = () => {
       console.log("Installing factory");
       cellPopupDom.remove();
