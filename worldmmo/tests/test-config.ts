@@ -1,9 +1,9 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { z } from 'zod';
 
-const configFilePath = new URL('./.test-env.json', import.meta.url);
+const configFilePath = new URL('./.test-config.json', import.meta.url);
 const configOverrideFilePath = new URL(
-	'./.test-env-override.json',
+	'./.test-config-override.json',
 	import.meta.url,
 );
 
@@ -29,7 +29,7 @@ export function getTestConfig() {
 	const overrideConfigSchema = configSchema.partial();
 
 	const mainConfig = JSON.parse(
-		readFileSync(new URL('./.test-env.json', import.meta.url), 'utf-8'),
+		readFileSync(configFilePath, 'utf-8'),
 	);
 	const mainConfigParsed = configSchema.parse(mainConfig);
 

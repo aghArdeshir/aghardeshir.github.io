@@ -1,5 +1,5 @@
 /dist
-/tests/.test-env-override.json
+/tests/.test-config-override.json
 
 # Playwright
 node_modules/
