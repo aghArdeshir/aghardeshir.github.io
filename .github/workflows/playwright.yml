@@ -38,6 +38,3 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 5
-
-
-# DOes this work as a shortcut?
