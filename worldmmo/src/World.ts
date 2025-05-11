@@ -1,6 +1,6 @@
+import { Footer } from './Footer';
 import { Cell } from './cell/Cell';
 import { CellPopup } from './cell/CellPopup';
-import { Footer } from './Footer';
 import { Header } from './header/Header';
 
 export class World {
