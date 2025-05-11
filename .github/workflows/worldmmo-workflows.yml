@@ -1,0 +1,16 @@
+on:
+  push:
+    branches: [main]
+    paths:
+      - "worldmmo/**"
+      - ".github/workflows/**"
+  pull_request:
+    branches: [main]
+    paths:
+      - "worldmmo/**"
+      - ".github/workflows/**"
+jobs:
+  worldmmo-e2e-tests:
+    uses: ./worldmmo/.github/workflows/worldmmo-e2e-tests.yml
+  worldmmo-static-checks:
+    uses: ./worldmmo/.github/workflows/worldmmo-static-checks.yml

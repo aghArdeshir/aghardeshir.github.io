@@ -1,15 +1,5 @@
 name: World MMO Static Checks
-on:
-  push:
-    branches: [main]
-    paths:
-      - "worldmmo/**"
-      - ".github/workflows/**"
-  pull_request:
-    branches: [main]
-    paths:
-      - "worldmmo/**"
-      - ".github/workflows/**"
+on: workflow_call
 jobs:
   worldmmo-static-checks:
     defaults:
