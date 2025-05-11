@@ -28,9 +28,7 @@ export function getTestConfig() {
 
 	const overrideConfigSchema = configSchema.partial();
 
-	const mainConfig = JSON.parse(
-		readFileSync(configFilePath, 'utf-8'),
-	);
+	const mainConfig = JSON.parse(readFileSync(configFilePath, 'utf-8'));
 	const mainConfigParsed = configSchema.parse(mainConfig);
 
 	let overrideConfig = {};
