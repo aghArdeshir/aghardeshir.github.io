@@ -1,62 +1,66 @@
 import { readFileSync, existsSync } from 'node:fs';
-import { defineConfig, devices, type PlaywrightTestConfig } from '@playwright/test';
+import {
+	defineConfig,
+	devices,
+	type PlaywrightTestConfig,
+} from '@playwright/test';
 
 const testEnv = JSON.parse(readFileSync('./.test-env.json', 'utf-8'));
 for (const [key, value] of Object.entries(testEnv)) {
-  process.env[key] = value;
+	process.env[key] = value;
 }
 
 if (existsSync('./.test-env-override.json')) {
-  const testEnvOverride = JSON.parse(
-    readFileSync('./.test-env-override.json', 'utf-8'),
+	const testEnvOverride = JSON.parse(
+		readFileSync('./.test-env-override.json', 'utf-8'),
 	);
 	for (const [key, value] of Object.entries(testEnvOverride)) {
-    process.env[key] = value;
+		process.env[key] = value;
 	}
 }
 
-const projects: PlaywrightTestConfig['projects'] = []
-if(process.env.BROWSERS.includes('firefox')) {
-  projects.push({
-    name: 'firefox',
-    use: { ...devices['Desktop Firefox'] },
-  });
+const projects: PlaywrightTestConfig['projects'] = [];
+if (process.env.BROWSERS.includes('firefox')) {
+	projects.push({
+		name: 'firefox',
+		use: { ...devices['Desktop Firefox'] },
+	});
 }
-if(process.env.BROWSERS.includes('webkit')) {
-  projects.push({
-    name: 'webkit',
-    use: { ...devices['Desktop Safari'] },
-  });
+if (process.env.BROWSERS.includes('webkit')) {
+	projects.push({
+		name: 'webkit',
+		use: { ...devices['Desktop Safari'] },
+	});
 }
-if(process.env.BROWSERS.includes('chromium')) {
-  projects.push({
-    name: 'chromium',
-    use: { ...devices['Desktop Chrome'] },
-  });
+if (process.env.BROWSERS.includes('chromium')) {
+	projects.push({
+		name: 'chromium',
+		use: { ...devices['Desktop Chrome'] },
+	});
 }
-if(process.env.BROWSERS.includes('edge')) {
-  projects.push({
-    name: 'Microsoft Edge',
-    use: { ...devices['Desktop Edge'], channel: 'msedge' },
-  });
+if (process.env.BROWSERS.includes('edge')) {
+	projects.push({
+		name: 'Microsoft Edge',
+		use: { ...devices['Desktop Edge'], channel: 'msedge' },
+	});
 }
-if(process.env.BROWSERS.includes('chrome')) {
-  projects.push({
-    name: 'Google Chrome',
-    use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-  });
+if (process.env.BROWSERS.includes('chrome')) {
+	projects.push({
+		name: 'Google Chrome',
+		use: { ...devices['Desktop Chrome'], channel: 'chrome' },
+	});
 }
-if(process.env.BROWSERS.includes('mobile-chrome')) {
-  projects.push({
-    name: 'Mobile Chrome',
-    use: { ...devices['Pixel 5'] },
-  });
+if (process.env.BROWSERS.includes('mobile-chrome')) {
+	projects.push({
+		name: 'Mobile Chrome',
+		use: { ...devices['Pixel 5'] },
+	});
 }
-if(process.env.BROWSERS.includes('mobile-safari')) {
-  projects.push({
-    name: 'Mobile Safari',
-    use: { ...devices['iPhone 12'] },
-  });
+if (process.env.BROWSERS.includes('mobile-safari')) {
+	projects.push({
+		name: 'Mobile Safari',
+		use: { ...devices['iPhone 12'] },
+	});
 }
 
 /**

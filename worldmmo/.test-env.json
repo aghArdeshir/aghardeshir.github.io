@@ -1,16 +1,15 @@
 {
-  "__COMMENT__": [
-    "To override any value locally, create a `.test-env-override.json` file"
-  ],
-  "BASE_URL": "http://localhost:4173",
-  "BROWSERS": [
-    "firefox",
-    "webkit",
-    "chromium",
-    "edge",
-    "chrome",
-    "mobile-chrome",
-    "mobile-safari"
-  ]
+	"__COMMENT__": [
+		"To override any value locally, create a `.test-env-override.json` file"
+	],
+	"BASE_URL": "http://localhost:4173",
+	"BROWSERS": [
+		"firefox",
+		"webkit",
+		"chromium",
+		"edge",
+		"chrome",
+		"mobile-chrome",
+		"mobile-safari"
+	]
 }
-

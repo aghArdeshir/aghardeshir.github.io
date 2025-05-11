@@ -1,4 +1,4 @@
-import { World } from './World';
+import type { World } from './World';
 
 declare global {
 	interface Window {

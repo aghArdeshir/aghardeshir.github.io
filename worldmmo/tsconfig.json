@@ -1,6 +1,6 @@
 {
-  "compilerOptions": {
-    "target": "ES2015",
-    "types": ["node"]
-  }
+	"compilerOptions": {
+		"target": "ES2015",
+		"types": ["node"]
+	}
 }

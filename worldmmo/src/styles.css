@@ -1,62 +1,61 @@
 * {
-  box-sizing: border-box; /* Include padding and border in element's total width and height */
+	box-sizing: border-box; /* Include padding and border in element's total width and height */
 }
 
-html{
-  height: 100%; /* Full height of the viewport */
-  overflow: hidden; /* Prevent scrolling on the html element */
+html {
+	height: 100%; /* Full height of the viewport */
+	overflow: hidden; /* Prevent scrolling on the html element */
 }
 
 body {
-  background-color: black;
-  color: white;
-  margin: 0;
-  overflow: hidden; /* Prevent body scrolling */
+	background-color: black;
+	color: white;
+	margin: 0;
+	overflow: hidden; /* Prevent body scrolling */
 }
 
 .root-container {
-  height: 100vh; /* Full height of the viewport */
+	height: 100vh; /* Full height of the viewport */
 }
 
 .header {
-  height: 50px;
-  border-bottom: 1px solid white;
+	height: 50px;
+	border-bottom: 1px solid white;
 }
 
 .footer {
-  height: 50px;
-  border-top: 1px solid white;
+	height: 50px;
+	border-top: 1px solid white;
 }
 
 .cells-container {
-  overflow: auto; /* Enable vertical scrolling */
-  max-height: calc(100vh - 100px); /* Full height minus header and footer */
+	overflow: auto; /* Enable vertical scrolling */
+	max-height: calc(100vh - 100px); /* Full height minus header and footer */
 }
 
 .row {
-  display: block;
-  white-space: nowrap;
+	display: block;
+	white-space: nowrap;
 }
 
 .cell {
-  display: inline-block;
-  border: 1px solid white;
-  overflow: hidden;
-  text-overflow: ellipsis;
+	display: inline-block;
+	border: 1px solid white;
+	overflow: hidden;
+	text-overflow: ellipsis;
 
-  &:hover {
-    background-color: #444;
-  }
+	&:hover {
+		background-color: #444;
+	}
 }
 
-.cell-popup{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
-  color: white;
-  font-size: 20px;
+.cell-popup {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.8);
+	color: white;
+	font-size: 20px;
 }
-
