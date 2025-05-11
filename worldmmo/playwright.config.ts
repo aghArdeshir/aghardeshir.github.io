@@ -1,62 +1,50 @@
-import { readFileSync, existsSync } from 'node:fs';
 import {
+	type PlaywrightTestConfig,
 	defineConfig,
 	devices,
-	type PlaywrightTestConfig,
 } from '@playwright/test';
+import { getTestConfig } from './tests/test-config';
 
-const testEnv = JSON.parse(readFileSync('./.test-env.json', 'utf-8'));
-for (const [key, value] of Object.entries(testEnv)) {
-	process.env[key] = value;
-}
-
-if (existsSync('./.test-env-override.json')) {
-	const testEnvOverride = JSON.parse(
-		readFileSync('./.test-env-override.json', 'utf-8'),
-	);
-	for (const [key, value] of Object.entries(testEnvOverride)) {
-		process.env[key] = value;
-	}
-}
+const testConfig = getTestConfig();
 
 const projects: PlaywrightTestConfig['projects'] = [];
-if (process.env.BROWSERS.includes('firefox')) {
+if (testConfig.BROWSERS.includes('firefox')) {
 	projects.push({
 		name: 'firefox',
 		use: { ...devices['Desktop Firefox'] },
 	});
 }
-if (process.env.BROWSERS.includes('webkit')) {
+if (testConfig.BROWSERS.includes('webkit')) {
 	projects.push({
 		name: 'webkit',
 		use: { ...devices['Desktop Safari'] },
 	});
 }
-if (process.env.BROWSERS.includes('chromium')) {
+if (testConfig.BROWSERS.includes('chromium')) {
 	projects.push({
 		name: 'chromium',
 		use: { ...devices['Desktop Chrome'] },
 	});
 }
-if (process.env.BROWSERS.includes('edge')) {
+if (testConfig.BROWSERS.includes('edge')) {
 	projects.push({
 		name: 'Microsoft Edge',
 		use: { ...devices['Desktop Edge'], channel: 'msedge' },
 	});
 }
-if (process.env.BROWSERS.includes('chrome')) {
+if (testConfig.BROWSERS.includes('chrome')) {
 	projects.push({
 		name: 'Google Chrome',
 		use: { ...devices['Desktop Chrome'], channel: 'chrome' },
 	});
 }
-if (process.env.BROWSERS.includes('mobile-chrome')) {
+if (testConfig.BROWSERS.includes('mobile-chrome')) {
 	projects.push({
 		name: 'Mobile Chrome',
 		use: { ...devices['Pixel 5'] },
 	});
 }
-if (process.env.BROWSERS.includes('mobile-safari')) {
+if (testConfig.BROWSERS.includes('mobile-safari')) {
 	projects.push({
 		name: 'Mobile Safari',
 		use: { ...devices['iPhone 12'] },
@@ -89,7 +77,7 @@ export default defineConfig({
 	/* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
 	use: {
 		/* Base URL to use in actions like `await page.goto('/')`. */
-		baseURL: process.env.BASE_URL,
+		baseURL: testConfig.BASE_URL,
 
 		/* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
 		trace: 'on',
