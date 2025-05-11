@@ -5,14 +5,16 @@ export class Cell {
   static CELL_WIDTH = 40;
   static CELL_HEIGHT = 40;
 
-  lotitude: number = 0;
-  longitude: number = 0;
+  #lotitude = 0;
+  #longitude = 0;
+  #onClick = () => {};
 
   setRowNumber(rowNumber: number) {
-    this.lotitude = rowNumber;
+    this.#lotitude = rowNumber;
   }
   setColumnNumber(columnNumber: number) {
-    this.longitude = columnNumber;
+    this.#longitude = columnNumber;
+  }
   }
 
   render(rowDom: HTMLDivElement) {
