@@ -1,0 +1,28 @@
+name: World MMO Static Checks
+on:
+  push:
+    branches: [main]
+    paths:
+      - "worldmmo/**"
+      - ".github/workflows/**"
+  pull_request:
+    branches: [main]
+    paths:
+      - "worldmmo/**"
+      - ".github/workflows/**"
+jobs:
+  worldmmo-static-checks:
+    defaults:
+      run:
+        working-directory: worldmmo
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - name: Install dependencies
+        run: npm ci
+      - name: Run Static Checks
+        run: npm run biome-ci-check
