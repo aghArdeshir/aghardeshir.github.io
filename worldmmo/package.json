@@ -9,7 +9,8 @@
 		"preview": "vite preview",
 		"dev": "vite ./src",
 		"install-playwright": "playwright install --with-deps",
-		"format": "biome format --write"
+		"biome-ci-check": "biome check",
+		"biome-autofix": "npm run biome-ci-check -- --fix"
 	},
 	"keywords": [],
 	"author": "",
