@@ -22,7 +22,7 @@ export class Cell {
     cellDom.style.width = `${Cell.CELL_WIDTH}px`;
     cellDom.style.height = `${Cell.CELL_HEIGHT}px`;
 
-    cellDom.textContent = `${this.lotitude},${this.longitude}`;
+    cellDom.textContent = `${this.#lotitude},${this.#longitude}`;
     rowDom.appendChild(cellDom);
 
     cellDom.onclick = this.onClick.bind(this);
