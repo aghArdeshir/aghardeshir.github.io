@@ -1,14 +1,10 @@
 {
   "name": "clone-or-jump",
-  "version": "1.0.0",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
-    "dev": "vite ./src"
+    "dev:front": "vite ./src/front",
+    "dev:back": "PORT=3000 node --experimental-strip-types --watch ./src/back/server.ts"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "devDependencies": {
     "vite": "^6.3.5"
   }
