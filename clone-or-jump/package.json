@@ -3,9 +3,16 @@
   "type": "module",
   "scripts": {
     "dev:front": "vite ./src/front",
-    "dev:back": "PORT=3000 node --experimental-strip-types --watch ./src/back/server.ts"
+    "dev:back": "PORT=3000 node --experimental-strip-types --watch ./src/back/server.ts",
+    "dev": "concurrently --names \"front,back\" \"npm run dev:front\" \"npm run dev:back\""
   },
   "devDependencies": {
+    "@types/node": "^22.15.21",
+    "concurrently": "^9.1.2",
     "vite": "^6.3.5"
+  },
+  "dependencies": {
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1"
   }
 }
