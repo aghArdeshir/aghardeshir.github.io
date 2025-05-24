@@ -4,6 +4,7 @@ import {
   type MessagesFrontSendsToBack,
   isMessageNewPlayerJoined,
 } from "../common/messageTypes";
+import { Player } from "./Player";
 
 const port = process.env.PORT;
 if (!port) throw new Error("PORT is not defined in env.");
@@ -22,12 +23,17 @@ const io = new SocketIoServer(httpServer, {
   },
 });
 
+const playersMap = new Map<string, Player>();
+
 io.on("connection", (socket) => {
   console.log("a user connected");
 
   socket.on("message", (message: MessagesFrontSendsToBack) => {
     if (isMessageNewPlayerJoined(message)) {
-      console.log("New player joined");
+      const player = new Player();
+      player.setSocket(socket);
+      playersMap.set(player.id, player);
+      player.informId();
     }
   });
 });
