@@ -1,4 +1,7 @@
-import { generateMessageNewPlayerJoined } from "../common/messageTypes";
+import {
+  generateMessageExistingPlayerJoined,
+  generateMessageNewPlayerJoined,
+} from "../common/messageTypes";
 import { sendMessageToBack } from "./connection";
 import { player } from "./Player";
 
@@ -12,9 +15,14 @@ async function renderStartPage() {
   document.body.appendChild(loading);
 
   // 1. Tell backend a player joined
-  if (!player.getId()) {
+  const playerId = player.getId();
+  if (playerId) {
+    sendMessageToBack(generateMessageExistingPlayerJoined(playerId));
+  } else {
     sendMessageToBack(generateMessageNewPlayerJoined());
   }
+
+
 }
 
 renderStartPage();
