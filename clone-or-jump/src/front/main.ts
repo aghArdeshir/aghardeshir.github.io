@@ -1,5 +1,6 @@
 import { generateMessageNewPlayerJoined } from "../common/messageTypes";
 import { sendMessageToBack } from "./connection";
+import { player } from "./Player";
 
 document.body.style.backgroundColor = "black";
 document.body.style.color = "white";
@@ -11,14 +12,9 @@ async function renderStartPage() {
   document.body.appendChild(loading);
 
   // 1. Tell backend a player joined
-  const playerId = getPlayerId();
-  if (!playerId) {
+  if (!player.getId()) {
     sendMessageToBack(generateMessageNewPlayerJoined());
   }
 }
 
 renderStartPage();
-
-function getPlayerId() {
-  return localStorage.getItem("playerId") ?? null;
-}
