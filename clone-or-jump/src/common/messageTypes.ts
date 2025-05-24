@@ -20,8 +20,35 @@ export function isMessageNewPlayerJoined(
   return (
     "messageId" in message &&
     (message as MessageNewPlayerJoined).messageId === newPlayerJoined
-    (message as MessageNewPlayerJoined).messageId === "newPlayerJoined"
+  );
+}
+
+// INFORM PLAYER ID
+
+const informPlayerId = "informPlayerId";
+
+type MessageInformPlayerId = {
+  messageId: typeof informPlayerId;
+  playerId: string;
+};
+
+export function generateMessageInformPlayerId(
+  playerId: string
+): MessageInformPlayerId {
+  return {
+    messageId: informPlayerId,
+    playerId,
+  };
+}
+
+export function isMessageInformPlayerId(
+  message: anyMessage
+): message is MessageInformPlayerId {
+  return (
+    "messageId" in message &&
+    (message as MessageInformPlayerId).messageId === informPlayerId
   );
 }
 
 export type MessagesFrontSendsToBack = MessageNewPlayerJoined;
+export type MessagesBackSendsToFront = MessageInformPlayerId;
