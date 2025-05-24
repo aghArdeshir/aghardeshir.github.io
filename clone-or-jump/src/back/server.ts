@@ -1,5 +1,9 @@
 import { createServer } from "node:http";
 import { Server as SocketIoServer } from "socket.io";
+import {
+  type MessagesFrontSendsToBack,
+  isMessageNewPlayerJoined,
+} from "../common/messageTypes";
 
 const port = process.env.PORT;
 if (!port) throw new Error("PORT is not defined in env.");
@@ -21,8 +25,10 @@ const io = new SocketIoServer(httpServer, {
 io.on("connection", (socket) => {
   console.log("a user connected");
 
-  socket.on("message", (message) => {
-    console.log("message from front", message);
+  socket.on("message", (message: MessagesFrontSendsToBack) => {
+    if (isMessageNewPlayerJoined(message)) {
+      console.log("New player joined");
+    }
   });
 });
 
