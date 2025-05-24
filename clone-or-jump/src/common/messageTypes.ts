@@ -50,5 +50,35 @@ export function isMessageInformPlayerId(
   );
 }
 
-export type MessagesFrontSendsToBack = MessageNewPlayerJoined;
+// EXISTING PLAYER JOINED
+
+const existingPlayerJoined = "existingPlayerJoined";
+
+type MessageExistingPlayerJoined = {
+  messageId: typeof existingPlayerJoined;
+  playerId: string;
+};
+
+export function generateMessageExistingPlayerJoined(
+  playerId: string
+): MessageExistingPlayerJoined {
+  return {
+    messageId: existingPlayerJoined,
+    playerId,
+  };
+}
+
+export function isMessageExistingPlayerJoined(
+  message: anyMessage
+): message is MessageExistingPlayerJoined {
+  return (
+    "messageId" in message &&
+    (message as MessageExistingPlayerJoined).messageId === existingPlayerJoined
+  );
+}
+
+export type MessagesFrontSendsToBack =
+  | MessageNewPlayerJoined
+  | MessageExistingPlayerJoined;
+
 export type MessagesBackSendsToFront = MessageInformPlayerId;
