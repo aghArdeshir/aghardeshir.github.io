@@ -2,6 +2,7 @@ import { createServer } from "node:http";
 import { Server as SocketIoServer } from "socket.io";
 import {
   type MessagesFrontSendsToBack,
+  isMessageExistingPlayerJoined,
   isMessageNewPlayerJoined,
 } from "../common/messageTypes.ts";
 import { Player } from "./Player.ts";
@@ -26,14 +27,13 @@ const io = new SocketIoServer(httpServer, {
 const playersMap = new Map<string, Player>();
 
 io.on("connection", (socket) => {
-  console.log("a user connected");
-
   socket.on("message", (message: MessagesFrontSendsToBack) => {
     if (isMessageNewPlayerJoined(message)) {
-      const player = new Player();
-      player.setSocket(socket);
-      playersMap.set(player.id, player);
-      player.informId();
+      Player.createNewPlayer({ socket });
+    } else if (isMessageExistingPlayerJoined(message)) {
+      const player = Player.getPlayerById(message.playerId);
+      if (player) player.setSocket(socket);
+      else Player.createNewPlayer({ socket, playerId: message.playerId });
     }
   });
 });
