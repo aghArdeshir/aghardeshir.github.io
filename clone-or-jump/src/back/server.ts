@@ -3,8 +3,8 @@ import { Server as SocketIoServer } from "socket.io";
 import {
   type MessagesFrontSendsToBack,
   isMessageNewPlayerJoined,
-} from "../common/messageTypes";
-import { Player } from "./Player";
+} from "../common/messageTypes.ts";
+import { Player } from "./Player.ts";
 
 const port = process.env.PORT;
 if (!port) throw new Error("PORT is not defined in env.");

@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 import type { Socket } from "socket.io";
-import { generateMessageInformPlayerId } from "../common/messageTypes";
+import { generateMessageInformPlayerId } from "../common/messageTypes.ts";
 
 export class Player {
   id: string;
