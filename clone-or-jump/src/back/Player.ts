@@ -6,7 +6,7 @@ import {
   generateMessagePlayerReadyToPlay,
   isMessageRequestPlay,
 } from "../common/messageTypes.ts";
-import { Game } from "./Game.ts";
+import { Game, games } from "./Game.ts";
 
 const playersMap = new Map<string, Player>();
 
@@ -28,8 +28,14 @@ export class Player {
 
     this.socket.on("message", (message) => {
       if (isMessageRequestPlay(message)) {
-        this.game = new Game(this);
-        this.informGameState();
+        const existingGame = games.find((game) => game.getPlayersCount() === 1);
+        if (existingGame) {
+          this.game = existingGame;
+        } else {
+          this.game = new Game(this);
+        }
+
+        this.game.addPlayer(this);
       }
     });
   }
