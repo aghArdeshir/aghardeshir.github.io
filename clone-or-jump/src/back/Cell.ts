@@ -17,7 +17,7 @@ export class Cell {
     this.y = y;
   }
 
-  setOwner(playerId: PlayerId) {
+  setOwnerId(playerId: PlayerId | null) {
     this.ownerId = playerId;
   }
 }

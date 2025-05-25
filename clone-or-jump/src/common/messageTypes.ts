@@ -1,3 +1,5 @@
+import type { PlayerId } from "./gameTypes";
+
 type anyMessage = Record<string, unknown>;
 
 // NEW PLAYER JOINED (Front to Back)
@@ -29,11 +31,11 @@ const informPlayerId = "informPlayerId";
 
 type MessageInformPlayerId = {
   messageId: typeof informPlayerId;
-  playerId: string;
+  playerId: PlayerId;
 };
 
 export function generateMessageInformPlayerId(
-  playerId: string
+  playerId: PlayerId
 ): MessageInformPlayerId {
   return {
     messageId: informPlayerId,
@@ -56,11 +58,11 @@ const existingPlayerJoined = "existingPlayerJoined";
 
 type MessageExistingPlayerJoined = {
   messageId: typeof existingPlayerJoined;
-  playerId: string;
+  playerId: PlayerId;
 };
 
 export function generateMessageExistingPlayerJoined(
-  playerId: string
+  playerId: PlayerId
 ): MessageExistingPlayerJoined {
   return {
     messageId: existingPlayerJoined,
@@ -129,12 +131,12 @@ export type GameStateCell = {
   id: string;
   x: number;
   y: number;
-  ownerId: string | null;
+  ownerId: PlayerId | null;
 };
 
 type GameStateBase = {
   id: string;
-  players: string[];
+  playerIds: PlayerId[];
 };
 
 export type GameStateWaitingForOtherPlayers = GameStateBase & {
@@ -143,6 +145,7 @@ export type GameStateWaitingForOtherPlayers = GameStateBase & {
 
 export type GameStatePlaying = GameStateBase & {
   state: "playing";
+  turn: PlayerId;
   cells: GameStateCell[];
 };
 

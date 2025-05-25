@@ -1,7 +1,13 @@
 import { randomUUID } from "node:crypto";
-import type { GameState } from "../common/messageTypes.ts";
+import type {
+  GameState,
+  GameStateFinished,
+  GameStatePlaying,
+  GameStateWaitingForOtherPlayers,
+} from "../common/messageTypes.ts";
 import { Cell } from "./Cell.ts";
 import type { Player } from "./Player.ts";
+import type { PlayerId } from "../common/gameTypes.ts";
 
 export const games: Game[] = [];
 
@@ -10,6 +16,7 @@ export class Game {
   private players: Player[] = [];
   state: "waitingForPlayers" | "playing" | "finished" = "waitingForPlayers";
   private cells = new Array(16).fill(null).map(() => new Cell());
+  turnPlayerId: PlayerId;
 
   constructor() {
     games.push(this);
@@ -34,8 +41,9 @@ export class Game {
 
     if (this.getPlayersCount() === 2) {
       this.state = "playing";
-      this.cells[0].setOwner(this.players[0].id)
-      this.cells[this.cells.length - 1].setOwner(this.players[1].id);
+      this.turnPlayerId = this.players[0].id;
+      this.cells[0].setOwnerId(this.players[0].id)
+      this.cells[this.cells.length - 1].setOwnerId(this.players[1].id);
     }
 
     for (const player of this.players) {
@@ -43,12 +51,96 @@ export class Game {
     }
   }
 
+  move({
+    playerId,
+    sourceCellId,
+    targetCellId,
+  }: {
+    playerId: PlayerId;
+    sourceCellId: string;
+    targetCellId: string;
+  }): void {
+    const player = this.players.find((p) => p.id === playerId);
+    const sourceCell = this.cells.find((cell) => cell.id === sourceCellId);
+    const targetCell = this.cells.find((cell) => cell.id === targetCellId);
+    if (!player || !sourceCell || !targetCell) return;
+
+    const isMoveValid = this.validateMove({
+      player,
+      sourceCell,
+      targetCell,
+    });
+
+    if (!isMoveValid) return;
+
+    targetCell.setOwnerId(player.id);
+
+    if (this.isMoveJump(sourceCell, targetCell)) {
+      sourceCell.setOwnerId(null);
+    }
+
+    for (const player of this.players) {
+      player.informGameState();
+    }
+  }
+
+  validateMove({
+    player,
+    sourceCell,
+    targetCell,
+  }: {
+    player: Player;
+    sourceCell: Cell;
+    targetCell: Cell;
+  }): boolean {
+    if (!sourceCell) return false;
+    if (!targetCell) return false;
+    if (this.state !== "playing") return false;
+    if (sourceCell.id === targetCell.id) return false;
+    if (sourceCell.ownerId === targetCell.ownerId) return false;
+    if (sourceCell.ownerId !== player.id) return false;
+    if (targetCell.ownerId) return false;
+
+    return true;
+  }
+
+  isMoveJump(sourceCell: Cell, targetCell: Cell): boolean {
+    const dx = Math.abs(sourceCell.x - targetCell.x);
+    const dy = Math.abs(sourceCell.y - targetCell.y);
+    return dx > 1 || dy > 1;
+  }
+
   serialize(): GameState {
-    return {
-      id: this.id,
-      players: this.players.map((player) => player.id),
-      state: this.state,
-      cells: this.cells.map((cell) => cell.serialize()),
-    };
+    if (this.state === "waitingForPlayers") {
+      const gameState: GameStateWaitingForOtherPlayers = {
+        id: this.id,
+        playerIds: this.players.map((player) => player.id),
+        state: this.state,
+      };
+      return gameState;
+    }
+
+    if (this.state === "playing") {
+      const gameState: GameStatePlaying = {
+        id: this.id,
+        playerIds: this.players.map((player) => player.id),
+        state: this.state,
+        turn: this.turnPlayerId,
+        cells: this.cells.map((cell) => cell.serialize()),
+      };
+      return gameState;
+    }
+
+    if (this.state === "finished") {
+      const gameState: GameStateFinished = {
+        id: this.id,
+        state: this.state,
+        playerIds: this.players.map((player) => player.id),
+        cells: this.cells.map((cell) => cell.serialize()),
+      };
+      return gameState;
+    }
+
+    throw new Error("Unknown game state. This should never happen.");
   }
 }

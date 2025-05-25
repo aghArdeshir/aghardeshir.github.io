@@ -1,3 +1,4 @@
+import type { PlayerId } from "../common/gameTypes";
 import { generateMessageRequestPlay } from "../common/messageTypes";
 import { sendMessageToBack } from "./connection";
 
@@ -6,7 +7,7 @@ class Player {
     return localStorage.getItem("playerId") ?? null;
   }
 
-  setId(playerId: string) {
+  setId(playerId: PlayerId) {
     localStorage.setItem("playerId", playerId);
   }
 

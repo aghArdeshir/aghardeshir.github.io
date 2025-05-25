@@ -8,15 +8,16 @@ import {
   isMessageRequestPlay,
 } from "../common/messageTypes.ts";
 import { Game, games } from "./Game.ts";
+import type { PlayerId } from "../common/gameTypes.ts";
 
-const playersMap = new Map<string, Player>();
+const playersMap = new Map<PlayerId, Player>();
 
 export class Player {
-  id: string;
+  id: PlayerId;
   socket: Socket;
   game: Game;
 
-  constructor(id?: string) {
+  constructor(id?: PlayerId) {
     this.id = id || randomUUID();
   }
 
@@ -38,7 +39,11 @@ export class Player {
 
         this.game.addPlayer(this);
       } else if (isMessageMove(message)) {
-        console.log("should handle move message", message);
+        this.game.move({
+          playerId: this.id,
+          sourceCellId: message.sourceCellId,
+          targetCellId: message.targetCellId,
+        });
       }
     });
   }
@@ -63,7 +68,7 @@ export class Player {
     );
   }
 
-  static getPlayerById(playerId: string): Player | undefined {
+  static getPlayerById(playerId: PlayerId): Player | undefined {
     const existingPlayer = playersMap.get(playerId);
     if (existingPlayer) return existingPlayer;
   }
@@ -73,7 +78,7 @@ export class Player {
     playerId,
   }: {
     socket: Socket;
-    playerId?: string;
+    playerId?: PlayerId;
   }): Player {
     const player = new Player(playerId);
     playersMap.set(player.id, player);
