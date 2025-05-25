@@ -145,7 +145,7 @@ export type GameStateWaitingForOtherPlayers = GameStateBase & {
 
 export type GameStatePlaying = GameStateBase & {
   state: "playing";
-  turn: PlayerId;
+  turnPlayerId: PlayerId;
   cells: GameStateCell[];
 };
 

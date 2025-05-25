@@ -83,7 +83,12 @@ function renderGameWaitingForPlayers(
 }
 
 function renderGamePlaying(gameState: GameStatePlaying) {
-  console.log("i should render the game", gameState);
+  if (gameState.turnPlayerId === player.getId()) {
+    document.body.classList.add("player-turn");
+  } else {
+    document.body.classList.remove("player-turn");
+  }
+
   for (const cell of gameState.cells) {
     const cellDiv = document.createElement("div");
 
@@ -100,14 +105,16 @@ function renderGamePlaying(gameState: GameStatePlaying) {
 
       if (cell.ownerId === player.getId()) {
         cellDiv.classList.add("my-cell");
-        cellDiv.addEventListener("click", () => {
-          setTimeout(() => {
-            // setTimeout, because the other click handler on document body
-            // removes the class immediately, we wait and then add the class
-            cellDiv.classList.add("selected-for-action");
-            renderTargets();
+        if (gameState.turnPlayerId === player.getId()) {
+          cellDiv.addEventListener("click", () => {
+            setTimeout(() => {
+              // setTimeout, because the other click handler on document body
+              // removes the class immediately, we wait and then add the class
+              cellDiv.classList.add("selected-for-action");
+              renderTargets();
+            });
           });
-        });
+        }
       } else {
         cellDiv.classList.add("enemy-cell");
       }

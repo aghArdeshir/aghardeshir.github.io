@@ -42,7 +42,7 @@ export class Game {
     if (this.getPlayersCount() === 2) {
       this.state = "playing";
       this.turnPlayerId = this.players[0].id;
-      this.cells[0].setOwnerId(this.players[0].id)
+      this.cells[0].setOwnerId(this.players[0].id);
       this.cells[this.cells.length - 1].setOwnerId(this.players[1].id);
     }
 
@@ -63,7 +63,8 @@ export class Game {
     const player = this.players.find((p) => p.id === playerId);
     const sourceCell = this.cells.find((cell) => cell.id === sourceCellId);
     const targetCell = this.cells.find((cell) => cell.id === targetCellId);
-    if (!player || !sourceCell || !targetCell) return;
+    const otherPlayer = this.players.find((p) => p.id !== playerId);
+    if (!player || !sourceCell || !targetCell || !otherPlayer) return;
 
     const isMoveValid = this.validateMove({
       player,
@@ -78,6 +79,8 @@ export class Game {
     if (this.isMoveJump(sourceCell, targetCell)) {
       sourceCell.setOwnerId(null);
     }
+
+    this.turnPlayerId = otherPlayer.id;
 
     for (const player of this.players) {
       player.informGameState();
@@ -100,6 +103,7 @@ export class Game {
     if (sourceCell.ownerId === targetCell.ownerId) return false;
     if (sourceCell.ownerId !== player.id) return false;
     if (targetCell.ownerId) return false;
+    if (this.turnPlayerId !== player.id) return false;
 
     return true;
   }
@@ -125,7 +129,7 @@ export class Game {
         id: this.id,
         playerIds: this.players.map((player) => player.id),
         state: this.state,
-        turn: this.turnPlayerId,
+        turnPlayerId: this.turnPlayerId,
         cells: this.cells.map((cell) => cell.serialize()),
       };
       return gameState;

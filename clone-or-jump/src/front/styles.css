@@ -15,32 +15,39 @@
 
   &.my-cell {
     background-color: var(--own-cell-color);
-    cursor: pointer;
-
-    &.selected-for-action {
-      opacity: 1;
-      background-color: var(--selected-cell-color);
-    }
-
-    &:hover {
-      opacity: 1;
-    }
   }
 
   &.enemy-cell {
     background-color: var(--enemy-cell-color);
   }
+}
 
-  &.target-cell {
-    cursor: pointer;
-    background: var(--adjacent-target-cell-color);
+body.player-turn {
+  .cell {
+    &.my-cell {
+      cursor: pointer;
 
-    &.two-blocks-away {
-      background-color: var(--two-blocks-away-target-cell-color);
+      &.selected-for-action {
+        opacity: 1;
+        background-color: var(--selected-cell-color);
+      }
+
+      &:hover {
+        opacity: 1;
+      }
     }
 
-    &:hover {
-      opacity: 1;
+    &.target-cell {
+      cursor: pointer;
+      background: var(--adjacent-target-cell-color);
+
+      &.two-blocks-away {
+        background-color: var(--two-blocks-away-target-cell-color);
+      }
+
+      &:hover {
+        opacity: 1;
+      }
     }
   }
 }
