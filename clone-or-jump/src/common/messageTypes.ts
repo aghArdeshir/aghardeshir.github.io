@@ -129,6 +129,7 @@ export type GameState = {
   id: string;
   players: string[];
   state: "waitingForPlayers" | "playing" | "finished";
+  cells: Array<{ id: string }>;
 };
 
 const informGameState = "informGameState";
