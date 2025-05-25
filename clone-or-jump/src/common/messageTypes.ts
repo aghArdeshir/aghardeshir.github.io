@@ -123,9 +123,45 @@ export function isMessageRequestPlay(
   );
 }
 
+// INFORM GAME STATE (Back to Front)
+
+export type GameState = {
+  id: string;
+  players: string[];
+  state: "waitingForPlayers" | "playing" | "finished";
+};
+
+const informGameState = "informGameState";
+
+type MessageInformGameState = {
+  messageId: typeof informGameState;
+  gameState: GameState;
+};
+
+export function generateMessageInformGameState(
+  gameState: MessageInformGameState["gameState"]
+): MessageInformGameState {
+  return {
+    messageId: informGameState,
+    gameState,
+  };
+}
+
+export function isMessageInformGameState(
+  message: anyMessage
+): message is MessageInformGameState {
+  return (
+    "messageId" in message &&
+    (message as MessageInformGameState).messageId === informGameState
+  );
+}
+
 export type MessagesFrontSendsToBack =
   | MessageNewPlayerJoined
   | MessageExistingPlayerJoined
   | MessageRequestPlay;
 
-export type MessagesBackSendsToFront = MessageInformPlayerId | MessagePlayerReadyToPlay;
+export type MessagesBackSendsToFront =
+  | MessageInformPlayerId
+  | MessagePlayerReadyToPlay
+  | MessageInformGameState;

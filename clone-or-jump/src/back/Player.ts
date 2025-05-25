@@ -1,16 +1,19 @@
 import { randomUUID } from "node:crypto";
 import type { Socket } from "socket.io";
 import {
+  generateMessageInformGameState,
   generateMessageInformPlayerId,
   generateMessagePlayerReadyToPlay,
   isMessageRequestPlay,
 } from "../common/messageTypes.ts";
+import { Game } from "./Game.ts";
 
 const playersMap = new Map<string, Player>();
 
 export class Player {
   id: string;
   socket: Socket;
+  game: Game;
 
   constructor(id?: string) {
     this.id = id || randomUUID();
@@ -23,7 +26,8 @@ export class Player {
 
     this.socket.on("message", (message) => {
       if (isMessageRequestPlay(message)) {
-        console.log("i should createa game");
+        this.game = new Game(this);
+        this.informGameSate();
       }
     });
   }
@@ -34,6 +38,13 @@ export class Player {
 
   informReadyToPlay() {
     this.socket.emit("message", generateMessagePlayerReadyToPlay());
+  }
+
+  informGameSate() {
+    this.socket.emit(
+      "message",
+      generateMessageInformGameState(this.game.serialize())
+    );
   }
 
   static getPlayerById(playerId: string): Player | undefined {

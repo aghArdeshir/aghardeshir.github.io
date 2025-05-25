@@ -1,4 +1,5 @@
 import {
+  type GameState,
   generateMessageExistingPlayerJoined,
   generateMessageNewPlayerJoined,
 } from "../common/messageTypes";
@@ -48,5 +49,28 @@ export function showPlayButton() {
   };
   document.body.appendChild(playButton);
 }
+
+export function renderGame(gameState: GameState) {
+  clear();
+
+
+  switch (gameState.state) {
+    case "waitingForPlayers":
+      renderGameWaitingForPlayers(gameState);
+      break;
+    case "playing":
+      renderGamePlaying(gameState);
+      break;
+    case "finished":
+      renderGameFinished(gameState);
+      break;
+  }
+}
+
+function renderGameWaitingForPlayers(gameState: GameState) {}
+
+function renderGamePlaying(gameState: GameState) {}
+
+function renderGameFinished(gameState: GameState) {}
 
 renderStartPage();
