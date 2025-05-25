@@ -1,6 +1,6 @@
 type anyMessage = Record<string, unknown>;
 
-// NEW PLAYER JOINED
+// NEW PLAYER JOINED (Front to Back)
 
 const newPlayerJoined = "newPlayerJoined";
 
@@ -23,7 +23,7 @@ export function isMessageNewPlayerJoined(
   );
 }
 
-// INFORM PLAYER ID
+// INFORM PLAYER ID (Back to Front)
 
 const informPlayerId = "informPlayerId";
 
@@ -50,7 +50,7 @@ export function isMessageInformPlayerId(
   );
 }
 
-// EXISTING PLAYER JOINED
+// EXISTING PLAYER JOINED (Front to Back)
 
 const existingPlayerJoined = "existingPlayerJoined";
 
@@ -77,8 +77,55 @@ export function isMessageExistingPlayerJoined(
   );
 }
 
+// PLAYER READY TO PLAY (Back to Front)
+
+const playerReadyToPlay = "playerReadyToPlay";
+
+type MessagePlayerReadyToPlay = {
+  messageId: typeof playerReadyToPlay;
+};
+
+export function generateMessagePlayerReadyToPlay(): MessagePlayerReadyToPlay {
+  return {
+    messageId: playerReadyToPlay,
+  };
+}
+
+export function isMessagePlayerReadyToPlay(
+  message: anyMessage
+): message is MessagePlayerReadyToPlay {
+  return (
+    "messageId" in message &&
+    (message as MessagePlayerReadyToPlay).messageId === playerReadyToPlay
+  );
+}
+
+// REQUEST PLAY (Front to Back)
+
+const requestPlay = "requestPlay";
+
+type MessageRequestPlay = {
+  messageId: typeof requestPlay;
+};
+
+export function generateMessageRequestPlay(): MessageRequestPlay {
+  return {
+    messageId: requestPlay,
+  };
+}
+
+export function isMessageRequestPlay(
+  message: anyMessage
+): message is MessageRequestPlay {
+  return (
+    "messageId" in message &&
+    (message as MessageRequestPlay).messageId === requestPlay
+  );
+}
+
 export type MessagesFrontSendsToBack =
   | MessageNewPlayerJoined
-  | MessageExistingPlayerJoined;
+  | MessageExistingPlayerJoined
+  | MessageRequestPlay;
 
-export type MessagesBackSendsToFront = MessageInformPlayerId;
+export type MessagesBackSendsToFront = MessageInformPlayerId | MessagePlayerReadyToPlay;

@@ -30,8 +30,10 @@ io.on("connection", (socket) => {
       Player.createNewPlayer({ socket });
     } else if (isMessageExistingPlayerJoined(message)) {
       const player = Player.getPlayerById(message.playerId);
-      if (player) player.setSocket(socket);
-      else Player.createNewPlayer({ socket, playerId: message.playerId });
+      if (player) {
+        player.setSocket(socket);
+        player.informReadyToPlay();
+      } else Player.createNewPlayer({ socket, playerId: message.playerId });
     }
   });
 });
