@@ -59,16 +59,17 @@ export function showPlayButton() {
 }
 
 export function renderGame(gameState: GameState) {
-  clear();
-
   switch (gameState.state) {
     case "waitingForPlayers":
+      clear();
       renderGameWaitingForPlayers(gameState);
       break;
     case "playing":
+      clear();
       renderGamePlaying(gameState);
       break;
     case "finished":
+      // we don't clear, so we can see the game
       renderGameFinished(gameState);
       break;
   }
@@ -124,7 +125,12 @@ function renderGamePlaying(gameState: GameStatePlaying) {
   }
 }
 
-function renderGameFinished(gameState: GameStateFinished) {}
+function renderGameFinished(gameState: GameStateFinished) {
+  document.body.classList.remove("player-turn");
+  const finishedMessage = document.createElement("div");
+  finishedMessage.innerText = "Game finished!";
+  document.body.appendChild(finishedMessage);
+}
 
 function renderTargets() {
   const selectedCell = document.querySelector(".selected-for-action");
