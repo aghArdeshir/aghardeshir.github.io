@@ -50,6 +50,10 @@ export function showPlayButton() {
   playButton.onclick = () => {
     player.requestPlay();
   };
+  setTimeout(() => {
+    console.log("DEBUG MODE: Requesting play automatically");
+    player.requestPlay(); // in case the player is already ready
+  }, 500);
   document.body.appendChild(playButton);
 }
 
@@ -81,18 +85,15 @@ function renderGamePlaying(gameState: GameStatePlaying) {
   console.log("i should render the game", gameState);
   for (const cell of gameState.cells) {
     const cellDiv = document.createElement("div");
-    cellDiv.style.width = "40px";
-    cellDiv.style.height = "40px";
-    cellDiv.style.position = "absolute";
-    cellDiv.style.border = "1px solid white";
+    cellDiv.classList.add("cell");
     cellDiv.style.left = `${cell.x * 40}px`;
     cellDiv.style.top = `${cell.y * 40}px`;
 
     if (cell.ownerId) {
       if (cell.ownerId === player.getId()) {
-        cellDiv.style.backgroundColor = "green";
+        cellDiv.classList.add("my-cell");
       } else {
-        cellDiv.style.backgroundColor = "red";
+        cellDiv.classList.add("enemy-cell");
       }
     }
 
