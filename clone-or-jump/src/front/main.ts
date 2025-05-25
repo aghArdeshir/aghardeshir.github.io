@@ -85,11 +85,18 @@ function renderGamePlaying(gameState: GameStatePlaying) {
   console.log("i should render the game", gameState);
   for (const cell of gameState.cells) {
     const cellDiv = document.createElement("div");
+
     cellDiv.classList.add("cell");
     cellDiv.style.left = `${cell.x * 40}px`;
     cellDiv.style.top = `${cell.y * 40}px`;
 
+    cellDiv.dataset.cellId = cell.id;
+    cellDiv.dataset.x = cell.x.toString();
+    cellDiv.dataset.y = cell.y.toString();
+
     if (cell.ownerId) {
+      cellDiv.dataset.ownerId = cell.ownerId;
+
       if (cell.ownerId === player.getId()) {
         cellDiv.classList.add("my-cell");
         cellDiv.addEventListener("click", () => {
@@ -98,6 +105,7 @@ function renderGamePlaying(gameState: GameStatePlaying) {
             ?.classList.remove("selected-for-action");
           setTimeout(() => {
             cellDiv.classList.add("selected-for-action");
+            renderTargets();
           });
         });
       } else {
@@ -111,8 +119,61 @@ function renderGamePlaying(gameState: GameStatePlaying) {
 
 function renderGameFinished(gameState: GameStateFinished) {}
 
+function renderTargets() {
+  const selectedCell = document.querySelector(".selected-for-action");
+  if (!(selectedCell instanceof HTMLDivElement)) return; // to shut up TS
+
+  const x = Number.parseInt(selectedCell.dataset.x || "0");
+  const y = Number.parseInt(selectedCell.dataset.y || "0");
+  const possibleTargetCoordinates = [
+    // adjacent
+    { x: x - 1, y },
+    { x: x + 1, y },
+    { x, y: y - 1 },
+    { x, y: y + 1 },
+
+    // two cells away
+    { x: x - 2, y },
+    { x: x + 2, y },
+    { x, y: y - 2 },
+    { x, y: y + 2 },
+  ];
+
+  const availableTargetCoordinates = possibleTargetCoordinates.filter(
+    (coord) => {
+      const cell = document.querySelector(
+        `.cell[data-x="${coord.x}"][data-y="${coord.y}"]`
+      );
+
+      if (!cell) return false;
+      if (cell.getAttribute("data-owner-id")) return false;
+
+      return true;
+    }
+  );
+
+  for (const coord of availableTargetCoordinates) {
+    const targetCell = document.querySelector(
+      `.cell[data-x="${coord.x}"][data-y="${coord.y}"]`
+    );
+
+    if (!(targetCell instanceof HTMLDivElement)) continue; // to shut up TS
+
+    targetCell.classList.add("target-cell");
+
+    const isTwoBlocksAway =
+      Math.abs(coord.x - x) > 1 || Math.abs(coord.y - y) > 1;
+
+    if (isTwoBlocksAway) {
+      targetCell.classList.add("two-blocks-away");
+    }
+  }
+}
+
 renderStartPage();
 
 document.addEventListener("click", () => {
-  document.querySelector(".selected-for-action")?.classList.remove("selected-for-action");
+  document
+    .querySelector(".selected-for-action")
+    ?.classList.remove("selected-for-action");
 });

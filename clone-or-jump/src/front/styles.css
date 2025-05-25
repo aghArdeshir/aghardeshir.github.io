@@ -22,4 +22,12 @@
   &.enemy-cell {
     background-color: red;
   }
+
+  &.target-cell {
+    background-color: rgba(0, 255, 0, 0.5);
+
+    &.two-blocks-away {
+      background-color: rgba(255, 180, 0, 0.3);
+    }
+  }
 }
