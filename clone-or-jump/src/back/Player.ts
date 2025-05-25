@@ -32,7 +32,7 @@ export class Player {
         if (existingGame) {
           this.game = existingGame;
         } else {
-          this.game = new Game(this);
+          this.game = new Game();
         }
 
         this.game.addPlayer(this);
