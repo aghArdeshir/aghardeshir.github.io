@@ -1,5 +1,7 @@
+import type { PlayerId } from "../common/gameTypes";
 import {
   type GameState,
+  type GameStateCell,
   type GameStateFinished,
   type GameStatePlaying,
   type GameStateWaitingForOtherPlayers,
@@ -59,13 +61,13 @@ export function showPlayButton() {
 }
 
 export function renderGame(gameState: GameState) {
+  clear();
+
   switch (gameState.state) {
     case "waitingForPlayers":
-      clear();
       renderGameWaitingForPlayers(gameState);
       break;
     case "playing":
-      clear();
       renderGamePlaying(gameState);
       break;
     case "finished":
@@ -90,7 +92,11 @@ function renderGamePlaying(gameState: GameStatePlaying) {
     document.body.classList.remove("player-turn");
   }
 
-  for (const cell of gameState.cells) {
+  renderGameCells(gameState.cells, gameState.turnPlayerId);
+}
+
+function renderGameCells(cells: GameStateCell[], turnPlayerId?: PlayerId) {
+  for (const cell of cells) {
     const cellDiv = document.createElement("div");
 
     cellDiv.classList.add("cell");
@@ -106,7 +112,7 @@ function renderGamePlaying(gameState: GameStatePlaying) {
 
       if (cell.ownerId === player.getId()) {
         cellDiv.classList.add("my-cell");
-        if (gameState.turnPlayerId === player.getId()) {
+        if (turnPlayerId === player.getId()) {
           cellDiv.addEventListener("click", () => {
             setTimeout(() => {
               // setTimeout, because the other click handler on document body
@@ -126,6 +132,7 @@ function renderGamePlaying(gameState: GameStatePlaying) {
 }
 
 function renderGameFinished(gameState: GameStateFinished) {
+  renderGameCells(gameState.cells);
   document.body.classList.remove("player-turn");
   const finishedMessage = document.createElement("div");
   finishedMessage.innerText = "Game finished!";
