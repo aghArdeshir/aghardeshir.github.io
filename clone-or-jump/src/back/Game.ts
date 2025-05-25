@@ -78,6 +78,26 @@ export class Game {
 
     if (this.isMoveJump(sourceCell, targetCell)) {
       sourceCell.setOwnerId(null);
+      const cellInMiddle = this.cells.find(
+        (cell) =>
+          cell.x === (sourceCell.x + targetCell.x) / 2 &&
+          cell.y === (sourceCell.y + targetCell.y) / 2
+      );
+      if (cellInMiddle && cellInMiddle.ownerId === otherPlayer.id) {
+        cellInMiddle.setOwnerId(player.id);
+      }
+    }
+
+    const targetCellAdjacentCells = this.cells.filter(
+      (cell) =>
+        (cell.x === targetCell.x && Math.abs(cell.y - targetCell.y) === 1) ||
+        (cell.y === targetCell.y && Math.abs(cell.x - targetCell.x) === 1)
+    );
+
+    for (const targetCellAdjacentCell of targetCellAdjacentCells) {
+      if (targetCellAdjacentCell.ownerId === otherPlayer.id) {
+        targetCellAdjacentCell.setOwnerId(player.id);
+      }
     }
 
     this.turnPlayerId = otherPlayer.id;
