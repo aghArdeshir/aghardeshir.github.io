@@ -1,3 +1,11 @@
+:root {
+  --own-cell-color: green;
+  --selected-cell-color: greenyellow;
+  --enemy-cell-color: red;
+  --adjacent-target-cell-color: rgba(0, 255, 0, 0.5);
+  --two-blocks-away-target-cell-color: rgba(255, 165, 0, 0.3);
+}
+
 .cell {
   width: 40px;
   height: 40px;
@@ -6,12 +14,12 @@
   opacity: 0.8;
 
   &.my-cell {
-    background-color: green;
+    background-color: var(--own-cell-color);
     cursor: pointer;
 
     &.selected-for-action {
       opacity: 1;
-      background-color: greenyellow;
+      background-color: var(--selected-cell-color);
     }
 
     &:hover {
@@ -20,14 +28,19 @@
   }
 
   &.enemy-cell {
-    background-color: red;
+    background-color: var(--enemy-cell-color);
   }
 
   &.target-cell {
-    background-color: rgba(0, 255, 0, 0.5);
+    cursor: pointer;
+    background: var(--adjacent-target-cell-color);
 
     &.two-blocks-away {
-      background-color: rgba(255, 180, 0, 0.3);
+      background-color: var(--two-blocks-away-target-cell-color);
+    }
+
+    &:hover {
+      opacity: 1;
     }
   }
 }

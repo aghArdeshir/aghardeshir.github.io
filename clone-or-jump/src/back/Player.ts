@@ -4,6 +4,7 @@ import {
   generateMessageInformGameState,
   generateMessageInformPlayerId,
   generateMessagePlayerReadyToPlay,
+  isMessageMove,
   isMessageRequestPlay,
 } from "../common/messageTypes.ts";
 import { Game, games } from "./Game.ts";
@@ -36,6 +37,8 @@ export class Player {
         }
 
         this.game.addPlayer(this);
+      } else if (isMessageMove(message)) {
+        console.log("should handle move message", message);
       }
     });
   }

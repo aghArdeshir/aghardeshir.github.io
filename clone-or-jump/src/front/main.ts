@@ -4,6 +4,7 @@ import {
   type GameStatePlaying,
   type GameStateWaitingForOtherPlayers,
   generateMessageExistingPlayerJoined,
+  generateMessageMove,
   generateMessageNewPlayerJoined,
 } from "../common/messageTypes";
 import { sendMessageToBack } from "./connection";
@@ -100,10 +101,9 @@ function renderGamePlaying(gameState: GameStatePlaying) {
       if (cell.ownerId === player.getId()) {
         cellDiv.classList.add("my-cell");
         cellDiv.addEventListener("click", () => {
-          document
-            .querySelector(".selected-for-action")
-            ?.classList.remove("selected-for-action");
           setTimeout(() => {
+            // setTimeout, because the other click handler on document body
+            // removes the class immediately, we wait and then add the class
             cellDiv.classList.add("selected-for-action");
             renderTargets();
           });
@@ -172,8 +172,27 @@ function renderTargets() {
 
 renderStartPage();
 
-document.addEventListener("click", () => {
+document.addEventListener("click", ({ target }) => {
+  if (target instanceof HTMLDivElement) {
+    if (target.classList.contains("cell")) {
+      if (target.classList.contains("target-cell")) {
+        const sourceCellId = document
+          .querySelector(".selected-for-action")
+          ?.getAttribute("data-cell-id");
+        const targetCellId = target.dataset.cellId;
+
+        if (sourceCellId && targetCellId) {
+          sendMessageToBack(generateMessageMove(sourceCellId, targetCellId));
+        }
+      }
+    }
+  }
+
   document
     .querySelector(".selected-for-action")
     ?.classList.remove("selected-for-action");
+  for (const targetCell of document.querySelectorAll(".target-cell")) {
+    targetCell.classList.remove("target-cell");
+    targetCell.classList.remove("two-blocks-away");
+  }
 });

@@ -181,10 +181,41 @@ export function isMessageInformGameState(
   );
 }
 
+// MOVE (Front to Back)
+
+const move = "move";
+
+type MessageMove = {
+  messageId: typeof move;
+  sourceCellId: string;
+  targetCellId: string;
+};
+
+export function generateMessageMove(
+  sourceCellId: string,
+  targetCellId: string
+): MessageMove {
+  return {
+    messageId: move,
+    sourceCellId,
+    targetCellId,
+  };
+}
+
+export function isMessageMove(message: anyMessage): message is MessageMove {
+  return (
+    "messageId" in message &&
+    (message as MessageMove).messageId === move &&
+    "sourceCellId" in message &&
+    "targetCellId" in message
+  );
+}
+
 export type MessagesFrontSendsToBack =
   | MessageNewPlayerJoined
   | MessageExistingPlayerJoined
-  | MessageRequestPlay;
+  | MessageRequestPlay
+  | MessageMove;
 
 export type MessagesBackSendsToFront =
   | MessageInformPlayerId
