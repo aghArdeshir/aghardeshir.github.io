@@ -17,7 +17,12 @@ export class Game {
   }
 
   arrangeCells(): void {
-
+    for (let i = 0; i < 4; i++) {
+      for (let j = 0; j < 4; j++) {
+        const cell = this.cells[i * 4 + j];
+        cell.setPosition({ x: j, y: i });
+      }
+    }
   }
 
   getPlayersCount(): number {

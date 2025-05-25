@@ -1,5 +1,8 @@
 import {
   type GameState,
+  type GameStateFinished,
+  type GameStatePlaying,
+  type GameStateWaitingForOtherPlayers,
   generateMessageExistingPlayerJoined,
   generateMessageNewPlayerJoined,
 } from "../common/messageTypes";
@@ -66,14 +69,28 @@ export function renderGame(gameState: GameState) {
   }
 }
 
-function renderGameWaitingForPlayers(gameState: GameState) {
+function renderGameWaitingForPlayers(
+  gameState: GameStateWaitingForOtherPlayers
+) {
   const waitingMessage = document.createElement("div");
   waitingMessage.innerText = "Waiting for players to join...";
   document.body.appendChild(waitingMessage);
 }
 
-function renderGamePlaying(gameState: GameState) {}
+function renderGamePlaying(gameState: GameStatePlaying) {
+  console.log("i should render the game", gameState);
+  for (const cell of gameState.cells) {
+    const cellDiv = document.createElement("div");
+    cellDiv.style.width = "40px";
+    cellDiv.style.height = "40px";
+    cellDiv.style.position = "absolute";
+    cellDiv.style.border = "1px solid white";
+    cellDiv.style.left = `${cell.x * 40}px`;
+    cellDiv.style.top = `${cell.y * 40}px`;
+    document.body.appendChild(cellDiv);
+  }
+}
 
-function renderGameFinished(gameState: GameState) {}
+function renderGameFinished(gameState: GameStateFinished) {}
 
 renderStartPage();

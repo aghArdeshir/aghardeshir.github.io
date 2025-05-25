@@ -125,12 +125,35 @@ export function isMessageRequestPlay(
 
 // INFORM GAME STATE (Back to Front)
 
-export type GameState = {
+export type GameStateCell = {
+  id: string;
+  x: number;
+  y: number;
+};
+
+type GameStateBase = {
   id: string;
   players: string[];
-  state: "waitingForPlayers" | "playing" | "finished";
-  cells: Array<{ id: string }>;
 };
+
+export type GameStateWaitingForOtherPlayers = GameStateBase & {
+  state: "waitingForPlayers";
+};
+
+export type GameStatePlaying = GameStateBase & {
+  state: "playing";
+  cells: GameStateCell[];
+};
+
+export type GameStateFinished = GameStateBase & {
+  state: "finished";
+  cells: GameStateCell[];
+};
+
+export type GameState =
+  | GameStateWaitingForOtherPlayers
+  | GameStatePlaying
+  | GameStateFinished;
 
 const informGameState = "informGameState";
 
