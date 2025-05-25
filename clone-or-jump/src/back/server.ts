@@ -29,11 +29,18 @@ io.on("connection", (socket) => {
     if (isMessageNewPlayerJoined(message)) {
       Player.createNewPlayer({ socket });
     } else if (isMessageExistingPlayerJoined(message)) {
-      const player = Player.getPlayerById(message.playerId);
-      if (player) {
-        player.setSocket(socket);
-        player.informReadyToPlay();
-      } else Player.createNewPlayer({ socket, playerId: message.playerId });
+      const existingPlayer = Player.getPlayerById(message.playerId);
+      if (existingPlayer) {
+        existingPlayer.setSocket(socket);
+        existingPlayer.informReadyToPlay();
+      } else {
+        const newPlayer = Player.createNewPlayer({
+          socket,
+          playerId: message.playerId,
+        });
+        newPlayer.setSocket(socket);
+        newPlayer.informReadyToPlay();
+      }
     }
   });
 });
