@@ -3,8 +3,8 @@ class Player {
     return localStorage.getItem("playerId") ?? null;
   }
 
-  setId(id: string) {
-    localStorage.setItem("playerId", id);
+  setId(playerId: string) {
+    localStorage.setItem("playerId", playerId);
   }
 }
 
