@@ -53,7 +53,6 @@ export function showPlayButton() {
 export function renderGame(gameState: GameState) {
   clear();
 
-
   switch (gameState.state) {
     case "waitingForPlayers":
       renderGameWaitingForPlayers(gameState);
@@ -67,7 +66,11 @@ export function renderGame(gameState: GameState) {
   }
 }
 
-function renderGameWaitingForPlayers(gameState: GameState) {}
+function renderGameWaitingForPlayers(gameState: GameState) {
+  const waitingMessage = document.createElement("div");
+  waitingMessage.innerText = "Waiting for players to join...";
+  document.body.appendChild(waitingMessage);
+}
 
 function renderGamePlaying(gameState: GameState) {}
 
