@@ -102,9 +102,51 @@ export class Game {
 
     this.turnPlayerId = otherPlayer.id;
 
+    if (this.isGameFinished()) {
+      this.state = "finished";
+    }
+
     for (const player of this.players) {
       player.informGameState();
     }
+  }
+
+  isGameFinished(): boolean {
+    if (this.areAllCellsOwned()) return true;
+    if (!this.playerCanMove(this.turnPlayerId)) return true;
+    return false;
+  }
+
+  areAllCellsOwned() {
+    return this.cells.every((cell) => cell.ownerId !== null);
+  }
+
+  playerCanMove(playerId: PlayerId): boolean {
+    const playerCells = this.cells.filter((cell) => cell.ownerId === playerId);
+
+    for (const playerCell of playerCells) {
+      const adjacentCells = this.cells.filter(
+        (adjCell) =>
+          (adjCell.x === playerCell.x && Math.abs(adjCell.y - playerCell.y) === 1) ||
+          (adjCell.y === playerCell.y && Math.abs(adjCell.x - playerCell.x) === 1)
+      );
+
+      for (const adjCell of adjacentCells) {
+        if (!adjCell.ownerId) return true;
+      }
+
+      const cellsTwoBlocksAway = this.cells.filter(
+        (twoCellAway) =>
+          (twoCellAway.x === playerCell.x && Math.abs(twoCellAway.y - playerCell.y) === 2) ||
+          (twoCellAway.y === playerCell.y && Math.abs(twoCellAway.x - playerCell.x) === 2)
+      );
+
+      for (const twoCellAway of cellsTwoBlocksAway) {
+        if (!twoCellAway.ownerId) return true;
+      }
+    }
+
+    return false;
   }
 
   validateMove({
