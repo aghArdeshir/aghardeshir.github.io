@@ -22,14 +22,21 @@ export class Player {
   setSocket(socket: Socket) {
     if (socket === this.socket) return;
 
+    if (this.socket) this.cleanupExistingSocket();
+
     this.socket = socket;
 
     this.socket.on("message", (message) => {
       if (isMessageRequestPlay(message)) {
         this.game = new Game(this);
-        this.informGameSate();
+        this.informGameState();
       }
     });
+  }
+
+  cleanupExistingSocket() {
+    this.socket.removeAllListeners("message");
+    this.socket.disconnect();
   }
 
   informId() {
@@ -40,7 +47,7 @@ export class Player {
     this.socket.emit("message", generateMessagePlayerReadyToPlay());
   }
 
-  informGameSate() {
+  informGameState() {
     this.socket.emit(
       "message",
       generateMessageInformGameState(this.game.serialize())
