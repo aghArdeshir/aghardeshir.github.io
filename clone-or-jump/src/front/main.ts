@@ -169,7 +169,7 @@ function renderTargets() {
     targetCell.classList.add("target-cell");
 
     const isTwoBlocksAway =
-      Math.abs(coord.x - x) > 1 || Math.abs(coord.y - y) > 1;
+      Math.abs(coord.x - x) === 2 || Math.abs(coord.y - y) === 2;
 
     if (isTwoBlocksAway) {
       targetCell.classList.add("two-blocks-away");

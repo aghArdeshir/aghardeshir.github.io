@@ -131,7 +131,7 @@ export class Game {
   isMoveJump(sourceCell: Cell, targetCell: Cell): boolean {
     const dx = Math.abs(sourceCell.x - targetCell.x);
     const dy = Math.abs(sourceCell.y - targetCell.y);
-    return dx > 1 || dy > 1;
+    return dx === 1 || dy === 1;
   }
 
   serialize(): GameState {
