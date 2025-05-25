@@ -92,6 +92,14 @@ function renderGamePlaying(gameState: GameStatePlaying) {
     if (cell.ownerId) {
       if (cell.ownerId === player.getId()) {
         cellDiv.classList.add("my-cell");
+        cellDiv.addEventListener("click", () => {
+          document
+            .querySelector(".selected-for-action")
+            ?.classList.remove("selected-for-action");
+          setTimeout(() => {
+            cellDiv.classList.add("selected-for-action");
+          });
+        });
       } else {
         cellDiv.classList.add("enemy-cell");
       }
@@ -104,3 +112,7 @@ function renderGamePlaying(gameState: GameStatePlaying) {
 function renderGameFinished(gameState: GameStateFinished) {}
 
 renderStartPage();
+
+document.addEventListener("click", () => {
+  document.querySelector(".selected-for-action")?.classList.remove("selected-for-action");
+});

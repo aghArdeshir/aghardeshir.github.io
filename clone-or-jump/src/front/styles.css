@@ -4,17 +4,22 @@
   position: absolute;
   border: 1px solid white;
   opacity: 0.8;
-}
 
-.cell.my-cell {
-  background-color: green;
-  cursor: pointer;
+  &.my-cell {
+    background-color: green;
+    cursor: pointer;
 
-  &:hover {
-    opacity: 1;
+    &.selected-for-action {
+      opacity: 1;
+      background-color: greenyellow;
+    }
+
+    &:hover {
+      opacity: 1;
+    }
   }
-}
 
-.cell.enemy-cell {
-  background-color: red;
+  &.enemy-cell {
+    background-color: red;
+  }
 }
