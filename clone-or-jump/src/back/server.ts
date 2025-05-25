@@ -24,8 +24,6 @@ const io = new SocketIoServer(httpServer, {
   },
 });
 
-const playersMap = new Map<string, Player>();
-
 io.on("connection", (socket) => {
   socket.on("message", (message: MessagesFrontSendsToBack) => {
     if (isMessageNewPlayerJoined(message)) {
