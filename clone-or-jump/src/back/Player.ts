@@ -16,8 +16,10 @@ export class Player {
     this.id = id || randomUUID();
   }
 
-  setSocket(setSocket: Socket) {
-    this.socket = setSocket;
+  setSocket(socket: Socket) {
+    if (socket === this.socket) return;
+
+    this.socket = socket;
 
     this.socket.on("message", (message) => {
       if (isMessageRequestPlay(message)) {
