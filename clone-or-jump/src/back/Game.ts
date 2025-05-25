@@ -34,6 +34,8 @@ export class Game {
 
     if (this.getPlayersCount() === 2) {
       this.state = "playing";
+      this.cells[0].setOwner(this.players[0].id)
+      this.cells[this.cells.length - 1].setOwner(this.players[1].id);
     }
 
     for (const player of this.players) {

@@ -87,6 +87,15 @@ function renderGamePlaying(gameState: GameStatePlaying) {
     cellDiv.style.border = "1px solid white";
     cellDiv.style.left = `${cell.x * 40}px`;
     cellDiv.style.top = `${cell.y * 40}px`;
+
+    if (cell.ownerId) {
+      if (cell.ownerId === player.getId()) {
+        cellDiv.style.backgroundColor = "green";
+      } else {
+        cellDiv.style.backgroundColor = "red";
+      }
+    }
+
     document.body.appendChild(cellDiv);
   }
 }

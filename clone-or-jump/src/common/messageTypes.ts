@@ -129,6 +129,7 @@ export type GameStateCell = {
   id: string;
   x: number;
   y: number;
+  ownerId: string | null;
 };
 
 type GameStateBase = {
