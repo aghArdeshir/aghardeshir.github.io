@@ -127,8 +127,10 @@ export class Game {
     for (const playerCell of playerCells) {
       const adjacentCells = this.cells.filter(
         (adjCell) =>
-          (adjCell.x === playerCell.x && Math.abs(adjCell.y - playerCell.y) === 1) ||
-          (adjCell.y === playerCell.y && Math.abs(adjCell.x - playerCell.x) === 1)
+          (adjCell.x === playerCell.x &&
+            Math.abs(adjCell.y - playerCell.y) === 1) ||
+          (adjCell.y === playerCell.y &&
+            Math.abs(adjCell.x - playerCell.x) === 1)
       );
 
       for (const adjCell of adjacentCells) {
@@ -137,8 +139,10 @@ export class Game {
 
       const cellsTwoBlocksAway = this.cells.filter(
         (twoCellAway) =>
-          (twoCellAway.x === playerCell.x && Math.abs(twoCellAway.y - playerCell.y) === 2) ||
-          (twoCellAway.y === playerCell.y && Math.abs(twoCellAway.x - playerCell.x) === 2)
+          (twoCellAway.x === playerCell.x &&
+            Math.abs(twoCellAway.y - playerCell.y) === 2) ||
+          (twoCellAway.y === playerCell.y &&
+            Math.abs(twoCellAway.x - playerCell.x) === 2)
       );
 
       for (const twoCellAway of cellsTwoBlocksAway) {
