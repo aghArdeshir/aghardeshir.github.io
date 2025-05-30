@@ -1,8 +1,17 @@
 import type { PlayerId } from "../common/gameTypes";
 import { generateMessageRequestPlay } from "../common/messageTypes";
 import { sendMessageToBack } from "./connection";
+import { renderLastOnline } from "./main";
 
 class Player {
+  private lastOnlineDate: Date | null = null;
+
+  constructor() {
+    setInterval(() => {
+      if (this.lastOnlineDate) renderLastOnline(this.lastOnlineDate);
+    }, 1000);
+  }
+
   getId() {
     return localStorage.getItem("playerId") ?? null;
   }
@@ -13,6 +22,10 @@ class Player {
 
   requestPlay() {
     sendMessageToBack(generateMessageRequestPlay());
+  }
+
+  setLastPing(date: Date) {
+    this.lastOnlineDate = date;
   }
 }
 

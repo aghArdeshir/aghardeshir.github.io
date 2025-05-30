@@ -20,6 +20,15 @@ socket.on("message", (message) => {
   }
 });
 
+function ping() {
+  socket.emitWithAck("ping").then(() => {
+    player.setLastPing(new Date());
+    setTimeout(ping, 1000);
+  });
+}
+
+ping();
+
 export function sendMessageToBack(message: MessagesFrontSendsToBack) {
   socket.emit("message", message);
 }

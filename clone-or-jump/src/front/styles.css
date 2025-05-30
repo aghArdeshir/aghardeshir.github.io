@@ -51,3 +51,27 @@ body.player-turn {
     }
   }
 }
+
+.last-online {
+  color: white;
+
+  & .status-circle {
+    width:10px;
+    height: 10px;
+    display: inline-block;
+    background-color: white;
+    border-radius: 50%;
+  }
+
+  &.online {
+    background-color: green;
+  }
+
+  &.connecting {
+    background-color: orange;
+  }
+
+  &.offline {
+    background-color: red;
+  }
+}

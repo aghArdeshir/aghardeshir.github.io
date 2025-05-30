@@ -216,3 +216,33 @@ document.addEventListener("click", ({ target }) => {
     targetCell.classList.remove("two-blocks-away");
   }
 });
+
+export function renderLastOnline(lastOnlineDate: Date) {
+  const lastOnlineSecondsAgo = new Date().getTime() - lastOnlineDate.getTime();
+  const isLastOnlineLessThan_3_seconds = lastOnlineSecondsAgo < 3000;
+  const isLastOnlineLessThan_5_seconds = lastOnlineSecondsAgo < 5000;
+
+  const lastOnlineDom = document.createElement("div");
+  lastOnlineDom.classList.add("last-online");
+
+
+  const statusCircleDom = document.createElement("div");
+  statusCircleDom.classList.add("status-circle");
+  lastOnlineDom.appendChild(statusCircleDom);
+
+  const statusTextDom = document.createTextNode('');
+  lastOnlineDom.appendChild(statusTextDom);
+
+  if (isLastOnlineLessThan_3_seconds) {
+    lastOnlineDom.classList.add("online");
+    statusTextDom.textContent = "Online";
+  } else if (isLastOnlineLessThan_5_seconds) {
+    lastOnlineDom.classList.add("connecting");
+    statusTextDom.textContent = "Connecting...";
+  } else {
+    lastOnlineDom.classList.add("offline");
+    statusTextDom.textContent = "Offline";
+  }
+
+  document.body.appendChild(lastOnlineDom);
+}
