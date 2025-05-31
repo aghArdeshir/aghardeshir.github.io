@@ -136,7 +136,6 @@ export type GameStateCell = {
 
 type GameStateBase = {
   id: string;
-  playerIds: PlayerId[];
 };
 
 export type GameStateWaitingForOtherPlayers = GameStateBase & {

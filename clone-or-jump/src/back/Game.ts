@@ -184,7 +184,6 @@ export class Game {
     if (this.state === "waitingForPlayers") {
       const gameState: GameStateWaitingForOtherPlayers = {
         id: this.id,
-        playerIds: this.players.map((player) => player.id),
         state: this.state,
       };
       return gameState;
@@ -193,7 +192,6 @@ export class Game {
     if (this.state === "playing") {
       const gameState: GameStatePlaying = {
         id: this.id,
-        playerIds: this.players.map((player) => player.id),
         state: this.state,
         turnPlayerId: this.turnPlayerId,
         cells: this.cells.map((cell) => cell.serialize()),
@@ -205,7 +203,6 @@ export class Game {
       const gameState: GameStateFinished = {
         id: this.id,
         state: this.state,
-        playerIds: this.players.map((player) => player.id),
         cells: this.cells.map((cell) => cell.serialize()),
       };
       return gameState;
