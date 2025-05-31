@@ -151,6 +151,15 @@ function renderGameFinished(gameState: GameStateFinished) {
     drawMessage.innerText = "It's a draw!";
     document.body.appendChild(drawMessage);
   }
+
+  const playAgainButton = document.createElement("button");
+  playAgainButton.style.position = "relative";
+  playAgainButton.style.left = "200px";
+  playAgainButton.innerText = "Play Again";
+  playAgainButton.onclick = () => {
+    player.requestPlay();
+  };
+  document.body.appendChild(playAgainButton);
 }
 
 function renderTargets() {
