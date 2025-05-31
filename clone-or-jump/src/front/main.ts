@@ -258,6 +258,7 @@ export function renderSelfLastOnline({
     const selfLastOnlineDom =
       document.querySelector(".self-last-online") ||
       document.createElement("div");
+    selfLastOnlineDom.classList.remove("online", "connecting", "offline"); // clear previous status classes
     selfLastOnlineDom.classList.add("self-last-online");
     selfLastOnlineDom.innerHTML = ""; // clear previous content
 
@@ -294,6 +295,11 @@ export function renderSelfLastOnline({
     const otherPlayerLastOnlineDom =
       document.querySelector(".other-player-last-online") ||
       document.createElement("div");
+    otherPlayerLastOnlineDom.classList.remove(
+      "online",
+      "connecting",
+      "offline"
+    ); // clear previous status classes
 
     otherPlayerLastOnlineDom.classList.add("other-player-last-online");
     otherPlayerLastOnlineDom.innerHTML = ""; // clear previous content
