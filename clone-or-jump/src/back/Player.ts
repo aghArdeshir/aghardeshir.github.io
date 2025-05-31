@@ -73,7 +73,7 @@ export class Player {
   informGameState() {
     this.socket.emit(
       "message",
-      generateMessageInformGameState(this.game.serialize())
+      generateMessageInformGameState(this.game.serializeFor({playerId: this.id})),
     );
   }
 

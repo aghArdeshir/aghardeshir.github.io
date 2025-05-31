@@ -151,6 +151,7 @@ export type GameStatePlaying = GameStateBase & {
 export type GameStateFinished = GameStateBase & {
   state: "finished";
   cells: GameStateCell[];
+  playerStatus: "win" | "lose" | "draw";
 };
 
 export type GameState =

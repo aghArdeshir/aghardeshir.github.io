@@ -17,6 +17,7 @@ export class Game {
   state: "waitingForPlayers" | "playing" | "finished" = "waitingForPlayers";
   private cells = new Array(16).fill(null).map(() => new Cell());
   turnPlayerId: PlayerId;
+  winnerId: PlayerId | null = null;
 
   constructor() {
     games.push(this);
@@ -104,11 +105,32 @@ export class Game {
 
     if (this.isGameFinished()) {
       this.state = "finished";
+      this.winnerId = this.findWinnerPlayerId();
     }
 
     for (const player of this.players) {
       player.informGameState();
     }
+  }
+
+  findWinnerPlayerId(): PlayerId | null {
+    const player1Cells = this.cells.filter(
+      (cell) => cell.ownerId === this.players[0].id
+    );
+
+    const player2Cells = this.cells.filter(
+      (cell) => cell.ownerId === this.players[1].id
+    );
+
+    if (player1Cells.length > player2Cells.length) {
+      return this.players[0].id;
+    }
+
+    if (player2Cells.length > player1Cells.length) {
+      return this.players[1].id;
+    }
+
+    return null;
   }
 
   isGameFinished(): boolean {
@@ -180,7 +202,7 @@ export class Game {
     return dx === 2 || dy === 2;
   }
 
-  serialize(): GameState {
+  serializeFor({ playerId }: { playerId: PlayerId }): GameState {
     if (this.state === "waitingForPlayers") {
       const gameState: GameStateWaitingForOtherPlayers = {
         id: this.id,
@@ -200,10 +222,18 @@ export class Game {
     }
 
     if (this.state === "finished") {
+      const playerStatus =
+        this.winnerId === playerId
+          ? "win"
+          : this.winnerId === null
+          ? "draw"
+          : "lose";
+
       const gameState: GameStateFinished = {
         id: this.id,
         state: this.state,
         cells: this.cells.map((cell) => cell.serialize()),
+        playerStatus,
       };
       return gameState;
     }

@@ -137,6 +137,20 @@ function renderGameFinished(gameState: GameStateFinished) {
   const finishedMessage = document.createElement("div");
   finishedMessage.innerText = "Game finished!";
   document.body.appendChild(finishedMessage);
+
+  if (gameState.playerStatus === "win") {
+    const winMessage = document.createElement("div");
+    winMessage.innerText = "You won!";
+    document.body.appendChild(winMessage);
+  } else if (gameState.playerStatus === "lose") {
+    const loseMessage = document.createElement("div");
+    loseMessage.innerText = "You lost!";
+    document.body.appendChild(loseMessage);
+  } else if (gameState.playerStatus === "draw") {
+    const drawMessage = document.createElement("div");
+    drawMessage.innerText = "It's a draw!";
+    document.body.appendChild(drawMessage);
+  }
 }
 
 function renderTargets() {
