@@ -217,20 +217,22 @@ document.addEventListener("click", ({ target }) => {
   }
 });
 
-export function renderLastOnline(lastOnlineDate: Date) {
+export function renderSelfLastOnline(lastOnlineDate: Date) {
   const lastOnlineSecondsAgo = new Date().getTime() - lastOnlineDate.getTime();
   const isLastOnlineLessThan_3_seconds = lastOnlineSecondsAgo < 3000;
   const isLastOnlineLessThan_5_seconds = lastOnlineSecondsAgo < 5000;
 
-  const lastOnlineDom = document.createElement("div");
-  lastOnlineDom.classList.add("last-online");
-
+  const lastOnlineDom =
+    document.querySelector(".self-online-status") ||
+    document.createElement("div");
+  lastOnlineDom.classList.add("self-online-status");
+  lastOnlineDom.innerHTML = ""; // clear previous content
 
   const statusCircleDom = document.createElement("div");
   statusCircleDom.classList.add("status-circle");
   lastOnlineDom.appendChild(statusCircleDom);
 
-  const statusTextDom = document.createTextNode('');
+  const statusTextDom = document.createTextNode("");
   lastOnlineDom.appendChild(statusTextDom);
 
   if (isLastOnlineLessThan_3_seconds) {

@@ -27,7 +27,9 @@ function ping() {
   });
 }
 
-ping();
+setTimeout(() => {
+  ping();
+}, 1000); // Initial ping after 1 second
 
 export function sendMessageToBack(message: MessagesFrontSendsToBack) {
   socket.emit("message", message);
