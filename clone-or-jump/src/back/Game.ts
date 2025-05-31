@@ -13,7 +13,7 @@ export const games: Game[] = [];
 
 export class Game {
   id: string = randomUUID();
-  private players: Player[] = [];
+  players: Player[] = [];
   state: "waitingForPlayers" | "playing" | "finished" = "waitingForPlayers";
   private cells = new Array(16).fill(null).map(() => new Cell());
   turnPlayerId: PlayerId;

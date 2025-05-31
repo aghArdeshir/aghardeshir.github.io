@@ -21,8 +21,11 @@ socket.on("message", (message) => {
 });
 
 function ping() {
-  socket.emitWithAck("ping").then(() => {
-    player.setLastPing(new Date());
+  socket.emitWithAck("ping").then((response) => {
+    player.setLastPing({
+      selfLastOnlineDate: new Date(),
+      otherPlayerLastOnlineDate: response.otherPlayerLastOnline,
+    });
     setTimeout(ping, 1000);
   });
 }

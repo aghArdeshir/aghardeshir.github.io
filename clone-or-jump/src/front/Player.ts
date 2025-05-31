@@ -5,10 +5,15 @@ import { renderSelfLastOnline } from "./main";
 
 class Player {
   private lastOnlineDate: Date | null = null;
+  private otherPlayerLastOnlineDate: Date | null = null;
 
   constructor() {
     setInterval(() => {
-      if (this.lastOnlineDate) renderSelfLastOnline(this.lastOnlineDate);
+      if (this.lastOnlineDate)
+        renderSelfLastOnline({
+          selfLastOnlineDate: this.lastOnlineDate,
+          otherPlayerLastOnlineDate: this.otherPlayerLastOnlineDate,
+        });
     }, 1000);
   }
 
@@ -24,8 +29,17 @@ class Player {
     sendMessageToBack(generateMessageRequestPlay());
   }
 
-  setLastPing(date: Date) {
-    this.lastOnlineDate = date;
+  setLastPing({
+    selfLastOnlineDate,
+    otherPlayerLastOnlineDate,
+  }: {
+    selfLastOnlineDate: Date;
+    otherPlayerLastOnlineDate: string | null;
+  }) {
+    this.lastOnlineDate = selfLastOnlineDate;
+    if (otherPlayerLastOnlineDate) {
+      this.otherPlayerLastOnlineDate = new Date(otherPlayerLastOnlineDate);
+    }
   }
 }
 

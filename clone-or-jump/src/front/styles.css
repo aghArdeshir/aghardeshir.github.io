@@ -52,10 +52,34 @@ body.player-turn {
   }
 }
 
-.self-online-status {
+.self-last-online {
   color: white;
 
-  & .status-circle {
+  & .self-status-circle {
+    width:10px;
+    height: 10px;
+    display: inline-block;
+    background-color: white;
+    border-radius: 50%;
+  }
+
+  &.online {
+    background-color: green;
+  }
+
+  &.connecting {
+    background-color: orange;
+  }
+
+  &.offline {
+    background-color: red;
+  }
+}
+
+.other-player-last-online {
+  color: white;
+
+  & .other-player-status-circle {
     width:10px;
     height: 10px;
     display: inline-block;

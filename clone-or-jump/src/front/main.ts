@@ -217,34 +217,82 @@ document.addEventListener("click", ({ target }) => {
   }
 });
 
-export function renderSelfLastOnline(lastOnlineDate: Date) {
-  const lastOnlineSecondsAgo = new Date().getTime() - lastOnlineDate.getTime();
-  const isLastOnlineLessThan_3_seconds = lastOnlineSecondsAgo < 3000;
-  const isLastOnlineLessThan_5_seconds = lastOnlineSecondsAgo < 5000;
+export function renderSelfLastOnline({
+  selfLastOnlineDate,
+  otherPlayerLastOnlineDate,
+}: {
+  selfLastOnlineDate: Date | null;
+  otherPlayerLastOnlineDate: Date | null;
+}) {
+  if (selfLastOnlineDate) {
+    // SELF
+    const selfLastOnlineSecondsAgo =
+      new Date().getTime() - selfLastOnlineDate.getTime();
 
-  const lastOnlineDom =
-    document.querySelector(".self-online-status") ||
-    document.createElement("div");
-  lastOnlineDom.classList.add("self-online-status");
-  lastOnlineDom.innerHTML = ""; // clear previous content
+    const isSelfLastOnlineLessThan_3_seconds = selfLastOnlineSecondsAgo < 3000;
+    const isSelfLastOnlineLessThan_5_seconds = selfLastOnlineSecondsAgo < 5000;
 
-  const statusCircleDom = document.createElement("div");
-  statusCircleDom.classList.add("status-circle");
-  lastOnlineDom.appendChild(statusCircleDom);
+    const selfLastOnlineDom =
+      document.querySelector(".self-last-online") ||
+      document.createElement("div");
+    selfLastOnlineDom.classList.add("self-last-online");
+    selfLastOnlineDom.innerHTML = ""; // clear previous content
 
-  const statusTextDom = document.createTextNode("");
-  lastOnlineDom.appendChild(statusTextDom);
+    const selfStatusCircleDom = document.createElement("div");
+    selfStatusCircleDom.classList.add("self-status-circle");
+    selfLastOnlineDom.appendChild(selfStatusCircleDom);
 
-  if (isLastOnlineLessThan_3_seconds) {
-    lastOnlineDom.classList.add("online");
-    statusTextDom.textContent = "Online";
-  } else if (isLastOnlineLessThan_5_seconds) {
-    lastOnlineDom.classList.add("connecting");
-    statusTextDom.textContent = "Connecting...";
-  } else {
-    lastOnlineDom.classList.add("offline");
-    statusTextDom.textContent = "Offline";
+    const selfStatusTextDom = document.createTextNode("");
+    selfLastOnlineDom.appendChild(selfStatusTextDom);
+
+    if (isSelfLastOnlineLessThan_3_seconds) {
+      selfLastOnlineDom.classList.add("online");
+      selfStatusTextDom.textContent = "Self: Online";
+    } else if (isSelfLastOnlineLessThan_5_seconds) {
+      selfLastOnlineDom.classList.add("connecting");
+      selfStatusTextDom.textContent = "Self: Connecting...";
+    } else {
+      selfLastOnlineDom.classList.add("offline");
+      selfStatusTextDom.textContent = "Self: Offline";
+    }
+
+    document.body.appendChild(selfLastOnlineDom);
   }
 
-  document.body.appendChild(lastOnlineDom);
+  if (otherPlayerLastOnlineDate) {
+    // OTHER PLAYER
+    const otherPlayerLastOnlineSecondsAgo =
+      new Date().getTime() - otherPlayerLastOnlineDate.getTime();
+    const isOtherPlayerLastOnlineLessThan_3_seconds =
+      otherPlayerLastOnlineSecondsAgo < 3000;
+    const isOtherPlayerLastOnlineLessThan_5_seconds =
+      otherPlayerLastOnlineSecondsAgo < 5000;
+
+    const otherPlayerLastOnlineDom =
+      document.querySelector(".other-player-last-online") ||
+      document.createElement("div");
+
+    otherPlayerLastOnlineDom.classList.add("other-player-last-online");
+    otherPlayerLastOnlineDom.innerHTML = ""; // clear previous content
+
+    const otherPlayerStatusCircleDom = document.createElement("div");
+    otherPlayerStatusCircleDom.classList.add("other-player-status-circle");
+    otherPlayerLastOnlineDom.appendChild(otherPlayerStatusCircleDom);
+
+    const otherPlayerStatusTextDom = document.createTextNode("");
+    otherPlayerLastOnlineDom.appendChild(otherPlayerStatusTextDom);
+
+    if (isOtherPlayerLastOnlineLessThan_3_seconds) {
+      otherPlayerLastOnlineDom.classList.add("online");
+      otherPlayerStatusTextDom.textContent = "Other Player: Online";
+    } else if (isOtherPlayerLastOnlineLessThan_5_seconds) {
+      otherPlayerLastOnlineDom.classList.add("connecting");
+      otherPlayerStatusTextDom.textContent = "Other Player: Connecting...";
+    } else {
+      otherPlayerLastOnlineDom.classList.add("offline");
+      otherPlayerStatusTextDom.textContent = "Other Player: Offline";
+    }
+
+    document.body.appendChild(otherPlayerLastOnlineDom);
+  }
 }

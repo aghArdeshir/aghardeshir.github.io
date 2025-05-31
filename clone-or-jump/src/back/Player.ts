@@ -16,6 +16,7 @@ export class Player {
   id: PlayerId;
   socket: Socket;
   game: Game;
+  lastOnlineDate: Date | null = null;
 
   constructor(id?: PlayerId) {
     this.id = id || randomUUID();
@@ -45,6 +46,14 @@ export class Player {
           targetCellId: message.targetCellId,
         });
       }
+    });
+
+    socket.on("ping", (ack) => {
+      this.lastOnlineDate = new Date();
+      const otherPlayer = this.game.players.find((p) => p.id !== this.id);
+      ack({
+        otherPlayerLastOnline: otherPlayer?.lastOnlineDate || null,
+      });
     });
   }
 
