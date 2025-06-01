@@ -26,6 +26,7 @@ async function renderStartPage() {
 
   // 0. Show loading
   const loading = document.createElement("div");
+  loading.dataset.testid = "loading";
   loading.innerText = "Loading...";
   document.body.appendChild(loading);
 
@@ -34,7 +35,9 @@ async function renderStartPage() {
   // happening. putting this small timeout fixes the issue at least on my
   // machine. keeping it here, so I have easier times debugging. and it does not
   // hurt the ux that much.
-  await new Promise((resolve) => setTimeout(resolve, 10));
+  // plus (it may sound weird), but I also want to assert the loading in the
+  // tests, so I need to wait for a bit before the loading is removed.
+  await new Promise((resolve) => setTimeout(resolve, 100));
 
   // 1. Tell backend a player joined
   const playerId = player.getId();
