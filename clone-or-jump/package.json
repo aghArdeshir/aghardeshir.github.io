@@ -4,9 +4,11 @@
   "scripts": {
     "dev:front": "vite ./src/front",
     "dev:back": "PORT=3000 node --experimental-strip-types --watch ./src/back/server.ts",
-    "dev": "concurrently --names \"front,back\" \"npm run dev:front\" \"npm run dev:back\""
+    "dev": "concurrently --names \"front,back\" \"npm run dev:front\" \"npm run dev:back\"",
+    "test": "playwright test --ui --project=chromium"
   },
   "devDependencies": {
+    "@playwright/test": "^1.52.0",
     "@types/node": "^22.15.21",
     "concurrently": "^9.1.2",
     "vite": "^6.3.5"
