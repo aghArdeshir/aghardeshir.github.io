@@ -50,7 +50,7 @@ export class Player {
 
     socket.on("ping", (ack) => {
       this.lastOnlineDate = new Date();
-      const otherPlayer = this.game.players.find((p) => p.id !== this.id);
+      const otherPlayer = this.game?.players.find((p) => p.id !== this.id);
       ack({
         otherPlayerLastOnline: otherPlayer?.lastOnlineDate || null,
       });
