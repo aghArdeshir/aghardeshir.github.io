@@ -128,6 +128,7 @@ function renderGameCells(cells: GameStateCell[], turnPlayerId?: PlayerId) {
 
       if (cell.ownerId === player.getId()) {
         cellDiv.classList.add("my-cell");
+        cellDiv.dataset.testid = "my-cell";
         if (turnPlayerId === player.getId()) {
           cellDiv.addEventListener("click", () => {
             setTimeout(() => {
@@ -140,7 +141,10 @@ function renderGameCells(cells: GameStateCell[], turnPlayerId?: PlayerId) {
         }
       } else {
         cellDiv.classList.add("enemy-cell");
+        cellDiv.dataset.testid = "enemy-cell";
       }
+    } else {
+      cellDiv.dataset.testid = "empty-cell";
     }
 
     gameBoardDom.appendChild(cellDiv);
