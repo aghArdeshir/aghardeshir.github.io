@@ -741,7 +741,18 @@ test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
     await targetCell.click();
   });
 
-  await test.step("player 2 clones down and blocks player 1", async () => {
+  await test.step("both playes still see each other as online", async () => {
+    await expect(player_1_page.getByTestId("self-status-online")).toBeVisible();
+    await expect(
+      player_1_page.getByTestId("other-player-status-online")
+    ).toBeVisible();
+    await expect(player_2_page.getByTestId("self-status-online")).toBeVisible();
+    await expect(
+      player_2_page.getByTestId("other-player-status-online")
+    ).toBeVisible();
+  });
+
+  await test.step("player 2 clones down and blocks player 1 and wins the game", async () => {
     const sourceCell = player_2_page.locator(
       `[data-testid="my-cell"][data-x="1"][data-y="2"]`
     );
