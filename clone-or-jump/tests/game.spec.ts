@@ -823,6 +823,19 @@ test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
     });
   });
 
+  await test.step("assert both players see the game finished screen", async () => {
+    await expect(player_1_page.getByTestId("game-finished")).toBeVisible();
+    await expect(player_2_page.getByTestId("game-finished")).toBeVisible();
+  });
+
+  await test.step('player 1 sees "you lost" message', async () => {
+    await expect(player_1_page.getByTestId("you-lost")).toBeVisible();
+  });
+
+  await test.step('player 2 sees "you won" message', async () => {
+    await expect(player_2_page.getByTestId("you-won")).toBeVisible();
+  });
+
   // little timeout, so playwright previews the state correctly
   await player_1_page.waitForTimeout(100); // wait for the game to process the moves
   await player_2_page.waitForTimeout(100); // wait for the game to process the moves

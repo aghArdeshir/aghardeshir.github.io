@@ -154,16 +154,19 @@ function renderGameCells(cells: GameStateCell[], turnPlayerId?: PlayerId) {
 function renderGameFinished(gameState: GameStateFinished) {
   renderGameCells(gameState.cells);
   document.body.classList.remove("player-turn");
-  const finishedMessage = document.createElement("div");
-  finishedMessage.innerText = "Game finished!";
-  document.body.appendChild(finishedMessage);
+  const gameFinishedMessageDom = document.createElement("div");
+  gameFinishedMessageDom.dataset.testid = "game-finished";
+  gameFinishedMessageDom.innerText = "Game finished!";
+  document.body.appendChild(gameFinishedMessageDom);
 
   if (gameState.playerStatus === "win") {
     const winMessage = document.createElement("div");
+    winMessage.dataset.testid = "you-won";
     winMessage.innerText = "You won!";
     document.body.appendChild(winMessage);
   } else if (gameState.playerStatus === "lose") {
     const loseMessage = document.createElement("div");
+    loseMessage.dataset.testid = "you-lost";
     loseMessage.innerText = "You lost!";
     document.body.appendChild(loseMessage);
   } else if (gameState.playerStatus === "draw") {
