@@ -9,7 +9,7 @@ test.beforeEach(async () => {
   runGameProcess.stderr?.on("data", (data) => console.error(data.toString()));
 });
 
-test("Play Game", async ({ page: originalPage_DontUse, browser }) => {
+test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
   await test.step("wait for the game server to start", async () => {
     await new Promise((resolve) => {
       const interval = setInterval(async () => {
@@ -25,78 +25,114 @@ test("Play Game", async ({ page: originalPage_DontUse, browser }) => {
     });
   });
 
-  const context1 = await browser.contexts()[0];
-  const page1 = await context1.pages()[0];
+  const player_1_context = await browser.contexts()[0];
+  const player_1_page = await player_1_context.pages()[0];
 
   await test.step("player 1 navigate to the game page and assert loading screen is shown", async () => {
-    page1.goto("http://localhost:5173"); // no await, instead we wait for loading screen
-    await expect(page1.getByTestId("loading")).toBeVisible();
+    player_1_page.goto("http://localhost:5173"); // no await, instead we wait for loading screen
+    await expect(player_1_page.getByTestId("loading")).toBeVisible();
   });
 
-  const context2 = await browser.newContext();
-  const page2 = await context2.newPage();
+  const player_2_context = await browser.newContext();
+  const player_2_page = await player_2_context.newPage();
 
   await test.step("player 2 navigate to the game page and assert loading screen is shown", async () => {
-    page2.goto("http://localhost:5173"); // no await, instead we wait for loading screen
-    await expect(page2.getByTestId("loading")).toBeVisible();
+    player_2_page.goto("http://localhost:5173"); // no await, instead we wait for loading screen
+    await expect(player_2_page.getByTestId("loading")).toBeVisible();
   });
 
   await test.step("play button is visible for both players", async () => {
-    await expect(page1.getByTestId("play-button")).toBeVisible();
-    await expect(page2.getByTestId("play-button")).toBeVisible();
+    await expect(player_1_page.getByTestId("play-button")).toBeVisible();
+    await expect(player_2_page.getByTestId("play-button")).toBeVisible();
   });
 
   await test.step("both players see their status as online", async () => {
-    await expect(page1.getByTestId("self-status-online")).toBeVisible();
-    await expect(page2.getByTestId("self-status-online")).toBeVisible();
+    await expect(player_1_page.getByTestId("self-status-online")).toBeVisible();
+    await expect(player_2_page.getByTestId("self-status-online")).toBeVisible();
   });
 
   await test.step("player 1 clicks play button", async () => {
-    page1.getByTestId("play-button").click(); // no await, instead we wait for the waiting screen
-    await expect(page1.getByTestId("waiting-for-players")).toBeVisible();
+    player_1_page.getByTestId("play-button").click(); // no await, instead we wait for the waiting screen
+    await expect(
+      player_1_page.getByTestId("waiting-for-players")
+    ).toBeVisible();
   });
 
   await test.step("player 2 clicks play button", async () => {
-    await page2.getByTestId("play-button").click(); // no await, instead we wait for the waiting screen
+    await player_2_page.getByTestId("play-button").click(); // no await, instead we wait for the waiting screen
   });
 
   await test.step("both players should see the game board", async () => {
-    await expect(page1.getByTestId("game-board")).toBeVisible();
-    await expect(page2.getByTestId("game-board")).toBeVisible();
+    await expect(player_1_page.getByTestId("game-board")).toBeVisible();
+    await expect(player_2_page.getByTestId("game-board")).toBeVisible();
   });
 
   await test.step("player 1 sees online status for self and for player 2", async () => {
-    await expect(page1.getByTestId("self-status-online")).toBeVisible();
-    await expect(page1.getByTestId("other-player-status-online")).toBeVisible();
+    await expect(player_1_page.getByTestId("self-status-online")).toBeVisible();
+    await expect(
+      player_1_page.getByTestId("other-player-status-online")
+    ).toBeVisible();
   });
 
   await test.step("player 2 sees online status for self and for player 1", async () => {
-    await expect(page2.getByTestId("self-status-online")).toBeVisible();
-    await expect(page2.getByTestId("other-player-status-online")).toBeVisible();
+    await expect(player_2_page.getByTestId("self-status-online")).toBeVisible();
+    await expect(
+      player_2_page.getByTestId("other-player-status-online")
+    ).toBeVisible();
   });
 
   await test.step("player 1 sees game state correctly", async () => {
     const player1Cells = [
-      page1.locator(`[data-testid="my-cell"][data-x="0"][data-y="0"]`),
+      player_1_page.locator(`[data-testid="my-cell"][data-x="0"][data-y="0"]`),
     ];
     const player2Cells = [
-      page1.locator(`[data-testid="enemy-cell"][data-x="3"][data-y="3"]`),
+      player_1_page.locator(
+        `[data-testid="enemy-cell"][data-x="3"][data-y="3"]`
+      ),
     ];
     const emptyCells = [
-      page1.locator(`[data-testid="empty-cell"][data-x="0"][data-y="1"]`),
-      page1.locator(`[data-testid="empty-cell"][data-x="0"][data-y="2"]`),
-      page1.locator(`[data-testid="empty-cell"][data-x="0"][data-y="3"]`),
-      page1.locator(`[data-testid="empty-cell"][data-x="1"][data-y="0"]`),
-      page1.locator(`[data-testid="empty-cell"][data-x="1"][data-y="1"]`),
-      page1.locator(`[data-testid="empty-cell"][data-x="1"][data-y="2"]`),
-      page1.locator(`[data-testid="empty-cell"][data-x="1"][data-y="3"]`),
-      page1.locator(`[data-testid="empty-cell"][data-x="2"][data-y="0"]`),
-      page1.locator(`[data-testid="empty-cell"][data-x="2"][data-y="1"]`),
-      page1.locator(`[data-testid="empty-cell"][data-x="2"][data-y="2"]`),
-      page1.locator(`[data-testid="empty-cell"][data-x="2"][data-y="3"]`),
-      page1.locator(`[data-testid="empty-cell"][data-x="3"][data-y="0"]`),
-      page1.locator(`[data-testid="empty-cell"][data-x="3"][data-y="1"]`),
-      page1.locator(`[data-testid="empty-cell"][data-x="3"][data-y="2"]`),
+      player_1_page.locator(
+        `[data-testid="empty-cell"][data-x="0"][data-y="1"]`
+      ),
+      player_1_page.locator(
+        `[data-testid="empty-cell"][data-x="0"][data-y="2"]`
+      ),
+      player_1_page.locator(
+        `[data-testid="empty-cell"][data-x="0"][data-y="3"]`
+      ),
+      player_1_page.locator(
+        `[data-testid="empty-cell"][data-x="1"][data-y="0"]`
+      ),
+      player_1_page.locator(
+        `[data-testid="empty-cell"][data-x="1"][data-y="1"]`
+      ),
+      player_1_page.locator(
+        `[data-testid="empty-cell"][data-x="1"][data-y="2"]`
+      ),
+      player_1_page.locator(
+        `[data-testid="empty-cell"][data-x="1"][data-y="3"]`
+      ),
+      player_1_page.locator(
+        `[data-testid="empty-cell"][data-x="2"][data-y="0"]`
+      ),
+      player_1_page.locator(
+        `[data-testid="empty-cell"][data-x="2"][data-y="1"]`
+      ),
+      player_1_page.locator(
+        `[data-testid="empty-cell"][data-x="2"][data-y="2"]`
+      ),
+      player_1_page.locator(
+        `[data-testid="empty-cell"][data-x="2"][data-y="3"]`
+      ),
+      player_1_page.locator(
+        `[data-testid="empty-cell"][data-x="3"][data-y="0"]`
+      ),
+      player_1_page.locator(
+        `[data-testid="empty-cell"][data-x="3"][data-y="1"]`
+      ),
+      player_1_page.locator(
+        `[data-testid="empty-cell"][data-x="3"][data-y="2"]`
+      ),
     ];
 
     const allCells = [...player1Cells, ...player2Cells, ...emptyCells];
@@ -110,26 +146,56 @@ test("Play Game", async ({ page: originalPage_DontUse, browser }) => {
 
   await test.step("player 2 sees game state correctly", async () => {
     const player1Cells = [
-      page2.locator(`[data-testid="enemy-cell"][data-x="0"][data-y="0"]`),
+      player_2_page.locator(
+        `[data-testid="enemy-cell"][data-x="0"][data-y="0"]`
+      ),
     ];
     const player2Cells = [
-      page2.locator(`[data-testid="my-cell"][data-x="3"][data-y="3"]`),
+      player_2_page.locator(`[data-testid="my-cell"][data-x="3"][data-y="3"]`),
     ];
     const emptyCells = [
-      page2.locator(`[data-testid="empty-cell"][data-x="0"][data-y="1"]`),
-      page2.locator(`[data-testid="empty-cell"][data-x="0"][data-y="2"]`),
-      page2.locator(`[data-testid="empty-cell"][data-x="0"][data-y="3"]`),
-      page2.locator(`[data-testid="empty-cell"][data-x="1"][data-y="0"]`),
-      page2.locator(`[data-testid="empty-cell"][data-x="1"][data-y="1"]`),
-      page2.locator(`[data-testid="empty-cell"][data-x="1"][data-y="2"]`),
-      page2.locator(`[data-testid="empty-cell"][data-x="1"][data-y="3"]`),
-      page2.locator(`[data-testid="empty-cell"][data-x="2"][data-y="0"]`),
-      page2.locator(`[data-testid="empty-cell"][data-x="2"][data-y="1"]`),
-      page2.locator(`[data-testid="empty-cell"][data-x="2"][data-y="2"]`),
-      page2.locator(`[data-testid="empty-cell"][data-x="2"][data-y="3"]`),
-      page2.locator(`[data-testid="empty-cell"][data-x="3"][data-y="0"]`),
-      page2.locator(`[data-testid="empty-cell"][data-x="3"][data-y="1"]`),
-      page2.locator(`[data-testid="empty-cell"][data-x="3"][data-y="2"]`),
+      player_2_page.locator(
+        `[data-testid="empty-cell"][data-x="0"][data-y="1"]`
+      ),
+      player_2_page.locator(
+        `[data-testid="empty-cell"][data-x="0"][data-y="2"]`
+      ),
+      player_2_page.locator(
+        `[data-testid="empty-cell"][data-x="0"][data-y="3"]`
+      ),
+      player_2_page.locator(
+        `[data-testid="empty-cell"][data-x="1"][data-y="0"]`
+      ),
+      player_2_page.locator(
+        `[data-testid="empty-cell"][data-x="1"][data-y="1"]`
+      ),
+      player_2_page.locator(
+        `[data-testid="empty-cell"][data-x="1"][data-y="2"]`
+      ),
+      player_2_page.locator(
+        `[data-testid="empty-cell"][data-x="1"][data-y="3"]`
+      ),
+      player_2_page.locator(
+        `[data-testid="empty-cell"][data-x="2"][data-y="0"]`
+      ),
+      player_2_page.locator(
+        `[data-testid="empty-cell"][data-x="2"][data-y="1"]`
+      ),
+      player_2_page.locator(
+        `[data-testid="empty-cell"][data-x="2"][data-y="2"]`
+      ),
+      player_2_page.locator(
+        `[data-testid="empty-cell"][data-x="2"][data-y="3"]`
+      ),
+      player_2_page.locator(
+        `[data-testid="empty-cell"][data-x="3"][data-y="0"]`
+      ),
+      player_2_page.locator(
+        `[data-testid="empty-cell"][data-x="3"][data-y="1"]`
+      ),
+      player_2_page.locator(
+        `[data-testid="empty-cell"][data-x="3"][data-y="2"]`
+      ),
     ];
 
     const allCells = [...player1Cells, ...player2Cells, ...emptyCells];
@@ -142,18 +208,18 @@ test("Play Game", async ({ page: originalPage_DontUse, browser }) => {
   });
 
   await test.step("player 1 clones to the right", async () => {
-    const cellToClone = page1.locator(
+    const cellToClone = player_1_page.locator(
       `[data-testid="my-cell"][data-x="0"][data-y="0"]`
     );
     await cellToClone.click();
 
     const availableClones = [
-      page1.locator(`[available-clone][data-x="1"][data-y="0"]`),
-      page1.locator(`[available-clone][data-x="0"][data-y="1"]`),
+      player_1_page.locator(`[available-clone][data-x="1"][data-y="0"]`),
+      player_1_page.locator(`[available-clone][data-x="0"][data-y="1"]`),
     ];
     const availableJumps = [
-      page1.locator(`[available-jump][data-x="2"][data-y="0"]`),
-      page1.locator(`[available-jump][data-x="0"][data-y="2"]`),
+      player_1_page.locator(`[available-jump][data-x="2"][data-y="0"]`),
+      player_1_page.locator(`[available-jump][data-x="0"][data-y="2"]`),
     ];
 
     await test.step("assert move hints are visible", async () => {
@@ -173,26 +239,54 @@ test("Play Game", async ({ page: originalPage_DontUse, browser }) => {
 
   await test.step("player 1 sees game state correctly after cloning", async () => {
     const player1Cells = [
-      page1.locator(`[data-testid="my-cell"][data-x="0"][data-y="0"]`),
-      page1.locator(`[data-testid="my-cell"][data-x="1"][data-y="0"]`),
+      player_1_page.locator(`[data-testid="my-cell"][data-x="0"][data-y="0"]`),
+      player_1_page.locator(`[data-testid="my-cell"][data-x="1"][data-y="0"]`),
     ];
     const player2Cells = [
-      page1.locator(`[data-testid="enemy-cell"][data-x="3"][data-y="3"]`),
+      player_1_page.locator(
+        `[data-testid="enemy-cell"][data-x="3"][data-y="3"]`
+      ),
     ];
     const emptyCells = [
-      page1.locator(`[data-testid="empty-cell"][data-x="0"][data-y="1"]`),
-      page1.locator(`[data-testid="empty-cell"][data-x="0"][data-y="2"]`),
-      page1.locator(`[data-testid="empty-cell"][data-x="0"][data-y="3"]`),
-      page1.locator(`[data-testid="empty-cell"][data-x="1"][data-y="1"]`),
-      page1.locator(`[data-testid="empty-cell"][data-x="1"][data-y="2"]`),
-      page1.locator(`[data-testid="empty-cell"][data-x="1"][data-y="3"]`),
-      page1.locator(`[data-testid="empty-cell"][data-x="2"][data-y="0"]`),
-      page1.locator(`[data-testid="empty-cell"][data-x="2"][data-y="1"]`),
-      page1.locator(`[data-testid="empty-cell"][data-x="2"][data-y="2"]`),
-      page1.locator(`[data-testid="empty-cell"][data-x="2"][data-y="3"]`),
-      page1.locator(`[data-testid="empty-cell"][data-x="3"][data-y="0"]`),
-      page1.locator(`[data-testid="empty-cell"][data-x="3"][data-y="1"]`),
-      page1.locator(`[data-testid="empty-cell"][data-x="3"][data-y="2"]`),
+      player_1_page.locator(
+        `[data-testid="empty-cell"][data-x="0"][data-y="1"]`
+      ),
+      player_1_page.locator(
+        `[data-testid="empty-cell"][data-x="0"][data-y="2"]`
+      ),
+      player_1_page.locator(
+        `[data-testid="empty-cell"][data-x="0"][data-y="3"]`
+      ),
+      player_1_page.locator(
+        `[data-testid="empty-cell"][data-x="1"][data-y="1"]`
+      ),
+      player_1_page.locator(
+        `[data-testid="empty-cell"][data-x="1"][data-y="2"]`
+      ),
+      player_1_page.locator(
+        `[data-testid="empty-cell"][data-x="1"][data-y="3"]`
+      ),
+      player_1_page.locator(
+        `[data-testid="empty-cell"][data-x="2"][data-y="0"]`
+      ),
+      player_1_page.locator(
+        `[data-testid="empty-cell"][data-x="2"][data-y="1"]`
+      ),
+      player_1_page.locator(
+        `[data-testid="empty-cell"][data-x="2"][data-y="2"]`
+      ),
+      player_1_page.locator(
+        `[data-testid="empty-cell"][data-x="2"][data-y="3"]`
+      ),
+      player_1_page.locator(
+        `[data-testid="empty-cell"][data-x="3"][data-y="0"]`
+      ),
+      player_1_page.locator(
+        `[data-testid="empty-cell"][data-x="3"][data-y="1"]`
+      ),
+      player_1_page.locator(
+        `[data-testid="empty-cell"][data-x="3"][data-y="2"]`
+      ),
     ];
 
     const allCells = [...player1Cells, ...player2Cells, ...emptyCells];
@@ -205,26 +299,56 @@ test("Play Game", async ({ page: originalPage_DontUse, browser }) => {
 
   await test.step("player 2 sees game state correctly after player 1 cloning", async () => {
     const player1Cells = [
-      page2.locator(`[data-testid="enemy-cell"][data-x="0"][data-y="0"]`),
-      page2.locator(`[data-testid="enemy-cell"][data-x="1"][data-y="0"]`),
+      player_2_page.locator(
+        `[data-testid="enemy-cell"][data-x="0"][data-y="0"]`
+      ),
+      player_2_page.locator(
+        `[data-testid="enemy-cell"][data-x="1"][data-y="0"]`
+      ),
     ];
     const player2Cells = [
-      page2.locator(`[data-testid="my-cell"][data-x="3"][data-y="3"]`),
+      player_2_page.locator(`[data-testid="my-cell"][data-x="3"][data-y="3"]`),
     ];
     const emptyCells = [
-      page2.locator(`[data-testid="empty-cell"][data-x="0"][data-y="1"]`),
-      page2.locator(`[data-testid="empty-cell"][data-x="0"][data-y="2"]`),
-      page2.locator(`[data-testid="empty-cell"][data-x="0"][data-y="3"]`),
-      page2.locator(`[data-testid="empty-cell"][data-x="1"][data-y="1"]`),
-      page2.locator(`[data-testid="empty-cell"][data-x="1"][data-y="2"]`),
-      page2.locator(`[data-testid="empty-cell"][data-x="1"][data-y="3"]`),
-      page2.locator(`[data-testid="empty-cell"][data-x="2"][data-y="0"]`),
-      page2.locator(`[data-testid="empty-cell"][data-x="2"][data-y="1"]`),
-      page2.locator(`[data-testid="empty-cell"][data-x="2"][data-y="2"]`),
-      page2.locator(`[data-testid="empty-cell"][data-x="2"][data-y="3"]`),
-      page2.locator(`[data-testid="empty-cell"][data-x="3"][data-y="0"]`),
-      page2.locator(`[data-testid="empty-cell"][data-x="3"][data-y="1"]`),
-      page2.locator(`[data-testid="empty-cell"][data-x="3"][data-y="2"]`),
+      player_2_page.locator(
+        `[data-testid="empty-cell"][data-x="0"][data-y="1"]`
+      ),
+      player_2_page.locator(
+        `[data-testid="empty-cell"][data-x="0"][data-y="2"]`
+      ),
+      player_2_page.locator(
+        `[data-testid="empty-cell"][data-x="0"][data-y="3"]`
+      ),
+      player_2_page.locator(
+        `[data-testid="empty-cell"][data-x="1"][data-y="1"]`
+      ),
+      player_2_page.locator(
+        `[data-testid="empty-cell"][data-x="1"][data-y="2"]`
+      ),
+      player_2_page.locator(
+        `[data-testid="empty-cell"][data-x="1"][data-y="3"]`
+      ),
+      player_2_page.locator(
+        `[data-testid="empty-cell"][data-x="2"][data-y="0"]`
+      ),
+      player_2_page.locator(
+        `[data-testid="empty-cell"][data-x="2"][data-y="1"]`
+      ),
+      player_2_page.locator(
+        `[data-testid="empty-cell"][data-x="2"][data-y="2"]`
+      ),
+      player_2_page.locator(
+        `[data-testid="empty-cell"][data-x="2"][data-y="3"]`
+      ),
+      player_2_page.locator(
+        `[data-testid="empty-cell"][data-x="3"][data-y="0"]`
+      ),
+      player_2_page.locator(
+        `[data-testid="empty-cell"][data-x="3"][data-y="1"]`
+      ),
+      player_2_page.locator(
+        `[data-testid="empty-cell"][data-x="3"][data-y="2"]`
+      ),
     ];
 
     const allCells = [...player1Cells, ...player2Cells, ...emptyCells];
