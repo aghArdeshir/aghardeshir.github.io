@@ -52,6 +52,7 @@ export function showPlayButton() {
   clear();
 
   const playButton = document.createElement("button");
+  playButton.dataset.testid = "play-button";
   playButton.innerText = "Play";
   playButton.onclick = () => {
     player.requestPlay();
@@ -254,7 +255,7 @@ export function renderSelfLastOnline({
     const isSelfLastOnlineLessThan_3_seconds = selfLastOnlineSecondsAgo < 3000;
     const isSelfLastOnlineLessThan_5_seconds = selfLastOnlineSecondsAgo < 5000;
 
-    const selfLastOnlineDom =
+    const selfLastOnlineDom: HTMLDivElement =
       document.querySelector(".self-last-online") ||
       document.createElement("div");
     selfLastOnlineDom.classList.remove("online", "connecting", "offline"); // clear previous status classes
@@ -271,6 +272,7 @@ export function renderSelfLastOnline({
     if (isSelfLastOnlineLessThan_3_seconds) {
       selfLastOnlineDom.classList.add("online");
       selfStatusTextDom.textContent = "Self: Online";
+      selfLastOnlineDom.dataset.testid = "self-status-online";
     } else if (isSelfLastOnlineLessThan_5_seconds) {
       selfLastOnlineDom.classList.add("connecting");
       selfStatusTextDom.textContent = "Self: Connecting...";
