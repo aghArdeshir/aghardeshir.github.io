@@ -836,6 +836,82 @@ test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
     await expect(player_2_page.getByTestId("you-won")).toBeVisible();
   });
 
+  await test.step('both players see "play again" button', async () => {
+    await expect(player_1_page.getByTestId("play-again-button")).toBeVisible();
+    await expect(player_2_page.getByTestId("play-again-button")).toBeVisible();
+  });
+
+  await test.step('player 1 clicks "play again" button', async () => {
+    await player_1_page.getByTestId("play-again-button").click();
+    await expect(
+      player_1_page.getByTestId("waiting-for-players")
+    ).toBeVisible();
+  });
+
+  await test.step('player 2 clicks "play again" button', async () => {
+    await player_2_page.getByTestId("play-again-button").click();
+  });
+
+  await test.step("both players should see a fresh game board", async () => {
+    const player1Cells = [`[data-x="0"][data-y="0"]`];
+    const player2Cells = [`[data-x="3"][data-y="3"]`];
+    const emptyCells = [
+      `[data-x="0"][data-y="1"]`,
+      `[data-x="0"][data-y="2"]`,
+      `[data-x="0"][data-y="3"]`,
+      `[data-x="1"][data-y="0"]`,
+      `[data-x="1"][data-y="1"]`,
+      `[data-x="1"][data-y="2"]`,
+      `[data-x="1"][data-y="3"]`,
+      `[data-x="2"][data-y="0"]`,
+      `[data-x="2"][data-y="1"]`,
+      `[data-x="2"][data-y="2"]`,
+      `[data-x="2"][data-y="3"]`,
+      `[data-x="3"][data-y="0"]`,
+      `[data-x="3"][data-y="1"]`,
+      `[data-x="3"][data-y="2"]`,
+    ];
+    expect(player1Cells.length + player2Cells.length + emptyCells.length).toBe(
+      16
+    );
+
+    await test.step("assert player 1 sees own and enemy cells", async () => {
+      for (const cell of player1Cells) {
+        await expect(
+          player_1_page.locator(`[data-testid="my-cell"]${cell}`)
+        ).toBeVisible();
+      }
+      for (const cell of player2Cells) {
+        await expect(
+          player_1_page.locator(`[data-testid="enemy-cell"]${cell}`)
+        ).toBeVisible();
+      }
+    });
+    await test.step("assert player 2 sees own and enemy cells", async () => {
+      for (const cell of player1Cells) {
+        await expect(
+          player_2_page.locator(`[data-testid="enemy-cell"]${cell}`)
+        ).toBeVisible();
+      }
+      for (const cell of player2Cells) {
+        await expect(
+          player_2_page.locator(`[data-testid="my-cell"]${cell}`)
+        ).toBeVisible();
+      }
+    });
+
+    await test.step("assert empty cells are visible for both players", async () => {
+      for (const cell of emptyCells) {
+        await expect(
+          player_1_page.locator(`[data-testid="empty-cell"]${cell}`)
+        ).toBeVisible();
+        await expect(
+          player_2_page.locator(`[data-testid="empty-cell"]${cell}`)
+        ).toBeVisible();
+      }
+    });
+  });
+
   // little timeout, so playwright previews the state correctly
   await player_1_page.waitForTimeout(100); // wait for the game to process the moves
   await player_2_page.waitForTimeout(100); // wait for the game to process the moves

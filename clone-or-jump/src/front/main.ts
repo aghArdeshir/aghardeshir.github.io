@@ -176,6 +176,7 @@ function renderGameFinished(gameState: GameStateFinished) {
   }
 
   const playAgainButton = document.createElement("button");
+  playAgainButton.dataset.testid = "play-again-button";
   playAgainButton.style.position = "relative";
   playAgainButton.style.left = "200px";
   playAgainButton.innerText = "Play Again";
