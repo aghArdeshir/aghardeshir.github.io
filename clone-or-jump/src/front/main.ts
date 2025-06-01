@@ -229,6 +229,9 @@ function renderTargets() {
 
     if (isTwoBlocksAway) {
       targetCell.classList.add("two-blocks-away");
+      targetCell.setAttribute("available-jump", "true");
+    } else {
+      targetCell.setAttribute("available-clone", "true");
     }
   }
 }

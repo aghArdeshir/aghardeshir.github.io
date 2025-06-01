@@ -22,7 +22,7 @@ test("Play Game", async ({ page: originalPage_DontUse, browser }) => {
           });
         } catch (e) {}
       }, 10);
-  });
+    });
   });
 
   const context1 = await browser.contexts()[0];
@@ -99,7 +99,11 @@ test("Play Game", async ({ page: originalPage_DontUse, browser }) => {
       page1.locator(`[data-testid="empty-cell"][data-x="3"][data-y="2"]`),
     ];
 
-    for (const cell of [...player1Cells, ...player2Cells, ...emptyCells]) {
+    const allCells = [...player1Cells, ...player2Cells, ...emptyCells];
+
+    expect(allCells.length).toBe(16);
+
+    for (const cell of allCells) {
       await expect(cell).toBeVisible();
     }
   });
@@ -128,12 +132,108 @@ test("Play Game", async ({ page: originalPage_DontUse, browser }) => {
       page2.locator(`[data-testid="empty-cell"][data-x="3"][data-y="2"]`),
     ];
 
-    for (const cell of [...player1Cells, ...player2Cells, ...emptyCells]) {
+    const allCells = [...player1Cells, ...player2Cells, ...emptyCells];
+
+    expect(allCells.length).toBe(16);
+
+    for (const cell of allCells) {
       await expect(cell).toBeVisible();
     }
   });
 
-  await page1.waitForTimeout(2000);
+  await test.step("player 1 clones to the right", async () => {
+    const cellToClone = page1.locator(
+      `[data-testid="my-cell"][data-x="0"][data-y="0"]`
+    );
+    await cellToClone.click();
+
+    const availableClones = [
+      page1.locator(`[available-clone][data-x="1"][data-y="0"]`),
+      page1.locator(`[available-clone][data-x="0"][data-y="1"]`),
+    ];
+    const availableJumps = [
+      page1.locator(`[available-jump][data-x="2"][data-y="0"]`),
+      page1.locator(`[available-jump][data-x="0"][data-y="2"]`),
+    ];
+
+    await test.step("assert move hints are visible", async () => {
+      for (const cell of [...availableClones, ...availableJumps]) {
+        await expect(cell).toBeVisible();
+      }
+    });
+
+    await availableClones[0].click(); // clone to the right
+
+    await test.step("assert move hints are no longer visible", async () => {
+      for (const cell of [...availableClones, ...availableJumps]) {
+        await expect(cell).not.toBeVisible();
+      }
+    });
+  });
+
+  await test.step("player 1 sees game state correctly after cloning", async () => {
+    const player1Cells = [
+      page1.locator(`[data-testid="my-cell"][data-x="0"][data-y="0"]`),
+      page1.locator(`[data-testid="my-cell"][data-x="1"][data-y="0"]`),
+    ];
+    const player2Cells = [
+      page1.locator(`[data-testid="enemy-cell"][data-x="3"][data-y="3"]`),
+    ];
+    const emptyCells = [
+      page1.locator(`[data-testid="empty-cell"][data-x="0"][data-y="1"]`),
+      page1.locator(`[data-testid="empty-cell"][data-x="0"][data-y="2"]`),
+      page1.locator(`[data-testid="empty-cell"][data-x="0"][data-y="3"]`),
+      page1.locator(`[data-testid="empty-cell"][data-x="1"][data-y="1"]`),
+      page1.locator(`[data-testid="empty-cell"][data-x="1"][data-y="2"]`),
+      page1.locator(`[data-testid="empty-cell"][data-x="1"][data-y="3"]`),
+      page1.locator(`[data-testid="empty-cell"][data-x="2"][data-y="0"]`),
+      page1.locator(`[data-testid="empty-cell"][data-x="2"][data-y="1"]`),
+      page1.locator(`[data-testid="empty-cell"][data-x="2"][data-y="2"]`),
+      page1.locator(`[data-testid="empty-cell"][data-x="2"][data-y="3"]`),
+      page1.locator(`[data-testid="empty-cell"][data-x="3"][data-y="0"]`),
+      page1.locator(`[data-testid="empty-cell"][data-x="3"][data-y="1"]`),
+      page1.locator(`[data-testid="empty-cell"][data-x="3"][data-y="2"]`),
+    ];
+
+    const allCells = [...player1Cells, ...player2Cells, ...emptyCells];
+    expect(allCells.length).toBe(16);
+
+    for (const cell of allCells) {
+      await expect(cell).toBeVisible();
+    }
+  });
+
+  await test.step("player 2 sees game state correctly after player 1 cloning", async () => {
+    const player1Cells = [
+      page2.locator(`[data-testid="enemy-cell"][data-x="0"][data-y="0"]`),
+      page2.locator(`[data-testid="enemy-cell"][data-x="1"][data-y="0"]`),
+    ];
+    const player2Cells = [
+      page2.locator(`[data-testid="my-cell"][data-x="3"][data-y="3"]`),
+    ];
+    const emptyCells = [
+      page2.locator(`[data-testid="empty-cell"][data-x="0"][data-y="1"]`),
+      page2.locator(`[data-testid="empty-cell"][data-x="0"][data-y="2"]`),
+      page2.locator(`[data-testid="empty-cell"][data-x="0"][data-y="3"]`),
+      page2.locator(`[data-testid="empty-cell"][data-x="1"][data-y="1"]`),
+      page2.locator(`[data-testid="empty-cell"][data-x="1"][data-y="2"]`),
+      page2.locator(`[data-testid="empty-cell"][data-x="1"][data-y="3"]`),
+      page2.locator(`[data-testid="empty-cell"][data-x="2"][data-y="0"]`),
+      page2.locator(`[data-testid="empty-cell"][data-x="2"][data-y="1"]`),
+      page2.locator(`[data-testid="empty-cell"][data-x="2"][data-y="2"]`),
+      page2.locator(`[data-testid="empty-cell"][data-x="2"][data-y="3"]`),
+      page2.locator(`[data-testid="empty-cell"][data-x="3"][data-y="0"]`),
+      page2.locator(`[data-testid="empty-cell"][data-x="3"][data-y="1"]`),
+      page2.locator(`[data-testid="empty-cell"][data-x="3"][data-y="2"]`),
+    ];
+
+    const allCells = [...player1Cells, ...player2Cells, ...emptyCells];
+    expect(allCells.length).toBe(16);
+
+    for (const cell of allCells) {
+      await expect(cell).toBeVisible();
+    }
+  });
 });
 
 test.afterEach(async () => {
