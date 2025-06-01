@@ -53,10 +53,6 @@ export function showPlayButton() {
   playButton.onclick = () => {
     player.requestPlay();
   };
-  setTimeout(() => {
-    console.log("DEBUG MODE: Requesting play automatically");
-    player.requestPlay(); // in case the player is already ready
-  }, 500);
   document.body.appendChild(playButton);
 }
 
