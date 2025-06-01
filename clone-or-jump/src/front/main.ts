@@ -37,7 +37,7 @@ async function renderStartPage() {
   // hurt the ux that much.
   // plus (it may sound weird), but I also want to assert the loading in the
   // tests, so I need to wait for a bit before the loading is removed.
-  await new Promise((resolve) => setTimeout(resolve, 100));
+  await new Promise((resolve) => setTimeout(resolve, 1000));
 
   // 1. Tell backend a player joined
   const playerId = player.getId();
