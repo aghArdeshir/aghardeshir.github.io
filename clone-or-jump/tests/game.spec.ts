@@ -54,6 +54,16 @@ test("Play Game", async ({ page, browser }) => {
     await expect(page2.getByTestId("game-board")).toBeVisible();
   });
 
+  await test.step('player 1 sees online status for self and for player 2', async () => {
+    await expect(page1.getByTestId("self-status-online")).toBeVisible();
+    await expect(page1.getByTestId("other-player-status-online")).toBeVisible();
+  });
+
+  await test.step('player 2 sees online status for self and for player 1', async () => {
+    await expect(page2.getByTestId("self-status-online")).toBeVisible();
+    await expect(page2.getByTestId("other-player-status-online")).toBeVisible();
+  });
+
   await page.waitForTimeout(2000);
 });
 

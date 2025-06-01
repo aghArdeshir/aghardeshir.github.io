@@ -306,7 +306,7 @@ export function renderSelfLastOnline({
     const isOtherPlayerLastOnlineLessThan_5_seconds =
       otherPlayerLastOnlineSecondsAgo < 5000;
 
-    const otherPlayerLastOnlineDom =
+    const otherPlayerLastOnlineDom: HTMLDivElement =
       document.querySelector(".other-player-last-online") ||
       document.createElement("div");
     otherPlayerLastOnlineDom.classList.remove(
@@ -327,6 +327,7 @@ export function renderSelfLastOnline({
 
     if (isOtherPlayerLastOnlineLessThan_3_seconds) {
       otherPlayerLastOnlineDom.classList.add("online");
+      otherPlayerLastOnlineDom.dataset.testid = "other-player-status-online";
       otherPlayerStatusTextDom.textContent = "Other Player: Online";
     } else if (isOtherPlayerLastOnlineLessThan_5_seconds) {
       otherPlayerLastOnlineDom.classList.add("connecting");
