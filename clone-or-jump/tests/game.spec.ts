@@ -11,8 +11,20 @@ test.beforeEach(async () => {
 
 test("Play Game", async ({ page: originalPage_DontUse, browser }) => {
   await test.step("wait for the game server to start", async () => {
-    await originalPage_DontUse.waitForTimeout(2000);
+    await new Promise((resolve) => {
+      const interval = setInterval(async () => {
+        try {
+          await fetch("http://localhost:5173").then((response) => {
+            if (response.ok) {
+              clearInterval(interval);
+              resolve(true);
+            }
+          });
+        } catch (e) {}
+      }, 10);
   });
+  });
+
   const context1 = await browser.contexts()[0];
   const page1 = await context1.pages()[0];
 
