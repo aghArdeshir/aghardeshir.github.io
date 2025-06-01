@@ -81,6 +81,7 @@ function renderGameWaitingForPlayers(
   gameState: GameStateWaitingForOtherPlayers
 ) {
   const waitingMessage = document.createElement("div");
+  waitingMessage.dataset.testid = "waiting-for-players";
   waitingMessage.innerText = "Waiting for players to join...";
   document.body.appendChild(waitingMessage);
 }
@@ -96,6 +97,18 @@ function renderGamePlaying(gameState: GameStatePlaying) {
 }
 
 function renderGameCells(cells: GameStateCell[], turnPlayerId?: PlayerId) {
+  let gameBoardDom: HTMLDivElement | null =
+    document.querySelector(".game-board");
+  if (gameBoardDom) gameBoardDom.remove();
+
+  gameBoardDom = document.createElement("div");
+  gameBoardDom.classList.add("game-board");
+  gameBoardDom.dataset.testid = "game-board";
+  gameBoardDom.style.position = "absolute";
+  gameBoardDom.style.width = "200px";
+  gameBoardDom.style.height = "200px";
+  document.body.appendChild(gameBoardDom);
+
   for (const cell of cells) {
     const cellDiv = document.createElement("div");
 
@@ -127,7 +140,7 @@ function renderGameCells(cells: GameStateCell[], turnPlayerId?: PlayerId) {
       }
     }
 
-    document.body.appendChild(cellDiv);
+    gameBoardDom.appendChild(cellDiv);
   }
 }
 

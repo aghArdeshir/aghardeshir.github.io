@@ -18,7 +18,7 @@ test("Play Game", async ({ page, browser }) => {
   const page1 = await context1.pages()[0];
 
   await test.step("player 1 navigate to the game page and assert loading screen is shown", async () => {
-    page1.goto("http://localhost:5173");
+    page1.goto("http://localhost:5173"); // no await, instead we wait for loading screen
     await expect(page1.getByTestId("loading")).toBeVisible();
   });
 
@@ -26,18 +26,32 @@ test("Play Game", async ({ page, browser }) => {
   const page2 = await context2.newPage();
 
   await test.step("player 2 navigate to the game page and assert loading screen is shown", async () => {
-    page2.goto("http://localhost:5173");
+    page2.goto("http://localhost:5173"); // no await, instead we wait for loading screen
     await expect(page2.getByTestId("loading")).toBeVisible();
   });
 
-  await test.step('play button is visible for both players', async () => {
+  await test.step("play button is visible for both players", async () => {
     await expect(page1.getByTestId("play-button")).toBeVisible();
     await expect(page2.getByTestId("play-button")).toBeVisible();
   });
 
-  await test.step('both players see their status as online', async () => {
+  await test.step("both players see their status as online", async () => {
     await expect(page1.getByTestId("self-status-online")).toBeVisible();
     await expect(page2.getByTestId("self-status-online")).toBeVisible();
+  });
+
+  await test.step("player 1 clicks play button", async () => {
+    page1.getByTestId("play-button").click(); // no await, instead we wait for the waiting screen
+    await expect(page1.getByTestId("waiting-for-players")).toBeVisible();
+  });
+
+  await test.step("player 2 clicks play button", async () => {
+    await page2.getByTestId("play-button").click(); // no await, instead we wait for the waiting screen
+  });
+
+  await test.step("both players should see the game board", async () => {
+    await expect(page1.getByTestId("game-board")).toBeVisible();
+    await expect(page2.getByTestId("game-board")).toBeVisible();
   });
 
   await page.waitForTimeout(2000);
