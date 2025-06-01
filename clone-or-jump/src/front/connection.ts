@@ -20,7 +20,7 @@ socket.on("message", (message) => {
   }
 });
 
-function ping() {
+export function ping() {
   socket.emitWithAck("ping").then((response) => {
     player.setLastPing({
       selfLastOnlineDate: new Date(),
@@ -29,10 +29,6 @@ function ping() {
     setTimeout(ping, 1000);
   });
 }
-
-setTimeout(() => {
-  ping();
-}, 1000); // Initial ping after 1 second
 
 export function sendMessageToBack(message: MessagesFrontSendsToBack) {
   socket.emit("message", message);

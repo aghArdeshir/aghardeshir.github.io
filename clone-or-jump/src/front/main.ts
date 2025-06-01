@@ -9,7 +9,7 @@ import {
   generateMessageMove,
   generateMessageNewPlayerJoined,
 } from "../common/messageTypes";
-import { sendMessageToBack } from "./connection";
+import { ping, sendMessageToBack } from "./connection";
 import { player } from "./Player";
 
 document.body.style.backgroundColor = "black";
@@ -46,6 +46,9 @@ async function renderStartPage() {
   } else {
     sendMessageToBack(generateMessageNewPlayerJoined());
   }
+
+  // 2. Start pinging backend to get online status
+  ping();
 }
 
 export function showPlayButton() {
