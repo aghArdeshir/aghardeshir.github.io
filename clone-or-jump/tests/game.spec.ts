@@ -3,18 +3,18 @@ import { spawn } from "node:child_process";
 
 let runGameProcess: ReturnType<typeof spawn>;
 
+const GAME_URL = "http://localhost:5173";
+
 test.beforeEach(async () => {
   runGameProcess = spawn("npm", ["run", "dev"]);
   runGameProcess.stdout?.on("data", (data) => console.log(data.toString()));
   runGameProcess.stderr?.on("data", (data) => console.error(data.toString()));
-});
 
-test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
   await test.step("wait for the game server to start", async () => {
     await new Promise((resolve) => {
       const interval = setInterval(async () => {
         try {
-          await fetch("http://localhost:5173").then((response) => {
+          await fetch(GAME_URL).then((response) => {
             if (response.ok) {
               clearInterval(interval);
               resolve(true);
@@ -24,12 +24,16 @@ test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
       }, 10);
     });
   });
+});
 
+// if we don't add `page` as argument here, the tests and browser contexts won't
+// be properly created. This needs to be here for the tests to work.
+test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
   const player_1_context = await browser.contexts()[0];
   const player_1_page = await player_1_context.pages()[0];
 
   await test.step("player 1 navigate to the game page and assert loading screen is shown", async () => {
-    player_1_page.goto("http://localhost:5173"); // no await, instead we wait for loading screen
+    player_1_page.goto(GAME_URL); // no await, instead we wait for loading screen
     await expect(player_1_page.getByTestId("loading")).toBeVisible();
   });
 
@@ -37,7 +41,7 @@ test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
   const player_2_page = await player_2_context.newPage();
 
   await test.step("player 2 navigate to the game page and assert loading screen is shown", async () => {
-    player_2_page.goto("http://localhost:5173"); // no await, instead we wait for loading screen
+    player_2_page.goto(GAME_URL); // no await, instead we wait for loading screen
     await expect(player_2_page.getByTestId("loading")).toBeVisible();
   });
 
@@ -140,7 +144,7 @@ test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
     expect(allCells.length).toBe(16);
 
     for (const cell of allCells) {
-      await expect(cell).toBeVisible();
+      expect(cell).toBeVisible();
     }
   });
 
@@ -203,7 +207,7 @@ test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
     expect(allCells.length).toBe(16);
 
     for (const cell of allCells) {
-      await expect(cell).toBeVisible();
+      expect(cell).toBeVisible();
     }
   });
 
@@ -224,7 +228,7 @@ test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
 
     await test.step("assert move hints are visible", async () => {
       for (const cell of [...availableClones, ...availableJumps]) {
-        await expect(cell).toBeVisible();
+        expect(cell).toBeVisible();
       }
     });
 
@@ -232,7 +236,7 @@ test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
 
     await test.step("assert move hints are no longer visible", async () => {
       for (const cell of [...availableClones, ...availableJumps]) {
-        await expect(cell).not.toBeVisible();
+        expect(cell).not.toBeVisible();
       }
     });
   });
@@ -293,7 +297,7 @@ test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
     expect(allCells.length).toBe(16);
 
     for (const cell of allCells) {
-      await expect(cell).toBeVisible();
+      expect(cell).toBeVisible();
     }
   });
 
@@ -355,7 +359,7 @@ test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
     expect(allCells.length).toBe(16);
 
     for (const cell of allCells) {
-      await expect(cell).toBeVisible();
+      expect(cell).toBeVisible();
     }
   });
 
@@ -376,7 +380,7 @@ test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
 
     await test.step("assert move hints are visible", async () => {
       for (const cell of [...availableClones, ...availableJumps]) {
-        await expect(cell).toBeVisible();
+        expect(cell).toBeVisible();
       }
     });
 
@@ -384,7 +388,7 @@ test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
 
     await test.step("assert move hints are no longer visible", async () => {
       for (const cell of [...availableClones, ...availableJumps]) {
-        await expect(cell).not.toBeVisible();
+        expect(cell).not.toBeVisible();
       }
     });
   });
@@ -443,7 +447,7 @@ test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
     const allCells = [...player1Cells, ...player2Cells, ...emptyCells];
     expect(allCells.length).toBe(16);
     for (const cell of allCells) {
-      await expect(cell).toBeVisible();
+      expect(cell).toBeVisible();
     }
   });
 
@@ -502,7 +506,7 @@ test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
     const allCells = [...player1Cells, ...player2Cells, ...emptyCells];
     expect(allCells.length).toBe(16);
     for (const cell of allCells) {
-      await expect(cell).toBeVisible();
+      expect(cell).toBeVisible();
     }
   });
 
@@ -522,13 +526,13 @@ test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
     ];
     await test.step("assert move hints are visible", async () => {
       for (const cell of [...availableClones, ...availableJumps]) {
-        await expect(cell).toBeVisible();
+        expect(cell).toBeVisible();
       }
     });
     await availableJumps[0].click(); // jump to the right
     await test.step("assert move hints are no longer visible", async () => {
       for (const cell of [...availableClones, ...availableJumps]) {
-        await expect(cell).not.toBeVisible();
+        expect(cell).not.toBeVisible();
       }
     });
   });
@@ -549,12 +553,12 @@ test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
 
     await test.step("assert move hints are visible", async () => {
       for (const cell of [...availableClones, ...availableJumps]) {
-        await expect(cell).toBeVisible();
+        expect(cell).toBeVisible();
       }
     });
 
     await test.step("jump to the enemy cell should not be available", async () => {
-      await expect(
+      expect(
         player_2_page.locator(`[available-jump][data-x="3"][data-y="0"]`)
       ).not.toBeVisible();
     });
@@ -563,7 +567,7 @@ test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
 
     await test.step("assert move hints are no longer visible", async () => {
       for (const cell of [...availableClones, ...availableJumps]) {
-        await expect(cell).not.toBeVisible();
+        expect(cell).not.toBeVisible();
       }
     });
   });
@@ -630,7 +634,7 @@ test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
       ];
 
       for (const cell of [...player1Cells, ...player2Cells]) {
-        await expect(cell).toBeVisible();
+        expect(cell).toBeVisible();
       }
     });
 
@@ -662,7 +666,7 @@ test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
       ];
 
       for (const cell of [...player1Cells, ...player2Cells]) {
-        await expect(cell).toBeVisible();
+        expect(cell).toBeVisible();
       }
     });
 
@@ -681,8 +685,8 @@ test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
     expect(emptyCells.length).toBe(9);
 
     for (const cell of emptyCells) {
-      await expect(player_1_page.locator(cell)).toBeVisible();
-      await expect(player_2_page.locator(cell)).toBeVisible();
+      expect(player_1_page.locator(cell)).toBeVisible();
+      expect(player_2_page.locator(cell)).toBeVisible();
     }
   });
 
@@ -690,7 +694,7 @@ test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
     const enemyCellToOccupy = player_2_page.locator(
       `[data-testid="enemy-cell"][data-x="1"][data-y="0"]`
     );
-    await expect(enemyCellToOccupy).toBeVisible();
+    expect(enemyCellToOccupy).toBeVisible();
 
     const cellToClone = player_2_page.locator(
       `[data-testid="my-cell"][data-x="2"][data-y="1"]`
@@ -705,7 +709,7 @@ test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
       `[data-testid="my-cell"][data-x="1"][data-y="0"]`
     );
 
-    await expect(occupiedCell).toBeVisible();
+    expect(occupiedCell).toBeVisible();
   });
 
   await test.step("player 1 clones down", async () => {
@@ -742,12 +746,12 @@ test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
   });
 
   await test.step("both playes still see each other as online", async () => {
-    await expect(player_1_page.getByTestId("self-status-online")).toBeVisible();
-    await expect(
+    expect(player_1_page.getByTestId("self-status-online")).toBeVisible();
+    expect(
       player_1_page.getByTestId("other-player-status-online")
     ).toBeVisible();
-    await expect(player_2_page.getByTestId("self-status-online")).toBeVisible();
-    await expect(
+    expect(player_2_page.getByTestId("self-status-online")).toBeVisible();
+    expect(
       player_2_page.getByTestId("other-player-status-online")
     ).toBeVisible();
   });
@@ -787,12 +791,12 @@ test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
 
     await test.step("assert player 1 sees own and enemy cells", async () => {
       for (const cell of player1Cells) {
-        await expect(
+        expect(
           player_1_page.locator(`[data-testid="my-cell"]${cell}`)
         ).toBeVisible();
       }
       for (const cell of player2Cells) {
-        await expect(
+        expect(
           player_1_page.locator(`[data-testid="enemy-cell"]${cell}`)
         ).toBeVisible();
       }
@@ -800,12 +804,12 @@ test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
 
     await test.step("assert player 2 sees own and enemy cells", async () => {
       for (const cell of player1Cells) {
-        await expect(
+        expect(
           player_2_page.locator(`[data-testid="enemy-cell"]${cell}`)
         ).toBeVisible();
       }
       for (const cell of player2Cells) {
-        await expect(
+        expect(
           player_2_page.locator(`[data-testid="my-cell"]${cell}`)
         ).toBeVisible();
       }
@@ -813,10 +817,10 @@ test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
 
     await test.step("assert empty cells are visible for both players", async () => {
       for (const cell of emptyCells) {
-        await expect(
+        expect(
           player_1_page.locator(`[data-testid="empty-cell"]${cell}`)
         ).toBeVisible();
-        await expect(
+        expect(
           player_2_page.locator(`[data-testid="empty-cell"]${cell}`)
         ).toBeVisible();
       }
@@ -824,28 +828,26 @@ test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
   });
 
   await test.step("assert both players see the game finished screen", async () => {
-    await expect(player_1_page.getByTestId("game-finished")).toBeVisible();
-    await expect(player_2_page.getByTestId("game-finished")).toBeVisible();
+    expect(player_1_page.getByTestId("game-finished")).toBeVisible();
+    expect(player_2_page.getByTestId("game-finished")).toBeVisible();
   });
 
   await test.step('player 1 sees "you lost" message', async () => {
-    await expect(player_1_page.getByTestId("you-lost")).toBeVisible();
+    expect(player_1_page.getByTestId("you-lost")).toBeVisible();
   });
 
   await test.step('player 2 sees "you won" message', async () => {
-    await expect(player_2_page.getByTestId("you-won")).toBeVisible();
+    expect(player_2_page.getByTestId("you-won")).toBeVisible();
   });
 
   await test.step('both players see "play again" button', async () => {
-    await expect(player_1_page.getByTestId("play-again-button")).toBeVisible();
-    await expect(player_2_page.getByTestId("play-again-button")).toBeVisible();
+    expect(player_1_page.getByTestId("play-again-button")).toBeVisible();
+    expect(player_2_page.getByTestId("play-again-button")).toBeVisible();
   });
 
   await test.step('player 1 clicks "play again" button', async () => {
     await player_1_page.getByTestId("play-again-button").click();
-    await expect(
-      player_1_page.getByTestId("waiting-for-players")
-    ).toBeVisible();
+    expect(player_1_page.getByTestId("waiting-for-players")).toBeVisible();
   });
 
   await test.step('player 2 clicks "play again" button', async () => {
@@ -877,24 +879,24 @@ test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
 
     await test.step("assert player 1 sees own and enemy cells", async () => {
       for (const cell of player1Cells) {
-        await expect(
+        expect(
           player_1_page.locator(`[data-testid="my-cell"]${cell}`)
         ).toBeVisible();
       }
       for (const cell of player2Cells) {
-        await expect(
+        expect(
           player_1_page.locator(`[data-testid="enemy-cell"]${cell}`)
         ).toBeVisible();
       }
     });
     await test.step("assert player 2 sees own and enemy cells", async () => {
       for (const cell of player1Cells) {
-        await expect(
+        expect(
           player_2_page.locator(`[data-testid="enemy-cell"]${cell}`)
         ).toBeVisible();
       }
       for (const cell of player2Cells) {
-        await expect(
+        expect(
           player_2_page.locator(`[data-testid="my-cell"]${cell}`)
         ).toBeVisible();
       }
