@@ -28,7 +28,12 @@ test.beforeEach(async () => {
 
 // if we don't add `page` as argument here, the tests and browser contexts won't
 // be properly created. This needs to be here for the tests to work.
-test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
+// TODO: I really don't know how playwright knows about the `page` argument here,
+//       is it a getter? Could be cool to know how it works.
+test("Play Game: 1v1 4x4", async ({
+  page: originalPage_DontUse_AlsoDontRemove,
+  browser,
+}) => {
   const player_1_context = await browser.contexts()[0];
   const player_1_page = await player_1_context.pages()[0];
 
@@ -63,7 +68,7 @@ test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
   });
 
   await test.step("player 2 clicks play button", async () => {
-    await player_2_page.getByTestId("play-button").click(); // no await, instead we wait for the waiting screen
+    await player_2_page.getByTestId("play-button").click();
   });
 
   await test.step("both players should see the game board", async () => {
