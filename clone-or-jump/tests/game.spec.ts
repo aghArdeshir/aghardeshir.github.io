@@ -85,6 +85,95 @@ test("Play Game: 1v1 4x4", async ({ page: originalPage_DontUse, browser }) => {
     ).toBeVisible();
   });
 
+  /**
+   *
+   * @param gameState should be a formatted array, e.g.
+   * [
+   *   [1, 0, 0, 1],
+   *   [2, 0, 0, 0],
+   *   [0, 0, 0, 0],
+   *   [0, 0, 0, 2]
+   * ]
+   * 0 indicates an empty cell,
+   * 1 indicates a cell occupied by player 1,
+   * 2 indicates a cell occupied by player 2
+   */
+  async function assertBothPlayersSeeGameStateCorrectly(
+    gameState: (1 | 2 | 0)[][]
+  ) {
+    if (
+      gameState.length !== 4 ||
+      gameState.some((row) => row.length !== 4) ||
+      gameState.flat().some((cellValue) => ![1, 2, 0].includes(cellValue)) ||
+      gameState.flat().length !== 16
+    ) {
+      throw new Error(
+        "gameState should be a 4x4 array including `1`, `2` or `0`"
+      );
+    }
+
+    const player1Cells: string[] = [];
+    const player2Cells: string[] = [];
+    const emptyCells: string[] = [];
+
+    gameState.forEach((row, rowIndex) => {
+      row.forEach((cellValue, columnIndex) => {
+        if (cellValue === 1) {
+          player1Cells.push(`[data-x="${columnIndex}"][data-y="${rowIndex}"]`);
+        } else if (cellValue === 2) {
+          player2Cells.push(`[data-x="${columnIndex}"][data-y="${rowIndex}"]`);
+        } else {
+          emptyCells.push(`[data-x="${columnIndex}"][data-y="${rowIndex}"]`);
+        }
+      });
+    });
+
+    await test.step("player 1 sees own and enemy cells correctly", async () => {
+      for (const cellLocator of player1Cells.map(
+        (coordinates) => `[data-testid="my-cell"]${coordinates}`
+      )) {
+        await expect(player_1_page.locator(cellLocator)).toBeVisible();
+      }
+
+      for (const cellLocator of player2Cells.map(
+        (coordinates) => `[data-testid="enemy-cell"]${coordinates}`
+      )) {
+        await expect(player_1_page.locator(cellLocator)).toBeVisible();
+      }
+    });
+
+    await test.step("player 2 sees own and enemy cells correctly", async () => {
+      for (const cellLocator of player1Cells.map(
+        (coordinates) => `[data-testid="enemy-cell"]${coordinates}`
+      )) {
+        await expect(player_2_page.locator(cellLocator)).toBeVisible();
+      }
+
+      for (const cellLocator of player2Cells.map(
+        (coordinates) => `[data-testid="my-cell"]${coordinates}`
+      )) {
+        console.log("AM I EVEN RUNNING?", cellLocator);
+        await expect(player_2_page.locator(cellLocator)).toBeVisible();
+      }
+    });
+
+    await test.step("both player see empty game cells correctly", async () => {
+      for (const cellLocator of emptyCells.map(
+        (coordinates) => `[data-testid="empty-cell"]${coordinates}`
+      )) {
+        await expect(player_1_page.locator(cellLocator)).toBeVisible();
+        await expect(player_2_page.locator(cellLocator)).toBeVisible();
+      }
+    });
+  }
+
+  await assertBothPlayersSeeGameStateCorrectly([
+    [1, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 2],
+  ]);
+
   await test.step("player 1 sees game state correctly", async () => {
     const player1Cells = [
       player_1_page.locator(`[data-testid="my-cell"][data-x="0"][data-y="0"]`),
