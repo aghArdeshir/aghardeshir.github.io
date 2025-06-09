@@ -132,12 +132,26 @@ test("Play Game: 1v1 4x4", async ({
     to: { x: 3, y: 0 },
   });
 
+  await assertBothPlayersSeeGameStateCorrectly([
+    [1, 0, 0, 1],
+    [0, 0, 0, 0],
+    [0, 0, 0, 2],
+    [0, 0, 0, 2],
+  ]);
+
   await move({
     player: "player2",
     action: "clone",
     from: { x: 3, y: 2 },
     to: { x: 3, y: 1 },
   });
+
+  await assertBothPlayersSeeGameStateCorrectly([
+    [1, 0, 0, 2],
+    [0, 0, 0, 2],
+    [0, 0, 0, 2],
+    [0, 0, 0, 2],
+  ]);
 
   await move({
     player: "player1",
@@ -146,12 +160,26 @@ test("Play Game: 1v1 4x4", async ({
     to: { x: 1, y: 0 },
   });
 
+  await assertBothPlayersSeeGameStateCorrectly([
+    [1, 1, 0, 2],
+    [0, 0, 0, 2],
+    [0, 0, 0, 2],
+    [0, 0, 0, 2],
+  ]);
+
   await move({
     player: "player2",
     action: "clone",
     from: { x: 3, y: 1 },
     to: { x: 2, y: 1 },
   });
+
+  await assertBothPlayersSeeGameStateCorrectly([
+    [1, 1, 0, 2],
+    [0, 0, 2, 2],
+    [0, 0, 0, 2],
+    [0, 0, 0, 2],
+  ]);
 
   await move({
     player: "player1",
@@ -174,12 +202,26 @@ test("Play Game: 1v1 4x4", async ({
     to: { x: 1, y: 1 },
   });
 
+  await assertBothPlayersSeeGameStateCorrectly([
+    [0, 2, 0, 2],
+    [0, 2, 2, 2],
+    [1, 0, 0, 2],
+    [0, 0, 0, 2],
+  ]);
+
   await move({
     player: "player1",
     action: "clone",
     from: { x: 0, y: 2 },
     to: { x: 0, y: 3 },
   });
+
+  await assertBothPlayersSeeGameStateCorrectly([
+    [0, 2, 0, 2],
+    [0, 2, 2, 2],
+    [1, 0, 0, 2],
+    [1, 0, 0, 2],
+  ]);
 
   await move({
     player: "player2",
@@ -188,12 +230,26 @@ test("Play Game: 1v1 4x4", async ({
     to: { x: 1, y: 2 },
   });
 
+  await assertBothPlayersSeeGameStateCorrectly([
+    [0, 2, 0, 2],
+    [0, 2, 2, 2],
+    [2, 2, 0, 2],
+    [1, 0, 0, 2],
+  ]);
+
   await move({
     player: "player1",
     action: "jump",
     from: { x: 0, y: 3 },
     to: { x: 2, y: 3 },
   });
+
+  await assertBothPlayersSeeGameStateCorrectly([
+    [0, 2, 0, 2],
+    [0, 2, 2, 2],
+    [2, 2, 0, 2],
+    [0, 0, 1, 1],
+  ]);
 
   await test.step("both players still see each other as online", async () => {
     await expect(player_1_page.getByTestId("self-status-online")).toBeVisible();
