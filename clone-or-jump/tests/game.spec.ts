@@ -90,213 +90,12 @@ test("Play Game: 1v1 4x4", async ({
     ).toBeVisible();
   });
 
-  /**
-   *
-   * @param gameState should be a formatted array, e.g.
-   * [
-   *   [1, 0, 0, 1],
-   *   [2, 0, 0, 0],
-   *   [0, 0, 0, 0],
-   *   [0, 0, 0, 2]
-   * ]
-   * 0 indicates an empty cell,
-   * 1 indicates a cell occupied by player 1,
-   * 2 indicates a cell occupied by player 2
-   */
-  async function assertBothPlayersSeeGameStateCorrectly(
-    gameState: (1 | 2 | 0)[][]
-  ) {
-    if (
-      gameState.length !== 4 ||
-      gameState.some((row) => row.length !== 4) ||
-      gameState.flat().some((cellValue) => ![1, 2, 0].includes(cellValue)) ||
-      gameState.flat().length !== 16
-    ) {
-      throw new Error(
-        "gameState should be a 4x4 array including `1`, `2` or `0`"
-      );
-    }
-
-    const player1Cells: string[] = [];
-    const player2Cells: string[] = [];
-    const emptyCells: string[] = [];
-
-    gameState.forEach((row, rowIndex) => {
-      row.forEach((cellValue, columnIndex) => {
-        if (cellValue === 1) {
-          player1Cells.push(`[data-x="${columnIndex}"][data-y="${rowIndex}"]`);
-        } else if (cellValue === 2) {
-          player2Cells.push(`[data-x="${columnIndex}"][data-y="${rowIndex}"]`);
-        } else {
-          emptyCells.push(`[data-x="${columnIndex}"][data-y="${rowIndex}"]`);
-        }
-      });
-    });
-
-    await test.step("player 1 sees own and enemy cells correctly", async () => {
-      for (const cellLocator of player1Cells.map(
-        (coordinates) => `[data-testid="my-cell"]${coordinates}`
-      )) {
-        await expect(player_1_page.locator(cellLocator)).toBeVisible();
-      }
-
-      for (const cellLocator of player2Cells.map(
-        (coordinates) => `[data-testid="enemy-cell"]${coordinates}`
-      )) {
-        await expect(player_1_page.locator(cellLocator)).toBeVisible();
-      }
-    });
-
-    await test.step("player 2 sees own and enemy cells correctly", async () => {
-      for (const cellLocator of player1Cells.map(
-        (coordinates) => `[data-testid="enemy-cell"]${coordinates}`
-      )) {
-        await expect(player_2_page.locator(cellLocator)).toBeVisible();
-      }
-
-      for (const cellLocator of player2Cells.map(
-        (coordinates) => `[data-testid="my-cell"]${coordinates}`
-      )) {
-        console.log("AM I EVEN RUNNING?", cellLocator);
-        await expect(player_2_page.locator(cellLocator)).toBeVisible();
-      }
-    });
-
-    await test.step("both player see empty game cells correctly", async () => {
-      for (const cellLocator of emptyCells.map(
-        (coordinates) => `[data-testid="empty-cell"]${coordinates}`
-      )) {
-        await expect(player_1_page.locator(cellLocator)).toBeVisible();
-        await expect(player_2_page.locator(cellLocator)).toBeVisible();
-      }
-    });
-  }
-
   await assertBothPlayersSeeGameStateCorrectly([
     [1, 0, 0, 0],
     [0, 0, 0, 0],
     [0, 0, 0, 0],
     [0, 0, 0, 2],
   ]);
-
-  async function move({
-    player,
-    action,
-    from,
-    to,
-  }: {
-    player: "player1" | "player2";
-    action: "jump" | "clone";
-    from: { x: number; y: number };
-    to: { x: number; y: number };
-  }) {
-    const pageObject = player === "player1" ? player_1_page : player_2_page;
-
-    const cellToClone = pageObject.locator(
-      `[data-testid="my-cell"][data-x="${from.x}"][data-y="${from.y}"]`
-    );
-    await expect(cellToClone).toBeVisible();
-    await cellToClone.click();
-
-    const possibleCloneCoordinates = [
-      [from.x + 1, from.y],
-      [from.x, from.y + 1],
-      [from.x - 1, from.y],
-      [from.x, from.y - 1],
-    ].filter(([x, y]) => x >= 0 && x < 4 && y >= 0 && y < 4);
-
-    const possibleJumpCoordinates = [
-      [from.x + 2, from.y],
-      [from.x, from.y + 2],
-      [from.x - 2, from.y],
-      [from.x, from.y - 2],
-    ].filter(([x, y]) => x >= 0 && x < 4 && y >= 0 && y < 4);
-
-    const availableCloneCoordinates: { x: number; y: number }[] = [];
-    const availableJumpCoordinates: { x: number; y: number }[] = [];
-
-    await test.step("filtering out available clone and jump coordinates (no already-occupied cells)", async () => {
-      for (const [x, y] of possibleCloneCoordinates) {
-        const isMyCell = await pageObject
-          .locator(`[data-testid="my-cell"][data-x="${x}"][data-y="${y}"]`)
-          .isVisible();
-        const isEnemyCell = await pageObject
-          .locator(`[data-testid="enemy-cell"][data-x="${x}"][data-y="${y}"]`)
-          .isVisible();
-
-        if (isMyCell || isEnemyCell) {
-          await expect(
-            pageObject.locator(
-              `[available-clone][data-x="${x}"][data-y="${y}"]`
-            )
-          ).not.toBeVisible();
-        } else {
-          availableCloneCoordinates.push({ x, y });
-        }
-      }
-
-      for (const [x, y] of possibleJumpCoordinates) {
-        const isMyCell = await pageObject
-          .locator(`[data-testid="my-cell"][data-x="${x}"][data-y="${y}"]`)
-          .isVisible();
-        const isEnemyCell = await pageObject
-          .locator(`[data-testid="enemy-cell"][data-x="${x}"][data-y="${y}"]`)
-          .isVisible();
-
-        if (isMyCell || isEnemyCell) {
-          await expect(
-            pageObject.locator(`[available-jump][data-x="${x}"][data-y="${y}"]`)
-          ).not.toBeVisible();
-        } else {
-          availableJumpCoordinates.push({ x, y });
-        }
-      }
-    });
-
-    await test.step("assert available clone and jump coordinates are visible", async () => {
-      for (const { x, y } of availableCloneCoordinates) {
-        await expect(
-          pageObject.locator(`[available-clone][data-x="${x}"][data-y="${y}"]`)
-        ).toBeVisible();
-      }
-
-      for (const { x, y } of availableJumpCoordinates) {
-        await expect(
-          pageObject.locator(`[available-jump][data-x="${x}"][data-y="${y}"]`)
-        ).toBeVisible();
-      }
-    });
-
-    await test.step("make the move", async () => {
-      if (action === "clone") {
-        const targetCell = pageObject.locator(
-          `[available-clone][data-x="${to.x}"][data-y="${to.y}"]`
-        );
-        await expect(targetCell).toBeVisible();
-        await targetCell.click();
-      } else if (action === "jump") {
-        const targetCell = pageObject.locator(
-          `[available-jump][data-x="${to.x}"][data-y="${to.y}"]`
-        );
-        await expect(targetCell).toBeVisible();
-        await targetCell.click();
-      }
-    });
-
-    await test.step("assert available clone and jump coordinates are no longer visible", async () => {
-      for (const { x, y } of availableCloneCoordinates) {
-        await expect(
-          pageObject.locator(`[available-clone][data-x="${x}"][data-y="${y}"]`)
-        ).not.toBeVisible();
-      }
-
-      for (const { x, y } of availableJumpCoordinates) {
-        await expect(
-          pageObject.locator(`[available-jump][data-x="${x}"][data-y="${y}"]`)
-        ).not.toBeVisible();
-      }
-    });
-  }
 
   await move({
     player: "player1",
@@ -459,9 +258,212 @@ test("Play Game: 1v1 4x4", async ({
     [0, 0, 0, 2],
   ]);
 
-  // little timeout, so playwright previews the state correctly
-  await player_1_page.waitForTimeout(100); // wait for the game to process the moves
-  await player_2_page.waitForTimeout(100); // wait for the game to process the moves
+  // little timeout, so playwright previews the final state correctly
+  await player_1_page.waitForTimeout(10); // wait for the game to process the moves
+  await player_2_page.waitForTimeout(10); // wait for the game to process the moves
+
+  // UTILITY FUNCTIONS RESIDE HERE
+
+  /**
+   *
+   * @param gameState should be a formatted array, e.g.
+   * [
+   *   [1, 0, 0, 1],
+   *   [2, 0, 0, 0],
+   *   [0, 0, 0, 0],
+   *   [0, 0, 0, 2]
+   * ]
+   * 0 indicates an empty cell,
+   * 1 indicates a cell occupied by player 1,
+   * 2 indicates a cell occupied by player 2
+   */
+  async function assertBothPlayersSeeGameStateCorrectly(
+    gameState: (1 | 2 | 0)[][]
+  ) {
+    if (
+      gameState.length !== 4 ||
+      gameState.some((row) => row.length !== 4) ||
+      gameState.flat().some((cellValue) => ![1, 2, 0].includes(cellValue)) ||
+      gameState.flat().length !== 16
+    ) {
+      throw new Error(
+        "gameState should be a 4x4 array including `1`, `2` or `0`"
+      );
+    }
+
+    const player1Cells: string[] = [];
+    const player2Cells: string[] = [];
+    const emptyCells: string[] = [];
+
+    gameState.forEach((row, rowIndex) => {
+      row.forEach((cellValue, columnIndex) => {
+        if (cellValue === 1) {
+          player1Cells.push(`[data-x="${columnIndex}"][data-y="${rowIndex}"]`);
+        } else if (cellValue === 2) {
+          player2Cells.push(`[data-x="${columnIndex}"][data-y="${rowIndex}"]`);
+        } else {
+          emptyCells.push(`[data-x="${columnIndex}"][data-y="${rowIndex}"]`);
+        }
+      });
+    });
+
+    await test.step("player 1 sees own and enemy cells correctly", async () => {
+      for (const cellLocator of player1Cells.map(
+        (coordinates) => `[data-testid="my-cell"]${coordinates}`
+      )) {
+        await expect(player_1_page.locator(cellLocator)).toBeVisible();
+      }
+
+      for (const cellLocator of player2Cells.map(
+        (coordinates) => `[data-testid="enemy-cell"]${coordinates}`
+      )) {
+        await expect(player_1_page.locator(cellLocator)).toBeVisible();
+      }
+    });
+
+    await test.step("player 2 sees own and enemy cells correctly", async () => {
+      for (const cellLocator of player1Cells.map(
+        (coordinates) => `[data-testid="enemy-cell"]${coordinates}`
+      )) {
+        await expect(player_2_page.locator(cellLocator)).toBeVisible();
+      }
+
+      for (const cellLocator of player2Cells.map(
+        (coordinates) => `[data-testid="my-cell"]${coordinates}`
+      )) {
+        console.log("AM I EVEN RUNNING?", cellLocator);
+        await expect(player_2_page.locator(cellLocator)).toBeVisible();
+      }
+    });
+
+    await test.step("both player see empty game cells correctly", async () => {
+      for (const cellLocator of emptyCells.map(
+        (coordinates) => `[data-testid="empty-cell"]${coordinates}`
+      )) {
+        await expect(player_1_page.locator(cellLocator)).toBeVisible();
+        await expect(player_2_page.locator(cellLocator)).toBeVisible();
+      }
+    });
+  }
+
+  async function move({
+    player,
+    action,
+    from,
+    to,
+  }: {
+    player: "player1" | "player2";
+    action: "jump" | "clone";
+    from: { x: number; y: number };
+    to: { x: number; y: number };
+  }) {
+    const pageObject = player === "player1" ? player_1_page : player_2_page;
+
+    const cellToClone = pageObject.locator(
+      `[data-testid="my-cell"][data-x="${from.x}"][data-y="${from.y}"]`
+    );
+    await expect(cellToClone).toBeVisible();
+    await cellToClone.click();
+
+    const possibleCloneCoordinates = [
+      [from.x + 1, from.y],
+      [from.x, from.y + 1],
+      [from.x - 1, from.y],
+      [from.x, from.y - 1],
+    ].filter(([x, y]) => x >= 0 && x < 4 && y >= 0 && y < 4);
+
+    const possibleJumpCoordinates = [
+      [from.x + 2, from.y],
+      [from.x, from.y + 2],
+      [from.x - 2, from.y],
+      [from.x, from.y - 2],
+    ].filter(([x, y]) => x >= 0 && x < 4 && y >= 0 && y < 4);
+
+    const availableCloneCoordinates: { x: number; y: number }[] = [];
+    const availableJumpCoordinates: { x: number; y: number }[] = [];
+
+    await test.step("filtering out available clone and jump coordinates (no already-occupied cells)", async () => {
+      for (const [x, y] of possibleCloneCoordinates) {
+        const isMyCell = await pageObject
+          .locator(`[data-testid="my-cell"][data-x="${x}"][data-y="${y}"]`)
+          .isVisible();
+        const isEnemyCell = await pageObject
+          .locator(`[data-testid="enemy-cell"][data-x="${x}"][data-y="${y}"]`)
+          .isVisible();
+
+        if (isMyCell || isEnemyCell) {
+          await expect(
+            pageObject.locator(
+              `[available-clone][data-x="${x}"][data-y="${y}"]`
+            )
+          ).not.toBeVisible();
+        } else {
+          availableCloneCoordinates.push({ x, y });
+        }
+      }
+
+      for (const [x, y] of possibleJumpCoordinates) {
+        const isMyCell = await pageObject
+          .locator(`[data-testid="my-cell"][data-x="${x}"][data-y="${y}"]`)
+          .isVisible();
+        const isEnemyCell = await pageObject
+          .locator(`[data-testid="enemy-cell"][data-x="${x}"][data-y="${y}"]`)
+          .isVisible();
+
+        if (isMyCell || isEnemyCell) {
+          await expect(
+            pageObject.locator(`[available-jump][data-x="${x}"][data-y="${y}"]`)
+          ).not.toBeVisible();
+        } else {
+          availableJumpCoordinates.push({ x, y });
+        }
+      }
+    });
+
+    await test.step("assert available clone and jump coordinates are visible", async () => {
+      for (const { x, y } of availableCloneCoordinates) {
+        await expect(
+          pageObject.locator(`[available-clone][data-x="${x}"][data-y="${y}"]`)
+        ).toBeVisible();
+      }
+
+      for (const { x, y } of availableJumpCoordinates) {
+        await expect(
+          pageObject.locator(`[available-jump][data-x="${x}"][data-y="${y}"]`)
+        ).toBeVisible();
+      }
+    });
+
+    await test.step("make the move", async () => {
+      if (action === "clone") {
+        const targetCell = pageObject.locator(
+          `[available-clone][data-x="${to.x}"][data-y="${to.y}"]`
+        );
+        await expect(targetCell).toBeVisible();
+        await targetCell.click();
+      } else if (action === "jump") {
+        const targetCell = pageObject.locator(
+          `[available-jump][data-x="${to.x}"][data-y="${to.y}"]`
+        );
+        await expect(targetCell).toBeVisible();
+        await targetCell.click();
+      }
+    });
+
+    await test.step("assert available clone and jump coordinates are no longer visible", async () => {
+      for (const { x, y } of availableCloneCoordinates) {
+        await expect(
+          pageObject.locator(`[available-clone][data-x="${x}"][data-y="${y}"]`)
+        ).not.toBeVisible();
+      }
+
+      for (const { x, y } of availableJumpCoordinates) {
+        await expect(
+          pageObject.locator(`[available-jump][data-x="${x}"][data-y="${y}"]`)
+        ).not.toBeVisible();
+      }
+    });
+  }
 });
 
 test.afterEach(async () => {
