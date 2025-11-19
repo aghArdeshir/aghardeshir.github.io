@@ -1,12 +1,10 @@
 export class Track {
-  private file: File;
   private blobUrl: string;
   public name: string;
 
   constructor() {}
 
   setFile(file: File) {
-    this.file = file;
     this.setName(file.name);
 
     // TODO: revoke the blob URL when the track is deleted
