@@ -1,18 +1,20 @@
 export class Track {
   private file: File;
-  private blob: string;
+  private blobUrl: string;
   public name: string;
 
   constructor() {}
 
   setFile(file: File) {
     this.file = file;
-    this.blob = URL.createObjectURL(file);
     this.setName(file.name);
+
+    // TODO: revoke the blob URL when the track is deleted
+    this.blobUrl = URL.createObjectURL(file);
   }
 
   play() {
-    const audio = new Audio(this.blob);
+    const audio = new Audio(this.blobUrl);
     audio.play();
   }
 
