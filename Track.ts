@@ -8,7 +8,7 @@ export class Track {
   setFile(file: File) {
     this.file = file;
     this.blob = URL.createObjectURL(file);
-    this.name = file.name;
+    this.setName(file.name);
   }
 
   play() {
