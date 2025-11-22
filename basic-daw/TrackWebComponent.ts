@@ -20,8 +20,19 @@ class TrackWebComponent extends HTMLElement {
 
     const wrapper = document.createElement("div");
     wrapper.style.width = "100vw";
+    wrapper.style.height = "50px";
+    wrapper.style.border = "1px solid white";
+    wrapper.style.padding = "10px";
 
-    wrapper.textContent = this.track.name;
+    const trackText = document.createElement("span");
+    trackText.textContent = "Track";
+    trackText.style.display = 'block';
+    wrapper.appendChild(trackText);
+
+    const trackTitle = document.createElement("span");
+    trackTitle.textContent = this.track.name;
+    trackTitle.style.display = 'block';
+    wrapper.appendChild(trackTitle);
 
     const playButton = document.createElement("button");
     playButton.textContent = "Play";
