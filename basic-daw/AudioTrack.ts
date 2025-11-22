@@ -1,8 +1,12 @@
 export class AudioTrack {
   private blobUrl: string;
   public name: string;
+  private gainNode: GainNode;
 
-  constructor() {}
+  constructor() {
+    this.gainNode = window.basicdaw.audioContext.createGain();
+    this.gainNode.gain.value = 1;
+  }
 
   setFile(file: File) {
     this.setName(file.name);
@@ -12,8 +16,23 @@ export class AudioTrack {
   }
 
   play() {
-    const audio = new Audio(this.blobUrl);
-    audio.play();
+    const audioContext = window.basicdaw.audioContext;
+    const trackSource = audioContext.createMediaElementSource(
+      new Audio(this.blobUrl)
+    );
+
+    trackSource.connect(this.gainNode);
+    this.gainNode.connect(audioContext.destination);
+    trackSource.mediaElement.play();
+  }
+
+  setGain(gain: number) {
+    this.gainNode.gain.value = gain;
+  }
+
+  delete() {
+    this.gainNode.disconnect();
+    URL.revokeObjectURL(this.blobUrl);
   }
 
   setName(name: string) {
