@@ -34,6 +34,26 @@ class AudioTrackWebComponent extends HTMLElement {
     trackTitle.style.display = 'block';
     wrapper.appendChild(trackTitle);
 
+    const gainSlider = document.createElement("input");
+    gainSlider.type = "range";
+    gainSlider.min = "0";
+    gainSlider.max = "1";
+    gainSlider.step = "0.01";
+    gainSlider.value = "1";
+    wrapper.appendChild(gainSlider);
+    gainSlider.addEventListener("input", () => {
+      this.track.setGain(parseFloat(gainSlider.value));
+    });
+
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete Track";
+    deleteButton.style.marginLeft = "20px";
+    wrapper.appendChild(deleteButton);
+    deleteButton.addEventListener("click", () => {
+      window.basicdaw.deleteTrack(this.track);
+      shadow.host.remove();
+    });
+
     shadow.appendChild(wrapper);
   }
 }
