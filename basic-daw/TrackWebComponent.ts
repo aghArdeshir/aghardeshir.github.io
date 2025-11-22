@@ -1,6 +1,6 @@
 import { Track } from "./Track";
 
-class OdTrack extends HTMLElement {
+class TrackWebComponent extends HTMLElement {
   static observedAttributes = ["data-track-index"];
   private track: Track;
 
@@ -37,6 +37,6 @@ class OdTrack extends HTMLElement {
   }
 }
 
-export function registerWebCompoenent_OdTrack() {
-  customElements.define("od-track", OdTrack);
+export function registerWebCompoenent_BasicdawTrack() {
+  customElements.define("basicdaw-track", TrackWebComponent);
 }

@@ -1,4 +1,4 @@
-import { registerWebCompoenent_OdTrack } from "./OdTrack.ts";
+import { registerWebCompoenent_BasicdawTrack } from "./TrackWebComponent.ts";
 import { Track } from "./Track.ts";
 
 window.basicdaw = {
@@ -55,15 +55,15 @@ function createTrackFromDroppedFile(file: File) {
   track.setFile(file);
   window.basicdaw.tracks.push(track);
 
-  const odTrack = document.createElement("od-track");
-  odTrack.setAttribute(
+  const trackComponent = document.createElement("basicdaw-track");
+  trackComponent.setAttribute(
     "data-track-index",
     String(window.basicdaw.tracks.length - 1)
   );
-  document.body.appendChild(odTrack);
+  document.body.appendChild(trackComponent);
 }
 
-registerWebCompoenent_OdTrack();
+registerWebCompoenent_BasicdawTrack();
 
 drawGlobalPlayButton();
 
