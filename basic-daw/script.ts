@@ -67,6 +67,7 @@ function createTrackFromDroppedFile(file: File) {
 registerWebCompoenent_BasicdawTrack();
 
 drawGlobalPlayButton();
+drawInsertSampleWavFileButton();
 
 function drawGlobalPlayButton() {
   const playButton = document.createElement("button");
@@ -79,3 +80,25 @@ function drawGlobalPlayButton() {
 
   document.body.appendChild(playButton);
 }
+
+function drawInsertSampleWavFileButton() {
+  const insertSampleWavFileButton = document.createElement("button");
+  insertSampleWavFileButton.textContent = "Insert Sample WAV File";
+  insertSampleWavFileButton.addEventListener("click", insertSampleWavFile);
+  document.body.appendChild(insertSampleWavFileButton);
+}
+
+function insertSampleWavFile() {
+  const sampleWavFilePath = './sample-wav-file.wav';
+  fetch(sampleWavFilePath)
+    .then(response => response.blob())
+    .then(blob => {
+      const file = new File([blob], 'sample-wav-file.wav', { type: 'audio/wav' });
+      createTrackFromDroppedFile(file);
+    })
+    .catch(error => {
+      console.error('Error fetching sample WAV file:', error);
+    });
+}
+
+insertSampleWavFile();
