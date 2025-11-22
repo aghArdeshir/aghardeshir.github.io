@@ -19,7 +19,7 @@ class AudioTrackWebComponent extends HTMLElement {
     const shadow = this.attachShadow({ mode: "open" });
 
     const wrapper = document.createElement("div");
-    wrapper.style.width = "100vw";
+    wrapper.style.width = "80vw";
     wrapper.style.height = "50px";
     wrapper.style.border = "1px solid white";
     wrapper.style.padding = "10px";
