@@ -1,4 +1,4 @@
-import { Track } from "./Track";
+import { AudioTrack } from "./AudioTrack";
 
 // empty export, so this file becomes a module, and typescript is happy about defining types in it
 export {};
@@ -6,7 +6,7 @@ export {};
 declare global {
   interface Window {
     basicdaw: {
-      tracks: Track[];
+      tracks: AudioTrack[];
       audioContext: AudioContext;
     };
   }

@@ -1,4 +1,4 @@
-export class Track {
+export class AudioTrack {
   private blobUrl: string;
   public name: string;
 

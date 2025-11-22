@@ -1,8 +1,8 @@
-import { Track } from "./Track";
+import { AudioTrack } from "./AudioTrack";
 
 class TrackWebComponent extends HTMLElement {
   static observedAttributes = ["data-track-index"];
-  private track: Track;
+  private track: AudioTrack;
 
   attributeChangedCallback() {
     const trackIndexAsString = this.getAttribute("data-track-index");

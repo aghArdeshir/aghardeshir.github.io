@@ -1,5 +1,5 @@
 import { registerWebCompoenent_BasicdawTrack } from "./TrackWebComponent.ts";
-import { Track } from "./Track.ts";
+import { AudioTrack } from "./AudioTrack.ts";
 
 window.basicdaw = {
   tracks: [],
@@ -52,7 +52,7 @@ function setupDragDrop() {
 setupDragDrop();
 
 function createTrackFromDroppedFile(file: File) {
-  const track = new Track();
+  const track = new AudioTrack();
   track.setFile(file);
   window.basicdaw.tracks.push(track);
 
