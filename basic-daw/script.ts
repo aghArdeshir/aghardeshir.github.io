@@ -1,7 +1,7 @@
 import { registerWebCompoenent_OdTrack } from "./OdTrack.ts";
 import { Track } from "./Track.ts";
 
-window.opendaw = {
+window.basicdaw = {
   tracks: [],
 };
 
@@ -53,12 +53,12 @@ setupDragDrop();
 function createTrackFromDroppedFile(file: File) {
   const track = new Track();
   track.setFile(file);
-  window.opendaw.tracks.push(track);
+  window.basicdaw.tracks.push(track);
 
   const odTrack = document.createElement("od-track");
   odTrack.setAttribute(
     "data-track-index",
-    String(window.opendaw.tracks.length - 1)
+    String(window.basicdaw.tracks.length - 1)
   );
   document.body.appendChild(odTrack);
 }
@@ -71,7 +71,7 @@ function drawGlobalPlayButton() {
   const playButton = document.createElement("button");
   playButton.textContent = "Play (global)";
   playButton.addEventListener("click", () => {
-    window.opendaw.tracks.forEach((track) => {
+    window.basicdaw.tracks.forEach((track) => {
       track.play();
     });
   });

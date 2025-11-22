@@ -5,7 +5,7 @@ export {};
 
 declare global {
   interface Window {
-    opendaw: {
+    basicdaw: {
       tracks: Track[];
     };
   }

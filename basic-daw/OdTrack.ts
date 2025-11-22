@@ -12,7 +12,7 @@ class OdTrack extends HTMLElement {
     }
 
     const trackIndex = parseInt(trackIndexAsString);
-    this.track = window.opendaw.tracks[trackIndex];
+    this.track = window.basicdaw.tracks[trackIndex];
   }
 
   connectedCallback() {
