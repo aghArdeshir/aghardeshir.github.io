@@ -1,4 +1,4 @@
-import { registerWebCompoenent_BasicdawTrack } from "./TrackWebComponent.ts";
+import { registerWebCompoenent_BasicdawTrack } from "./AudioTrackWebComponent.ts";
 import { AudioTrack } from "./AudioTrack.ts";
 
 window.basicdaw = {

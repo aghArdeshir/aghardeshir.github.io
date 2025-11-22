@@ -1,6 +1,6 @@
 import { AudioTrack } from "./AudioTrack";
 
-class TrackWebComponent extends HTMLElement {
+class AudioTrackWebComponent extends HTMLElement {
   static observedAttributes = ["data-track-index"];
   private track: AudioTrack;
 
@@ -39,5 +39,5 @@ class TrackWebComponent extends HTMLElement {
 }
 
 export function registerWebCompoenent_BasicdawTrack() {
-  customElements.define("basicdaw-track", TrackWebComponent);
+  customElements.define("basicdaw-track", AudioTrackWebComponent);
 }
