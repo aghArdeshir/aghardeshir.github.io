@@ -1,1 +1,1 @@
-npx parcel index.html
+npx vite ./
