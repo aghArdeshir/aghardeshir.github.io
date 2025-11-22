@@ -3,6 +3,7 @@ import { Track } from "./Track.ts";
 
 window.basicdaw = {
   tracks: [],
+  audioContext: new AudioContext(),
 };
 
 const colorPallete = {

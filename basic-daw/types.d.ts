@@ -7,6 +7,7 @@ declare global {
   interface Window {
     basicdaw: {
       tracks: Track[];
+      audioContext: AudioContext;
     };
   }
 }
