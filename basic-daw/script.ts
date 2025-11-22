@@ -77,6 +77,7 @@ function drawGlobalPlayButton() {
   const playButton = document.createElement("button");
   playButton.textContent = "Play (global)";
   playButton.addEventListener("click", () => {
+    window.basicdaw.audioContext.resume();
     window.basicdaw.tracks.forEach((track) => {
       track.play();
     });
