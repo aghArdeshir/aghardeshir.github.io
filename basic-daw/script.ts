@@ -4,6 +4,10 @@ import { AudioTrack } from "./AudioTrack.ts";
 window.basicdaw = {
   tracks: [],
   audioContext: new AudioContext(),
+  deleteTrack(trackToDelete: AudioTrack) {
+    trackToDelete.delete();
+    this.tracks = this.tracks.filter((track) => track !== trackToDelete);
+  },
 };
 
 const colorPallete = {

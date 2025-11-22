@@ -8,6 +8,7 @@ declare global {
     basicdaw: {
       tracks: AudioTrack[];
       audioContext: AudioContext;
+      deleteTrack(trackToDelete: AudioTrack): void;
     };
   }
 }
