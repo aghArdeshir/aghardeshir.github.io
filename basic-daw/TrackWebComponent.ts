@@ -34,17 +34,7 @@ class TrackWebComponent extends HTMLElement {
     trackTitle.style.display = 'block';
     wrapper.appendChild(trackTitle);
 
-    const playButton = document.createElement("button");
-    playButton.textContent = "Play";
-
-    wrapper.appendChild(playButton);
-    playButton.addEventListener("click", this.play.bind(this));
-
     shadow.appendChild(wrapper);
-  }
-
-  play() {
-    this.track.play();
   }
 }
 
