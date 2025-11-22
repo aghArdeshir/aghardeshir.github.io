@@ -2,3 +2,4 @@ node_modules
 /blog/.vitepress/dist
 /blog/.vitepress/cache
 /.vscode
+/.parcel-cache
