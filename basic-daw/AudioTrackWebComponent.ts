@@ -64,5 +64,5 @@ class AudioTrackWebComponent extends HTMLElement {
 }
 
 export function registerWebCompoenent_BasicdawTrack() {
-  customElements.define("basicdaw-track", AudioTrackWebComponent);
+  customElements.define("basicdaw-audio-track", AudioTrackWebComponent);
 }

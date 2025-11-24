@@ -40,11 +40,7 @@ export class AudioTrack {
   }
 
   renderUi(container: HTMLElement) {
-    const trackComponent = document.createElement("basicdaw-track");
-    trackComponent.setAttribute(
-      "data-track-index",
-      String(window.basicdaw.tracks.length - 1)
-    );
+    const trackComponent = document.createElement("basicdaw-audio-track");
     container.appendChild(trackComponent);
   }
 }
