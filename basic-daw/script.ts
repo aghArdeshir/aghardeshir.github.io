@@ -88,15 +88,17 @@ function drawInsertSampleWavFileButton() {
 }
 
 function insertSampleWavFile() {
-  const sampleWavFilePath = './sample-wav-file.wav';
+  const sampleWavFilePath = "./sample-wav-file.wav";
   fetch(sampleWavFilePath)
-    .then(response => response.blob())
-    .then(blob => {
-      const file = new File([blob], 'sample-wav-file.wav', { type: 'audio/wav' });
+    .then((response) => response.blob())
+    .then((blob) => {
+      const file = new File([blob], "sample-wav-file.wav", {
+        type: "audio/wav",
+      });
       createTrackFromDroppedFile(file);
     })
-    .catch(error => {
-      console.error('Error fetching sample WAV file:', error);
+    .catch((error) => {
+      console.error("Error fetching sample WAV file:", error);
     });
 }
 

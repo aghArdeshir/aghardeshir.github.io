@@ -26,12 +26,12 @@ class AudioTrackWebComponent extends HTMLElement {
 
     const trackText = document.createElement("span");
     trackText.textContent = "Track";
-    trackText.style.display = 'block';
+    trackText.style.display = "block";
     wrapper.appendChild(trackText);
 
     const trackTitle = document.createElement("span");
     trackTitle.textContent = this.track.name;
-    trackTitle.style.display = 'block';
+    trackTitle.style.display = "block";
     wrapper.appendChild(trackTitle);
 
     const gainSlider = document.createElement("input");
