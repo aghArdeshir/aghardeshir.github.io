@@ -56,8 +56,7 @@ function setupDragDrop() {
 setupDragDrop();
 
 function createTrackFromDroppedFile(file: File) {
-  const track = new AudioTrack();
-  track.setFile(file);
+  const track = new AudioTrack({ file });
   window.basicdaw.tracks.push(track);
   track.renderUi(document.body);
 }

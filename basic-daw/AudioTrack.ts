@@ -10,7 +10,9 @@ export class AudioTrack {
   private trackComponent: AudioTrackWebComponent;
   private trackSource: MediaElementAudioSourceNode;
 
-  constructor() {
+  constructor({ file }: { file: File }) {
+    if (!file) throw new Error("File is required to create an AudioTrack");
+    this.setFile(file);
     this.addGainEffect();
   }
 
@@ -60,6 +62,7 @@ export class AudioTrack {
   addGainEffect() {
     const gainEffect = new GainEffect();
     this.effects.push(gainEffect);
+    this.setupRoutes();
   }
 
   addPannerEffect() {
