@@ -2,6 +2,7 @@ export class AudioTrack {
   private blobUrl: string;
   public name: string;
   private gainNode: GainNode;
+  public readonly id = crypto.randomUUID();
 
   constructor() {
     this.gainNode = window.basicdaw.audioContext.createGain();
@@ -41,6 +42,7 @@ export class AudioTrack {
 
   renderUi(container: HTMLElement) {
     const trackComponent = document.createElement("basicdaw-audio-track");
+    trackComponent.setAttribute("data-track-id", this.id);
     container.appendChild(trackComponent);
   }
 }

@@ -1,18 +1,15 @@
 import { AudioTrack } from "./AudioTrack";
 
 class AudioTrackWebComponent extends HTMLElement {
-  static observedAttributes = ["data-track-index"];
+  static observedAttributes = ["data-track-id"];
   private track: AudioTrack;
 
   attributeChangedCallback() {
-    const trackIndexAsString = this.getAttribute("data-track-index");
+    const trackId = this.getAttribute("data-track-id");
 
-    if (!trackIndexAsString) {
-      return;
-    }
+    if (!trackId) throw new Error("Track ID is missing");
 
-    const trackIndex = parseInt(trackIndexAsString);
-    this.track = window.basicdaw.tracks[trackIndex];
+    this.track = window.basicdaw.tracks.find((t) => t.id === trackId);
   }
 
   connectedCallback() {
