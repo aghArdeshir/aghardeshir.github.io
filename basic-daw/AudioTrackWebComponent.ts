@@ -1,8 +1,9 @@
 import { AudioTrack } from "./AudioTrack";
 
-class AudioTrackWebComponent extends HTMLElement {
+export class AudioTrackWebComponent extends HTMLElement {
   static observedAttributes = ["data-track-id"];
   private track: AudioTrack;
+  private shadow: ShadowRoot;
 
   attributeChangedCallback() {
     const trackId = this.getAttribute("data-track-id");
@@ -13,11 +14,11 @@ class AudioTrackWebComponent extends HTMLElement {
   }
 
   connectedCallback() {
-    const shadow = this.attachShadow({ mode: "open" });
+    this.shadow = this.attachShadow({ mode: "open" });
 
     const wrapper = document.createElement("div");
     wrapper.style.width = "80vw";
-    wrapper.style.height = "50px";
+    wrapper.style.minHeight = "50px";
     wrapper.style.border = "1px solid white";
     wrapper.style.padding = "10px";
 
@@ -31,24 +32,13 @@ class AudioTrackWebComponent extends HTMLElement {
     trackTitle.style.display = "block";
     wrapper.appendChild(trackTitle);
 
-    const gainSlider = document.createElement("input");
-    gainSlider.type = "range";
-    gainSlider.min = "0";
-    gainSlider.max = "1";
-    gainSlider.step = "0.01";
-    gainSlider.value = "1";
-    wrapper.appendChild(gainSlider);
-    gainSlider.addEventListener("input", () => {
-      this.track.setGain(parseFloat(gainSlider.value));
-    });
-
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "Delete Track";
     deleteButton.style.marginLeft = "20px";
     wrapper.appendChild(deleteButton);
     deleteButton.addEventListener("click", () => {
       window.basicdaw.deleteTrack(this.track);
-      shadow.host.remove();
+      this.shadow.host.remove();
     });
 
     const addEffectButton = document.createElement("button");
@@ -56,7 +46,18 @@ class AudioTrackWebComponent extends HTMLElement {
     addEffectButton.style.marginLeft = "20px";
     wrapper.appendChild(addEffectButton);
 
-    shadow.appendChild(wrapper);
+    const effectsContainer = document.createElement("div");
+    effectsContainer.style.marginTop = "10px";
+    effectsContainer.dataset.role = "effects-container";
+    wrapper.appendChild(effectsContainer);
+
+    this.shadow.appendChild(wrapper);
+  }
+
+  getEffectsContainer(): HTMLElement {
+    return this.shadow.querySelector(
+      'div[data-role="effects-container"]'
+    ) as HTMLElement;
   }
 }
 

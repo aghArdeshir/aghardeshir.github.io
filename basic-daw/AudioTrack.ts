@@ -1,12 +1,17 @@
+import { AudioTrackWebComponent } from "./AudioTrackWebComponent";
+import { GainEffect } from "./GainEffect";
+
 export class AudioTrack {
   private blobUrl: string;
   public name: string;
-  private gainNode: GainNode;
+  private effects: GainEffect[] = [];
   public readonly id = crypto.randomUUID();
+  private trackComponent: AudioTrackWebComponent;
+  private trackSource: MediaElementAudioSourceNode;
 
   constructor() {
-    this.gainNode = window.basicdaw.audioContext.createGain();
-    this.gainNode.gain.value = 1;
+    const gainEffect = new GainEffect();
+    this.effects.push(gainEffect);
   }
 
   setFile(file: File) {
@@ -14,25 +19,32 @@ export class AudioTrack {
 
     // TODO: revoke the blob URL when the track is deleted
     this.blobUrl = URL.createObjectURL(file);
-  }
 
-  play() {
     const audioContext = window.basicdaw.audioContext;
-    const trackSource = audioContext.createMediaElementSource(
+    this.trackSource = audioContext.createMediaElementSource(
       new Audio(this.blobUrl)
     );
 
-    trackSource.connect(this.gainNode);
-    this.gainNode.connect(audioContext.destination);
-    trackSource.mediaElement.play();
+    this.setupRoutes();
   }
 
-  setGain(gain: number) {
-    this.gainNode.gain.value = gain;
+  setupRoutes() {
+    let lastNode: AudioNode = this.trackSource;
+    this.effects.forEach((effect) => {
+      lastNode = effect.setInputNode(lastNode);
+    });
+    lastNode.connect(window.basicdaw.audioContext.destination);
+  }
+
+  play() {
+    this.trackSource.mediaElement.play();
   }
 
   delete() {
-    this.gainNode.disconnect();
+    this.effects.forEach((effect) => {
+      effect.disconnect();
+    });
+
     URL.revokeObjectURL(this.blobUrl);
   }
 
@@ -41,8 +53,27 @@ export class AudioTrack {
   }
 
   renderUi(container: HTMLElement) {
-    const trackComponent = document.createElement("basicdaw-audio-track");
-    trackComponent.setAttribute("data-track-id", this.id);
-    container.appendChild(trackComponent);
+    this.trackComponent = document.createElement("basicdaw-audio-track");
+    this.trackComponent.setAttribute("data-track-id", this.id);
+    container.appendChild(this.trackComponent);
+
+    this.effects.forEach((effect) => {
+      const effectsContainer = this.trackComponent.getEffectsContainer();
+      const effectWrapper = effect.renderUi(effectsContainer);
+
+      const deleteEffectButton = document.createElement("button");
+      deleteEffectButton.textContent = "Delete Effect";
+      effectsContainer.appendChild(deleteEffectButton);
+
+      deleteEffectButton.addEventListener("click", () => {
+        effect.disconnect();
+        this.effects = this.effects.filter((e) => e !== effect);
+        this.setupRoutes();
+        effectsContainer.removeChild(effectWrapper);
+        effectsContainer.removeChild(deleteEffectButton);
+      });
+    });
   }
 }
+
+// TODO: what if we add or delete effects?
