@@ -41,10 +41,25 @@ export class AudioTrackWebComponent extends HTMLElement {
       this.shadow.host.remove();
     });
 
-    const addEffectButton = document.createElement("button");
-    addEffectButton.textContent = "Add Effect";
-    addEffectButton.style.marginLeft = "20px";
-    wrapper.appendChild(addEffectButton);
+    const addGainEffectButton = document.createElement("button");
+    addGainEffectButton.textContent = "Add Gain Effect";
+    addGainEffectButton.style.marginLeft = "20px";
+    wrapper.appendChild(addGainEffectButton);
+
+    addGainEffectButton.addEventListener("click", () => {
+      this.dispatchEvent(new CustomEvent("add-gain-effect", { bubbles: true }));
+    });
+
+    const addPannerEffectButton = document.createElement("button");
+    addPannerEffectButton.textContent = "Add Panner Effect";
+    addPannerEffectButton.style.marginLeft = "20px";
+    wrapper.appendChild(addPannerEffectButton);
+
+    addPannerEffectButton.addEventListener("click", () => {
+      this.dispatchEvent(
+        new CustomEvent("add-panner-effect", { bubbles: true })
+      );
+    });
 
     const effectsContainer = document.createElement("div");
     effectsContainer.style.marginTop = "10px";

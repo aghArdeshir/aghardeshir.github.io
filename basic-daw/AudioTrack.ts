@@ -1,17 +1,17 @@
 import { AudioTrackWebComponent } from "./AudioTrackWebComponent";
 import { GainEffect } from "./GainEffect";
+import { PannerEffect } from "./PannerEffect";
 
 export class AudioTrack {
   private blobUrl: string;
   public name: string;
-  private effects: GainEffect[] = [];
+  private effects: (GainEffect | PannerEffect)[] = [];
   public readonly id = crypto.randomUUID();
   private trackComponent: AudioTrackWebComponent;
   private trackSource: MediaElementAudioSourceNode;
 
   constructor() {
-    const gainEffect = new GainEffect();
-    this.effects.push(gainEffect);
+    this.addGainEffect();
   }
 
   setFile(file: File) {
@@ -28,7 +28,14 @@ export class AudioTrack {
     this.setupRoutes();
   }
 
+  private disconnectAll() {
+    this.trackSource.disconnect();
+    this.effects.forEach((effect) => effect.disconnect());
+  }
+
   setupRoutes() {
+    this.disconnectAll();
+
     let lastNode: AudioNode = this.trackSource;
     this.effects.forEach((effect) => {
       lastNode = effect.setInputNode(lastNode);
@@ -41,9 +48,7 @@ export class AudioTrack {
   }
 
   delete() {
-    this.effects.forEach((effect) => {
-      effect.disconnect();
-    });
+    this.disconnectAll();
 
     URL.revokeObjectURL(this.blobUrl);
   }
@@ -52,13 +57,36 @@ export class AudioTrack {
     this.name = name;
   }
 
+  addGainEffect() {
+    const gainEffect = new GainEffect();
+    this.effects.push(gainEffect);
+  }
+
+  addPannerEffect() {
+    const pannerEffect = new PannerEffect();
+    this.effects.push(pannerEffect);
+    this.setupRoutes();
+  }
+
   renderUi(container: HTMLElement) {
     this.trackComponent = document.createElement("basicdaw-audio-track");
     this.trackComponent.setAttribute("data-track-id", this.id);
     container.appendChild(this.trackComponent);
+    this.trackComponent.addEventListener("add-gain-effect", () => {
+      this.addGainEffect();
+      this.renderEffectsUi();
+    });
+    this.trackComponent.addEventListener("add-panner-effect", () => {
+      this.addPannerEffect();
+      this.renderEffectsUi();
+    });
+    this.renderEffectsUi();
+  }
 
+  renderEffectsUi() {
+    const effectsContainer = this.trackComponent.getEffectsContainer();
+    effectsContainer.innerHTML = "";
     this.effects.forEach((effect) => {
-      const effectsContainer = this.trackComponent.getEffectsContainer();
       const effectWrapper = effect.renderUi(effectsContainer);
 
       const deleteEffectButton = document.createElement("button");
@@ -66,7 +94,6 @@ export class AudioTrack {
       effectsContainer.appendChild(deleteEffectButton);
 
       deleteEffectButton.addEventListener("click", () => {
-        effect.disconnect();
         this.effects = this.effects.filter((e) => e !== effect);
         this.setupRoutes();
         effectsContainer.removeChild(effectWrapper);
