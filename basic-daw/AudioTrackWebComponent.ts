@@ -54,6 +54,11 @@ class AudioTrackWebComponent extends HTMLElement {
       shadow.host.remove();
     });
 
+    const addEffectButton = document.createElement("button");
+    addEffectButton.textContent = "Add Effect";
+    addEffectButton.style.marginLeft = "20px";
+    wrapper.appendChild(addEffectButton);
+
     shadow.appendChild(wrapper);
   }
 }
