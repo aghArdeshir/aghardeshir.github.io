@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    Multiple pans experiment
+    <script lang="text/typescript">
+
+      console.log("hi");
+
+      const audioCtx = new AudioContext();
+      const audioElement = new Audio("./sample-wav-file.wav");
+      const track = audioCtx.createMediaElementSource(audioElement);
+
+      const pan1 = audioCtx.createStereoPanner();
+      pan1.pan.value = -1; // Left
+
+
+      const pan2 = audioCtx.createStereoPanner();
+      pan2.pan.value = 1; // Right
+
+      track.connect(pan1).connect(pan2).connect(audioCtx.destination);
+
+      document.body.addEventListener('click', () => {
+        audioCtx.resume();
+        audioElement.play();
+      });
+
+      // conclusion:
+      // pan 1 applies all signals from both channels to the left channel
+      // pan 2 then applies all signals from the left channel (and right channel, which is empty btw) to the right channel
+    </script>
+  </body>
+</html>
