@@ -59,13 +59,7 @@ function createTrackFromDroppedFile(file: File) {
   const track = new AudioTrack();
   track.setFile(file);
   window.basicdaw.tracks.push(track);
-
-  const trackComponent = document.createElement("basicdaw-track");
-  trackComponent.setAttribute(
-    "data-track-index",
-    String(window.basicdaw.tracks.length - 1)
-  );
-  document.body.appendChild(trackComponent);
+  track.renderUi(document.body);
 }
 
 registerWebCompoenent_BasicdawTrack();

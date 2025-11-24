@@ -38,4 +38,13 @@ export class AudioTrack {
   setName(name: string) {
     this.name = name;
   }
+
+  renderUi(container: HTMLElement) {
+    const trackComponent = document.createElement("basicdaw-track");
+    trackComponent.setAttribute(
+      "data-track-index",
+      String(window.basicdaw.tracks.length - 1)
+    );
+    container.appendChild(trackComponent);
+  }
 }
