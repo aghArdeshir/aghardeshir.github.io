@@ -1,7 +1,15 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: black;
+  color: white;
+}
+
 .release-card {
-  border: 1px solid #ccc;
+  border: 1px solid #444;
   border-radius: 8px;
   padding: 16px;
   margin: 16px;
-  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.1);
+  background-color: #111;
 }
