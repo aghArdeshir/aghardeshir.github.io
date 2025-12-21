@@ -1,26 +1,4 @@
-type Artist = {
-  name: string;
-};
-
-type ReleaseLinks = {
-  spotify?: string;
-  youtube?: string;
-  soundcloud?: string;
-};
-
-type Album = {
-  title: string;
-  artists: Artist[];
-  year: number;
-  links: ReleaseLinks;
-};
-
-type Single = {
-  title: string;
-  artists: Artist[];
-  year: number;
-  links: ReleaseLinks;
-};
+import { Album, Artist, Single } from "./types";
 
 const artistHichkas: Artist = {
   name: "Hichkas",
@@ -70,4 +48,4 @@ const singleSadeghSogandGhofl: Single = {
 
 const goodSingles: Single[] = [singleSadeghSogandGhofl];
 
-export { goodAlbums, goodSingles, type Album, type Single, type ReleaseLinks };
+export { goodAlbums, goodSingles };

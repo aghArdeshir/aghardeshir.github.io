@@ -1,4 +1,5 @@
-import { Album, goodAlbums, goodSingles, Single } from "./db";
+import { Album, Single } from "./types";
+import {  goodAlbums, goodSingles } from "./db";
 
 const root = document.createElement("div");
 document.body.appendChild(root);
