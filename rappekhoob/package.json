@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "vite",
-    "build-in-place": "vite build --outDir ."
+    "build-in-place": "vite build --outDir . --base rappekhoob"
   },
   "keywords": [],
   "author": "",
