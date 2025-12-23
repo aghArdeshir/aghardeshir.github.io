@@ -48,6 +48,7 @@ jobs:
           cd rappekhoob
           npm install
           npm run build-in-place
+          rm -rf node_modules
           cd ..
 
       # Deploy to GitHub Pages
