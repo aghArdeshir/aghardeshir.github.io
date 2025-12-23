@@ -4,19 +4,27 @@ import { goodAlbums, goodSingles } from "./db";
 const root = document.createElement("div");
 document.body.appendChild(root);
 
-const albumsContainer = document.createElement("div");
-root.appendChild(albumsContainer);
+const albumsSection = document.createElement("section");
+root.appendChild(albumsSection);
 
 const albumsTitle = document.createElement("h1");
 albumsTitle.textContent = "Albums";
-albumsContainer.appendChild(albumsTitle);
+albumsSection.appendChild(albumsTitle);
 
-const singlesContainer = document.createElement("div");
-root.appendChild(singlesContainer);
+const albumsContainer = document.createElement("div");
+albumsContainer.className = "albums-container";
+albumsSection.appendChild(albumsContainer);
+
+const singlesSection = document.createElement("section");
+root.appendChild(singlesSection);
 
 const singlesTitle = document.createElement("h1");
 singlesTitle.textContent = "Singles";
-singlesContainer.appendChild(singlesTitle);
+singlesSection.appendChild(singlesTitle);
+
+const singlesContainer = document.createElement("div");
+singlesContainer.className = "singles-container";
+singlesSection.appendChild(singlesContainer);
 
 function createCard(release: Album | Single) {
   const card = document.createElement("div");
