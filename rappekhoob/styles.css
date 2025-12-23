@@ -12,6 +12,9 @@ body {
   padding: 16px;
   margin: 16px;
   background-color: #111;
+  width: 400px;
+  height: 200px;
+}
 
 a {
   color: white;
