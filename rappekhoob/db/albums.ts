@@ -3,7 +3,7 @@ import { artists } from "./artists";
 
 const Hichkas_JangaleAsfalt: Album = {
   title: "Jangale Asfalt",
-  artists: [artists.hichkas, artists.mahdyar],
+  artists: [artists.Hichkas, artists.Mahdyar],
   year: 2006,
   coverArtUrl:
     "https://ia902902.us.archive.org/7/items/mbid-8b6a64b9-bf0b-45c8-a408-f4914f0e9cf8/__ia_thumb.jpg",
@@ -23,7 +23,7 @@ const Hichkas_JangaleAsfalt: Album = {
 
 const Sadegh_NashodBegam: Album = {
   title: "Nashod Begam",
-  artists: [artists.sadegh],
+  artists: [artists.Sadegh],
   year: 2023,
   coverArtUrl:
     "https://i.scdn.co/image/ab67616d00001e02b31f3fbb63cab35e89bb5989",
@@ -43,7 +43,7 @@ const Sadegh_NashodBegam: Album = {
 
 const Bahram_Heech: Album = {
   title: "Heech",
-  artists: [artists.bahram],
+  artists: [artists.Bahram],
   year: 2025,
   coverArtUrl:
     "https://i1.sndcdn.com/artworks-G0pFlPgSIzEDbw5y-sacW8Q-t500x500.jpg",
@@ -58,7 +58,7 @@ const Bahram_Heech: Album = {
 
 const Bahram_Sokoot: Album = {
   title: "Sokoot",
-  artists: [artists.bahram],
+  artists: [artists.Bahram],
   year: 2011,
   coverArtUrl:
     "https://i1.sndcdn.com/artworks-Ii20YbDXFAUuEvXK-Zqh2FQ-t500x500.jpg",
@@ -73,7 +73,7 @@ const Bahram_Sokoot: Album = {
 
 const Bahram_24Saat: Album = {
   title: "24 Saat",
-  artists: [artists.bahram, artists.atour],
+  artists: [artists.Bahram, artists.Atour],
   year: 2008,
   coverArtUrl:
     "https://i1.sndcdn.com/artworks-0LZNGXEczUdKJJq5-6VzJ6Q-t500x500.jpg",
@@ -88,7 +88,7 @@ const Bahram_24Saat: Album = {
 
 const Bahram_Sorena_KhooneKhorshid: Album = {
   title: "Khoone Khorshid",
-  artists: [artists.bahram, artists.sorena],
+  artists: [artists.Bahram, artists.Sorena],
   year: 2024,
   coverArtUrl:
     "https://i1.sndcdn.com/artworks-a5sK4KyTsuPqlrZV-VsASVQ-t500x500.jpg",
@@ -103,7 +103,7 @@ const Bahram_Sorena_KhooneKhorshid: Album = {
 
 const Bahram_Khodha: Album = {
   title: "Khodha",
-  artists: [artists.bahram],
+  artists: [artists.Bahram],
   year: 2023,
   coverArtUrl:
     "https://i1.sndcdn.com/artworks-LhbcrJ1yhaLs6Xt5-ZnkxBQ-t500x500.jpg",
@@ -118,7 +118,7 @@ const Bahram_Khodha: Album = {
 
 const Bahram_Gozaar: Album = {
   title: "Gozaar",
-  artists: [artists.bahram],
+  artists: [artists.Bahram],
   coverArtUrl:
     "https://i1.sndcdn.com/artworks-6ROTTModesHK8MNG-iTdytQ-t500x500.jpg",
   year: 2020,
@@ -133,7 +133,7 @@ const Bahram_Gozaar: Album = {
 
 const Bahram_EshtebaheKhoob: Album = {
   title: "Eshtebahe Khoob",
-  artists: [artists.bahram],
+  artists: [artists.Bahram],
   coverArtUrl:
     "https://i1.sndcdn.com/artworks-nmfqCUJsH6V82gOd-rZRn6w-t500x500.jpg",
   year: 2015,

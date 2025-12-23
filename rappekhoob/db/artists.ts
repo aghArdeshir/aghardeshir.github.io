@@ -1,39 +1,39 @@
 import { Artist } from "../types";
 
-const hichkas: Artist = {
+const Hichkas: Artist = {
   name: "Hichkas",
 };
 
-const sadegh: Artist = {
+const Sadegh: Artist = {
   name: "Sadegh",
 };
 
-const sogand: Artist = {
+const Sogand: Artist = {
   name: "Sogand",
 };
 
-const bahram: Artist = {
+const Bahram: Artist = {
   name: "Bahram",
 };
 
-const mahdyar: Artist = {
+const Mahdyar: Artist = {
   name: "Mahdyar Aghajani",
 };
 
-const atour: Artist = {
+const Atour: Artist = {
   name: "Atour",
 };
 
-const sorena: Artist = {
+const Sorena: Artist = {
   name: "Sorena",
 };
 
 export const artists = {
-  hichkas,
-  sadegh,
-  sogand,
-  bahram,
-  mahdyar,
-  atour,
-  sorena,
+  Hichkas,
+  Sadegh,
+  Sogand,
+  Bahram,
+  Mahdyar,
+  Atour,
+  Sorena,
 };
