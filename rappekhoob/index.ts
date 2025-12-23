@@ -22,6 +22,10 @@ function createCard(release: Album | Single) {
   const card = document.createElement("div");
   card.className = "release-card";
 
+  card.style.backgroundImage = `url(${release.coverArtUrl})`;
+  card.style.backgroundSize = "cover";
+  card.style.backgroundPosition = "center";
+
   const title = document.createElement("h2");
   title.textContent = release.title;
   card.appendChild(title);

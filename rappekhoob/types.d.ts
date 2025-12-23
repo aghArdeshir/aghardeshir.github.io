@@ -12,6 +12,7 @@ type Album = {
   title: string;
   artists: Artist[];
   year: number;
+  coverArtUrl: string;
   links: ReleaseLinks;
 };
 
@@ -19,6 +20,7 @@ type Single = {
   title: string;
   artists: Artist[];
   year: number;
+  coverArtUrl: string;
   links: ReleaseLinks;
 };
 
