@@ -35,7 +35,7 @@ jobs:
       # build blog
       - name: Install Dependencies
         run: npm install
-      - name: Build
+      - name: Build Blog
         run: npm run blog:build
       - name: Move blog to `/blog/`
         run: cp -r blog/.vitepress/dist/* blog/
