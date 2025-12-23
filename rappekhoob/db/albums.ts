@@ -146,7 +146,7 @@ const Bahram_EshtebaheKhoob: Album = {
   ],
 };
 
-export const goodAlbums: Album[] = [
+const goodAlbums: Album[] = [
   Bahram_EshtebaheKhoob,
   Bahram_Gozaar,
   Bahram_Khodha,
@@ -157,6 +157,10 @@ export const goodAlbums: Album[] = [
   Hichkas_JangaleAsfalt,
   Sadegh_NashodBegam,
 ];
+
+goodAlbums.sort(() => Math.random() - 0.5);
+
+export { goodAlbums };
 
 // TODO:
 // check all bahram reposts, sadegh, sorena, sayf, yekii, hichkas, pishro, owj, ghadar, all their albums, playlists, reposts

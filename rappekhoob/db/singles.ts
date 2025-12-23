@@ -16,4 +16,8 @@ const Sadegh_Sogand_Ghofl: Single = {
   ],
 };
 
-export const goodSingles: Single[] = [Sadegh_Sogand_Ghofl];
+const goodSingles: Single[] = [Sadegh_Sogand_Ghofl];
+
+goodSingles.sort(() => Math.random() - 0.5);
+
+export { goodSingles };
