@@ -1,7 +1,7 @@
 import { Single } from "../types";
 import { artists } from "./artists";
 
-const singleSadeghSogandGhofl: Single = {
+const Sadegh_Sogand_Ghofl: Single = {
   title: "Ghofl",
   artists: [artists.Sadegh, artists.Sogand],
   year: 2025,
@@ -16,4 +16,4 @@ const singleSadeghSogandGhofl: Single = {
   ],
 };
 
-export const goodSingles: Single[] = [singleSadeghSogandGhofl];
+export const goodSingles: Single[] = [Sadegh_Sogand_Ghofl];
