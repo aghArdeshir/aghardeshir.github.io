@@ -164,4 +164,6 @@ export { goodAlbums };
 
 // TODO:
 // check all bahram reposts, sadegh, sorena, sayf, yekii, hichkas, pishro, owj, ghadar, all their albums, playlists, reposts
-// sogand zakhmi atour rez navid bamdad kaboos daygard hidden hamzad yaserbinam eblis/hosein epicure shayea
+// sogand zakhmi atour rez navid bamdad kaboos daygard hidden hamzad yaserbinam eblis/hosein epicure shayea, sciah/tahamtan, aghardeshir
+// every artist I follow on soundcloud
+// arash lavar
