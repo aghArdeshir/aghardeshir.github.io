@@ -3,7 +3,7 @@ import { artists } from "./artists";
 
 const Hichkas_JangaleAsfalt: Album = {
   title: "Jangale Asfalt",
-  artists: [artists.hichkas],
+  artists: [artists.hichkas, artists.mahdyar],
   year: 2006,
   coverArtUrl:
     "https://ia902902.us.archive.org/7/items/mbid-8b6a64b9-bf0b-45c8-a408-f4914f0e9cf8/__ia_thumb.jpg",
