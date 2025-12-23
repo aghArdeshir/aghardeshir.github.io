@@ -1,0 +1,16 @@
+{
+  "name": "rappekhoob",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build-in-place": "vite build --outDir ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^7.3.0"
+  }
+}
