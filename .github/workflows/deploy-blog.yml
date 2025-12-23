@@ -1,5 +1,5 @@
 # Simple workflow for deploying static content to GitHub Pages
-name: Deploy Blog to Pages
+name: Deploy to GitHub Pages
 
 on:
   # Runs on pushes targeting the default branch
@@ -23,7 +23,7 @@ concurrency:
 
 jobs:
   # Single deploy job since we're just deploying
-  deploy-blog-to-pages:
+  deploy-to-github-pages:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -31,6 +31,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      # build blog
       - name: Install Dependencies
         run: npm install
       - name: Build
@@ -39,6 +41,16 @@ jobs:
         run: cp -r blog/.vitepress/dist/* blog/
       - name: Remove everything node_modules
         run: rm -rf node_modules && rm -rf **/node_modules
+
+      # build rappe khoob
+      - name: Build Rappe Khoob
+        run: |
+          cd rappekhoob
+          npm install
+          npm run build-in-place
+          cd ..
+
+      # Deploy to GitHub Pages
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
