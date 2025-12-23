@@ -12,4 +12,11 @@ body {
   padding: 16px;
   margin: 16px;
   background-color: #111;
+
+a {
+  color: white;
+
+  &::before {
+    content: "🔗 ";
+  }
 }
