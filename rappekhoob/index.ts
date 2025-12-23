@@ -30,7 +30,7 @@ function createCard(release: Album | Single) {
   const card = document.createElement("div");
   card.className = "release-card";
 
-  card.style.backgroundImage = `url(${release.coverArtUrl})`;
+  card.style.backgroundImage = `radial-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(${release.coverArtUrl})`;
   card.style.backgroundSize = "cover";
   card.style.backgroundPosition = "center";
 
