@@ -20,10 +20,20 @@ const mahdyar: Artist = {
   name: "Mahdyar Aghajani",
 };
 
+const atour: Artist = {
+  name: "Atour",
+};
+
+const sorena: Artist = {
+  name: "Sorena",
+};
+
 export const artists = {
   hichkas,
   sadegh,
   sogand,
   bahram,
   mahdyar,
+  atour,
+  sorena,
 };

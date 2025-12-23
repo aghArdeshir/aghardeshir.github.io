@@ -41,4 +41,122 @@ const Sadegh_NashodBegam: Album = {
   ],
 };
 
-export const goodAlbums: Album[] = [Hichkas_JangaleAsfalt, Sadegh_NashodBegam];
+const Bahram_Heech: Album = {
+  title: "Heech",
+  artists: [artists.bahram],
+  year: 2025,
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-G0pFlPgSIzEDbw5y-sacW8Q-t500x500.jpg",
+  links: [
+    {
+      url: "https://soundcloud.com/bahramnouraei/sets/heech",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+};
+
+const Bahram_Sokoot: Album = {
+  title: "Sokoot",
+  artists: [artists.bahram],
+  year: 2011,
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-Ii20YbDXFAUuEvXK-Zqh2FQ-t500x500.jpg",
+  links: [
+    {
+      channel: "SoundCloud",
+      isOfficial: false,
+      url: "https://soundcloud.com/bahramnouraeiarchive/sets/sokoot",
+    },
+  ],
+};
+
+const Bahram_24Saat: Album = {
+  title: "24 Saat",
+  artists: [artists.bahram, artists.atour],
+  year: 2008,
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-0LZNGXEczUdKJJq5-6VzJ6Q-t500x500.jpg",
+  links: [
+    {
+      url: "https://soundcloud.com/bahramnouraeiarchive/sets/24-saat",
+      channel: "SoundCloud",
+      isOfficial: false,
+    },
+  ],
+};
+
+const Bahram_Sorena_KhooneKhorshid: Album = {
+  title: "Khoone Khorshid",
+  artists: [artists.bahram, artists.sorena],
+  year: 2024,
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-a5sK4KyTsuPqlrZV-VsASVQ-t500x500.jpg",
+  links: [
+    {
+      url: "https://soundcloud.com/bahramnouraei/sets/khoonekhorshidep",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+};
+
+const Bahram_Khodha: Album = {
+  title: "Khodha",
+  artists: [artists.bahram],
+  year: 2023,
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-LhbcrJ1yhaLs6Xt5-ZnkxBQ-t500x500.jpg",
+  links: [
+    {
+      url: "https://soundcloud.com/bahramnouraei/sets/khodha",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+};
+
+const Bahram_Gozaar: Album = {
+  title: "Gozaar",
+  artists: [artists.bahram],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-6ROTTModesHK8MNG-iTdytQ-t500x500.jpg",
+  year: 2020,
+  links: [
+    {
+      url: "https://soundcloud.com/bahramnouraei/sets/eiz8ykd6t6rk",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+};
+
+const Bahram_EshtebaheKhoob: Album = {
+  title: "Eshtebahe Khoob",
+  artists: [artists.bahram],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-nmfqCUJsH6V82gOd-rZRn6w-t500x500.jpg",
+  year: 2015,
+  links: [
+    {
+      url: "https://soundcloud.com/bahramnouraei/sets/eshtebahe-khoob",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+};
+
+export const goodAlbums: Album[] = [
+  Bahram_EshtebaheKhoob,
+  Bahram_Gozaar,
+  Bahram_Khodha,
+  Bahram_Sorena_KhooneKhorshid,
+  Bahram_24Saat,
+  Bahram_Heech,
+  Bahram_Sokoot,
+  Hichkas_JangaleAsfalt,
+  Sadegh_NashodBegam,
+];
+
+// TODO:
+// check all bahram reposts, sadegh, sorena, sayf, yekii, hichkas, pishro, owj, ghadar, all their albums, playlists, reposts
