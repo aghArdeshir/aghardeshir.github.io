@@ -2,10 +2,10 @@ type Artist = {
   name: string;
 };
 
-type ReleaseLinks = {
-  spotify?: string;
-  youtube?: string;
-  soundcloud?: string;
+type ReleaseLink = {
+  url: string;
+  channel: 'Spotify' | 'YouTube' | 'SoundCloud';
+  isOfficial: boolean;
 };
 
 type Album = {
@@ -13,7 +13,7 @@ type Album = {
   artists: Artist[];
   year: number;
   coverArtUrl: string;
-  links: ReleaseLinks;
+  links: ReleaseLink[];
 };
 
 type Single = {
@@ -21,7 +21,7 @@ type Single = {
   artists: Artist[];
   year: number;
   coverArtUrl: string;
-  links: ReleaseLinks;
+  links: ReleaseLink[];
 };
 
-export { type Artist, type Album, type Single, type ReleaseLinks };
+export { type Artist, type Album, type Single };

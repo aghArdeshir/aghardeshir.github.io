@@ -51,35 +51,20 @@ function createCard(release: Album | Single) {
   const links = document.createElement("ul");
   links.textContent = "Links: ";
 
-  if (release.links.spotify) {
-    const spotify = document.createElement("li");
-    const spotifyLink = document.createElement("a");
-    spotifyLink.setAttribute("target", "_blank");
-    spotifyLink.href = release.links.spotify;
-    spotifyLink.textContent = "Spotify ";
-    spotify.appendChild(spotifyLink);
-    links.appendChild(spotify);
-  }
+  release.links.forEach((link) => {
+    const listItemDom = document.createElement("li");
+    links.appendChild(listItemDom);
 
-  if (release.links.youtube) {
-    const youtube = document.createElement("li");
-    const youtubeLink = document.createElement("a");
-    youtubeLink.setAttribute("target", "_blank");
-    youtubeLink.href = release.links.youtube;
-    youtubeLink.textContent = "YouTube ";
-    youtube.appendChild(youtubeLink);
-    links.appendChild(youtube);
-  }
-
-  if (release.links.soundcloud) {
-    const soundcloud = document.createElement("li");
-    const soundcloudLink = document.createElement("a");
-    soundcloudLink.setAttribute("target", "_blank");
-    soundcloudLink.href = release.links.soundcloud;
-    soundcloudLink.textContent = "SoundCloud ";
-    soundcloud.appendChild(soundcloudLink);
-    links.appendChild(soundcloud);
-  }
+    const anchorLinkDom = document.createElement("a");
+    anchorLinkDom.setAttribute("target", "_blank");
+    anchorLinkDom.href = link.url;
+    anchorLinkDom.textContent = link.channel;
+    if (link.isOfficial) {
+      anchorLinkDom.textContent += " ✅";
+      anchorLinkDom.setAttribute('title', 'Official Artist Channel');
+    }
+    listItemDom.appendChild(anchorLinkDom);
+  });
 
   card.appendChild(links);
 

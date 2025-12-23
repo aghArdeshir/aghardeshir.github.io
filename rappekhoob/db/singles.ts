@@ -7,9 +7,11 @@ const singleSadeghSogandGhofl: Single = {
   year: 2025,
   coverArtUrl:
     "https://i.scdn.co/image/ab67616d00001e02d64dfec7e53a90b51c62126c",
-  links: {
-    youtube: "https://www.youtube.com/watch?v=n7WeqZx4oqk",
-  },
+  links: [{
+    url: "https://www.youtube.com/watch?v=n7WeqZx4oqk",
+    channel: "YouTube",
+    isOfficial: true,
+  }],
 };
 
 export const goodSingles: Single[] = [singleSadeghSogandGhofl];
