@@ -690,6 +690,208 @@ const Shayea_Kerm: Album = {
   year: 2013,
 };
 
+const Sadegh_ShabaRadepaTanhaei: Album = {
+  links: [
+    {
+      url: "https://open.spotify.com/album/6cNFNqT2kkeaQH4RP5RC5h",
+      isOfficial: true,
+      channel: "Spotify",
+    },
+  ],
+  coverArtUrl:
+    "https://i.scdn.co/image/ab67616d00001e02d31a54749646bb2654b7e623",
+  artists: [artists.Sadegh, artists.Ho3ein, artists.TDey],
+  title: "Shaba, Radepa, Tanhaei",
+  year: "????",
+};
+
+const Hichkas_Mojaz: Album = {
+  links: [
+    {
+      url: "https://open.spotify.com/album/0dNp4zikWlOlLZokCChrCp",
+      isOfficial: true,
+      channel: "Spotify",
+    },
+  ],
+  coverArtUrl:
+    "https://i.scdn.co/image/ab67616d00001e0225c3b77a836e11c65822078f",
+  artists: [
+    artists.Hichkas,
+    artists.Mahdyar,
+    artists.Fadaei,
+    artists.Quf,
+    artists.Reveal,
+  ],
+  title: "Mojaz",
+  year: 2020,
+};
+
+const Shayea_Asabani: Album = {
+  links: [
+    {
+      url: "https://open.spotify.com/album/0MtvwoG4ZAOmzphXEtlPQ2",
+      isOfficial: true,
+      channel: "Spotify",
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-N9UUuzcJ9yJLdPbT-vdLf9Q-t500x500.jpg",
+  artists: [
+    artists.Shayea,
+    artists.Alibi,
+    artists.Daniyal,
+    artists.Mahyar,
+    artists.Daniyal,
+  ],
+  title: "Asabani",
+  year: 2021,
+};
+
+const Shayea_Injaneb: Album = {
+  links: [
+    {
+      url: "https://open.spotify.com/album/2UDaGDyCb6IJfXWZS0CiRQ",
+      isOfficial: true,
+      channel: "Spotify",
+    },
+  ],
+  coverArtUrl:
+    "https://i.scdn.co/image/ab67616d00001e020d96bf6ba068e1a17e438b44",
+  artists: [
+    artists.Shayea,
+    artists.Mahyar,
+    artists.MiladS,
+    artists.Alibi,
+    artists.Minoram,
+  ],
+  title: "Injaneb",
+  year: 2019,
+};
+
+const Pishro_Nirvana: Album = {
+  links: [
+    {
+      url: "https://open.spotify.com/album/3qjVDg0hjqQnTg3lGzEvgK",
+      isOfficial: true,
+      channel: "Spotify",
+    },
+  ],
+  coverArtUrl:
+    "https://i.scdn.co/image/ab67616d00001e0282f420b7598a58f86c545e38",
+  artists: [artists.Pishro, artists.Canis, artists.Putak],
+  title: "Nirvana",
+  year: 2023,
+};
+
+const Pishro_Azad: Album = {
+  links: [
+    {
+      url: "https://open.spotify.com/album/0FiP6WjptERrgN6j4RJPPU",
+      isOfficial: true,
+      channel: "Spotify",
+    },
+  ],
+  coverArtUrl:
+    "https://i.scdn.co/image/ab67616d00001e02dcb57d9e0e20a59d314f6273",
+  artists: [artists.Pishro, artists.Owj],
+  title: "Azad",
+  year: 2019,
+};
+
+const Pishro_RailVol1: Album = {
+  links: [
+    {
+      url: "https://open.spotify.com/album/0Bcemh18XSNOBUGq3VoTdP",
+      isOfficial: true,
+      channel: "Spotify",
+    },
+  ],
+  coverArtUrl:
+    "https://i.scdn.co/image/ab67616d00001e02b0ad1898d3b6262a1e8b71aa",
+  artists: [artists.Pishro, artists.Ho3ein, artists.Owj, artists.SinaShahkar],
+  title: "Rail (Vol. 1)",
+  year: 2017,
+};
+
+const Pishro_AghazInjast: Album = {
+  links: [
+    {
+      url: "https://open.spotify.com/album/13wZC5pAixcNW3MhnvZPne",
+      isOfficial: true,
+      channel: "Spotify",
+    },
+  ],
+  coverArtUrl:
+    "https://i.scdn.co/image/ab67616d00001e026562e4a7d568673e9a483dc6",
+  artists: [
+    artists.Pishro,
+    artists.Kave,
+    artists["7Ganeh"],
+    artists.Owj,
+    artists.BigBoy,
+    artists.RouzbehQaem,
+    artists.Ghadar,
+    artists.Satrap,
+  ],
+  title: "Aghaz Injast",
+  year: 2013,
+};
+
+const Pishro_DoraneTalaei: Album = {
+  links: [
+    {
+      url: "https://open.spotify.com/album/0rjUxVxlaCH2YuKFVtZgtY",
+      isOfficial: true,
+      channel: "Spotify",
+    },
+  ],
+  coverArtUrl:
+    "https://i.scdn.co/image/ab67616d00001e02f5f28827b3b1d3a981760d10",
+  artists: [
+    artists.Pishro,
+    artists.Owj,
+    artists.Tohi,
+    artists.Tataloo,
+    artists.Erfan,
+    artists.Sogand,
+    artists.Tataloo,
+    artists.SahandQuazi,
+    artists.ManouchehrValizadeh,
+    artists.HamidPanahi,
+  ],
+  title: "Dorane Talaei",
+  year: 2012,
+};
+
+const Pishro_Parvaz: Album = {
+  links: [
+    {
+      url: "https://open.spotify.com/album/0iUOpR76ol1mLG7yfWLkLv",
+      isOfficial: true,
+      channel: "Spotify",
+    },
+  ],
+  coverArtUrl:
+    "https://i.scdn.co/image/ab67616d00001e02e64819109f00d1f3fc20eec2",
+  artists: [
+    artists.Pishro,
+    artists.Sogand,
+    artists.SinaSae,
+    artists.Sadegh,
+    artists.Kamyar,
+    artists.Owj,
+    artists.ShayanAsphalt,
+    artists.Satrap,
+    artists.Ghadar,
+    artists.Sinab,
+    artists.Catchybeatz,
+    artists.HamidPanahi,
+    artists.Nariman,
+  ],
+  title: "Parvaz",
+  year: 2021,
+};
+
 const goodAlbums: Album[] = [
   Bahram_EshtebaheKhoob,
   Bahram_Gozaar,
@@ -732,6 +934,15 @@ const goodAlbums: Album[] = [
   Daniyal_Keder,
   Shayea_DoBeShak,
   Shayea_Kerm,
+  Hichkas_Mojaz,
+  Shayea_Asabani,
+  Shayea_Injaneb,
+  Pishro_Nirvana,
+  Pishro_Azad,
+  Pishro_RailVol1,
+  Pishro_AghazInjast,
+  Pishro_DoraneTalaei,
+  Pishro_Parvaz,
 ];
 
 goodAlbums.sort(() => Math.random() - 0.5);
