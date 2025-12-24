@@ -892,6 +892,55 @@ const Pishro_Parvaz: Album = {
   year: 2021,
 };
 
+const Pishro_Acemoon: Album = {
+  links: [
+    {
+      url: "https://www.youtube.com/playlist?list=PLNrt7NiRUFrMnrGS-nBO0qUgTEQfuxsAk",
+      isOfficial: true,
+      channel: "YouTube",
+    },
+  ],
+  coverArtUrl: "https://i.ytimg.com/vi/lkwI-C3Mw0s/hqdefault.jpg",
+  artists: [artists.Pishro, artists.Tohi, artists.Owj],
+  title: "Acemoon",
+  year: "????",
+};
+
+const Pishro_Barandazi: Album = {
+  links: [
+    {
+      url: "https://www.youtube.com/playlist?list=PLNrt7NiRUFrOCSHJ6rPmMlcgpvoXDSz6k",
+      isOfficial: true,
+      channel: "YouTube",
+    },
+  ],
+  coverArtUrl: "https://i.ytimg.com/vi/Ufu1dW66F9g/hqdefault.jpg",
+  artists: [artists.Pishro],
+  title: "Barandazi",
+  year: "????",
+};
+
+const Pishro_JahanameSaket: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/user-859117786/sets/reza-pishro-jahaname-saket",
+      isOfficial: false,
+      channel: "SoundCloud",
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-tzwNz3fGzrOZ0YZ6-Nu9nJg-t500x500.jpg",
+  artists: [
+    artists.Pishro,
+    artists.Hichkas,
+    artists.Tataloo,
+    artists.Mahdyar,
+    artists.HamidPanahi,
+  ],
+  title: "Jahaname Saket",
+  year: 2007,
+};
+
 const goodAlbums: Album[] = [
   Bahram_EshtebaheKhoob,
   Bahram_Gozaar,
@@ -943,6 +992,9 @@ const goodAlbums: Album[] = [
   Pishro_AghazInjast,
   Pishro_DoraneTalaei,
   Pishro_Parvaz,
+  Pishro_Acemoon,
+  Pishro_Barandazi,
+  Pishro_JahanameSaket,
 ];
 
 goodAlbums.sort(() => Math.random() - 0.5);
