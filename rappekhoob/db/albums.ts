@@ -151,6 +151,545 @@ const Bahram_EshtebaheKhoob: Album = {
   ],
 };
 
+const Veda_Pareesh: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/divarrecords/sets/pareesh",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-000604184362-ygh2po-t500x500.jpg",
+  artists: [artists.Veda, artists.Atour, artists.Mezrab, artists.Farsea],
+  title: "Pareesh",
+  year: 2019,
+};
+
+const Rez_Shahrvand: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/divarrecords/sets/shahrvand",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-000248057903-8xix3s-t500x500.jpg",
+  artists: [artists.Rez, artists.Mezrab, artists.Atour, artists.Farsea],
+  title: "Shahrvand",
+  year: 2017,
+};
+
+const Sorena_Negar: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/divarrecords/sets/negar",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-000151188226-o8lkxv-t500x500.jpg",
+  artists: [artists.Sorena, artists.Atour, artists.Mezrab],
+  title: "Negar",
+  year: 2016,
+};
+
+const Navid_Yek: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/divarrecords/sets/yek",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-000135914651-vc994p-t500x500.jpg",
+  artists: [artists.Navid, artists.Mezrab, artists.Atour, artists.Yara],
+  title: "Yek",
+  year: 2015,
+};
+
+const Sorena_Aavaar: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/divarrecords/sets/aavaar",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-000070224407-mp657s-t500x500.jpg",
+  artists: [artists.Sorena, artists.Atour, artists.Mezrab],
+  title: "Aavaar",
+  year: 2014,
+};
+
+const Rez_Rangi: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/divarrecords/sets/rangi",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-000060934962-gxp8dr-t500x500.jpg",
+  artists: [artists.Rez, artists.Mezrab, artists.Atour],
+  title: "Rangi",
+  year: 2013,
+};
+
+const Rez_Mozmen: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/divarrecords/sets/mozmen",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-000033795935-ewnvmp-t500x500.jpg",
+  artists: [artists.Rez, artists.Atour, artists.Mezrab],
+  title: "Mozmen",
+  year: 2012,
+};
+
+const Navid_Khesht: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/divarrecords/sets/khesht",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-Az3Xy5jkzIimAce6-3L3ztQ-t500x500.jpg",
+  artists: [artists.Navid, artists.Atour, artists.Mezrab],
+  title: "Khesht",
+  year: 2011,
+};
+
+const Sorena_Mojassameh: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/alisorena/sets/mojassameh",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-Go9Wznkrh4kVSEBz-mDjNPA-t500x500.jpg",
+  artists: [
+    artists.Sorena,
+    artists.Atour,
+    artists.Farshad,
+    artists.Dehghan,
+    artists.PooYar,
+    artists.Najwa,
+  ],
+  title: "Mojassameh",
+  year: 2025,
+};
+
+const Sorena_Gavazn: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/alisorena/sets/gavazn",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-1xnmYbyWxQcggkg9-egnYYQ-t500x500.jpg",
+  artists: [artists.Sorena, artists.Dehghan, artists.Shemrooni, artists.Najwa],
+  title: "Gavazn",
+  year: 2021,
+};
+
+const Sorena_Kavir: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/alisorena/sets/kavir",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-000261531032-54ikpu-t500x500.jpg",
+  artists: [artists.Sorena, artists.Dehghan],
+  title: "Kavir",
+  year: 2017,
+};
+
+const Sorena_MardeTanha: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/alisorena/sets/ali-sorena-marde-tanha",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-000018040550-8m5sqv-t500x500.jpg",
+  artists: [artists.Sorena, artists.ShahabAsgari],
+  title: "Marde Tanha",
+  year: 2012,
+};
+
+const Navid_BeVaghteNoon: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/divarrecords/sets/be-vaghte-noon",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-qsyU7fqaJFGnwDz0-qz1izQ-t500x500.jpg",
+  artists: [
+    artists.Navid,
+    artists.Atour,
+    artists.Farsea,
+    artists.Naraka,
+    artists.Dehghan,
+    artists.Najwa,
+    artists.Shemrooni,
+    artists.Dahesh,
+  ],
+  title: "Be Vaghte Noon",
+  year: 2023,
+};
+
+const Sadegh_Perspective: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/sadeghvahedi/sets/perspective",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-q95JrzggAA4nCbJw-q8B8og-t500x500.jpg",
+  artists: [artists.Sadegh],
+  title: "Perspective",
+  year: 2021,
+};
+
+const Sadegh_parvaresh: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/sadeghvahedi/sets/parvaresh",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-qt2Rv41y5CdG8hTS-a2nyvw-t500x500.jpg",
+  artists: [artists.Sadegh, artists.TDey],
+  title: "parvaresh",
+  year: "????",
+};
+
+const Sadegh_SarbazeKhoda: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/sadeghvahedi/sets/sarbaze-khoda",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-WLcmwtxAaNHlyUit-YezQeQ-t500x500.jpg",
+  artists: [artists.Sadegh],
+  title: "Sarbaze Khoda",
+  year: "????",
+};
+
+const Sadegh_SobhBekheirIran: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/sadeghvahedi/sets/sobh-bekheir-iran",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-xeFguZm2Tp5ZrUUK-SCBvyA-t500x500.jpg",
+  artists: [artists.Sadegh, artists.Ho3ein, artists.Poornam],
+  title: "Sobh Bekheir Iran",
+  year: "????",
+};
+
+const Sadegh_KasiBeNameKhoda: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/sadeghvahedi/sets/kasi-be-name-khoda",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-QbVM0PNoWVFHEUaN-bTfymA-t500x500.jpg",
+  artists: [artists.Sadegh, artists.Ho3ein, artists.Sogand, artists.Andish],
+  title: "Kasi Be Name Khoda",
+  year: "????",
+};
+
+const Sayf_Davoom: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/sayf-tunes/sets/davoom",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-KX4a25oRt5LNnPU4-tjT8tQ-t500x500.jpg",
+  artists: [artists.Sayf, artists.Kenzler],
+  title: "Davoom",
+  year: 2025,
+};
+
+const Sayf_Afraan: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/sayf-tunes/sets/afraan",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-JfO6DW36EoLrDxfm-cRCSBg-t500x500.jpg",
+  artists: [artists.Sayf, artists.Sam, artists.Kenzler, artists.MoeinFallah],
+  title: "Afraan",
+  year: 2023,
+};
+
+const Sayf_Rahaa: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/sayf-tunes/sets/rahaa-lp-album",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-gJHeTOJGlWH9DQsv-8pHHfg-t500x500.jpg",
+  artists: [
+    artists.Sayf,
+    artists.Parish,
+    artists.Faghan,
+    artists.SepehrBeigi,
+    artists.Ebrahim,
+    artists.MimKaaf,
+    artists.AshiBeatz,
+  ],
+  title: "Rahaa",
+  year: 2023,
+};
+
+const Sayf_Parishan: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/sayf-tunes/sets/parishan-album-prod-ebrahim",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-ixWtjMqf7iOxnzJC-XmRzWQ-t500x500.jpg",
+  artists: [artists.Sayf, artists.Ebrahim],
+  title: "Parishan",
+  year: 2022,
+};
+
+const Fadaei_Eshgh: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/mahdyar/sets/eshgh",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-MZBdFtQCsT4L53Tv-83AqwQ-t500x500.jpg",
+  artists: [artists.Fadaei, artists.Mahdyar],
+  title: "Eshgh",
+  year: 2024,
+};
+
+const Fadaei_Hagh: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/mahdyar/sets/hagh",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-CmgdPdkvmevQPRgf-jXqxZw-t500x500.jpg",
+  artists: [artists.Fadaei, artists.Mahdyar],
+  title: "Hagh",
+  year: 2022,
+};
+
+const Fadaei_Adl: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/mahdyar/sets/adl",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-000034052077-cgoipf-t500x500.jpg",
+  artists: [artists.Fadaei, artists.Mahdyar, artists.Hichkas, artists.Quf],
+  title: "Adl",
+  year: 2012,
+};
+
+const Quf_ZiroBameZirzamin: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/mahdyar/sets/zir-o-bam-e-zirzamin",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-000012133938-rvnzjo-t500x500.jpg",
+  artists: [
+    artists.Quf,
+    artists.Mahdyar,
+    artists.Bidad,
+    artists["7Khat"],
+    artists.Lowkey,
+    artists.Fadaei,
+  ],
+  title: "Zir o Bam e Zirzamin",
+  year: 2011,
+};
+
+const Mahdyar_TheTourOfDuty: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/mahdyar/sets/the-tour-of-duty-ep",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-000005937834-v88foo-t500x500.jpg",
+  artists: [
+    artists.Mahdyar,
+    artists.Hichkas,
+    artists.Reveal,
+    artists.Fadaei,
+    artists.Quf,
+  ],
+  title: "The Tour of Duty",
+  year: 2011,
+};
+
+const Hidden_Pizza: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/aslistream/sets/pizza",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-yTRIrN0JDZq2i7OP-4XSecQ-t500x500.jpg",
+  artists: [artists.Hidden, artists.Shayea],
+  title: "Pizza",
+  year: 2024,
+};
+
+const Shayea_Amadebash: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/aslistream/sets/amadebash",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-RCqN1gg7tuOAsKmG-7PcQ0Q-t500x500.jpg",
+  artists: [
+    artists.Shayea,
+    artists.Mahyar,
+    artists.TaraSalahi,
+    artists.Hidden,
+    artists.Khalvat,
+    artists.SinaSae,
+    artists.Deon,
+    artists.Catchybeatz,
+    artists.Zaal,
+    artists.Hoomaan,
+    artists.Maslak,
+    artists.Deon,
+    artists.Poori,
+    artists.Rez,
+    artists.Canis,
+  ],
+  title: "Amadebash",
+  year: 2023,
+};
+
+const Daniyal_Keder: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/aslistream/sets/daniyal-keder",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-gU80TvDzNVucn5Tc-z8QMkA-t500x500.jpg",
+  artists: [
+    artists.Daniyal,
+    artists.Taniya,
+    artists.Pishro,
+    artists.Mahyar,
+    artists.Shayea,
+  ],
+  title: "Keder",
+  year: 2020,
+};
+
+const Shayea_DoBeShak: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/aslistream/sets/shayea-do-be-shak",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-gX33CwH1S90tfVzF-9dpd1Q-t500x500.jpg",
+  artists: [artists.Shayea, artists.Ho3ein, artists.TDey],
+  title: "Do Be Shak",
+  year: 2015,
+};
+
+const Shayea_Kerm: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/aslistream/sets/shayea-kerm",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-yM9GS5xXvBF5yzFh-FocQqw-t500x500.jpg",
+  artists: [artists.Shayea, artists.Ho3ein],
+  title: "Kerm",
+  year: 2013,
+};
+
 const goodAlbums: Album[] = [
   Bahram_EshtebaheKhoob,
   Bahram_Gozaar,
@@ -161,6 +700,38 @@ const goodAlbums: Album[] = [
   Bahram_Sokoot,
   Hichkas_JangaleAsfalt,
   Sadegh_NashodBegam,
+  Veda_Pareesh,
+  Rez_Shahrvand,
+  Sorena_Negar,
+  Navid_Yek,
+  Sorena_Aavaar,
+  Rez_Rangi,
+  Rez_Mozmen,
+  Navid_Khesht,
+  Sorena_Mojassameh,
+  Sorena_Gavazn,
+  Sorena_Kavir,
+  Sorena_MardeTanha,
+  Navid_BeVaghteNoon,
+  Sadegh_Perspective,
+  Sadegh_parvaresh,
+  Sadegh_SarbazeKhoda,
+  Sadegh_SobhBekheirIran,
+  Sadegh_KasiBeNameKhoda,
+  Sayf_Davoom,
+  Sayf_Afraan,
+  Sayf_Rahaa,
+  Sayf_Parishan,
+  Fadaei_Eshgh,
+  Fadaei_Hagh,
+  Fadaei_Adl,
+  Quf_ZiroBameZirzamin,
+  Mahdyar_TheTourOfDuty,
+  Hidden_Pizza,
+  Shayea_Amadebash,
+  Daniyal_Keder,
+  Shayea_DoBeShak,
+  Shayea_Kerm,
 ];
 
 goodAlbums.sort(() => Math.random() - 0.5);
@@ -168,9 +739,9 @@ goodAlbums.sort(() => Math.random() - 0.5);
 export { goodAlbums };
 
 // TODO:
-// owj, ghadar, all their albums, playlists, reposts
-// ho3ein
-// sogand zakhmi atour rez navid bamdad kaboos daygard hidden hamzad yaserbinam eblis/hosein epicure shayea, sciah/tahamtan, aghardeshir
+//, ghadar, all their albums, playlists, reposts
+// artists.ho3ein
+// artists.sogand zakhmi artists.atour rez navid bamdad kaboos daygard hidden hamzad yaserbinam eblis/hosein epicure shayea, sciah/tahamtan, aghardeshir
 // every artist I follow on soundcloud
 // arash lavar nishkhand
 // every artist every artist I like follows and likes
@@ -179,10 +750,10 @@ export { goodAlbums };
 // nagsh
 // yahya faham sezavar
 // yas soel moer
-// Yaram Mokhtari
-// prod Najwa
-// prod shemrooni
-// prod dehghan
+// artists.Yaram Mokhtari
+// prod  artists.Najwa
+// prod artists.shemrooni
+// prod artists.dehghan
 // Choub Khat (ba nima nimosh kar karde ghablan)
 
 // check every artis I have, but their reposts
