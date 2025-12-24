@@ -38,6 +38,11 @@ const Sadegh_NashodBegam: Album = {
       channel: "YouTube",
       isOfficial: true,
     },
+    {
+      url: "https://soundcloud.com/sadeghvahedi/sets/nashod-begam",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
   ],
 };
 
