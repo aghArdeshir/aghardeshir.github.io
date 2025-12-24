@@ -21,3 +21,7 @@ const goodSingles: Single[] = [Sadegh_Sogand_Ghofl];
 goodSingles.sort(() => Math.random() - 0.5);
 
 export { goodSingles };
+
+
+// singles: (every artist that had albums of course, but also:)
+//  yekii

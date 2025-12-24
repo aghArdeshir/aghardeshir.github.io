@@ -168,7 +168,34 @@ goodAlbums.sort(() => Math.random() - 0.5);
 export { goodAlbums };
 
 // TODO:
-// check all bahram reposts, sadegh, sorena, sayf, yekii, hichkas, pishro, owj, ghadar, all their albums, playlists, reposts
+// owj, ghadar, all their albums, playlists, reposts
+// ho3ein
 // sogand zakhmi atour rez navid bamdad kaboos daygard hidden hamzad yaserbinam eblis/hosein epicure shayea, sciah/tahamtan, aghardeshir
 // every artist I follow on soundcloud
-// arash lavar
+// arash lavar nishkhand
+// every artist every artist I like follows and likes
+// good rappi pages on insta for inspirarion
+// sorena farshad tes
+// nagsh
+// yahya faham sezavar
+// yas soel moer
+// Yaram Mokhtari
+// prod Najwa
+// prod shemrooni
+// prod dehghan
+// Choub Khat (ba nima nimosh kar karde ghablan)
+
+// check every artis I have, but their reposts
+// t-dey
+// fadaei dariush quf
+// mohamad bibak
+// mahyar, shervin hajipour?
+// oon ke ba enorto r&b mikhoond, hesam molaei
+// khalvat sinasaei maslak rez canis  daniyal
+// tighe
+// this album does not exist on ali owj's soundcloud/spotify, check if it is real album https://soundcloud.com/user-859117786/sets/ali-owj-motarez-album
+// emziper
+// bigboy aminbiga AlirezaHakem ghadar satrap
+// jarsha
+// farid (faride 7) putak
+// checkout this link for albms that pishro is in: https://fa.wikipedia.org/wiki/%D8%AA%D8%B1%D8%A7%D9%86%D9%87%E2%80%8C%D8%B4%D9%86%D8%A7%D8%B3%DB%8C_%D8%B1%D8%B6%D8%A7_%D9%BE%DB%8C%D8%B4%D8%B1%D9%88
