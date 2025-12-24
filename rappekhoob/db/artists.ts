@@ -180,6 +180,73 @@ const Pishro: Artist = {
   name: "Pishro",
 };
 
+const Alibi: Artist = {
+  name: "Alibi",
+};
+const MiladS: Artist = {
+  name: "MiladS",
+};
+const Minoram: Artist = {
+  name: "Minoram",
+};
+const Putak: Artist = {
+  name: "Putak",
+};
+const Owj: Artist = {
+  name: "Owj",
+};
+const SinaShahkar: Artist = {
+  name: "SinaShahkar",
+};
+const Kave: Artist = {
+  name: "Kave",
+};
+const _7Ganeh: Artist = {
+  name: "7Ganeh",
+};
+const BigBoy: Artist = {
+  name: "BigBoy",
+};
+const RouzbehQaem: Artist = {
+  name: "RouzbehQaem",
+};
+const Ghadar: Artist = {
+  name: "Ghadar",
+};
+const Satrap: Artist = {
+  name: "Satrap",
+};
+const Tohi: Artist = {
+  name: "Tohi",
+};
+const Tataloo: Artist = {
+  name: "Tataloo",
+};
+const Erfan: Artist = {
+  name: "Erfan",
+};
+const SahandQuazi: Artist = {
+  name: "SahandQuazi",
+};
+const HamidPanahi: Artist = {
+  name: "HamidPanahi",
+};
+const ManouchehrValizadeh: Artist = {
+  name: "ManouchehrValizadeh",
+};
+const Kamyar: Artist = {
+  name: "Kamyar",
+};
+const ShayanAsphalt: Artist = {
+  name: "ShayanAsphalt",
+};
+const Sinab: Artist = {
+  name: "Sinab",
+};
+const Nariman: Artist = {
+  name: "Nariman",
+};
+
 export const artists = {
   Hichkas,
   Sadegh,
@@ -238,4 +305,26 @@ export const artists = {
   Daniyal,
   Taniya,
   Pishro,
+  Alibi,
+  MiladS,
+  Minoram,
+  Putak,
+  Owj,
+  SinaShahkar,
+  Kave,
+  ["7Ganeh"]: _7Ganeh,
+  BigBoy,
+  RouzbehQaem,
+  Ghadar,
+  Satrap,
+  Tohi,
+  Tataloo,
+  Erfan,
+  SahandQuazi,
+  HamidPanahi,
+  ManouchehrValizadeh,
+  Kamyar,
+  ShayanAsphalt,
+  Sinab,
+  Nariman,
 };
