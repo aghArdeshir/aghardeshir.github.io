@@ -942,6 +942,7 @@ const Pishro_JahanameSaket: Album = {
 };
 
 const goodAlbums: Album[] = [
+  Sadegh_ShabaRadepaTanhaei,
   Bahram_EshtebaheKhoob,
   Bahram_Gozaar,
   Bahram_Khodha,
