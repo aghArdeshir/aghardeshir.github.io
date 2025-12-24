@@ -11,7 +11,7 @@ type ReleaseLink = {
 type Album = {
   title: string;
   artists: Artist[];
-  year: number;
+  year: number | '????';
   coverArtUrl: string;
   links: ReleaseLink[];
 };
