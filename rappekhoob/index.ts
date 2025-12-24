@@ -31,7 +31,7 @@ function createCard(release: Album | Single) {
   const card = document.createElement("div");
   card.className = "release-card";
 
-  card.style.backgroundImage = `radial-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5)), url(${release.coverArtUrl})`;
+  card.style.backgroundImage = `radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.9)), url(${release.coverArtUrl})`;
   card.style.backgroundSize = "cover";
   card.style.backgroundPosition = "center";
 
@@ -61,7 +61,7 @@ function createCard(release: Album | Single) {
     anchorLinkDom.textContent = link.channel;
     if (link.isOfficial) {
       anchorLinkDom.textContent += " ✅";
-      anchorLinkDom.setAttribute('title', 'Official Artist Channel');
+      anchorLinkDom.setAttribute("title", "Official Artist Channel");
     }
     listItemDom.appendChild(anchorLinkDom);
   });
