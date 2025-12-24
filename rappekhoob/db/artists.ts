@@ -28,6 +28,10 @@ const Sorena: Artist = {
   name: "Sorena",
 };
 
+const Veda: Artist = {
+  name: "Veda",
+};
+
 export const artists = {
   Hichkas,
   Sadegh,
@@ -36,4 +40,5 @@ export const artists = {
   Mahdyar,
   Atour,
   Sorena,
+  Veda,
 };
