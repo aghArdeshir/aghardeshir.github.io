@@ -941,7 +941,138 @@ const Pishro_JahanameSaket: Album = {
   year: 2007,
 };
 
+const Owj_Sefid: Album = {
+  links: [
+    {
+      url: "https://www.youtube.com/playlist?list=PLXSNYwjH57OKrBrFGouOGCjBJ9v_cstb7",
+      isOfficial: true,
+      channel: "YouTube",
+    },
+    {
+      url: "https://soundcloud.com/owjali/sets/album-sefid",
+      isOfficial: true,
+      channel: "SoundCloud",
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-zpU86WCbHcHVygQ7-EU8Q8w-t500x500.jpg",
+  artists: [artists.Owj],
+  title: "Sefid",
+  year: 2024,
+};
+
+const Owj_ShakiNist: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/owjali/sets/ali-owj-album-shaki-nist",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+    {
+      url: "https://www.youtube.com/playlist?list=PLXSNYwjH57OLLGiVVgMOGYL8NvY6BUy64",
+      channel: "YouTube",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-mQIYJdtMqOrSeaAv-BoGGzA-t500x500.jpg",
+  artists: [artists.Owj, artists.TDey],
+  title: "Shaki Nist",
+  year: "????",
+};
+
+const Owj_AzKhodemanShorouKonim: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/owjali/sets/album-az-khodeman-shorou-konim",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+    {
+      url: "https://www.youtube.com/playlist?list=PLXSNYwjH57OLVBO_u528VAvUnU6oAC7rK",
+      channel: "YouTube",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-bz4GVf60Vj1AiAtU-y5RaYQ-t500x500.jpg",
+  artists: [artists.Owj, artists.Pishro, artists.TDey, artists.Alibi],
+  title: "Az Khodeman Shorou Konim",
+  year: "????",
+};
+
+const Owj_Bargashtam: Album = {
+  links: [
+    {
+      url: "https://www.youtube.com/playlist?list=PLXSNYwjH57OK0bioNPh3N9KME45ww9OoR",
+      channel: "YouTube",
+      isOfficial: true,
+    },
+    {
+      url: "https://soundcloud.com/owjali/sets/album-bargashtam",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl: "https://i.ytimg.com/vi/Dy5E_8h0N5A/hqdefault.jpg",
+  artists: [artists.Owj],
+  title: "Bargashtam",
+  year: "????",
+};
+
+const Owj_Jadou: Album = {
+  links: [
+    {
+      url: "https://www.youtube.com/playlist?list=PLXSNYwjH57OLRpg_kTgp4hbEWPqNwIgr_",
+      channel: "YouTube",
+      isOfficial: true,
+    },
+    {
+      url: "https://soundcloud.com/owjali/sets/album-jadou",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+  ],
+  artists: [
+    artists.Owj,
+    artists.Pishro,
+    artists.TDey,
+    artists.Satrap,
+    artists.RouzbehQaem,
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-TFgp1e6DGWs30R5N-HjYBHg-t500x500.jpg",
+  title: "Jadou",
+  year: "????",
+};
+
+const Owj_MadreseGhadimi: Album = {
+  links: [
+    {
+      url: "https://soundcloud.com/owjali/sets/album-madrese-ghadimi",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+    {
+      url: "https://www.youtube.com/playlist?list=PLXSNYwjH57OILDKHHlSj3ji2_3h0NMQ38",
+      channel: "YouTube",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i1.sndcdn.com/artworks-eiHvJ00xCXlPWOOv-t8s0eQ-t500x500.jpg",
+  artists: [artists.Owj],
+  title: "Madrese Ghadimi",
+  year: "????",
+};
+
 const goodAlbums: Album[] = [
+  Owj_ShakiNist,
+  Owj_Jadou,
+  Owj_MadreseGhadimi,
+  Owj_AzKhodemanShorouKonim,
+  Owj_Bargashtam,
+  Owj_Sefid,
   Sadegh_ShabaRadepaTanhaei,
   Bahram_EshtebaheKhoob,
   Bahram_Gozaar,
