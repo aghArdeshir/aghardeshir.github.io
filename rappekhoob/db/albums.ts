@@ -1165,3 +1165,5 @@ export { goodAlbums };
 // jarsha
 // farid (faride 7) putak
 // checkout this link for albms that pishro is in: https://fa.wikipedia.org/wiki/%D8%AA%D8%B1%D8%A7%D9%86%D9%87%E2%80%8C%D8%B4%D9%86%D8%A7%D8%B3%DB%8C_%D8%B1%D8%B6%D8%A7_%D9%BE%DB%8C%D8%B4%D8%B1%D9%88
+// erfan khashayar sarkesh
+// ask people you like their taste, including some of the people whose work I shared here
