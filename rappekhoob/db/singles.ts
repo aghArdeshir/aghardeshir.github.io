@@ -24,4 +24,4 @@ export { goodSingles };
 
 
 // singles: (every artist that had albums of course, but also:)
-//  yekii
+//  yekii, ghadar
