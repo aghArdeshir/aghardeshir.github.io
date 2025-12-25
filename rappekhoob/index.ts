@@ -1,5 +1,4 @@
 import { goodAlbums } from "./db/albums";
-import { goodSingles } from "./db/singles";
 import { Album, Single } from "./types";
 
 const root = document.createElement("div");
@@ -74,9 +73,4 @@ function createCard(release: Album | Single) {
 goodAlbums.forEach((album) => {
   const albumCard = createCard(album);
   albumsContainer.appendChild(albumCard);
-});
-
-goodSingles.forEach((single) => {
-  const singleCard = createCard(single);
-  singlesContainer.appendChild(singleCard);
 });
