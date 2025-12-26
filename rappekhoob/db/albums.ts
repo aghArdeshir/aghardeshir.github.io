@@ -173,6 +173,11 @@ const Rez_Shahrvand: Album = {
       channel: "SoundCloud",
       isOfficial: true,
     },
+    {
+      url: "https://open.spotify.com/album/6uc847VQpYq1y5NYwghr8W?si=-kInvjirT1i4sAQfnB9eww",
+      channel: "Spotify",
+      isOfficial: true,
+    },
   ],
   coverArtUrl:
     "https://i1.sndcdn.com/artworks-000248057903-8xix3s-t500x500.jpg",
@@ -243,6 +248,11 @@ const Rez_Rangi: Album = {
       channel: "SoundCloud",
       isOfficial: true,
     },
+    {
+      url: "https://open.spotify.com/album/0ZwoO3vP72ba70cFC61hRn?si=VMyei-PzQsC6mHTiVQ4Oyw",
+      channel: "Spotify",
+      isOfficial: true,
+    },
   ],
   coverArtUrl:
     "https://i1.sndcdn.com/artworks-000060934962-gxp8dr-t500x500.jpg",
@@ -261,6 +271,11 @@ const Rez_Mozmen: Album = {
     {
       url: "https://soundcloud.com/atour/sets/rez-mozmen",
       channel: "SoundCloud",
+      isOfficial: true,
+    },
+    {
+      url: "https://open.spotify.com/album/7BINjj7erQbTIqa4c8Nno4?si=caTwBdlZT-qdOy1g055xHw",
+      channel: "Spotify",
       isOfficial: true,
     },
   ],
