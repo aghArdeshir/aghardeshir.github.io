@@ -246,8 +246,24 @@ const Sinab: Artist = {
 const Nariman: Artist = {
   name: "Nariman",
 };
+const Zakhmi: Artist = {
+  name: "Zakhmi",
+};
+const Leito: Artist = {
+  name: "Leito",
+};
+const Shug: Artist = {
+  name: "Shug",
+};
+const GDaal: Artist = {
+  name: "GDaal",
+};
 
 export const artists = {
+  GDaal,
+  Zakhmi,
+  Shug,
+  Leito,
   Hichkas,
   Sadegh,
   Sogand,

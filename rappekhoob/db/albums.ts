@@ -1066,8 +1066,56 @@ const Owj_MadreseGhadimi: Album = {
   year: "????",
 };
 
+const Zakhmi_Mehraboon: Album = {
+  links: [
+    {
+      url: "https://www.youtube.com/playlist?list=OLAK5uy_n3fibklXgsnFYC7bVDl0YHpxoBfIM4oJ0",
+      channel: "YouTube",
+      isOfficial: true,
+    },
+    {
+      url: "https://open.spotify.com/album/75zv6v0DISo36fh9MLE9QL",
+      channel: "Spotify",
+      isOfficial: true,
+    },
+  ],
+  coverArtUrl:
+    "https://i.scdn.co/image/ab67616d00001e02969238bf97708a56b39f2f8a",
+  artists: [
+    artists.Zakhmi,
+    artists.Sogand,
+    artists.Canis,
+    artists.Leito,
+    artists.Shug,
+  ],
+  title: "Mehraboon",
+  year: 2021,
+};
+
+const Zakhmi_Shakhsi: Album = {
+  links: [
+    {
+      url: "https://www.youtube.com/playlist?list=OLAK5uy_n-EK_8ZPhnw505DsESegvcvYC-ThsQRSQ",
+      channel: "YouTube",
+      isOfficial: true,
+    },
+    {
+      url: "https://open.spotify.com/album/3qUULxcBJJa6Nhq6Xlt5ol",
+      channel: "Spotify",
+      isOfficial: true,
+    },
+  ],
+  artists: [artists.Zakhmi, artists.Hidden, artists.Canis, artists.GDaal],
+  coverArtUrl:
+    "https://i.scdn.co/image/ab67616d00001e02674dd29a8e4897e104b1ce2b",
+  title: "Shakhsi",
+  year: 2018,
+};
+
 const goodAlbums: Album[] = [
   Owj_ShakiNist,
+  Zakhmi_Mehraboon,
+  Zakhmi_Shakhsi,
   Owj_Jadou,
   Owj_MadreseGhadimi,
   Owj_AzKhodemanShorouKonim,
