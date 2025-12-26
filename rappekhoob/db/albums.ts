@@ -218,6 +218,11 @@ const Sorena_Aavaar: Album = {
       channel: "SoundCloud",
       isOfficial: true,
     },
+    {
+      url: "https://soundcloud.com/atour/sets/aavaar",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
   ],
   coverArtUrl:
     "https://i1.sndcdn.com/artworks-000070224407-mp657s-t500x500.jpg",
@@ -230,6 +235,11 @@ const Rez_Rangi: Album = {
   links: [
     {
       url: "https://soundcloud.com/divarrecords/sets/rangi",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+    {
+      url: "https://soundcloud.com/atour/sets/rangi",
       channel: "SoundCloud",
       isOfficial: true,
     },
@@ -248,6 +258,11 @@ const Rez_Mozmen: Album = {
       channel: "SoundCloud",
       isOfficial: true,
     },
+    {
+      url: "https://soundcloud.com/atour/sets/rez-mozmen",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
   ],
   coverArtUrl:
     "https://i1.sndcdn.com/artworks-000033795935-ewnvmp-t500x500.jpg",
@@ -260,6 +275,11 @@ const Navid_Khesht: Album = {
   links: [
     {
       url: "https://soundcloud.com/divarrecords/sets/khesht",
+      channel: "SoundCloud",
+      isOfficial: true,
+    },
+    {
+      url: "https://soundcloud.com/atour/sets/navid-khesht",
       channel: "SoundCloud",
       isOfficial: true,
     },
