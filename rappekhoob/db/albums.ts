@@ -1182,9 +1182,8 @@ goodAlbums.sort(() => Math.random() - 0.5);
 export { goodAlbums };
 
 // TODO:
-//, ghadar, all their albums, playlists, reposts
-// artists.ho3ein
-// artists.sogand zakhmi artists.atour rez navid bamdad kaboos daygard hidden hamzad yaserbinam eblis/hosein epicure shayea, sciah/tahamtan, aghardeshir
+// artists.atour rez navid bamdad kaboos daygard hidden hamzad yaserbinam eblis/hosein epicure shayea, sciah/tahamtan, aghardeshir
+// leito?????
 // every artist I follow on soundcloud
 // arash lavar nishkhand
 // every artist every artist I like follows and likes
@@ -1197,7 +1196,7 @@ export { goodAlbums };
 // prod  artists.Najwa
 // prod artists.shemrooni
 // prod artists.dehghan
-// Choub Khat (ba nima nimosh kar karde ghablan)
+// Choub Khat (ba nima nimosh kar karde ghablan), aha ashkan
 
 // check every artis I have, but their reposts
 // t-dey
@@ -1215,3 +1214,9 @@ export { goodAlbums };
 // checkout this link for albms that pishro is in: https://fa.wikipedia.org/wiki/%D8%AA%D8%B1%D8%A7%D9%86%D9%87%E2%80%8C%D8%B4%D9%86%D8%A7%D8%B3%DB%8C_%D8%B1%D8%B6%D8%A7_%D9%BE%DB%8C%D8%B4%D8%B1%D9%88
 // erfan khashayar sarkesh
 // ask people you like their taste, including some of the people whose work I shared here
+// i had almost no girl rappers, research and add
+// https://fa.wikipedia.org/wiki/%D8%B1%D8%AF%D9%87:%D8%AE%D9%88%D8%A7%D9%86%D9%86%D8%AF%DA%AF%D8%A7%D9%86_%D8%B1%D9%BE_%D8%A7%D9%87%D9%84_%D8%A7%DB%8C%D8%B1%D8%A7%D9%86
+// https://fa.wikipedia.org/wiki/%D8%B1%D8%AF%D9%87:%D8%AE%D9%88%D8%A7%D9%86%D9%86%D8%AF%DA%AF%D8%A7%D9%86_%D8%B1%D9%BE_%D9%81%D8%A7%D8%B1%D8%B3%DB%8C
+// https://fa.wikipedia.org/wiki/%D8%B1%D8%AF%D9%87:%D8%B1%D9%BE%D8%B1%D9%87%D8%A7%DB%8C_%D8%B2%D9%86_%D8%A7%D9%87%D9%84_%D8%A7%DB%8C%D8%B1%D8%A7%D9%86
+// hidden
+// gdaal
