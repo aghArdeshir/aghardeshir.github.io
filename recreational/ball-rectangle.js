@@ -8,20 +8,6 @@ const ball = {
 };
 const direction = { x: Math.random(), y: Math.random() };
 const ballSpeed = 1;
-const lineLength = 200;
-const line = [
-  {
-    x: rect.x,
-    y: rect.y,
-    length: lineLength,
-  },
-  {
-    x: 0,
-    y: 0,
-    length: 0,
-  },
-];
-const lineSpeed = 0.5;
 
 const rectTopRight = {
   x: rect.x + rect.width,
@@ -32,23 +18,17 @@ const rectBottomRight = {
   y: rect.y + rect.height,
 };
 
+const lineLength = 200;
+const lineSpeed = 0.5;
+let lineStart = rect.x;
+
 function rerender() {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
   ctx.strokeStyle = "white";
   ctx.strokeRect(rect.x, rect.y, rect.width, rect.height);
 
-  ctx.strokeStyle = "red";
-  ctx.beginPath();
-  if (line[0].length) {
-    ctx.moveTo(line[0].x, line[0].y);
-    ctx.lineTo(line[0].x + line[0].length, line[0].y);
-  }
-  if (line[1].length) {
-    ctx.lineTo(line[1].x, line[1].y);
-    ctx.lineTo(line[1].x, line[1].y + line[1].length);
-  }
-  ctx.stroke();
+  drawLine(ctx);
 
   ctx.fillStyle = "green";
   ctx.beginPath();
@@ -88,46 +68,39 @@ function moveBall() {
   }
 }
 
-function moveLine() {
-  const isOnTopEdge = line[0].x + line[0].length <= rect.x + rect.width;
-  const sharesTopAndRightEdge =
-    line[0].x < rect.x + rect.width &&
-    line[0].x + line[0].length > rect.x + rect.width;
+function drawLine(ctx) {
+  ctx.strokeStyle = "red";
+  ctx.beginPath();
 
-  const isOnRightEdge = line[0].x >= rectTopRight.x;
-
-  if (isOnTopEdge) {
-    line[1].length = 0;
-    line[1].x = 0;
-    line[1].y = 0;
-    line[0].x += lineSpeed;
-  } else if (sharesTopAndRightEdge) {
-    line[0].length = rectTopRight.x - line[0].x;
-    line[0].x += lineSpeed;
-
-    line[1].length = lineLength - line[0].length;
-    line[1].x = rectTopRight.x;
-    line[1].y = rectTopRight.y + lineSpeed;
-  } else if (isOnRightEdge) {
-    line[0].length = 0;
-    line[0].x += rectTopRight.x;
-
-    line[1].length = lineLength;
-    line[1].x = rectTopRight.x;
-    line[1].y = line[1].y + lineSpeed;
-
-    if (line[0].x > rectTopRight.x) {
-      line[0].x = rectTopRight.x;
-    }
+  const shouldBeHorizontal = lineStart < rectTopRight.x;
+  if (shouldBeHorizontal) {
+    ctx.moveTo(lineStart, rect.y);
+    const horizontalLineLength = Math.min(
+      lineLength,
+      rectTopRight.x - lineStart,
+    );
+    ctx.lineTo(lineStart + horizontalLineLength, rect.y);
   }
+
+  const shouldBeVertical = lineStart + lineLength >= rectTopRight.x;
+  if (shouldBeVertical) {
+    const horizontalLineLength = Math.min(
+      lineLength,
+      rectTopRight.x - lineStart,
+    );
+    const verticalLineLength = lineLength - horizontalLineLength;
+    ctx.moveTo(
+      rectTopRight.x,
+      Math.max(rect.y, rectTopRight.y + verticalLineLength - lineLength),
+    );
+    ctx.lineTo(rectTopRight.x, rect.y + verticalLineLength);
+  }
+
+  ctx.stroke();
 }
 
-function randomBool() {
-  return Math.random() < 0.5;
-}
-
-function randomSign() {
-  return randomBool() ? 1 : -1;
+function moveLine() {
+  lineStart += lineSpeed;
 }
 
 setInterval(() => {
