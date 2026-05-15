@@ -1,5 +1,5 @@
-import { Rectangle } from "./rectangle.js";
-import { Ball } from "./ball.js";
+import { Rectangle } from "./Rectangle.js";
+import { Ball } from "./Ball.js";
 import { Line } from "./Line.js";
 
 const ctx = document.querySelector("canvas").getContext("2d");
