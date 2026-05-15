@@ -1,4 +1,7 @@
 export class Line {
+  length = 200;
+  speed = 0.5;
+
   constructor(rectangle) {
     if (!rectangle) throw new Error("Rectangle is required to initialize Line");
     this.rectangle = rectangle;
@@ -7,8 +10,6 @@ export class Line {
       y: this.rectangle.topLeft.y,
     };
   }
-  length = 200;
-  speed = 0.5;
 
   draw(ctx) {
     const isOnTopEdge =
