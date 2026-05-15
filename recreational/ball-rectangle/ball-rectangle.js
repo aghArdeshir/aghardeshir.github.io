@@ -15,17 +15,17 @@ const ball = new Ball({
   },
 });
 
-requestAnimationFrame(function rerenderFirstLayer() {
+requestAnimationFrame(function renderFirstLayer() {
   firstLayerCanvas.clear();
   rectangle.draw(firstLayerCanvas.getContext());
 });
 
 let lastTime = 0;
 function rerenderSecondLayer(currentTime) {
-  secondLayerCanvas.clear();
-
   const deltaTime = currentTime - lastTime;
   lastTime = currentTime;
+
+  secondLayerCanvas.clear();
 
   ball.move({ deltaTime, rectangle });
   line.move({ deltaTime });
