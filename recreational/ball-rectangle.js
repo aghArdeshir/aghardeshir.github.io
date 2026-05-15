@@ -95,19 +95,22 @@ function drawLine() {
 }
 
 function moveLine() {
-  if (lineStartPoint.x < rectTopRight.x && lineStartPoint.y === rect.y) {
-    lineStartPoint.x += lineSpeed;
-  } else if (
-    lineStartPoint.x === rectTopRight.x &&
-    lineStartPoint.y < rectBottomRight.y
-  ) {
-    lineStartPoint.y += lineSpeed;
-  } else if (
+  const isOnTopEdge =
+    lineStartPoint.x < rectTopRight.x && lineStartPoint.y === rectTopLeft.y;
+  const isOnRightEdge =
+    lineStartPoint.x === rectTopRight.x && lineStartPoint.y < rectBottomRight.y;
+  const isOnBottomEdge =
     lineStartPoint.y === rectBottomRight.y &&
-    lineStartPoint.x > rectBottomLeft.x
-  ) {
+    lineStartPoint.x > rectBottomLeft.x;
+  const isOnLeftEdge = lineStartPoint.x === rect.x && lineStartPoint.y > rect.y;
+
+  if (isOnTopEdge) {
+    lineStartPoint.x += lineSpeed;
+  } else if (isOnRightEdge) {
+    lineStartPoint.y += lineSpeed;
+  } else if (isOnBottomEdge) {
     lineStartPoint.x -= lineSpeed;
-  } else if (lineStartPoint.x === rect.x && lineStartPoint.y > rect.y) {
+  } else if (isOnLeftEdge) {
     lineStartPoint.y -= lineSpeed;
   }
 }
