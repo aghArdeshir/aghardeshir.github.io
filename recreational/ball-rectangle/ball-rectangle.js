@@ -1,26 +1,11 @@
+import { Rectangle } from "./rectangle.js";
+
 const ctx = document.querySelector("canvas").getContext("2d");
 
-const rectTopLeft = {
-  x: 100,
-  y: 100,
-};
-const rectDimensions = { width: 400, height: 400 };
-const rectTopRight = {
-  x: rectTopLeft.x + rectDimensions.width,
-  y: rectTopLeft.y,
-};
-const rectBottomRight = {
-  x: rectTopLeft.x + rectDimensions.width,
-  y: rectTopLeft.y + rectDimensions.height,
-};
-const rectBottomLeft = {
-  x: rectTopLeft.x,
-  y: rectTopLeft.y + rectDimensions.height,
-};
-
+const rectangle = new Rectangle();
 const ball = {
-  x: rectTopLeft.x + rectDimensions.width / 2,
-  y: rectTopLeft.y + rectDimensions.height / 2,
+  x: rectangle.topLeft.x + rectangle.width / 2,
+  y: rectangle.topLeft.y + rectangle.height / 2,
   radius: 20,
 };
 const ballDirection = { x: Math.random(), y: Math.random() };
@@ -29,8 +14,8 @@ const ballSpeed = 1;
 const lineLength = 200;
 const lineSpeed = 0.5;
 const lineStartPoint = {
-  x: rectTopLeft.x,
-  y: rectTopLeft.y,
+  x: rectangle.topLeft.x,
+  y: rectangle.topLeft.y,
 };
 
 function rerender() {
@@ -53,10 +38,10 @@ setInterval(() => {
 function drawRectangle() {
   ctx.strokeStyle = "white";
   ctx.strokeRect(
-    rectTopLeft.x,
-    rectTopLeft.y,
-    rectDimensions.width,
-    rectDimensions.height,
+    rectangle.topLeft.x,
+    rectangle.topLeft.y,
+    rectangle.width,
+    rectangle.height,
   );
 }
 
@@ -72,10 +57,10 @@ function moveBall() {
   ball.x += (ballDirection.x / magnitude) * ballSpeed;
   ball.y += (ballDirection.y / magnitude) * ballSpeed;
 
-  const hitRightWall = ball.x + ball.radius > rectTopRight.x;
-  const hitLeftWall = ball.x - ball.radius < rectTopLeft.x;
-  const hitBottomWall = ball.y + ball.radius > rectBottomLeft.y;
-  const hitTopWall = ball.y - ball.radius < rectTopLeft.y;
+  const hitRightWall = ball.x + ball.radius > rectangle.topRight.x;
+  const hitLeftWall = ball.x - ball.radius < rectangle.topLeft.x;
+  const hitBottomWall = ball.y + ball.radius > rectangle.bottomLeft.y;
+  const hitTopWall = ball.y - ball.radius < rectangle.topLeft.y;
 
   if (hitRightWall) {
     ballDirection.x = -1;
@@ -92,73 +77,83 @@ function moveBall() {
 
 function drawLine() {
   const isOnTopEdge =
-    lineStartPoint.x < rectTopRight.x && lineStartPoint.y === rectTopLeft.y;
+    lineStartPoint.x < rectangle.topRight.x &&
+    lineStartPoint.y === rectangle.topLeft.y;
   const isOnRightEdge =
-    lineStartPoint.x === rectTopRight.x && lineStartPoint.y < rectBottomRight.y;
+    lineStartPoint.x === rectangle.topRight.x &&
+    lineStartPoint.y < rectangle.bottomRight.y;
   const isOnBottomEdge =
-    lineStartPoint.y === rectBottomRight.y &&
-    lineStartPoint.x > rectBottomLeft.x;
-  const isOnLeftEdge = lineStartPoint.x === rectTopLeft.x && lineStartPoint.y > rectTopLeft.y;
+    lineStartPoint.y === rectangle.bottomRight.y &&
+    lineStartPoint.x > rectangle.bottomLeft.x;
+  const isOnLeftEdge =
+    lineStartPoint.x === rectangle.topLeft.x &&
+    lineStartPoint.y > rectangle.topLeft.y;
 
   ctx.strokeStyle = "red";
   ctx.beginPath();
   ctx.moveTo(lineStartPoint.x, lineStartPoint.y);
   if (isOnTopEdge) {
     ctx.lineTo(
-      Math.min(lineStartPoint.x + lineLength, rectTopRight.x),
+      Math.min(lineStartPoint.x + lineLength, rectangle.topRight.x),
       lineStartPoint.y,
     );
-    if (lineStartPoint.x + lineLength > rectTopRight.x) {
+    if (lineStartPoint.x + lineLength > rectangle.topRight.x) {
       ctx.lineTo(
-        rectTopRight.x,
+        rectangle.topRight.x,
         Math.min(
-          lineStartPoint.y + lineLength - (rectTopRight.x - lineStartPoint.x),
-          rectBottomRight.y,
+          lineStartPoint.y +
+            lineLength -
+            (rectangle.topRight.x - lineStartPoint.x),
+          rectangle.bottomRight.y,
         ),
       );
     }
   } else if (isOnRightEdge) {
     ctx.lineTo(
       lineStartPoint.x,
-      Math.min(lineStartPoint.y + lineLength, rectBottomRight.y),
+      Math.min(lineStartPoint.y + lineLength, rectangle.bottomRight.y),
     );
-    if (lineStartPoint.y + lineLength > rectBottomRight.y) {
+    if (lineStartPoint.y + lineLength > rectangle.bottomRight.y) {
       ctx.lineTo(
         Math.max(
           lineStartPoint.x -
             lineLength +
-            (rectBottomRight.y - lineStartPoint.y),
-          rectTopLeft.x,
+            (rectangle.bottomRight.y - lineStartPoint.y),
+          rectangle.topLeft.x,
         ),
-        rectBottomRight.y,
+        rectangle.bottomRight.y,
       );
     }
   } else if (isOnBottomEdge) {
     ctx.lineTo(
-      Math.max(lineStartPoint.x - lineLength, rectBottomLeft.x),
+      Math.max(lineStartPoint.x - lineLength, rectangle.bottomLeft.x),
       lineStartPoint.y,
     );
-    if (lineStartPoint.x - lineLength < rectBottomLeft.x) {
+    if (lineStartPoint.x - lineLength < rectangle.bottomLeft.x) {
       ctx.lineTo(
-        rectBottomLeft.x,
+        rectangle.bottomLeft.x,
         Math.max(
-          lineStartPoint.y - lineLength + (lineStartPoint.x - rectBottomLeft.x),
-          rectTopLeft.y,
+          lineStartPoint.y -
+            lineLength +
+            (lineStartPoint.x - rectangle.bottomLeft.x),
+          rectangle.topLeft.y,
         ),
       );
     }
   } else if (isOnLeftEdge) {
     ctx.lineTo(
       lineStartPoint.x,
-      Math.max(lineStartPoint.y - lineLength, rectTopLeft.y),
+      Math.max(lineStartPoint.y - lineLength, rectangle.topLeft.y),
     );
-    if (lineStartPoint.y - lineLength < rectTopLeft.y) {
+    if (lineStartPoint.y - lineLength < rectangle.topLeft.y) {
       ctx.lineTo(
         Math.min(
-          lineStartPoint.x + lineLength - (lineStartPoint.y - rectTopLeft.y),
-          rectTopRight.x,
+          lineStartPoint.x +
+            lineLength -
+            (lineStartPoint.y - rectangle.topLeft.y),
+          rectangle.topRight.x,
         ),
-        rectTopLeft.y,
+        rectangle.topLeft.y,
       );
     }
   }
@@ -168,13 +163,17 @@ function drawLine() {
 
 function moveLine() {
   const isOnTopEdge =
-    lineStartPoint.x < rectTopRight.x && lineStartPoint.y === rectTopLeft.y;
+    lineStartPoint.x < rectangle.topRight.x &&
+    lineStartPoint.y === rectangle.topLeft.y;
   const isOnRightEdge =
-    lineStartPoint.x === rectTopRight.x && lineStartPoint.y < rectBottomRight.y;
+    lineStartPoint.x === rectangle.topRight.x &&
+    lineStartPoint.y < rectangle.bottomRight.y;
   const isOnBottomEdge =
-    lineStartPoint.y === rectBottomRight.y &&
-    lineStartPoint.x > rectBottomLeft.x;
-  const isOnLeftEdge = lineStartPoint.x === rectTopLeft.x && lineStartPoint.y > rectTopLeft.y;
+    lineStartPoint.y === rectangle.bottomRight.y &&
+    lineStartPoint.x > rectangle.bottomLeft.x;
+  const isOnLeftEdge =
+    lineStartPoint.x === rectangle.topLeft.x &&
+    lineStartPoint.y > rectangle.topLeft.y;
 
   if (isOnTopEdge) {
     lineStartPoint.x += lineSpeed;
