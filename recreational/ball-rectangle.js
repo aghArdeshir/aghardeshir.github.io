@@ -4,23 +4,23 @@ const rectTopLeft = {
   x: 100,
   y: 100,
 };
-const rect = { x: rectTopLeft.x, y: rectTopLeft.y, width: 400, height: 400 };
+const rectDimensions = { width: 400, height: 400 };
 const rectTopRight = {
-  x: rectTopLeft.x + rect.width,
+  x: rectTopLeft.x + rectDimensions.width,
   y: rectTopLeft.y,
 };
 const rectBottomRight = {
-  x: rectTopLeft.x + rect.width,
-  y: rectTopLeft.y + rect.height,
+  x: rectTopLeft.x + rectDimensions.width,
+  y: rectTopLeft.y + rectDimensions.height,
 };
 const rectBottomLeft = {
   x: rectTopLeft.x,
-  y: rectTopLeft.y + rect.height,
+  y: rectTopLeft.y + rectDimensions.height,
 };
 
 const ball = {
-  x: rectTopLeft.x + rect.width / 2,
-  y: rectTopLeft.y + rect.height / 2,
+  x: rectTopLeft.x + rectDimensions.width / 2,
+  y: rectTopLeft.y + rectDimensions.height / 2,
   radius: 20,
 };
 const ballDirection = { x: Math.random(), y: Math.random() };
@@ -52,7 +52,12 @@ setInterval(() => {
 
 function drawRectangle() {
   ctx.strokeStyle = "white";
-  ctx.strokeRect(rectTopLeft.x, rectTopLeft.y, rect.width, rect.height);
+  ctx.strokeRect(
+    rectTopLeft.x,
+    rectTopLeft.y,
+    rectDimensions.width,
+    rectDimensions.height,
+  );
 }
 
 function drawBall() {
@@ -93,7 +98,7 @@ function drawLine() {
   const isOnBottomEdge =
     lineStartPoint.y === rectBottomRight.y &&
     lineStartPoint.x > rectBottomLeft.x;
-  const isOnLeftEdge = lineStartPoint.x === rect.x && lineStartPoint.y > rect.y;
+  const isOnLeftEdge = lineStartPoint.x === rectTopLeft.x && lineStartPoint.y > rectTopLeft.y;
 
   ctx.strokeStyle = "red";
   ctx.beginPath();
@@ -169,7 +174,7 @@ function moveLine() {
   const isOnBottomEdge =
     lineStartPoint.y === rectBottomRight.y &&
     lineStartPoint.x > rectBottomLeft.x;
-  const isOnLeftEdge = lineStartPoint.x === rect.x && lineStartPoint.y > rect.y;
+  const isOnLeftEdge = lineStartPoint.x === rectTopLeft.x && lineStartPoint.y > rectTopLeft.y;
 
   if (isOnTopEdge) {
     lineStartPoint.x += lineSpeed;
