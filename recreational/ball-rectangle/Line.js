@@ -1,6 +1,6 @@
 export class Line {
   length = 200;
-  speed = 0.5;
+  speed = 0.1;
 
   constructor(rectangle) {
     if (!rectangle) throw new Error("Rectangle is required to initialize Line");

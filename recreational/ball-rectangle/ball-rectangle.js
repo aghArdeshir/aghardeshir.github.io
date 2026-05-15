@@ -21,6 +21,7 @@ function rerender(currentTime) {
   lastTime = currentTime;
 
   moveBall(deltaTime);
+  moveLine(deltaTime);
 
   rectangle.draw(ctx);
   line.draw(ctx);
@@ -30,10 +31,6 @@ function rerender(currentTime) {
 }
 
 requestAnimationFrame(rerender);
-
-setInterval(() => {
-  moveLine();
-}, 1);
 
 function moveBall(deltaTime) {
   const magnitude = Math.sqrt(ball.direction.x ** 2 + ball.direction.y ** 2);
@@ -58,7 +55,7 @@ function moveBall(deltaTime) {
   }
 }
 
-function moveLine() {
+function moveLine(deltaTime) {
   const isOnTopEdge =
     line.startPoint.x < rectangle.topRight.x &&
     line.startPoint.y === rectangle.topLeft.y;
@@ -73,12 +70,18 @@ function moveLine() {
     line.startPoint.y > rectangle.topLeft.y;
 
   if (isOnTopEdge) {
-    line.startPoint.x += line.speed;
+    line.startPoint.x += line.speed * deltaTime;
+    line.startPoint.x = Math.min(line.startPoint.x, rectangle.topRight.x);
   } else if (isOnRightEdge) {
-    line.startPoint.y += line.speed;
+    line.startPoint.y += line.speed * deltaTime;
+    line.startPoint.y = Math.min(line.startPoint.y, rectangle.bottomRight.y);
   } else if (isOnBottomEdge) {
-    line.startPoint.x -= line.speed;
+    line.startPoint.x -= line.speed * deltaTime;
+    line.startPoint.x = Math.max(line.startPoint.x, rectangle.bottomLeft.x);
   } else if (isOnLeftEdge) {
-    line.startPoint.y -= line.speed;
+    line.startPoint.y -= line.speed * deltaTime;
+    line.startPoint.y = Math.max(line.startPoint.y, rectangle.topLeft.y);
+  } else {
+    throw new Error("Line is not on any edge of the rectangle");
   }
 }
