@@ -97,4 +97,44 @@ export class Line {
 
     ctx.stroke();
   }
+
+  move({ deltaTime }) {
+    const isOnTopEdge =
+      this.startPoint.x < this.rectangle.topRight.x &&
+      this.startPoint.y === this.rectangle.topLeft.y;
+    const isOnRightEdge =
+      this.startPoint.x === this.rectangle.topRight.x &&
+      this.startPoint.y < this.rectangle.bottomRight.y;
+    const isOnBottomEdge =
+      this.startPoint.y === this.rectangle.bottomRight.y &&
+      this.startPoint.x > this.rectangle.bottomLeft.x;
+    const isOnLeftEdge =
+      this.startPoint.x === this.rectangle.topLeft.x &&
+      this.startPoint.y > this.rectangle.topLeft.y;
+
+    if (isOnTopEdge) {
+      this.startPoint.x += this.speed * deltaTime;
+      this.startPoint.x = Math.min(
+        this.startPoint.x,
+        this.rectangle.topRight.x,
+      );
+    } else if (isOnRightEdge) {
+      this.startPoint.y += this.speed * deltaTime;
+      this.startPoint.y = Math.min(
+        this.startPoint.y,
+        this.rectangle.bottomRight.y,
+      );
+    } else if (isOnBottomEdge) {
+      this.startPoint.x -= this.speed * deltaTime;
+      this.startPoint.x = Math.max(
+        this.startPoint.x,
+        this.rectangle.bottomLeft.x,
+      );
+    } else if (isOnLeftEdge) {
+      this.startPoint.y -= this.speed * deltaTime;
+      this.startPoint.y = Math.max(this.startPoint.y, this.rectangle.topLeft.y);
+    } else {
+      throw new Error("Line is not on any edge of the rectangle");
+    }
+  }
 }

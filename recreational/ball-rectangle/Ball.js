@@ -14,4 +14,27 @@ export class Ball {
     ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
     ctx.fill();
   }
+
+  move({ deltaTime, rectangle }) {
+    const magnitude = Math.sqrt(this.direction.x ** 2 + this.direction.y ** 2);
+    this.x += (this.direction.x / magnitude) * this.speed * deltaTime;
+    this.y += (this.direction.y / magnitude) * this.speed * deltaTime;
+
+    const hitRightWall = this.x + this.radius > rectangle.topRight.x;
+    const hitLeftWall = this.x - this.radius < rectangle.topLeft.x;
+    const hitBottomWall = this.y + this.radius > rectangle.bottomLeft.y;
+    const hitTopWall = this.y - this.radius < rectangle.topLeft.y;
+
+    if (hitRightWall) {
+      this.direction.x = -1;
+    } else if (hitLeftWall) {
+      this.direction.x = 1;
+    }
+
+    if (hitBottomWall) {
+      this.direction.y = -1;
+    } else if (hitTopWall) {
+      this.direction.y = 1;
+    }
+  }
 }
