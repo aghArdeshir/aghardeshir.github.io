@@ -13,8 +13,14 @@ const ball = new Ball({
 });
 const line = new Line(rectangle);
 
-function rerender() {
+let lastTime = 0;
+function rerender(currentTime) {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+
+  const deltaTime = currentTime - lastTime;
+  lastTime = currentTime;
+
+  moveBall(deltaTime);
 
   rectangle.draw(ctx);
   line.draw(ctx);
@@ -26,14 +32,13 @@ function rerender() {
 requestAnimationFrame(rerender);
 
 setInterval(() => {
-  moveBall();
   moveLine();
 }, 1);
 
-function moveBall() {
+function moveBall(deltaTime) {
   const magnitude = Math.sqrt(ball.direction.x ** 2 + ball.direction.y ** 2);
-  ball.x += (ball.direction.x / magnitude) * ball.speed;
-  ball.y += (ball.direction.y / magnitude) * ball.speed;
+  ball.x += (ball.direction.x / magnitude) * ball.speed * deltaTime;
+  ball.y += (ball.direction.y / magnitude) * ball.speed * deltaTime;
 
   const hitRightWall = ball.x + ball.radius > rectangle.topRight.x;
   const hitLeftWall = ball.x - ball.radius < rectangle.topLeft.x;

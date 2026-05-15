@@ -1,7 +1,7 @@
 export class Ball {
   radius = 20;
   direction = { x: Math.random(), y: Math.random() };
-  speed = 1;
+  speed = 0.4;
 
   constructor({ centerPoint }) {
     this.x = centerPoint.x;
