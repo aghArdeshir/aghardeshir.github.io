@@ -27,26 +27,18 @@ export class Ball {
     const hitTopWall = this.y - this.radius <= rectangle.topLeft.y;
 
     if (hitRightWall) {
-      this.direction.x = -1;
-    } else if (hitLeftWall) {
-      this.direction.x = 1;
-    }
-
-    if (hitBottomWall) {
-      this.direction.y = -1;
-    } else if (hitTopWall) {
-      this.direction.y = 1;
-    }
-
-    if (hitRightWall) {
+      this.direction.x *= -1;
       this.x = Math.min(rectangle.topRight.x - this.radius - 1, this.x);
     } else if (hitLeftWall) {
+      this.direction.x *= -1;
       this.x = Math.max(rectangle.topLeft.x + this.radius + 1, this.x);
     }
 
     if (hitBottomWall) {
+      this.direction.y *= -1;
       this.y = Math.min(rectangle.bottomLeft.y - this.radius - 1, this.y);
     } else if (hitTopWall) {
+      this.direction.y *= -1;
       this.y = Math.max(rectangle.topLeft.y + this.radius + 1, this.y);
     }
   }
