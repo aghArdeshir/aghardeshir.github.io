@@ -2,20 +2,37 @@ import { Rectangle } from "./Rectangle.js";
 import { Ball } from "./Ball.js";
 import { Line } from "./Line.js";
 
-const ctx = document.querySelector("canvas").getContext("2d");
+const firstLayerCanvas = document.createElement("canvas");
+firstLayerCanvas.width = 600;
+firstLayerCanvas.height = 600;
+firstLayerCanvas.style.position = "absolute";
+document.body.appendChild(firstLayerCanvas);
+const firstLayerCtx = firstLayerCanvas.getContext("2d");
+
+const secondLayerCanvas = document.createElement("canvas");
+secondLayerCanvas.width = 600;
+secondLayerCanvas.height = 600;
+secondLayerCanvas.style.position = "absolute";
+document.body.appendChild(secondLayerCanvas);
+const secondLayerCtx = secondLayerCanvas.getContext("2d");
 
 const rectangle = new Rectangle();
+const line = new Line(rectangle);
 const ball = new Ball({
   centerPoint: {
     x: rectangle.topLeft.x + rectangle.width / 2,
     y: rectangle.topLeft.y + rectangle.height / 2,
   },
 });
-const line = new Line(rectangle);
 
 let lastTime = 0;
 function rerender(currentTime) {
-  ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+  firstLayerCtx.clearRect(
+    0,
+    0,
+    firstLayerCtx.canvas.width,
+    firstLayerCtx.canvas.height,
+  );
 
   const deltaTime = currentTime - lastTime;
   lastTime = currentTime;
@@ -23,13 +40,15 @@ function rerender(currentTime) {
   moveBall(deltaTime);
   moveLine(deltaTime);
 
-  rectangle.draw(ctx);
-  line.draw(ctx);
-  ball.draw(ctx);
+  line.draw(firstLayerCtx);
+  ball.draw(firstLayerCtx);
 
   requestAnimationFrame(rerender);
 }
 
+requestAnimationFrame(() => {
+  rectangle.draw(secondLayerCtx);
+});
 requestAnimationFrame(rerender);
 
 function moveBall(deltaTime) {
