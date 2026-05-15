@@ -1,15 +1,15 @@
 import { Rectangle } from "./rectangle.js";
+import { Ball } from "./ball.js";
 
 const ctx = document.querySelector("canvas").getContext("2d");
 
 const rectangle = new Rectangle();
-const ball = {
-  x: rectangle.topLeft.x + rectangle.width / 2,
-  y: rectangle.topLeft.y + rectangle.height / 2,
-  radius: 20,
-};
-const ballDirection = { x: Math.random(), y: Math.random() };
-const ballSpeed = 1;
+const ball = new Ball({
+  centerPoint: {
+    x: rectangle.topLeft.x + rectangle.width / 2,
+    y: rectangle.topLeft.y + rectangle.height / 2,
+  },
+});
 
 const lineLength = 200;
 const lineSpeed = 0.5;
@@ -53,9 +53,9 @@ function drawBall() {
 }
 
 function moveBall() {
-  const magnitude = Math.sqrt(ballDirection.x ** 2 + ballDirection.y ** 2);
-  ball.x += (ballDirection.x / magnitude) * ballSpeed;
-  ball.y += (ballDirection.y / magnitude) * ballSpeed;
+  const magnitude = Math.sqrt(ball.direction.x ** 2 + ball.direction.y ** 2);
+  ball.x += (ball.direction.x / magnitude) * ball.speed;
+  ball.y += (ball.direction.y / magnitude) * ball.speed;
 
   const hitRightWall = ball.x + ball.radius > rectangle.topRight.x;
   const hitLeftWall = ball.x - ball.radius < rectangle.topLeft.x;
@@ -63,15 +63,15 @@ function moveBall() {
   const hitTopWall = ball.y - ball.radius < rectangle.topLeft.y;
 
   if (hitRightWall) {
-    ballDirection.x = -1;
+    ball.direction.x = -1;
   } else if (hitLeftWall) {
-    ballDirection.x = 1;
+    ball.direction.x = 1;
   }
 
   if (hitBottomWall) {
-    ballDirection.y = -1;
+    ball.direction.y = -1;
   } else if (hitTopWall) {
-    ballDirection.y = 1;
+    ball.direction.y = 1;
   }
 }
 
