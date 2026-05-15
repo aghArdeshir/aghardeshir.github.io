@@ -17,4 +17,9 @@ export class Rectangle {
     x: this.topLeft.x,
     y: this.topLeft.y + this.height,
   };
+
+  draw(ctx) {
+    ctx.strokeStyle = "white";
+    ctx.strokeRect(this.topLeft.x, this.topLeft.y, this.width, this.height);
+  }
 }
