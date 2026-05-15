@@ -1,14 +1,10 @@
 const ctx = document.querySelector("canvas").getContext("2d");
 
-const rect = { x: 100, y: 100, width: 400, height: 400 };
-const ball = {
-  x: rect.x + rect.width / 2,
-  y: rect.y + rect.height / 2,
-  radius: 20,
+const rectTopLeft = {
+  x: 100,
+  y: 100,
 };
-const direction = { x: Math.random(), y: Math.random() };
-const ballSpeed = 1;
-
+const rect = { x: rectTopLeft.x, y: rectTopLeft.y, width: 400, height: 400 };
 const rectTopRight = {
   x: rect.x + rect.width,
   y: rect.y,
@@ -17,10 +13,25 @@ const rectBottomRight = {
   x: rect.x + rect.width,
   y: rect.y + rect.height,
 };
+const rectBottomLeft = {
+  x: rect.x,
+  y: rect.y + rect.height,
+};
+
+const ball = {
+  x: rect.x + rect.width / 2,
+  y: rect.y + rect.height / 2,
+  radius: 20,
+};
+const direction = { x: Math.random(), y: Math.random() };
+const ballSpeed = 1;
 
 const lineLength = 200;
 const lineSpeed = 0.5;
-let lineStart = rect.x;
+const lineStartPoint = {
+  x: rect.x,
+  y: rect.y,
+};
 
 function rerender() {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
@@ -72,37 +83,25 @@ function drawLine(ctx) {
   ctx.strokeStyle = "red";
   ctx.beginPath();
 
-  const shouldBeHorizontal = lineStart < rectTopRight.x;
-  if (shouldBeHorizontal) {
-    ctx.moveTo(lineStart, rect.y);
-    const horizontalLineLength = Math.min(
-      lineLength,
-      rectTopRight.x - lineStart,
-    );
-    ctx.lineTo(lineStart + horizontalLineLength, rect.y);
-  }
-
-  const shouldBeVertical = lineStart + lineLength >= rectTopRight.x;
-  if (shouldBeVertical) {
-    const horizontalLineLength = Math.min(
-      lineLength,
-      rectTopRight.x - lineStart,
-    );
-    const verticalLineLength = lineLength - horizontalLineLength;
-    ctx.moveTo(
-      rectTopRight.x,
-      Math.max(rect.y, rectTopRight.y + verticalLineLength - lineLength),
-    );
-    ctx.lineTo(rectTopRight.x, rect.y + verticalLineLength);
-  }
+  ctx.arc(lineStartPoint.x, lineStartPoint.y, 5, 0, Math.PI * 2);
 
   ctx.stroke();
 }
 
 function moveLine() {
-  lineStart += lineSpeed;
+  if (lineStartPoint.x < rectTopRight.x && lineStartPoint.y === rect.y) {
+    lineStartPoint.x += lineSpeed;
+  } else if (
+    lineStartPoint.x === rectTopRight.x &&
+    lineStartPoint.y < rectBottomRight.y
+  ) {
+    lineStartPoint.y += lineSpeed;
+  } else if (
+    lineStartPoint.y === rectBottomRight.y &&
+    lineStartPoint.x > rectBottomLeft.x
+  ) {
+    lineStartPoint.x -= lineSpeed;
+  } else if (lineStartPoint.x === rect.x && lineStartPoint.y > rect.y) {
+    lineStartPoint.y -= lineSpeed;
+  }
 }
-
-setInterval(() => {
-  window.location.reload();
-}, 10000);
