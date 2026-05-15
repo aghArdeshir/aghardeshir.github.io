@@ -15,9 +15,14 @@ const ball = new Ball({
   },
 });
 
+requestAnimationFrame(function rerenderFirstLayer() {
+  firstLayerCanvas.clear();
+  rectangle.draw(firstLayerCanvas.getContext());
+});
+
 let lastTime = 0;
 function rerenderSecondLayer(currentTime) {
-  firstLayerCanvas.clear();
+  secondLayerCanvas.clear();
 
   const deltaTime = currentTime - lastTime;
   lastTime = currentTime;
@@ -25,14 +30,9 @@ function rerenderSecondLayer(currentTime) {
   ball.move({ deltaTime, rectangle });
   line.move({ deltaTime });
 
-  line.draw(firstLayerCanvas.getContext());
-  ball.draw(firstLayerCanvas.getContext());
+  line.draw(secondLayerCanvas.getContext());
+  ball.draw(secondLayerCanvas.getContext());
 
   requestAnimationFrame(rerenderSecondLayer);
 }
 requestAnimationFrame(rerenderSecondLayer);
-
-requestAnimationFrame(function rerenderFirstLayer() {
-  secondLayerCanvas.clear();
-  rectangle.draw(secondLayerCanvas.getContext());
-});

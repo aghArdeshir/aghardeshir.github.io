@@ -26,7 +26,7 @@ export class Line {
       this.startPoint.y > this.rectangle.topLeft.y;
 
     ctx.strokeStyle = "red";
-    ctx.lineWidth = 5;
+    ctx.lineWidth = 3;
     ctx.beginPath();
     ctx.moveTo(this.startPoint.x, this.startPoint.y);
     if (isOnTopEdge) {
