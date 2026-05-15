@@ -6,45 +6,39 @@ const rectTopLeft = {
 };
 const rect = { x: rectTopLeft.x, y: rectTopLeft.y, width: 400, height: 400 };
 const rectTopRight = {
-  x: rect.x + rect.width,
-  y: rect.y,
+  x: rectTopLeft.x + rect.width,
+  y: rectTopLeft.y,
 };
 const rectBottomRight = {
-  x: rect.x + rect.width,
-  y: rect.y + rect.height,
+  x: rectTopLeft.x + rect.width,
+  y: rectTopLeft.y + rect.height,
 };
 const rectBottomLeft = {
-  x: rect.x,
-  y: rect.y + rect.height,
+  x: rectTopLeft.x,
+  y: rectTopLeft.y + rect.height,
 };
 
 const ball = {
-  x: rect.x + rect.width / 2,
-  y: rect.y + rect.height / 2,
+  x: rectTopLeft.x + rect.width / 2,
+  y: rectTopLeft.y + rect.height / 2,
   radius: 20,
 };
-const direction = { x: Math.random(), y: Math.random() };
+const ballDirection = { x: Math.random(), y: Math.random() };
 const ballSpeed = 1;
 
 const lineLength = 200;
 const lineSpeed = 0.5;
 const lineStartPoint = {
-  x: rect.x,
-  y: rect.y,
+  x: rectTopLeft.x,
+  y: rectTopLeft.y,
 };
 
 function rerender() {
   ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
-  ctx.strokeStyle = "white";
-  ctx.strokeRect(rect.x, rect.y, rect.width, rect.height);
-
-  drawLine(ctx);
-
-  ctx.fillStyle = "green";
-  ctx.beginPath();
-  ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
-  ctx.fill();
+  drawRectangle();
+  drawLine();
+  drawBall();
 
   requestAnimationFrame(rerender);
 }
@@ -56,30 +50,42 @@ setInterval(() => {
   moveLine();
 }, 1);
 
-function moveBall() {
-  const magnitude = Math.sqrt(direction.x ** 2 + direction.y ** 2);
-  ball.x += (direction.x / magnitude) * ballSpeed;
-  ball.y += (direction.y / magnitude) * ballSpeed;
+function drawRectangle() {
+  ctx.strokeStyle = "white";
+  ctx.strokeRect(rectTopLeft.x, rectTopLeft.y, rect.width, rect.height);
+}
 
-  const hitRightWall = ball.x + ball.radius > rect.x + rect.width;
-  const hitLeftWall = ball.x - ball.radius < rect.x;
-  const hitBottomWall = ball.y + ball.radius > rect.y + rect.height;
-  const hitTopWall = ball.y - ball.radius < rect.y;
+function drawBall() {
+  ctx.fillStyle = "green";
+  ctx.beginPath();
+  ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+function moveBall() {
+  const magnitude = Math.sqrt(ballDirection.x ** 2 + ballDirection.y ** 2);
+  ball.x += (ballDirection.x / magnitude) * ballSpeed;
+  ball.y += (ballDirection.y / magnitude) * ballSpeed;
+
+  const hitRightWall = ball.x + ball.radius > rectTopRight.x;
+  const hitLeftWall = ball.x - ball.radius < rectTopLeft.x;
+  const hitBottomWall = ball.y + ball.radius > rectBottomLeft.y;
+  const hitTopWall = ball.y - ball.radius < rectTopLeft.y;
 
   if (hitRightWall) {
-    direction.x = -1;
+    ballDirection.x = -1;
   } else if (hitLeftWall) {
-    direction.x = 1;
+    ballDirection.x = 1;
   }
 
   if (hitBottomWall) {
-    direction.y = -1;
+    ballDirection.y = -1;
   } else if (hitTopWall) {
-    direction.y = 1;
+    ballDirection.y = 1;
   }
 }
 
-function drawLine(ctx) {
+function drawLine() {
   ctx.strokeStyle = "red";
   ctx.beginPath();
 
