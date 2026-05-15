@@ -86,10 +86,77 @@ function moveBall() {
 }
 
 function drawLine() {
+  const isOnTopEdge =
+    lineStartPoint.x < rectTopRight.x && lineStartPoint.y === rectTopLeft.y;
+  const isOnRightEdge =
+    lineStartPoint.x === rectTopRight.x && lineStartPoint.y < rectBottomRight.y;
+  const isOnBottomEdge =
+    lineStartPoint.y === rectBottomRight.y &&
+    lineStartPoint.x > rectBottomLeft.x;
+  const isOnLeftEdge = lineStartPoint.x === rect.x && lineStartPoint.y > rect.y;
+
   ctx.strokeStyle = "red";
   ctx.beginPath();
-
-  ctx.arc(lineStartPoint.x, lineStartPoint.y, 5, 0, Math.PI * 2);
+  ctx.moveTo(lineStartPoint.x, lineStartPoint.y);
+  if (isOnTopEdge) {
+    ctx.lineTo(
+      Math.min(lineStartPoint.x + lineLength, rectTopRight.x),
+      lineStartPoint.y,
+    );
+    if (lineStartPoint.x + lineLength > rectTopRight.x) {
+      ctx.lineTo(
+        rectTopRight.x,
+        Math.min(
+          lineStartPoint.y + lineLength - (rectTopRight.x - lineStartPoint.x),
+          rectBottomRight.y,
+        ),
+      );
+    }
+  } else if (isOnRightEdge) {
+    ctx.lineTo(
+      lineStartPoint.x,
+      Math.min(lineStartPoint.y + lineLength, rectBottomRight.y),
+    );
+    if (lineStartPoint.y + lineLength > rectBottomRight.y) {
+      ctx.lineTo(
+        Math.max(
+          lineStartPoint.x -
+            lineLength +
+            (rectBottomRight.y - lineStartPoint.y),
+          rectTopLeft.x,
+        ),
+        rectBottomRight.y,
+      );
+    }
+  } else if (isOnBottomEdge) {
+    ctx.lineTo(
+      Math.max(lineStartPoint.x - lineLength, rectBottomLeft.x),
+      lineStartPoint.y,
+    );
+    if (lineStartPoint.x - lineLength < rectBottomLeft.x) {
+      ctx.lineTo(
+        rectBottomLeft.x,
+        Math.max(
+          lineStartPoint.y - lineLength + (lineStartPoint.x - rectBottomLeft.x),
+          rectTopLeft.y,
+        ),
+      );
+    }
+  } else if (isOnLeftEdge) {
+    ctx.lineTo(
+      lineStartPoint.x,
+      Math.max(lineStartPoint.y - lineLength, rectTopLeft.y),
+    );
+    if (lineStartPoint.y - lineLength < rectTopLeft.y) {
+      ctx.lineTo(
+        Math.min(
+          lineStartPoint.x + lineLength - (lineStartPoint.y - rectTopLeft.y),
+          rectTopRight.x,
+        ),
+        rectTopLeft.y,
+      );
+    }
+  }
 
   ctx.stroke();
 }
