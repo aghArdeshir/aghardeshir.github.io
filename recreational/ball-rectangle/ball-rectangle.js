@@ -16,7 +16,7 @@ const ball = new Ball({
 });
 
 let lastTime = 0;
-function rerender(currentTime) {
+function rerenderSecondLayer(currentTime) {
   firstLayerCanvas.clear();
 
   const deltaTime = currentTime - lastTime;
@@ -28,14 +28,14 @@ function rerender(currentTime) {
   line.draw(firstLayerCanvas.getContext());
   ball.draw(firstLayerCanvas.getContext());
 
-  requestAnimationFrame(rerender);
+  requestAnimationFrame(rerenderSecondLayer);
 }
+requestAnimationFrame(rerenderSecondLayer);
 
-requestAnimationFrame(() => {
+requestAnimationFrame(function rerenderFirstLayer() {
   secondLayerCanvas.clear();
   rectangle.draw(secondLayerCanvas.getContext());
 });
-requestAnimationFrame(rerender);
 
 function moveBall(deltaTime) {
   const magnitude = Math.sqrt(ball.direction.x ** 2 + ball.direction.y ** 2);
