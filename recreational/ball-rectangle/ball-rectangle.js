@@ -1,20 +1,10 @@
+import { Canvas } from "./Canvas.js";
 import { Rectangle } from "./Rectangle.js";
 import { Ball } from "./Ball.js";
 import { Line } from "./Line.js";
 
-const firstLayerCanvas = document.createElement("canvas");
-firstLayerCanvas.width = 600;
-firstLayerCanvas.height = 600;
-firstLayerCanvas.style.position = "absolute";
-document.body.appendChild(firstLayerCanvas);
-const firstLayerCtx = firstLayerCanvas.getContext("2d");
-
-const secondLayerCanvas = document.createElement("canvas");
-secondLayerCanvas.width = 600;
-secondLayerCanvas.height = 600;
-secondLayerCanvas.style.position = "absolute";
-document.body.appendChild(secondLayerCanvas);
-const secondLayerCtx = secondLayerCanvas.getContext("2d");
+const firstLayerCtx = new Canvas().getContext();
+const secondLayerCtx = new Canvas().getContext();
 
 const rectangle = new Rectangle();
 const line = new Line(rectangle);
