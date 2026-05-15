@@ -4,9 +4,7 @@ import { Ball } from "./Ball.js";
 import { Line } from "./Line.js";
 
 const firstLayerCanvas = new Canvas();
-const firstLayerCtx = firstLayerCanvas.getContext();
 const secondLayerCanvas = new Canvas();
-const secondLayerCtx = secondLayerCanvas.getContext();
 
 const rectangle = new Rectangle();
 const line = new Line(rectangle);
@@ -27,15 +25,15 @@ function rerender(currentTime) {
   moveBall(deltaTime);
   moveLine(deltaTime);
 
-  line.draw(firstLayerCtx);
-  ball.draw(firstLayerCtx);
+  line.draw(firstLayerCanvas.getContext());
+  ball.draw(firstLayerCanvas.getContext());
 
   requestAnimationFrame(rerender);
 }
 
 requestAnimationFrame(() => {
   secondLayerCanvas.clear();
-  rectangle.draw(secondLayerCtx);
+  rectangle.draw(secondLayerCanvas.getContext());
 });
 requestAnimationFrame(rerender);
 

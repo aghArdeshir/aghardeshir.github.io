@@ -1,11 +1,14 @@
 export class Canvas {
-  getContext() {
+  constructor() {
     const canvas = document.createElement("canvas");
     canvas.width = 600;
     canvas.height = 600;
     canvas.style.position = "absolute";
     document.body.appendChild(canvas);
     this.ctx = canvas.getContext("2d");
+  }
+
+  getContext() {
     return this.ctx;
   }
 
