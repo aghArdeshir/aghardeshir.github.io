@@ -3,8 +3,10 @@ import { Rectangle } from "./Rectangle.js";
 import { Ball } from "./Ball.js";
 import { Line } from "./Line.js";
 
-const firstLayerCtx = new Canvas().getContext();
-const secondLayerCtx = new Canvas().getContext();
+const firstLayerCanvas = new Canvas();
+const firstLayerCtx = firstLayerCanvas.getContext();
+const secondLayerCanvas = new Canvas();
+const secondLayerCtx = secondLayerCanvas.getContext();
 
 const rectangle = new Rectangle();
 const line = new Line(rectangle);
@@ -17,12 +19,7 @@ const ball = new Ball({
 
 let lastTime = 0;
 function rerender(currentTime) {
-  firstLayerCtx.clearRect(
-    0,
-    0,
-    firstLayerCtx.canvas.width,
-    firstLayerCtx.canvas.height,
-  );
+  firstLayerCanvas.clear();
 
   const deltaTime = currentTime - lastTime;
   lastTime = currentTime;
@@ -37,6 +34,7 @@ function rerender(currentTime) {
 }
 
 requestAnimationFrame(() => {
+  secondLayerCanvas.clear();
   rectangle.draw(secondLayerCtx);
 });
 requestAnimationFrame(rerender);

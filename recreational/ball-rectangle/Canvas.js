@@ -5,7 +5,11 @@ export class Canvas {
     canvas.height = 600;
     canvas.style.position = "absolute";
     document.body.appendChild(canvas);
-    const ctx = canvas.getContext("2d");
-    return ctx;
+    this.ctx = canvas.getContext("2d");
+    return this.ctx;
+  }
+
+  clear() {
+    this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
   }
 }
