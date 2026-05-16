@@ -1,4 +1,5 @@
 import { Canvas } from "./Canvas.js";
+import { Grid } from "./Grid.js";
 import { Rectangle } from "./Rectangle.js";
 import { Ball } from "./Ball.js";
 import { Line } from "./Line.js";
@@ -18,6 +19,7 @@ const ball = new Ball({
 requestAnimationFrame(function renderFirstLayer() {
   firstLayerCanvas.clear();
   rectangle.draw(firstLayerCanvas.getContext());
+  new Grid().draw(firstLayerCanvas.getContext());
 });
 
 let lastTime = 0;

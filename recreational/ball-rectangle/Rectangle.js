@@ -2,8 +2,8 @@ export class Rectangle {
   width = 400;
   height = 400;
   topLeft = {
-    x: 50,
-    y: 50,
+    x: 40,
+    y: 40,
   };
   topRight = {
     x: this.topLeft.x + this.width,
