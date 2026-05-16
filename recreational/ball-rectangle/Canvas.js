@@ -4,8 +4,9 @@ export class Canvas {
     this.canvas.width = 600;
     this.canvas.height = 600;
     this.canvas.style.position = "absolute";
-    document.body.appendChild(this.canvas);
     this.ctx = this.canvas.getContext("2d");
+
+    document.body.appendChild(this.canvas);
   }
 
   getContext() {
