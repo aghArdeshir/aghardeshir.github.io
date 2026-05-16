@@ -47,6 +47,8 @@ function rerenderSecondLayer(currentTime) {
 }
 requestAnimationFrame(rerenderSecondLayer);
 
-setTimeout(() => {
-  window.location.reload();
-}, 20000);
+setInterval(() => {
+  if (balls.length > 100) {
+    window.location.reload();
+  }
+}, 1000);
