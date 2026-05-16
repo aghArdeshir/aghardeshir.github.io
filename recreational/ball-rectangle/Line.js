@@ -44,26 +44,6 @@ export class Line {
         this.startPoint.x,
         this.rectangle.topRight.x,
       );
-    } else if (this.currentEdge === "right") {
-      this.startPoint.y += this.speed * deltaTime;
-      this.startPoint.y = Math.min(
-        this.startPoint.y,
-        this.rectangle.bottomRight.y,
-      );
-    } else if (this.currentEdge === "bottom") {
-      this.startPoint.x -= this.speed * deltaTime;
-      this.startPoint.x = Math.max(
-        this.startPoint.x,
-        this.rectangle.bottomLeft.x,
-      );
-    } else if (this.currentEdge === "left") {
-      this.startPoint.y -= this.speed * deltaTime;
-      this.startPoint.y = Math.max(this.startPoint.y, this.rectangle.topLeft.y);
-    } else {
-      throw new Error("Line is not on any edge of the rectangle");
-    }
-
-    if (this.currentEdge === "top") {
       this.lineSegments.push({
         x: Math.min(this.startPoint.x + this.length, this.rectangle.topRight.x),
         y: this.startPoint.y,
@@ -80,6 +60,11 @@ export class Line {
         });
       }
     } else if (this.currentEdge === "right") {
+      this.startPoint.y += this.speed * deltaTime;
+      this.startPoint.y = Math.min(
+        this.startPoint.y,
+        this.rectangle.bottomRight.y,
+      );
       this.lineSegments.push({
         x: this.startPoint.x,
         y: Math.min(
@@ -99,6 +84,11 @@ export class Line {
         });
       }
     } else if (this.currentEdge === "bottom") {
+      this.startPoint.x -= this.speed * deltaTime;
+      this.startPoint.x = Math.max(
+        this.startPoint.x,
+        this.rectangle.bottomLeft.x,
+      );
       this.lineSegments.push({
         x: Math.max(
           this.startPoint.x - this.length,
@@ -118,6 +108,8 @@ export class Line {
         });
       }
     } else if (this.currentEdge === "left") {
+      this.startPoint.y -= this.speed * deltaTime;
+      this.startPoint.y = Math.max(this.startPoint.y, this.rectangle.topLeft.y);
       this.lineSegments.push({
         x: this.startPoint.x,
         y: Math.max(this.startPoint.y - this.length, this.rectangle.topLeft.y),
@@ -133,6 +125,8 @@ export class Line {
           y: this.rectangle.topLeft.y,
         });
       }
+    } else {
+      throw new Error("Line is not on any edge of the rectangle");
     }
   }
 
