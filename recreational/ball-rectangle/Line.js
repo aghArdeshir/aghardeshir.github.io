@@ -1,7 +1,8 @@
 export class Line {
   length = 200;
-  speed = 0.1;
+  speed = 0.4;
   currentEdge = "top";
+  lineSegments = [];
 
   constructor(rectangle) {
     if (!rectangle) throw new Error("Rectangle is required to initialize Line");
@@ -13,6 +14,8 @@ export class Line {
   }
 
   move({ deltaTime }) {
+    this.lineSegments = [];
+
     if (
       this.startPoint.x < this.rectangle.topRight.x &&
       this.startPoint.y === this.rectangle.topLeft.y
@@ -58,6 +61,78 @@ export class Line {
     } else {
       throw new Error("Line is not on any edge of the rectangle");
     }
+
+    if (this.currentEdge === "top") {
+      this.lineSegments.push({
+        x: Math.min(this.startPoint.x + this.length, this.rectangle.topRight.x),
+        y: this.startPoint.y,
+      });
+      if (this.startPoint.x + this.length > this.rectangle.topRight.x) {
+        this.lineSegments.push({
+          x: this.rectangle.topRight.x,
+          y: Math.min(
+            this.startPoint.y +
+              this.length -
+              (this.rectangle.topRight.x - this.startPoint.x),
+            this.rectangle.bottomRight.y,
+          ),
+        });
+      }
+    } else if (this.currentEdge === "right") {
+      this.lineSegments.push({
+        x: this.startPoint.x,
+        y: Math.min(
+          this.startPoint.y + this.length,
+          this.rectangle.bottomRight.y,
+        ),
+      });
+      if (this.startPoint.y + this.length > this.rectangle.bottomRight.y) {
+        this.lineSegments.push({
+          x: Math.max(
+            this.startPoint.x -
+              this.length +
+              (this.rectangle.bottomRight.y - this.startPoint.y),
+            this.rectangle.topLeft.x,
+          ),
+          y: this.rectangle.bottomRight.y,
+        });
+      }
+    } else if (this.currentEdge === "bottom") {
+      this.lineSegments.push({
+        x: Math.max(
+          this.startPoint.x - this.length,
+          this.rectangle.bottomLeft.x,
+        ),
+        y: this.startPoint.y,
+      });
+      if (this.startPoint.x - this.length < this.rectangle.bottomLeft.x) {
+        this.lineSegments.push({
+          x: this.rectangle.bottomLeft.x,
+          y: Math.max(
+            this.startPoint.y -
+              this.length +
+              (this.startPoint.x - this.rectangle.bottomLeft.x),
+            this.rectangle.topLeft.y,
+          ),
+        });
+      }
+    } else if (this.currentEdge === "left") {
+      this.lineSegments.push({
+        x: this.startPoint.x,
+        y: Math.max(this.startPoint.y - this.length, this.rectangle.topLeft.y),
+      });
+      if (this.startPoint.y - this.length < this.rectangle.topLeft.y) {
+        this.lineSegments.push({
+          x: Math.min(
+            this.startPoint.x +
+              this.length -
+              (this.startPoint.y - this.rectangle.topLeft.y),
+            this.rectangle.topRight.x,
+          ),
+          y: this.rectangle.topLeft.y,
+        });
+      }
+    }
   }
 
   draw(ctx) {
@@ -66,70 +141,8 @@ export class Line {
     ctx.beginPath();
     ctx.moveTo(this.startPoint.x, this.startPoint.y);
 
-    if (this.currentEdge === "top") {
-      ctx.lineTo(
-        Math.min(this.startPoint.x + this.length, this.rectangle.topRight.x),
-        this.startPoint.y,
-      );
-      if (this.startPoint.x + this.length > this.rectangle.topRight.x) {
-        ctx.lineTo(
-          this.rectangle.topRight.x,
-          Math.min(
-            this.startPoint.y +
-              this.length -
-              (this.rectangle.topRight.x - this.startPoint.x),
-            this.rectangle.bottomRight.y,
-          ),
-        );
-      }
-    } else if (this.currentEdge === "right") {
-      ctx.lineTo(
-        this.startPoint.x,
-        Math.min(this.startPoint.y + this.length, this.rectangle.bottomRight.y),
-      );
-      if (this.startPoint.y + this.length > this.rectangle.bottomRight.y) {
-        ctx.lineTo(
-          Math.max(
-            this.startPoint.x -
-              this.length +
-              (this.rectangle.bottomRight.y - this.startPoint.y),
-            this.rectangle.topLeft.x,
-          ),
-          this.rectangle.bottomRight.y,
-        );
-      }
-    } else if (this.currentEdge === "bottom") {
-      ctx.lineTo(
-        Math.max(this.startPoint.x - this.length, this.rectangle.bottomLeft.x),
-        this.startPoint.y,
-      );
-      if (this.startPoint.x - this.length < this.rectangle.bottomLeft.x) {
-        ctx.lineTo(
-          this.rectangle.bottomLeft.x,
-          Math.max(
-            this.startPoint.y -
-              this.length +
-              (this.startPoint.x - this.rectangle.bottomLeft.x),
-            this.rectangle.topLeft.y,
-          ),
-        );
-      }
-    } else if (this.currentEdge === "left") {
-      ctx.lineTo(
-        this.startPoint.x,
-        Math.max(this.startPoint.y - this.length, this.rectangle.topLeft.y),
-      );
-      if (this.startPoint.y - this.length < this.rectangle.topLeft.y) {
-        ctx.lineTo(
-          Math.min(
-            this.startPoint.x +
-              this.length -
-              (this.startPoint.y - this.rectangle.topLeft.y),
-            this.rectangle.topRight.x,
-          ),
-          this.rectangle.topLeft.y,
-        );
-      }
+    for (const segment of this.lineSegments) {
+      ctx.lineTo(segment.x, segment.y);
     }
 
     ctx.stroke();
