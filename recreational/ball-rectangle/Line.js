@@ -3,7 +3,7 @@ export class Line {
   speed = 0.4;
   currentEdge = "top";
   lineSegments = [];
-  color = "red";
+  color = "black";
 
   constructor(rectangle) {
     if (!rectangle) throw new Error("Rectangle is required to initialize Line");
