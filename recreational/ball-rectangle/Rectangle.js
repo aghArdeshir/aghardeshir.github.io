@@ -22,4 +22,11 @@ export class Rectangle {
     ctx.strokeStyle = "white";
     ctx.strokeRect(this.topLeft.x, this.topLeft.y, this.width, this.height);
   }
+
+  getCenter() {
+    return {
+      x: this.topLeft.x + this.width / 2,
+      y: this.topLeft.y + this.height / 2,
+    };
+  }
 }

@@ -1,6 +1,6 @@
 export class Ball {
   radius = 20;
-  direction = { x: Math.random(), y: Math.random() };
+  direction = { x: Math.random() * 2 - 1, y: Math.random() * 2 - 1 };
   speed = 0.4;
   color = "green";
 
@@ -40,6 +40,88 @@ export class Ball {
     } else if (hitTopWall) {
       this.direction.y *= -1;
       this.y = Math.max(rectangle.topLeft.y + this.radius + 1, this.y);
+    }
+  }
+
+  hitsLine(line) {
+    if (line.currentEdge === "top") {
+      if (
+        this.x > line.startPoint.x &&
+        this.x < line.lineSegments[0].x &&
+        this.y - this.radius - 3 <= line.startPoint.y
+      ) {
+        return true;
+      }
+
+      if (line.lineSegments[1]) {
+        if (
+          this.y > line.lineSegments[0].y &&
+          this.y < line.lineSegments[1].y &&
+          this.x + this.radius + 3 >= line.lineSegments[0].x
+        ) {
+          return true;
+        }
+      }
+    }
+
+    if (line.currentEdge === "right") {
+      if (
+        this.y > line.startPoint.y &&
+        this.y < line.lineSegments[0].y &&
+        this.x + this.radius + 3 >= line.startPoint.x
+      ) {
+        return true;
+      }
+
+      if (line.lineSegments[1]) {
+        if (
+          this.x < line.lineSegments[0].x &&
+          this.x > line.lineSegments[1].x &&
+          this.y + this.radius + 3 >= line.lineSegments[0].y
+        ) {
+          return true;
+        }
+      }
+    }
+
+    if (line.currentEdge === "bottom") {
+      if (
+        this.x < line.startPoint.x &&
+        this.x > line.lineSegments[0].x &&
+        this.y + this.radius + 3 >= line.startPoint.y
+      ) {
+        return true;
+      }
+
+      if (line.lineSegments[1]) {
+        if (
+          this.y < line.lineSegments[0].y &&
+          this.y > line.lineSegments[1].y &&
+          this.x - this.radius - 3 <= line.lineSegments[0].x
+        ) {
+          return true;
+        }
+      }
+    }
+
+    if (line.currentEdge === "left") {
+      if (
+        this.y < line.startPoint.y &&
+        this.y > line.lineSegments[0].y &&
+        this.x - this.radius - 3 <= line.startPoint.x
+      ) {
+        return true;
+      }
+
+      if (line.lineSegments[1]) {
+        if (
+          this.x > line.lineSegments[0].x &&
+          this.x < line.lineSegments[1].x &&
+          this.y - this.radius - 3 <= line.lineSegments[0].y
+        ) {
+          return true;
+        }
+      }
     }
   }
 }

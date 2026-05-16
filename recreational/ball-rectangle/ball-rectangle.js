@@ -9,17 +9,17 @@ const secondLayerCanvas = new Canvas();
 
 const rectangle = new Rectangle();
 const line = new Line(rectangle);
-const ball = new Ball({
-  centerPoint: {
-    x: rectangle.topLeft.x + rectangle.width / 2,
-    y: rectangle.topLeft.y + rectangle.height / 2,
-  },
-});
+
+const balls = [
+  new Ball({
+    centerPoint: rectangle.getCenter(),
+  }),
+];
 
 requestAnimationFrame(function renderFirstLayer() {
   firstLayerCanvas.clear();
   rectangle.draw(firstLayerCanvas.getContext());
-  new Grid().draw(firstLayerCanvas.getContext());
+  // new Grid().draw(firstLayerCanvas.getContext());
 });
 
 let lastTime = 0;
@@ -29,12 +29,24 @@ function rerenderSecondLayer(currentTime) {
 
   secondLayerCanvas.clear();
 
-  ball.move({ deltaTime, rectangle });
+  for (const ball of balls) ball.move({ deltaTime, rectangle });
   line.move({ deltaTime });
 
   line.draw(secondLayerCanvas.getContext());
-  ball.draw(secondLayerCanvas.getContext());
+  for (const ball of balls) ball.draw(secondLayerCanvas.getContext());
+
+  for (const ball of balls) {
+    if (ball.hitsLine(line)) {
+      balls.splice(balls.indexOf(ball), 1);
+      balls.push(new Ball({ centerPoint: rectangle.getCenter() }));
+      balls.push(new Ball({ centerPoint: rectangle.getCenter() }));
+    }
+  }
 
   requestAnimationFrame(rerenderSecondLayer);
 }
 requestAnimationFrame(rerenderSecondLayer);
+
+setTimeout(() => {
+  window.location.reload();
+}, 20000);
