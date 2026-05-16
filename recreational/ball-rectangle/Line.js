@@ -3,6 +3,7 @@ export class Line {
   speed = 0.4;
   currentEdge = "top";
   lineSegments = [];
+  color = "red";
 
   constructor(rectangle) {
     if (!rectangle) throw new Error("Rectangle is required to initialize Line");
@@ -136,7 +137,7 @@ export class Line {
   }
 
   draw(ctx) {
-    ctx.strokeStyle = "red";
+    ctx.strokeStyle = this.color;
     ctx.lineWidth = 3;
     ctx.beginPath();
     ctx.moveTo(this.startPoint.x, this.startPoint.y);
