@@ -1,11 +1,11 @@
 export class Canvas {
   constructor() {
-    const canvas = document.createElement("canvas");
-    canvas.width = 600;
-    canvas.height = 600;
-    canvas.style.position = "absolute";
-    document.body.appendChild(canvas);
-    this.ctx = canvas.getContext("2d");
+    this.canvas = document.createElement("canvas");
+    this.canvas.width = 600;
+    this.canvas.height = 600;
+    this.canvas.style.position = "absolute";
+    document.body.appendChild(this.canvas);
+    this.ctx = this.canvas.getContext("2d");
   }
 
   getContext() {
@@ -13,6 +13,6 @@ export class Canvas {
   }
 
   clear() {
-    this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 }
