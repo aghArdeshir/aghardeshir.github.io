@@ -1,0 +1,4275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Machine Learning & Deep Neural Networks - Doomscroll Learning</title>
+  <meta name="description" content="Micro-learning vertical doomscrolling app teaching Machine Learning, Math, and Deep Neural Networks from scratch to deep mastery.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-oled: #050507;
+      --card-bg: #0A0A0E;
+      --panel-bg: #0D0D14;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --text-white: #FFFFFF;
+      --text-gray: #A1A1AA;
+      --text-dim: #52525B;
+      --accent-cyan: #00F3FF;
+      --accent-green: #10B981;
+      --accent-purple: #A855F7;
+      --accent-gold: #F59E0B;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background-color: #000000;
+      font-family: var(--font-sans);
+      color: var(--text-white);
+      overflow: hidden;
+    }
+
+    /* Main Desktop Viewport Container Mockup */
+    .app-viewport {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at center, #12121A 0%, #000000 100%);
+    }
+
+    .mobile-frame {
+      width: 100%;
+      max-width: 430px;
+      height: 100vh;
+      background-color: var(--bg-oled);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    @media (min-width: 480px) {
+      .mobile-frame {
+        height: 92vh;
+        max-height: 900px;
+        border-radius: 40px;
+        border: 1px solid var(--border-subtle);
+        box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 40px rgba(0, 243, 255, 0.05);
+      }
+    }
+
+    /* HUD Header */
+    .hud-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 54px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      background: rgba(5, 5, 7, 0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .counter-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-white);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .counter-pill:hover, .counter-pill:active {
+      background: rgba(0, 243, 255, 0.15);
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+    }
+
+    .sound-toggle-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      color: var(--text-white);
+      transition: all 0.2s ease;
+    }
+
+    .sound-toggle-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .progress-bar-container {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-green));
+      box-shadow: 0 0 8px var(--accent-cyan);
+      transition: width 0.25s cubic-bezier(0.1, 0.9, 0.2, 1);
+    }
+
+    /* Snap Scroll Container */
+    .cards-scroll-container {
+      width: 100%;
+      height: 100%;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none; /* Firefox */
+    }
+
+    .cards-scroll-container::-webkit-scrollbar {
+      display: none; /* Chrome/Safari */
+    }
+
+    /* Individual Micro-Card */
+    .micro-card {
+      width: 100%;
+      height: 100%;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      padding: 74px 24px 32px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      background-color: var(--bg-oled);
+      overflow: hidden;
+    }
+
+    .card-module-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-cyan);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .card-headline {
+      font-size: 2.1rem;
+      font-weight: 800;
+      line-height: 1.18;
+      letter-spacing: -0.025em;
+      color: var(--text-white);
+      margin-bottom: 16px;
+    }
+
+    .card-body {
+      font-size: 1.05rem;
+      line-height: 1.52;
+      color: var(--text-gray);
+      font-weight: 400;
+      margin-bottom: 18px;
+    }
+
+    .card-code-pill {
+      font-family: var(--font-mono);
+      background-color: var(--panel-bg);
+      border-left: 3px solid var(--accent-green);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 0.88rem;
+      line-height: 1.45;
+      color: #E4E4E7;
+      white-space: pre-wrap;
+      word-break: break-word;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.4);
+      margin-top: 4px;
+      user-select: text;
+    }
+
+    .card-footer-number {
+      position: absolute;
+      bottom: 18px;
+      right: 24px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-dim);
+      letter-spacing: 0.05em;
+    }
+
+    /* Checkpoint Card Styling */
+    .micro-card.checkpoint-card {
+      background: radial-gradient(circle at center, #11111F 0%, var(--bg-oled) 80%);
+      align-items: center;
+      text-align: center;
+    }
+
+    .checkpoint-badge {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(0, 243, 255, 0.2), rgba(16, 185, 129, 0.2));
+      border: 1px solid var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      box-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
+      animation: pulseGlow 2s infinite alternate;
+    }
+
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 15px rgba(0, 243, 255, 0.2); transform: scale(1); }
+      100% { box-shadow: 0 0 35px rgba(0, 243, 255, 0.5); transform: scale(1.05); }
+    }
+
+    .checkpoint-card .card-headline {
+      font-size: 2.3rem;
+      background: linear-gradient(135deg, #FFFFFF 30%, var(--accent-cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+
+    .checkpoint-sub {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--accent-green);
+      margin-bottom: 16px;
+    }
+
+    .checkpoint-recap-box {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 18px 20px;
+      max-width: 360px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: var(--text-gray);
+      margin-top: 10px;
+    }
+
+    /* Jump Modal Overlay */
+    .modal-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 200;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      padding: 20px 20px 24px 20px;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding-top: 8px;
+    }
+
+    .modal-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--text-white);
+    }
+
+    .modal-close-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: var(--text-white);
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .modal-jump-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .jump-input {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      padding: 12px 14px;
+      color: var(--text-white);
+      font-size: 0.95rem;
+      outline: none;
+      font-family: var(--font-sans);
+    }
+
+    .jump-input:focus {
+      border-color: var(--accent-cyan);
+    }
+
+    .jump-go-btn {
+      background: var(--accent-cyan);
+      color: #000000;
+      font-weight: 700;
+      border: none;
+      border-radius: 12px;
+      padding: 0 18px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .chapter-quick-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      overflow-y: auto;
+      flex: 1;
+      padding-right: 4px;
+    }
+
+    .chapter-item {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 12px 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .chapter-item:hover {
+      background: rgba(0, 243, 255, 0.1);
+      border-color: var(--accent-cyan);
+    }
+
+    .chapter-item-title {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-white);
+    }
+
+    .chapter-item-range {
+      font-size: 0.75rem;
+      color: var(--accent-cyan);
+      font-weight: 700;
+    }
+
+    /* Canvas Confetti Overlay */
+    #confetti-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 150;
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-viewport">
+  <div class="mobile-frame">
+    
+    <!-- HUD Header -->
+    <header class="hud-header">
+      <button class="counter-pill" id="hudCounterBtn" title="Click or Press 'J' to Jump">
+        <span id="hudCounterText">Card 1 / 287</span> ▾
+      </button>
+      <button class="sound-toggle-btn" id="hudSoundBtn" title="Toggle Sound (Press 'M')">🔊</button>
+      <div class="progress-bar-container">
+        <div class="progress-bar-fill" id="hudProgressFill"></div>
+      </div>
+    </header>
+
+    <!-- Cards Snap Scroll Wrapper -->
+    <main class="cards-scroll-container" id="scrollContainer">
+      <!-- Dynamically generated micro-cards inserted here -->
+    </main>
+
+    <!-- Jump Modal -->
+    <div class="modal-overlay" id="jumpModal">
+      <div class="modal-header">
+        <h2 class="modal-title">Jump to Card / Chapter</h2>
+        <button class="modal-close-btn" id="modalCloseBtn">✕</button>
+      </div>
+
+      <div class="modal-jump-row">
+        <input type="number" class="jump-input" id="modalNumInput" min="1" max="287" placeholder="Card # (1-287)">
+        <button class="jump-go-btn" id="modalJumpBtn">GO</button>
+      </div>
+
+      <div class="modal-jump-row" style="margin-bottom: 12px;">
+        <input type="text" class="jump-input" id="modalSearchInput" placeholder="🔍 Search topic or keyword...">
+      </div>
+
+      <div class="chapter-quick-list" id="chapterQuickList">
+        <!-- Module chapters inserted here dynamically -->
+      </div>
+    </div>
+
+    <!-- Canvas Confetti -->
+    <canvas id="confetti-canvas"></canvas>
+
+  </div>
+</div>
+
+<script>
+  // Embedded Card Dataset (287 atomic cards)
+  const cardsData = [
+  {
+    "number": 1,
+    "moduleId": 1,
+    "moduleTitle": "Module 1: The Philosophy of Learning from Data",
+    "moduleTag": "MODULE 01 \u2022 PHILOSOPHY",
+    "isCheckpoint": false,
+    "headline": "What is Machine Learning?",
+    "body": "Traditional programming writes explicit rules to compute outputs. Machine Learning inputs data and answers to automatically learn the rules.",
+    "code": "Traditional:  Data + Rules  --> Answers\nML Paradigm:  Data + Answers --> Rules",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 2,
+    "moduleId": 1,
+    "moduleTitle": "Module 1: The Philosophy of Learning from Data",
+    "moduleTag": "MODULE 01 \u2022 PHILOSOPHY",
+    "isCheckpoint": false,
+    "headline": "Features vs Targets",
+    "body": "Features (X) are the input variables describing the problem. Targets (y) are the ground-truth outcomes your model tries to predict.",
+    "code": "X = [house_size, num_bedrooms, zip_code]\ny = house_price",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 3,
+    "moduleId": 1,
+    "moduleTitle": "Module 1: The Philosophy of Learning from Data",
+    "moduleTag": "MODULE 01 \u2022 PHILOSOPHY",
+    "isCheckpoint": false,
+    "headline": "Supervised Learning Defined",
+    "body": "Learning from labeled examples. The model makes a prediction, compares it against the true label, and adjusts its internal parameters.",
+    "code": "loss = distance(prediction, true_label)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 4,
+    "moduleId": 1,
+    "moduleTitle": "Module 1: The Philosophy of Learning from Data",
+    "moduleTag": "MODULE 01 \u2022 PHILOSOPHY",
+    "isCheckpoint": false,
+    "headline": "Classification vs Regression",
+    "body": "Regression predicts continuous numbers (e.g., house price). Classification assigns data into discrete categories (e.g., Spam vs Not Spam).",
+    "code": "Regression:     y \u2208 \u211d (Continuous)\nClassification: y \u2208 {0, 1} (Discrete Class)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 5,
+    "moduleId": 1,
+    "moduleTitle": "Module 1: The Philosophy of Learning from Data",
+    "moduleTag": "MODULE 01 \u2022 PHILOSOPHY",
+    "isCheckpoint": false,
+    "headline": "Unsupervised Learning",
+    "body": "Finding hidden patterns or clusters in unlabeled data without explicit ground-truth targets or supervisory signals.",
+    "code": "clusters = KMeans(n_clusters=3).fit(X_unlabeled)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 6,
+    "moduleId": 1,
+    "moduleTitle": "Module 1: The Philosophy of Learning from Data",
+    "moduleTag": "MODULE 01 \u2022 PHILOSOPHY",
+    "isCheckpoint": false,
+    "headline": "Reinforcement Learning",
+    "body": "An agent learns by interacting with an environment, taking actions, receiving rewards or penalties, and maximizing cumulative gain.",
+    "code": "state, reward, done = env.step(action)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 7,
+    "moduleId": 1,
+    "moduleTitle": "Module 1: The Philosophy of Learning from Data",
+    "moduleTag": "MODULE 01 \u2022 PHILOSOPHY",
+    "isCheckpoint": false,
+    "headline": "The Model Hypothesis Space",
+    "body": "A model is a mathematical function f(X; \u03b8) parameterized by weights \u03b8. Training searches the space of \u03b8 for the best function.",
+    "code": "y_hat = f(X, theta)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 8,
+    "moduleId": 1,
+    "moduleTitle": "Module 1: The Philosophy of Learning from Data",
+    "moduleTag": "MODULE 01 \u2022 PHILOSOPHY",
+    "isCheckpoint": false,
+    "headline": "Training Set vs Test Set",
+    "body": "Never evaluate a model on the data it trained on! Split data into Training (to learn parameters) and Test (to measure true generalization).",
+    "code": "X_train, X_test, y_train, y_test = split(X, y, test_size=0.2)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 9,
+    "moduleId": 1,
+    "moduleTitle": "Module 1: The Philosophy of Learning from Data",
+    "moduleTag": "MODULE 01 \u2022 PHILOSOPHY",
+    "isCheckpoint": false,
+    "headline": "Overfitting: The Memorization Trap",
+    "body": "Overfitting occurs when a model learns training noise and specific quirks by heart, causing catastrophic failure on unseen test data.",
+    "code": "Train Acc: 99.8%  |  Test Acc: 54.2%  <-- Overfitting!",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 10,
+    "moduleId": 1,
+    "moduleTitle": "Module 1: The Philosophy of Learning from Data",
+    "moduleTag": "MODULE 01 \u2022 PHILOSOPHY",
+    "isCheckpoint": false,
+    "headline": "Underfitting: The Too-Simple Model",
+    "body": "Underfitting happens when your model is too rigid or simple to capture the underlying structure of the data.",
+    "code": "Train Acc: 58.1%  |  Test Acc: 57.4%  <-- Underfitting!",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 11,
+    "moduleId": 1,
+    "moduleTitle": "Module 1: The Philosophy of Learning from Data",
+    "moduleTag": "MODULE 01 \u2022 PHILOSOPHY",
+    "isCheckpoint": false,
+    "headline": "The Bias-Variance Tradeoff",
+    "body": "Bias is error from wrong assumptions (underfitting). Variance is error from sensitivity to tiny data fluctuations (overfitting). Balance is key.",
+    "code": "Total Error = Bias\u00b2 + Variance + Irreducible Noise",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 12,
+    "moduleId": 1,
+    "moduleTitle": "Module 1: The Philosophy of Learning from Data",
+    "moduleTag": "MODULE 01 \u2022 PHILOSOPHY",
+    "isCheckpoint": false,
+    "headline": "Validation Set & Hyperparameters",
+    "body": "Parameters (\u03b8) are learned by the algorithm. Hyperparameters (learning rate, layer count) are set by you using a Validation set.",
+    "code": "Train Set -> Learn Weights \u03b8\nVal Set   -> Tune Hyperparameters\nTest Set  -> Final Unbiased Grade",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 13,
+    "moduleId": 1,
+    "moduleTitle": "Module 1: The Philosophy of Learning from Data",
+    "moduleTag": "MODULE 01 \u2022 PHILOSOPHY",
+    "isCheckpoint": false,
+    "headline": "Cross-Validation",
+    "body": "K-Fold Cross-Validation splits training data into K equal chunks, iteratively training on K-1 folds and validating on the remaining fold.",
+    "code": "Fold 1: [Val ][Train][Train][Train]\nFold 2: [Train][Val ][Train][Train]",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 14,
+    "moduleId": 1,
+    "moduleTitle": "Module 1: The Philosophy of Learning from Data",
+    "moduleTag": "MODULE 01 \u2022 PHILOSOPHY",
+    "isCheckpoint": false,
+    "headline": "Data Preprocessing: Scaling",
+    "body": "Models struggle when feature magnitudes differ wildly (e.g., age 25 vs income 90,000). Standardize features to mean=0 and variance=1.",
+    "code": "x_standardized = (x - mean(x)) / std(x)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 15,
+    "moduleId": 1,
+    "moduleTitle": "Module 1: The Philosophy of Learning from Data",
+    "moduleTag": "MODULE 01 \u2022 PHILOSOPHY",
+    "isCheckpoint": false,
+    "headline": "Min-Max Normalization",
+    "body": "Rescales all feature values strictly into the bounded range [0, 1], preventing dominant large numbers from overpowering training gradients.",
+    "code": "x_norm = (x - min(x)) / (max(x) - min(x))",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 16,
+    "moduleId": 1,
+    "moduleTitle": "Module 1: The Philosophy of Learning from Data",
+    "moduleTag": "MODULE 01 \u2022 PHILOSOPHY",
+    "isCheckpoint": false,
+    "headline": "One-Hot Encoding",
+    "body": "Categorical variables (e.g., Red, Green, Blue) cannot be represented as ordinal numbers 1,2,3. Convert them into binary indicator vectors.",
+    "code": "\"Green\" --> [0, 1, 0]  (Red=0, Green=1, Blue=0)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 17,
+    "moduleId": 1,
+    "moduleTitle": "Module 1: The Philosophy of Learning from Data",
+    "moduleTag": "MODULE 01 \u2022 PHILOSOPHY",
+    "isCheckpoint": false,
+    "headline": "Data Leakage Danger",
+    "body": "Data leakage occurs when information from the test dataset leaks into model training (e.g., computing global dataset mean before splitting).",
+    "code": "# WRONG: scaler.fit(X_all)\n# RIGHT: scaler.fit(X_train); scaler.transform(X_test)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 18,
+    "moduleId": 1,
+    "moduleTitle": "Module 1: The Philosophy of Learning from Data",
+    "moduleTag": "MODULE 01 \u2022 PHILOSOPHY",
+    "isCheckpoint": false,
+    "headline": "Parametric vs Non-Parametric",
+    "body": "Parametric models summarize data into fixed-size weights \u03b8 (e.g. Linear Regression). Non-parametric models grow with data size (e.g. k-NN).",
+    "code": "Parametric:     Memory stays constant O(1)\nNon-Parametric: Memory scales with data size O(N)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 19,
+    "moduleId": 1,
+    "moduleTitle": "Module 1: The Philosophy of Learning from Data",
+    "moduleTag": "MODULE 01 \u2022 PHILOSOPHY",
+    "isCheckpoint": false,
+    "headline": "No Free Lunch Theorem",
+    "body": "No single machine learning algorithm works best for all problems. Success depends on matching model assumptions to data structure.",
+    "code": "No universal algorithm > Random guessing across all problems",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 20,
+    "moduleId": 1,
+    "moduleTitle": "Module 1: The Philosophy of Learning from Data",
+    "moduleTag": "MODULE 01 \u2022 PHILOSOPHY",
+    "isCheckpoint": false,
+    "headline": "Curse of Dimensionality",
+    "body": "As feature dimensions grow, the volume of space explodes exponentially. Data points become sparse and isolated, requiring exponentially more data.",
+    "code": "Volume = L\u1d48  (For d=100, space is empty void)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 21,
+    "moduleId": 1,
+    "moduleTitle": "Module 1: The Philosophy of Learning from Data",
+    "moduleTag": "MODULE 01 \u2022 PHILOSOPHY",
+    "isCheckpoint": false,
+    "headline": "The ML Training Pipeline",
+    "body": "The standard loop: 1. Forward Pass (Predict) \u2192 2. Compute Loss \u2192 3. Backward Pass (Gradients) \u2192 4. Update Weights \u2192 Repeat.",
+    "code": "for epoch in range(epochs):\n  y_hat = predict(X)\n  loss  = compute_loss(y_hat, y)\n  update_weights(loss)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 22,
+    "moduleId": 1,
+    "moduleTitle": "Module 1: The Philosophy of Learning from Data",
+    "moduleTag": "MODULE 01 \u2022 PHILOSOPHY",
+    "isCheckpoint": false,
+    "headline": "Garbage In, Garbage Out",
+    "body": "No neural network architecture can fix corrupted, biased, or noisy training labels. Data quality always dominates model complexity.",
+    "code": "Clean Simple Data + Basic Model > Corrupted Data + 100B Model",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 23,
+    "moduleId": 1,
+    "moduleTitle": "Module 1: The Philosophy of Learning from Data",
+    "moduleTag": "MODULE 01 \u2022 PHILOSOPHY",
+    "isCheckpoint": false,
+    "headline": "The Goal: Generalization",
+    "body": "The ultimate objective of Machine Learning is not high training accuracy, but robust performance on unseen data from the real world.",
+    "code": "Objective: Minimize E_{(x,y)~P_real}[ Loss(f(x), y) ]",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 24,
+    "moduleId": 1,
+    "moduleTitle": "Module 1: The Philosophy of Learning from Data",
+    "moduleTag": "MODULE 01 \u2022 PHILOSOPHY",
+    "isCheckpoint": true,
+    "headline": "Module 1 Complete!",
+    "body": "",
+    "code": "",
+    "sub": "Foundations of ML Philosophy",
+    "recap": "You mastered the core paradigm: Data + Targets -> Rules, Generalization, Bias-Variance, and Pipeline fundamentals."
+  },
+  {
+    "number": 25,
+    "moduleId": 2,
+    "moduleTitle": "Module 2: Math Foundation I - Vectors & High-Dimensional Spaces",
+    "moduleTag": "MODULE 02 \u2022 VECTORS",
+    "isCheckpoint": false,
+    "headline": "What is a Scalar?",
+    "body": "A scalar is a single numerical value representing magnitude without direction (e.g., temperature 24.5, loss value 0.042).",
+    "code": "x = 4.15  # x \u2208 \u211d",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 26,
+    "moduleId": 2,
+    "moduleTitle": "Module 2: Math Foundation I - Vectors & High-Dimensional Spaces",
+    "moduleTag": "MODULE 02 \u2022 VECTORS",
+    "isCheckpoint": false,
+    "headline": "What is a Vector?",
+    "body": "A vector is an ordered list of numbers. Geometrically, it represents a point or directed arrow in an n-dimensional space.",
+    "code": "v = [2.0, -3.5, 1.2]\u1d40  # v \u2208 \u211d\u00b3",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 27,
+    "moduleId": 2,
+    "moduleTitle": "Module 2: Math Foundation I - Vectors & High-Dimensional Spaces",
+    "moduleTag": "MODULE 02 \u2022 VECTORS",
+    "isCheckpoint": false,
+    "headline": "Vector Components",
+    "body": "Each entry in a vector v = [v\u2081, v\u2082, ..., v\u2099] specifies movement along a specific coordinate axis in space.",
+    "code": "v_x = v[0],  v_y = v[1],  v_z = v[2]",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 28,
+    "moduleId": 2,
+    "moduleTitle": "Module 2: Math Foundation I - Vectors & High-Dimensional Spaces",
+    "moduleTag": "MODULE 02 \u2022 VECTORS",
+    "isCheckpoint": false,
+    "headline": "Vector Addition",
+    "body": "Add two vectors of the same dimension by summing their corresponding elements component by component.",
+    "code": "[1, 3] + [4, -2] = [1+4, 3+(-2)] = [5, 1]",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 29,
+    "moduleId": 2,
+    "moduleTitle": "Module 2: Math Foundation I - Vectors & High-Dimensional Spaces",
+    "moduleTag": "MODULE 02 \u2022 VECTORS",
+    "isCheckpoint": false,
+    "headline": "Geometric Vector Addition",
+    "body": "Adding vector B to vector A corresponds to placing the tail of B at the tip of A. The result is the arrow from origin to tip of B.",
+    "code": "v_result = [a\u2081 + b\u2081, a\u2082 + b\u2082]",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 30,
+    "moduleId": 2,
+    "moduleTitle": "Module 2: Math Foundation I - Vectors & High-Dimensional Spaces",
+    "moduleTag": "MODULE 02 \u2022 VECTORS",
+    "isCheckpoint": false,
+    "headline": "Scalar Multiplication",
+    "body": "Multiplying a vector by a scalar scales its magnitude (length) by that factor without changing its spatial direction line.",
+    "code": "3 * [2, -1] = [3*2, 3*(-1)] = [6, -3]",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 31,
+    "moduleId": 2,
+    "moduleTitle": "Module 2: Math Foundation I - Vectors & High-Dimensional Spaces",
+    "moduleTag": "MODULE 02 \u2022 VECTORS",
+    "isCheckpoint": false,
+    "headline": "Vector Negation",
+    "body": "Multiplying a vector by -1 flips its direction by 180 degrees while keeping its overall length identical.",
+    "code": "-1 * [3, 4] = [-3, -4]",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 32,
+    "moduleId": 2,
+    "moduleTitle": "Module 2: Math Foundation I - Vectors & High-Dimensional Spaces",
+    "moduleTag": "MODULE 02 \u2022 VECTORS",
+    "isCheckpoint": false,
+    "headline": "Vector Subtraction",
+    "body": "Vector subtraction A - B equals A + (-B). Geometrically, A - B represents the arrow pointing from the tip of B to the tip of A.",
+    "code": "[5, 8] - [2, 3] = [3, 5]",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 33,
+    "moduleId": 2,
+    "moduleTitle": "Module 2: Math Foundation I - Vectors & High-Dimensional Spaces",
+    "moduleTag": "MODULE 02 \u2022 VECTORS",
+    "isCheckpoint": false,
+    "headline": "Linear Combinations",
+    "body": "A linear combination of vectors v\u2081, v\u2082 with scalars c\u2081, c\u2082 is the sum c\u2081v\u2081 + c\u2082v\u2082. This is the core operation of neural network layers!",
+    "code": "v_out = c1 * v1 + c2 * v2 + ... + cn * vn",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 34,
+    "moduleId": 2,
+    "moduleTitle": "Module 2: Math Foundation I - Vectors & High-Dimensional Spaces",
+    "moduleTag": "MODULE 02 \u2022 VECTORS",
+    "isCheckpoint": false,
+    "headline": "Vector Span",
+    "body": "The span of a set of vectors is the entire set of all possible points you can reach by taking all linear combinations of them.",
+    "code": "Span(v\u2081, v\u2082) = { c\u2081v\u2081 + c\u2082v\u2082 | c\u2081, c\u2082 \u2208 \u211d }",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 35,
+    "moduleId": 2,
+    "moduleTitle": "Module 2: Math Foundation I - Vectors & High-Dimensional Spaces",
+    "moduleTag": "MODULE 02 \u2022 VECTORS",
+    "isCheckpoint": false,
+    "headline": "Linear Independence",
+    "body": "A set of vectors is linearly independent if no vector in the set can be written as a linear combination of the others.",
+    "code": "c\u2081v\u2081 + c\u2082v\u2082 + ... + c\u2099v\u2099 = 0  ==>  c\u2081 = c\u2082 = ... = c\u2099 = 0",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 36,
+    "moduleId": 2,
+    "moduleTitle": "Module 2: Math Foundation I - Vectors & High-Dimensional Spaces",
+    "moduleTag": "MODULE 02 \u2022 VECTORS",
+    "isCheckpoint": false,
+    "headline": "Vector Magnitude (L2 Norm)",
+    "body": "The L2 norm ||v||\u2082 measures the Euclidean length of a vector from origin, calculated via the square root of sum of squared components.",
+    "code": "||v||\u2082 = \u221a(v\u2081\u00b2 + v\u2082\u00b2 + ... + v\u2099\u00b2) = \u221a(v\u1d40v)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 37,
+    "moduleId": 2,
+    "moduleTitle": "Module 2: Math Foundation I - Vectors & High-Dimensional Spaces",
+    "moduleTag": "MODULE 02 \u2022 VECTORS",
+    "isCheckpoint": false,
+    "headline": "L1 Norm (Manhattan Distance)",
+    "body": "The L1 norm ||v||\u2081 measures length as the sum of absolute component values (grid distance walk).",
+    "code": "||v||\u2081 = |v\u2081| + |v\u2082| + ... + |v\u2099|",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 38,
+    "moduleId": 2,
+    "moduleTitle": "Module 2: Math Foundation I - Vectors & High-Dimensional Spaces",
+    "moduleTag": "MODULE 02 \u2022 VECTORS",
+    "isCheckpoint": false,
+    "headline": "Unit Vectors & Normalization",
+    "body": "A unit vector has a magnitude of exactly 1. Normalize any vector by dividing it by its L2 norm.",
+    "code": "v_unit = v / ||v||\u2082  ==>  ||v_unit||\u2082 = 1.0",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 39,
+    "moduleId": 2,
+    "moduleTitle": "Module 2: Math Foundation I - Vectors & High-Dimensional Spaces",
+    "moduleTag": "MODULE 02 \u2022 VECTORS",
+    "isCheckpoint": false,
+    "headline": "The Dot Product Formula",
+    "body": "The dot product of two vectors a and b is the scalar sum of the pairwise element products.",
+    "code": "a \u00b7 b = a\u2081b\u2081 + a\u2082b\u2082 + ... + a\u2099b\u2099 = \u2211 a\u1d62b\u1d62",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 40,
+    "moduleId": 2,
+    "moduleTitle": "Module 2: Math Foundation I - Vectors & High-Dimensional Spaces",
+    "moduleTag": "MODULE 02 \u2022 VECTORS",
+    "isCheckpoint": false,
+    "headline": "Geometric Dot Product",
+    "body": "a \u00b7 b = ||a|| ||b|| cos(\u03b8), where \u03b8 is the angle between vectors. It measures how aligned two vectors are in space.",
+    "code": "cos(\u03b8) = (a \u00b7 b) / (||a|| * ||b||)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 41,
+    "moduleId": 2,
+    "moduleTitle": "Module 2: Math Foundation I - Vectors & High-Dimensional Spaces",
+    "moduleTag": "MODULE 02 \u2022 VECTORS",
+    "isCheckpoint": false,
+    "headline": "Dot Product Intuition: Similarity",
+    "body": "Dot product > 0 means vectors point in similar directions. Dot product = 0 means perpendicular (orthogonal). Dot product < 0 means opposite.",
+    "code": "Parallel:  a\u00b7b > 0  |  Orthogonal: a\u00b7b = 0  |  Opposite: a\u00b7b < 0",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 42,
+    "moduleId": 2,
+    "moduleTitle": "Module 2: Math Foundation I - Vectors & High-Dimensional Spaces",
+    "moduleTag": "MODULE 02 \u2022 VECTORS",
+    "isCheckpoint": false,
+    "headline": "Orthogonal Vectors",
+    "body": "Two non-zero vectors are orthogonal if their dot product equals 0 (90-degree angle). They share zero directional overlap.",
+    "code": "[1, 0] \u00b7 [0, 1] = 1*0 + 0*1 = 0",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 43,
+    "moduleId": 2,
+    "moduleTitle": "Module 2: Math Foundation I - Vectors & High-Dimensional Spaces",
+    "moduleTag": "MODULE 02 \u2022 VECTORS",
+    "isCheckpoint": false,
+    "headline": "Vector Projection",
+    "body": "Projecting vector a onto vector b drops a perpendicular line to find how much of a points along b's direction.",
+    "code": "proj_b(a) = ((a \u00b7 b) / ||b||\u00b2) * b",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 44,
+    "moduleId": 2,
+    "moduleTitle": "Module 2: Math Foundation I - Vectors & High-Dimensional Spaces",
+    "moduleTag": "MODULE 02 \u2022 VECTORS",
+    "isCheckpoint": false,
+    "headline": "Cosine Similarity Metric",
+    "body": "Cosine similarity measures vector directional similarity regardless of magnitude, scaling bounded between -1.0 and +1.0.",
+    "code": "cos_sim(a, b) = (a \u00b7 b) / (||a||\u2082 * ||b||\u2082)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 45,
+    "moduleId": 2,
+    "moduleTitle": "Module 2: Math Foundation I - Vectors & High-Dimensional Spaces",
+    "moduleTag": "MODULE 02 \u2022 VECTORS",
+    "isCheckpoint": false,
+    "headline": "High-Dimensional Intuition",
+    "body": "In 512 dimensions, vectors are nearly always orthogonal! Geometry in high-D spaces behaves counterintuitively compared to 3D.",
+    "code": "Random high-D vectors --> cos(\u03b8) \u2248 0 (Orthogonal by default)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 46,
+    "moduleId": 2,
+    "moduleTitle": "Module 2: Math Foundation I - Vectors & High-Dimensional Spaces",
+    "moduleTag": "MODULE 02 \u2022 VECTORS",
+    "isCheckpoint": false,
+    "headline": "Vectors in NumPy",
+    "body": "In Python NumPy, 1D arrays represent vectors. Operations are vectorized to run at native C speed.",
+    "code": "import numpy as np\na, b = np.array([1, 2]), np.array([3, 4])\ndot = np.dot(a, b)  # 1*3 + 2*4 = 11",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 47,
+    "moduleId": 2,
+    "moduleTitle": "Module 2: Math Foundation I - Vectors & High-Dimensional Spaces",
+    "moduleTag": "MODULE 02 \u2022 VECTORS",
+    "isCheckpoint": false,
+    "headline": "Feature Vectors in AI",
+    "body": "In deep learning, everything (images, text words, audio clips) is converted into a high-dimensional feature vector (embedding).",
+    "code": "word_vector(\"king\") - word_vector(\"man\") + word_vector(\"woman\") \u2248 word_vector(\"queen\")",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 48,
+    "moduleId": 2,
+    "moduleTitle": "Module 2: Math Foundation I - Vectors & High-Dimensional Spaces",
+    "moduleTag": "MODULE 02 \u2022 VECTORS",
+    "isCheckpoint": true,
+    "headline": "Module 2 Complete!",
+    "body": "",
+    "code": "",
+    "sub": "Vectors & High-D Geometry",
+    "recap": "You mastered vector addition, L1/L2 norms, unit vectors, dot products, and geometric angle similarity."
+  },
+  {
+    "number": 49,
+    "moduleId": 3,
+    "moduleTitle": "Module 3: Math Foundation II - Matrices & Linear Transformations",
+    "moduleTag": "MODULE 03 \u2022 MATRICES",
+    "isCheckpoint": false,
+    "headline": "What is a Matrix?",
+    "body": "A matrix is a 2D rectangular grid of numbers with M rows and N columns, denoted as shape (M, N).",
+    "code": "A = [[1, 2, 3],\n     [4, 5, 6]]  # Shape: (2, 3)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 50,
+    "moduleId": 3,
+    "moduleTitle": "Module 3: Math Foundation II - Matrices & Linear Transformations",
+    "moduleTag": "MODULE 03 \u2022 MATRICES",
+    "isCheckpoint": false,
+    "headline": "Matrix Indexing",
+    "body": "A[i, j] refers to the entry at row i and column j (1-indexed in math, 0-indexed in code).",
+    "code": "A[0, 1] = 2  # Row 0, Column 1",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 51,
+    "moduleId": 3,
+    "moduleTitle": "Module 3: Math Foundation II - Matrices & Linear Transformations",
+    "moduleTag": "MODULE 03 \u2022 MATRICES",
+    "isCheckpoint": false,
+    "headline": "Matrices as Collections of Vectors",
+    "body": "View a matrix as a collection of column vectors [v\u2081, v\u2082, ..., v\u2099] representing basis vector transformations.",
+    "code": "A = [ c1 | c2 | c3 ]",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 52,
+    "moduleId": 3,
+    "moduleTitle": "Module 3: Math Foundation II - Matrices & Linear Transformations",
+    "moduleTag": "MODULE 03 \u2022 MATRICES",
+    "isCheckpoint": false,
+    "headline": "Matrix Addition & Scalar Multiplication",
+    "body": "Matrices of matching shape are added elementwise. Scalar multiplication scales every entry by the scalar factor.",
+    "code": "2 * [[1, 2], [3, 4]] = [[2, 4], [6, 8]]",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 53,
+    "moduleId": 3,
+    "moduleTitle": "Module 3: Math Foundation II - Matrices & Linear Transformations",
+    "moduleTag": "MODULE 03 \u2022 MATRICES",
+    "isCheckpoint": false,
+    "headline": "Matrix Transpose (A\u1d40)",
+    "body": "Transposing a matrix flips it over its main diagonal, swapping its rows with its columns. Shape (M, N) becomes (N, M).",
+    "code": "[[1, 2],\n [3, 4]]\u1d40 = [[1, 3],\n             [2, 4]]",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 54,
+    "moduleId": 3,
+    "moduleTitle": "Module 3: Math Foundation II - Matrices & Linear Transformations",
+    "moduleTag": "MODULE 03 \u2022 MATRICES",
+    "isCheckpoint": false,
+    "headline": "Matrix-Vector Multiplication",
+    "body": "Multiplying matrix A (M\u00d7N) by vector x (N\u00d71) produces a new vector y (M\u00d71) formed by linear combinations of A's columns.",
+    "code": "y = A @ x  ==>  y\u1d62 = \u2211 A\u1d62\u2c7c * x\u2c7c",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 55,
+    "moduleId": 3,
+    "moduleTitle": "Module 3: Math Foundation II - Matrices & Linear Transformations",
+    "moduleTag": "MODULE 03 \u2022 MATRICES",
+    "isCheckpoint": false,
+    "headline": "Matrix as a Linear Transformation",
+    "body": "Multiplying a vector x by matrix A transforms x in space: stretching, rotating, shearing, or projecting space.",
+    "code": "x_new = A @ x_old",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 56,
+    "moduleId": 3,
+    "moduleTitle": "Module 3: Math Foundation II - Matrices & Linear Transformations",
+    "moduleTag": "MODULE 03 \u2022 MATRICES",
+    "isCheckpoint": false,
+    "headline": "Matrix Multiplication Rules (A @ B)",
+    "body": "To multiply A @ B, the inner dimensions MUST match! If A is (M \u00d7 K) and B is (K \u00d7 N), the output shape is (M \u00d7 N).",
+    "code": "Shape Check: (M \u00d7 K) @ (K \u00d7 N) --> (M \u00d7 N)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 57,
+    "moduleId": 3,
+    "moduleTitle": "Module 3: Math Foundation II - Matrices & Linear Transformations",
+    "moduleTag": "MODULE 03 \u2022 MATRICES",
+    "isCheckpoint": false,
+    "headline": "How Matrix Multiplication Works",
+    "body": "Entry (i, j) in output C is the dot product of Row i of matrix A with Column j of matrix B.",
+    "code": "C[i, j] = Row_i(A) \u00b7 Column_j(B)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 58,
+    "moduleId": 3,
+    "moduleTitle": "Module 3: Math Foundation II - Matrices & Linear Transformations",
+    "moduleTag": "MODULE 03 \u2022 MATRICES",
+    "isCheckpoint": false,
+    "headline": "Matrix Multiplication is Non-Commutative",
+    "body": "Order matters! In general, A @ B \u2260 B @ A. Transforming space with A then B is not the same as B then A.",
+    "code": "A @ B \u2260 B @ A  (Order strictly matters!)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 59,
+    "moduleId": 3,
+    "moduleTitle": "Module 3: Math Foundation II - Matrices & Linear Transformations",
+    "moduleTag": "MODULE 03 \u2022 MATRICES",
+    "isCheckpoint": false,
+    "headline": "Matrix Associativity",
+    "body": "Matrix multiplication is associative: (A @ B) @ C = A @ (B @ C). We can group operations to optimize compute cost!",
+    "code": "(A @ B) @ C == A @ (B @ C)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 60,
+    "moduleId": 3,
+    "moduleTitle": "Module 3: Math Foundation II - Matrices & Linear Transformations",
+    "moduleTag": "MODULE 03 \u2022 MATRICES",
+    "isCheckpoint": false,
+    "headline": "Identity Matrix (I)",
+    "body": "The Identity matrix is a square matrix with 1s on the diagonal and 0s everywhere else. It leaves any vector unchanged.",
+    "code": "I = [[1, 0],\n     [0, 1]]  ==>  I @ x = x",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 61,
+    "moduleId": 3,
+    "moduleTitle": "Module 3: Math Foundation II - Matrices & Linear Transformations",
+    "moduleTag": "MODULE 03 \u2022 MATRICES",
+    "isCheckpoint": false,
+    "headline": "Diagonal Matrices",
+    "body": "A matrix with non-zero entries only on the main diagonal. Multiplying by a diagonal matrix scales coordinate axes independently.",
+    "code": "D = [[3, 0],\n     [0, 0.5]]  --> Scales x by 3, y by 0.5",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 62,
+    "moduleId": 3,
+    "moduleTitle": "Module 3: Math Foundation II - Matrices & Linear Transformations",
+    "moduleTag": "MODULE 03 \u2022 MATRICES",
+    "isCheckpoint": false,
+    "headline": "Symmetric Matrices",
+    "body": "A square matrix equal to its own transpose: A = A\u1d40. Symmetric matrices frequently represent covariance and distance grids.",
+    "code": "A[i, j] == A[j, i] for all i, j",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 63,
+    "moduleId": 3,
+    "moduleTitle": "Module 3: Math Foundation II - Matrices & Linear Transformations",
+    "moduleTag": "MODULE 03 \u2022 MATRICES",
+    "isCheckpoint": false,
+    "headline": "Matrix Inverse (A\u207b\u00b9)",
+    "body": "The inverse matrix A\u207b\u00b9 undoes the spatial transformation of A. If A @ x = y, then A\u207b\u00b9 @ y = x.",
+    "code": "A @ A\u207b\u00b9 = I",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 64,
+    "moduleId": 3,
+    "moduleTitle": "Module 3: Math Foundation II - Matrices & Linear Transformations",
+    "moduleTag": "MODULE 03 \u2022 MATRICES",
+    "isCheckpoint": false,
+    "headline": "Singular (Non-Invertible) Matrices",
+    "body": "If a matrix collapses space into a lower dimension (e.g. flattening 2D plane into a 1D line), it cannot be inverted. Det(A) = 0.",
+    "code": "Determinant(A) = 0  ==>  No inverse exists",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 65,
+    "moduleId": 3,
+    "moduleTitle": "Module 3: Math Foundation II - Matrices & Linear Transformations",
+    "moduleTag": "MODULE 03 \u2022 MATRICES",
+    "isCheckpoint": false,
+    "headline": "Determinant Intuition",
+    "body": "The determinant det(A) measures how much a linear transformation scales areas or volumes in space. Negative means space flipped.",
+    "code": "det(A) = factor of area expansion/contraction",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 66,
+    "moduleId": 3,
+    "moduleTitle": "Module 3: Math Foundation II - Matrices & Linear Transformations",
+    "moduleTag": "MODULE 03 \u2022 MATRICES",
+    "isCheckpoint": false,
+    "headline": "Eigenvectors & Eigenvalues",
+    "body": "An eigenvector v of matrix A is a special vector whose direction does not change when transformed by A; it only gets scaled by \u03bb.",
+    "code": "A @ v = \u03bb * v  (v = eigenvector, \u03bb = eigenvalue)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 67,
+    "moduleId": 3,
+    "moduleTitle": "Module 3: Math Foundation II - Matrices & Linear Transformations",
+    "moduleTag": "MODULE 03 \u2022 MATRICES",
+    "isCheckpoint": false,
+    "headline": "Matrix Rank",
+    "body": "The rank of a matrix is the number of linearly independent column or row vectors. It defines the true dimensionality of transformed space.",
+    "code": "Full Rank (2x2) = 2D space preserved | Rank 1 = collapsed to 1D line",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 68,
+    "moduleId": 3,
+    "moduleTitle": "Module 3: Math Foundation II - Matrices & Linear Transformations",
+    "moduleTag": "MODULE 03 \u2022 MATRICES",
+    "isCheckpoint": false,
+    "headline": "Tensors: N-Dimensional Grids",
+    "body": "A scalar is 0D, a vector is 1D, a matrix is 2D. A Tensor generalizes grids to N dimensions (e.g. RGB image batch: shape [B, C, H, W]).",
+    "code": "Image Batch Shape: (Batch=32, Channels=3, Height=224, Width=224)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 69,
+    "moduleId": 3,
+    "moduleTitle": "Module 3: Math Foundation II - Matrices & Linear Transformations",
+    "moduleTag": "MODULE 03 \u2022 MATRICES",
+    "isCheckpoint": false,
+    "headline": "Broadcasting in Tensors",
+    "body": "Broadcasting automatically expands smaller tensor dimensions to match larger shapes during elementwise arithmetic without copying memory.",
+    "code": "(32, 10) + (10,)  -->  (32, 10)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 70,
+    "moduleId": 3,
+    "moduleTitle": "Module 3: Math Foundation II - Matrices & Linear Transformations",
+    "moduleTag": "MODULE 03 \u2022 MATRICES",
+    "isCheckpoint": false,
+    "headline": "Why GPUs Rule Deep Learning",
+    "body": "Neural net layers are trillions of independent matrix multiplications. GPUs pack thousands of tiny cores built specifically for parallel matrix math.",
+    "code": "CPU: 8 fast cores  |  GPU: 10,000 parallel matrix tensor cores",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 71,
+    "moduleId": 3,
+    "moduleTitle": "Module 3: Math Foundation II - Matrices & Linear Transformations",
+    "moduleTag": "MODULE 03 \u2022 MATRICES",
+    "isCheckpoint": false,
+    "headline": "Matrix Multiplication in NumPy",
+    "body": "Use the `@` operator or `np.matmul(A, B)` in Python for accelerated matrix multiplication.",
+    "code": "import numpy as np\nA = np.random.randn(64, 128)\nB = np.random.randn(128, 32)\nC = A @ B  # Shape: (64, 32)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 72,
+    "moduleId": 3,
+    "moduleTitle": "Module 3: Math Foundation II - Matrices & Linear Transformations",
+    "moduleTag": "MODULE 03 \u2022 MATRICES",
+    "isCheckpoint": true,
+    "headline": "Module 3 Complete!",
+    "body": "",
+    "code": "",
+    "sub": "Matrices & Transformations",
+    "recap": "You mastered Matrix shapes, Linear Transformations, Matrix Multiplication A @ B, Inverses, Tensors, and GPU Parallelism."
+  },
+  {
+    "number": 73,
+    "moduleId": 4,
+    "moduleTitle": "Module 4: Math Foundation III - Calculus, Slopes & Derivatives",
+    "moduleTag": "MODULE 04 \u2022 CALCULUS",
+    "isCheckpoint": false,
+    "headline": "What is a Function?",
+    "body": "A mathematical machine f(x) that takes an input x and outputs a single value y. Training fits f(x) to match training data.",
+    "code": "y = f(x)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 74,
+    "moduleId": 4,
+    "moduleTitle": "Module 4: Math Foundation III - Calculus, Slopes & Derivatives",
+    "moduleTag": "MODULE 04 \u2022 CALCULUS",
+    "isCheckpoint": false,
+    "headline": "The Slope of a Straight Line",
+    "body": "Slope measures change in y over change in x: m = \u0394y / \u0394x. It tells you how fast y changes when you nudge x.",
+    "code": "m = (y\u2082 - y\u2081) / (x\u2082 - x\u2081)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 75,
+    "moduleId": 4,
+    "moduleTitle": "Module 4: Math Foundation III - Calculus, Slopes & Derivatives",
+    "moduleTag": "MODULE 04 \u2022 CALCULUS",
+    "isCheckpoint": false,
+    "headline": "What is a Derivative?",
+    "body": "For curved functions, slope changes at every point. The derivative f'(x) or df/dx is the instantaneous slope at exact point x.",
+    "code": "f'(x) = lim(h->0) [ f(x + h) - f(x) ] / h",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 76,
+    "moduleId": 4,
+    "moduleTitle": "Module 4: Math Foundation III - Calculus, Slopes & Derivatives",
+    "moduleTag": "MODULE 04 \u2022 CALCULUS",
+    "isCheckpoint": false,
+    "headline": "Intuition: The Slope Pointer",
+    "body": "If f'(x) > 0, increasing x increases y. If f'(x) < 0, increasing x decreases y. If f'(x) = 0, you are at a peak or valley!",
+    "code": "f'(x) > 0: Slope /  |  f'(x) < 0: Slope \\  |  f'(x) = 0: Flat --",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 77,
+    "moduleId": 4,
+    "moduleTitle": "Module 4: Math Foundation III - Calculus, Slopes & Derivatives",
+    "moduleTag": "MODULE 04 \u2022 CALCULUS",
+    "isCheckpoint": false,
+    "headline": "Derivative Rule: Constants",
+    "body": "The derivative of a constant number c is always 0, because constants never change.",
+    "code": "f(x) = 7  ==>  f'(x) = 0",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 78,
+    "moduleId": 4,
+    "moduleTitle": "Module 4: Math Foundation III - Calculus, Slopes & Derivatives",
+    "moduleTag": "MODULE 04 \u2022 CALCULUS",
+    "isCheckpoint": false,
+    "headline": "The Power Rule",
+    "body": "To take the derivative of x\u207f, bring exponent n to the front and decrease the exponent power by 1.",
+    "code": "d/dx [ x\u207f ] = n * x\u207f\u207b\u00b9   (e.g., d/dx [ x\u00b2 ] = 2x)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 79,
+    "moduleId": 4,
+    "moduleTitle": "Module 4: Math Foundation III - Calculus, Slopes & Derivatives",
+    "moduleTag": "MODULE 04 \u2022 CALCULUS",
+    "isCheckpoint": false,
+    "headline": "Linearity of Derivatives",
+    "body": "The derivative of a sum is the sum of derivatives. Constant multipliers pass straight through unchanged.",
+    "code": "d/dx [ 3x\u00b2 + 5x ] = 3(2x) + 5 = 6x + 5",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 80,
+    "moduleId": 4,
+    "moduleTitle": "Module 4: Math Foundation III - Calculus, Slopes & Derivatives",
+    "moduleTag": "MODULE 04 \u2022 CALCULUS",
+    "isCheckpoint": false,
+    "headline": "Derivative of Exponential (e\u02e3)",
+    "body": "Euler's number e\u02e3 is the unique magical function whose derivative is exactly itself! It plays a massive role in Softmax & Sigmoid.",
+    "code": "d/dx [ e\u02e3 ] = e\u02e3",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 81,
+    "moduleId": 4,
+    "moduleTitle": "Module 4: Math Foundation III - Calculus, Slopes & Derivatives",
+    "moduleTag": "MODULE 04 \u2022 CALCULUS",
+    "isCheckpoint": false,
+    "headline": "Derivative of Natural Log (ln x)",
+    "body": "The derivative of natural logarithm ln(x) is 1 / x. Logarithms turn products into sums, simplifying cross-entropy loss gradients.",
+    "code": "d/dx [ ln(x) ] = 1 / x",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 82,
+    "moduleId": 4,
+    "moduleTitle": "Module 4: Math Foundation III - Calculus, Slopes & Derivatives",
+    "moduleTag": "MODULE 04 \u2022 CALCULUS",
+    "isCheckpoint": false,
+    "headline": "Partial Derivatives (\u2202f / \u2202x)",
+    "body": "When a function has multiple inputs f(x, y), the partial derivative \u2202f/\u2202x measures slope along x while treating y as a constant number.",
+    "code": "f(x, y) = 3x\u00b2y + y\u00b3  ==>  \u2202f/\u2202x = 6xy",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 83,
+    "moduleId": 4,
+    "moduleTitle": "Module 4: Math Foundation III - Calculus, Slopes & Derivatives",
+    "moduleTag": "MODULE 04 \u2022 CALCULUS",
+    "isCheckpoint": false,
+    "headline": "The Gradient Vector (\u2207f)",
+    "body": "The gradient \u2207f is a vector containing ALL partial derivatives of a multi-variable function.",
+    "code": "\u2207f = [ \u2202f/\u2202x\u2081, \u2202f/\u2202x\u2082, ..., \u2202f/\u2202x\u2099 ]\u1d40",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 84,
+    "moduleId": 4,
+    "moduleTitle": "Module 4: Math Foundation III - Calculus, Slopes & Derivatives",
+    "moduleTag": "MODULE 04 \u2022 CALCULUS",
+    "isCheckpoint": false,
+    "headline": "The Steepest Ascent Property",
+    "body": "Crucial Theorem: The gradient vector \u2207f ALWAYS points in the exact direction of steepest increase of the function!",
+    "code": "Direction of max increase = +\u2207f",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 85,
+    "moduleId": 4,
+    "moduleTitle": "Module 4: Math Foundation III - Calculus, Slopes & Derivatives",
+    "moduleTag": "MODULE 04 \u2022 CALCULUS",
+    "isCheckpoint": false,
+    "headline": "The Steepest Descent Direction",
+    "body": "The negative gradient -\u2207f ALWAYS points in the direction of steepest decrease! This is how neural nets minimize loss.",
+    "code": "Direction of max loss decrease = -\u2207f",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 86,
+    "moduleId": 4,
+    "moduleTitle": "Module 4: Math Foundation III - Calculus, Slopes & Derivatives",
+    "moduleTag": "MODULE 04 \u2022 CALCULUS",
+    "isCheckpoint": false,
+    "headline": "Gradient Descent Mental Model",
+    "body": "Imagine standing on a foggy mountain peak at night. To find the valley, feel the ground slope under your feet and take a step downhill.",
+    "code": "Next Step = Current Location - Step Size * Slope",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 87,
+    "moduleId": 4,
+    "moduleTitle": "Module 4: Math Foundation III - Calculus, Slopes & Derivatives",
+    "moduleTag": "MODULE 04 \u2022 CALCULUS",
+    "isCheckpoint": false,
+    "headline": "The Gradient Descent Update Formula",
+    "body": "Update weights \u03b8 by subtracting the learning rate \u03b1 times the loss gradient \u2207L(\u03b8).",
+    "code": "\u03b8_new = \u03b8_old - \u03b1 * \u2207L(\u03b8)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 88,
+    "moduleId": 4,
+    "moduleTitle": "Module 4: Math Foundation III - Calculus, Slopes & Derivatives",
+    "moduleTag": "MODULE 04 \u2022 CALCULUS",
+    "isCheckpoint": false,
+    "headline": "What is Learning Rate (\u03b1)?",
+    "body": "Learning rate \u03b1 controls how big a step we take downhill during weight updates. Typically set to small values like 0.001.",
+    "code": "\u03b1 too large  --> Overshoots valley, explodes!\n\u03b1 too small  --> Takes forever to converge",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 89,
+    "moduleId": 4,
+    "moduleTitle": "Module 4: Math Foundation III - Calculus, Slopes & Derivatives",
+    "moduleTag": "MODULE 04 \u2022 CALCULUS",
+    "isCheckpoint": false,
+    "headline": "Local Minima vs Global Minima",
+    "body": "Global minimum is the absolute lowest point on the loss surface. Local minimum is a small dip trap. Modern deep net landscapes are mostly saddle points.",
+    "code": "Saddle Point: Flat along one axis, sloping along another",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 90,
+    "moduleId": 4,
+    "moduleTitle": "Module 4: Math Foundation III - Calculus, Slopes & Derivatives",
+    "moduleTag": "MODULE 04 \u2022 CALCULUS",
+    "isCheckpoint": false,
+    "headline": "The Chain Rule (Single Variable)",
+    "body": "If y = f(u) and u = g(x), the derivative dy/dx is the product of dy/du and du/dx. This is the engine of Backpropagation!",
+    "code": "dy/dx = (dy/du) * (du/dx)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 91,
+    "moduleId": 4,
+    "moduleTitle": "Module 4: Math Foundation III - Calculus, Slopes & Derivatives",
+    "moduleTag": "MODULE 04 \u2022 CALCULUS",
+    "isCheckpoint": false,
+    "headline": "Chain Rule Example",
+    "body": "Find derivative of y = (3x + 2)\u00b2: Let u = 3x + 2. Then y = u\u00b2. dy/du = 2u, du/dx = 3. dy/dx = 2(3x + 2) * 3 = 18x + 12.",
+    "code": "d/dx [ (3x + 2)\u00b2 ] = 2(3x + 2) * 3",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 92,
+    "moduleId": 4,
+    "moduleTitle": "Module 4: Math Foundation III - Calculus, Slopes & Derivatives",
+    "moduleTag": "MODULE 04 \u2022 CALCULUS",
+    "isCheckpoint": false,
+    "headline": "Multivariate Chain Rule",
+    "body": "If z depends on u and v, which both depend on x, sum the chain rule paths along all branches.",
+    "code": "dz/dx = (\u2202z/\u2202u * \u2202u/\u2202x) + (\u2202z/\u2202v * \u2202v/\u2202x)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 93,
+    "moduleId": 4,
+    "moduleTitle": "Module 4: Math Foundation III - Calculus, Slopes & Derivatives",
+    "moduleTag": "MODULE 04 \u2022 CALCULUS",
+    "isCheckpoint": false,
+    "headline": "Convex vs Non-Convex Functions",
+    "body": "Convex loss functions look like a clean bowl with 1 guaranteed global minimum. Neural nets are non-convex with complex landscapes.",
+    "code": "Convex: Linear Regression | Non-Convex: Deep Nets",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 94,
+    "moduleId": 4,
+    "moduleTitle": "Module 4: Math Foundation III - Calculus, Slopes & Derivatives",
+    "moduleTag": "MODULE 04 \u2022 CALCULUS",
+    "isCheckpoint": false,
+    "headline": "Hessian Matrix (2nd Derivatives)",
+    "body": "The Hessian H is a matrix of second-order partial derivatives measuring loss surface curvature (how fast slope is changing).",
+    "code": "H[i, j] = \u2202\u00b2f / (\u2202x\u1d62 \u2202x\u2c7c)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 95,
+    "moduleId": 4,
+    "moduleTitle": "Module 4: Math Foundation III - Calculus, Slopes & Derivatives",
+    "moduleTag": "MODULE 04 \u2022 CALCULUS",
+    "isCheckpoint": false,
+    "headline": "Why We Use First-Order Gradients",
+    "body": "Computing 2nd-order Hessian matrices for 100 billion parameters is computationally impossible (O(N\u00b2)). 1st-order gradients (O(N)) are fast!",
+    "code": "1st-order Gradient: O(N) memory  |  2nd-order Hessian: O(N\u00b2) memory",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 96,
+    "moduleId": 4,
+    "moduleTitle": "Module 4: Math Foundation III - Calculus, Slopes & Derivatives",
+    "moduleTag": "MODULE 04 \u2022 CALCULUS",
+    "isCheckpoint": true,
+    "headline": "Module 4 Complete!",
+    "body": "",
+    "code": "",
+    "sub": "Calculus & Gradient Descent",
+    "recap": "You mastered Derivatives, Partial derivatives, Gradients \u2207f, Chain Rule, and Gradient Descent step updates."
+  },
+  {
+    "number": 97,
+    "moduleId": 5,
+    "moduleTitle": "Module 5: The Simplest ML Model - Linear & Logistic Regression",
+    "moduleTag": "MODULE 05 \u2022 REGRESSION",
+    "isCheckpoint": false,
+    "headline": "The Linear Regression Equation",
+    "body": "Predict continuous output y_hat as a weighted linear combination of input features X plus a scalar bias b.",
+    "code": "y_hat = w\u2081x\u2081 + w\u2082x\u2082 + ... + w\u2099x\u2099 + b = w\u1d40x + b",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 98,
+    "moduleId": 5,
+    "moduleTitle": "Module 5: The Simplest ML Model - Linear & Logistic Regression",
+    "moduleTag": "MODULE 05 \u2022 REGRESSION",
+    "isCheckpoint": false,
+    "headline": "Weights (w) & Bias (b) Meaning",
+    "body": "Weight w controls the slope/sensitivity of feature x. Bias b shifts the prediction baseline offset up or down when inputs are zero.",
+    "code": "w = feature weight/importance | b = baseline intercept",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 99,
+    "moduleId": 5,
+    "moduleTitle": "Module 5: The Simplest ML Model - Linear & Logistic Regression",
+    "moduleTag": "MODULE 05 \u2022 REGRESSION",
+    "isCheckpoint": false,
+    "headline": "Mean Squared Error (MSE) Loss",
+    "body": "Measures average squared distance between true labels y and predictions y_hat across all N dataset samples.",
+    "code": "MSE = (1 / N) * \u2211 (y\u1d62 - y_hat\u1d62)\u00b2",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 100,
+    "moduleId": 5,
+    "moduleTitle": "Module 5: The Simplest ML Model - Linear & Logistic Regression",
+    "moduleTag": "MODULE 05 \u2022 REGRESSION",
+    "isCheckpoint": false,
+    "headline": "Why Square the Errors?",
+    "body": "Squaring forces all errors positive (so +5 and -5 don't cancel out) and heavily penalizes large outlier mistakes.",
+    "code": "Error 2 --> Squared = 4 | Error 10 --> Squared = 100!",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 101,
+    "moduleId": 5,
+    "moduleTitle": "Module 5: The Simplest ML Model - Linear & Logistic Regression",
+    "moduleTag": "MODULE 05 \u2022 REGRESSION",
+    "isCheckpoint": false,
+    "headline": "Deriving MSE Gradient w.r.t Weight w",
+    "body": "Using chain rule on L = (y - (wx + b))\u00b2 yields the gradient component for weight w.",
+    "code": "\u2202L / \u2202w = -2/N * \u2211 x\u1d62 * (y\u1d62 - y_hat\u1d62)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 102,
+    "moduleId": 5,
+    "moduleTitle": "Module 5: The Simplest ML Model - Linear & Logistic Regression",
+    "moduleTag": "MODULE 05 \u2022 REGRESSION",
+    "isCheckpoint": false,
+    "headline": "Deriving MSE Gradient w.r.t Bias b",
+    "body": "Differentiating MSE loss with respect to bias b yields the average residual error across samples.",
+    "code": "\u2202L / \u2202b = -2/N * \u2211 (y\u1d62 - y_hat\u1d62)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 103,
+    "moduleId": 5,
+    "moduleTitle": "Module 5: The Simplest ML Model - Linear & Logistic Regression",
+    "moduleTag": "MODULE 05 \u2022 REGRESSION",
+    "isCheckpoint": false,
+    "headline": "Linear Regression Training Loop in Python",
+    "body": "Simple vectorized training loop updating weight w and bias b downhill every step.",
+    "code": "y_hat = X @ w + b\nerror = y_hat - y\ndw = (2/N) * X.T @ error\ndb = (2/N) * np.sum(error)\nw -= alpha * dw\nb -= alpha * db",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 104,
+    "moduleId": 5,
+    "moduleTitle": "Module 5: The Simplest ML Model - Linear & Logistic Regression",
+    "moduleTag": "MODULE 05 \u2022 REGRESSION",
+    "isCheckpoint": false,
+    "headline": "Analytical Solution: Normal Equation",
+    "body": "For linear regression, we can solve for optimal weights directly in one step without gradient descent using linear algebra!",
+    "code": "w_opt = (X\u1d40 X)\u207b\u00b9 X\u1d40 y",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 105,
+    "moduleId": 5,
+    "moduleTitle": "Module 5: The Simplest ML Model - Linear & Logistic Regression",
+    "moduleTag": "MODULE 05 \u2022 REGRESSION",
+    "isCheckpoint": false,
+    "headline": "Why Normal Equation Fails on Big Data",
+    "body": "Inverting matrix (X\u1d40 X) costs O(D\u00b3) computation. If D = 100,000 features, matrix inversion crashes. Gradient Descent is O(ND).",
+    "code": "Normal Eq: O(D\u00b3)  |  Gradient Descent: O(N * D)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 106,
+    "moduleId": 5,
+    "moduleTitle": "Module 5: The Simplest ML Model - Linear & Logistic Regression",
+    "moduleTag": "MODULE 05 \u2022 REGRESSION",
+    "isCheckpoint": false,
+    "headline": "From Regression to Classification",
+    "body": "Linear regression outputs unbounded continuous numbers (-\u221e to +\u221e). Classification requires probabilities bounded strictly between 0 and 1.",
+    "code": "Need function mapping (-\u221e, +\u221e) --> [0.0, 1.0]",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 107,
+    "moduleId": 5,
+    "moduleTitle": "Module 5: The Simplest ML Model - Linear & Logistic Regression",
+    "moduleTag": "MODULE 05 \u2022 REGRESSION",
+    "isCheckpoint": false,
+    "headline": "The Sigmoid Activation Function",
+    "body": "Sigmoid \u03c3(z) squashes any real number z into a valid probability between 0 and 1.",
+    "code": "\u03c3(z) = 1 / (1 + e\u207b\u1dbb)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 108,
+    "moduleId": 5,
+    "moduleTitle": "Module 5: The Simplest ML Model - Linear & Logistic Regression",
+    "moduleTag": "MODULE 05 \u2022 REGRESSION",
+    "isCheckpoint": false,
+    "headline": "Sigmoid Derivative Trick",
+    "body": "Sigmoid has an extraordinarily beautiful derivative formula expressed entirely in terms of its own output!",
+    "code": "d/dz [ \u03c3(z) ] = \u03c3(z) * (1 - \u03c3(z))",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 109,
+    "moduleId": 5,
+    "moduleTitle": "Module 5: The Simplest ML Model - Linear & Logistic Regression",
+    "moduleTag": "MODULE 05 \u2022 REGRESSION",
+    "isCheckpoint": false,
+    "headline": "The Logistic Regression Model",
+    "body": "Pass linear weighted sum z = w\u1d40x + b into Sigmoid to get predicted binary probability P(y=1|x).",
+    "code": "P(y=1|x) = \u03c3(w\u1d40x + b)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 110,
+    "moduleId": 5,
+    "moduleTitle": "Module 5: The Simplest ML Model - Linear & Logistic Regression",
+    "moduleTag": "MODULE 05 \u2022 REGRESSION",
+    "isCheckpoint": false,
+    "headline": "Decision Boundary",
+    "body": "Classify sample as Class 1 if P(y=1|x) \u2265 0.5 (which corresponds to linear z \u2265 0), and Class 0 otherwise.",
+    "code": "Decision Line: w\u1d40x + b = 0",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 111,
+    "moduleId": 5,
+    "moduleTitle": "Module 5: The Simplest ML Model - Linear & Logistic Regression",
+    "moduleTag": "MODULE 05 \u2022 REGRESSION",
+    "isCheckpoint": false,
+    "headline": "Why MSE Fails for Classification",
+    "body": "Combining Sigmoid with MSE loss creates a bumpy non-convex loss surface full of flat regions where gradients vanish!",
+    "code": "MSE + Sigmoid --> Non-convex bowl with gradient saturation traps",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 112,
+    "moduleId": 5,
+    "moduleTitle": "Module 5: The Simplest ML Model - Linear & Logistic Regression",
+    "moduleTag": "MODULE 05 \u2022 REGRESSION",
+    "isCheckpoint": false,
+    "headline": "Binary Cross-Entropy (BCE) Loss",
+    "body": "The optimal loss function for binary classification derived from Maximum Likelihood Estimation.",
+    "code": "BCE = -1/N * \u2211 [ y\u1d62 log(y_hat\u1d62) + (1-y\u1d62) log(1-y_hat\u1d62) ]",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 113,
+    "moduleId": 5,
+    "moduleTitle": "Module 5: The Simplest ML Model - Linear & Logistic Regression",
+    "moduleTag": "MODULE 05 \u2022 REGRESSION",
+    "isCheckpoint": false,
+    "headline": "BCE Intuition when True Target y = 1",
+    "body": "When y = 1, loss simplify to -log(y_hat). If y_hat = 0.99, loss \u2248 0. If y_hat = 0.01, loss skyrockets to infinity!",
+    "code": "Target y=1:  Predict 0.99 --> Loss 0.01 | Predict 0.01 --> Loss 4.60!",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 114,
+    "moduleId": 5,
+    "moduleTitle": "Module 5: The Simplest ML Model - Linear & Logistic Regression",
+    "moduleTag": "MODULE 05 \u2022 REGRESSION",
+    "isCheckpoint": false,
+    "headline": "BCE Gradient Simplification Magic",
+    "body": "When you compute derivative of BCE Loss combined with Sigmoid, the complex math simplifies into pure linear difference!",
+    "code": "\u2202L / \u2202z = y_hat - y  (Elegantly simple!)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 115,
+    "moduleId": 5,
+    "moduleTitle": "Module 5: The Simplest ML Model - Linear & Logistic Regression",
+    "moduleTag": "MODULE 05 \u2022 REGRESSION",
+    "isCheckpoint": false,
+    "headline": "Logistic Regression Training Code",
+    "body": "Vectorized implementation of binary classification in Python.",
+    "code": "z = X @ w + b\ny_hat = 1 / (1 + np.exp(-z))\ndw = (1/N) * X.T @ (y_hat - y)\ndb = (1/N) * np.sum(y_hat - y)\nw -= alpha * dw; b -= alpha * db",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 116,
+    "moduleId": 5,
+    "moduleTitle": "Module 5: The Simplest ML Model - Linear & Logistic Regression",
+    "moduleTag": "MODULE 05 \u2022 REGRESSION",
+    "isCheckpoint": false,
+    "headline": "Multi-Class Classification & Softmax",
+    "body": "To classify K classes (e.g. Cat, Dog, Bird), compute K linear scores (logits) z and pass into Softmax.",
+    "code": "Softmax(z\u1d62) = e\u1dbb\u2071 / \u2211\u2096 e\u1dbb\u2096",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 117,
+    "moduleId": 5,
+    "moduleTitle": "Module 5: The Simplest ML Model - Linear & Logistic Regression",
+    "moduleTag": "MODULE 05 \u2022 REGRESSION",
+    "isCheckpoint": false,
+    "headline": "Properties of Softmax",
+    "body": "Softmax converts raw logits into a valid probability distribution: all outputs positive, summing strictly to 1.0.",
+    "code": "\u2211 Softmax(z) = 1.0  |  Softmax(z\u1d62) \u2208 (0, 1)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 118,
+    "moduleId": 5,
+    "moduleTitle": "Module 5: The Simplest ML Model - Linear & Logistic Regression",
+    "moduleTag": "MODULE 05 \u2022 REGRESSION",
+    "isCheckpoint": false,
+    "headline": "Categorical Cross-Entropy Loss",
+    "body": "Extends binary cross-entropy to K classes by taking negative log of predicted probability for true class c.",
+    "code": "Loss = -log( Softmax(z)_true_class )",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 119,
+    "moduleId": 5,
+    "moduleTitle": "Module 5: The Simplest ML Model - Linear & Logistic Regression",
+    "moduleTag": "MODULE 05 \u2022 REGRESSION",
+    "isCheckpoint": false,
+    "headline": "Linear Separability Limitation",
+    "body": "Linear and Logistic Regression can ONLY draw straight-line decision boundaries. They fail completely on non-linear problems like XOR!",
+    "code": "XOR Problem: Cannot separate [0,0] & [1,1] from [0,1] & [1,0] with 1 line!",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 120,
+    "moduleId": 5,
+    "moduleTitle": "Module 5: The Simplest ML Model - Linear & Logistic Regression",
+    "moduleTag": "MODULE 05 \u2022 REGRESSION",
+    "isCheckpoint": true,
+    "headline": "Module 5 Complete!",
+    "body": "",
+    "code": "",
+    "sub": "Linear & Logistic Models",
+    "recap": "You built Linear & Logistic Regression from scratch, mastered MSE, Sigmoid, BCE, Softmax, and gradient update loops."
+  },
+  {
+    "number": 121,
+    "moduleId": 6,
+    "moduleTitle": "Module 6: Deep Neural Networks - Perceptrons & Layers",
+    "moduleTag": "MODULE 06 \u2022 NEURAL NETS",
+    "isCheckpoint": false,
+    "headline": "The Biological Inspiration",
+    "body": "Dendrites receive inputs, the cell body sums signals, and if voltage passes a threshold, the axon fires an impulse to next neurons.",
+    "code": "Inputs x --> Weighted Sum z --> Activation --> Output",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 122,
+    "moduleId": 6,
+    "moduleTitle": "Module 6: Deep Neural Networks - Perceptrons & Layers",
+    "moduleTag": "MODULE 06 \u2022 NEURAL NETS",
+    "isCheckpoint": false,
+    "headline": "The Artificial Neuron (Perceptron)",
+    "body": "Takes vector x, multiplies by weight vector W, adds scalar bias b, and passes result through activation function a = f(z).",
+    "code": "z = W\u1d40x + b\na = f(z)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 123,
+    "moduleId": 6,
+    "moduleTitle": "Module 6: Deep Neural Networks - Perceptrons & Layers",
+    "moduleTag": "MODULE 06 \u2022 NEURAL NETS",
+    "isCheckpoint": false,
+    "headline": "Multi-Layer Perceptron (MLP) Architecture",
+    "body": "Stack neurons into layers: Input Layer \u2192 Hidden Layers \u2192 Output Layer. Signals flow forward step-by-step.",
+    "code": "h1 = f(W1 @ x + b1)\nh2 = f(W2 @ h1 + b2)\ny_hat = Softmax(W3 @ h2 + b3)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 124,
+    "moduleId": 6,
+    "moduleTitle": "Module 6: Deep Neural Networks - Perceptrons & Layers",
+    "moduleTag": "MODULE 06 \u2022 NEURAL NETS",
+    "isCheckpoint": false,
+    "headline": "Why Non-Linear Activations are Mandatory",
+    "body": "CRITICAL: Stacking 100 linear layers without non-linear activations is mathematically equivalent to just 1 single linear layer!",
+    "code": "W2 @ (W1 @ x) = (W2 @ W1) @ x = W_combined @ x",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 125,
+    "moduleId": 6,
+    "moduleTitle": "Module 6: Deep Neural Networks - Perceptrons & Layers",
+    "moduleTag": "MODULE 06 \u2022 NEURAL NETS",
+    "isCheckpoint": false,
+    "headline": "Universal Approximation Theorem",
+    "body": "A feedforward neural net with just 1 hidden layer and non-linear activations can approximate ANY continuous function to arbitrary accuracy!",
+    "code": "Given enough hidden units, MLP can model any complex curve",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 126,
+    "moduleId": 6,
+    "moduleTitle": "Module 6: Deep Neural Networks - Perceptrons & Layers",
+    "moduleTag": "MODULE 06 \u2022 NEURAL NETS",
+    "isCheckpoint": false,
+    "headline": "Activation 1: Sigmoid Pro & Con",
+    "body": "Good for probability outputs. BAD for deep hidden layers because gradients vanish to zero when inputs get large (|z| > 4).",
+    "code": "\u03c3'(z) max is 0.25! Gradients shrink by 4x per layer!",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 127,
+    "moduleId": 6,
+    "moduleTitle": "Module 6: Deep Neural Networks - Perceptrons & Layers",
+    "moduleTag": "MODULE 06 \u2022 NEURAL NETS",
+    "isCheckpoint": false,
+    "headline": "Activation 2: Hyperbolic Tangent (Tanh)",
+    "body": "Zero-centered function bounded between -1.0 and +1.0. Better than Sigmoid for hidden layers, but still suffers vanishing gradients.",
+    "code": "tanh(z) = (e\u1dbb - e\u207b\u1dbb) / (e\u1dbb + e\u207b\u1dbb)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 128,
+    "moduleId": 6,
+    "moduleTitle": "Module 6: Deep Neural Networks - Perceptrons & Layers",
+    "moduleTag": "MODULE 06 \u2022 NEURAL NETS",
+    "isCheckpoint": false,
+    "headline": "Activation 3: Rectified Linear Unit (ReLU)",
+    "body": "The modern default workhorse activation: f(z) = max(0, z). Fast to compute, zero vanishing gradient for positive values!",
+    "code": "f(z) = max(0, z)  ==>  f'(z) = 1 if z > 0 else 0",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 129,
+    "moduleId": 6,
+    "moduleTitle": "Module 6: Deep Neural Networks - Perceptrons & Layers",
+    "moduleTag": "MODULE 06 \u2022 NEURAL NETS",
+    "isCheckpoint": false,
+    "headline": "Dying ReLU Problem",
+    "body": "If large gradient updates push a neuron's weights into negative territory, ReLU outputs 0 forever with zero gradient flow (dead neuron).",
+    "code": "z < 0 ==> f(z) = 0, f'(z) = 0  (Gradient killed!)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 130,
+    "moduleId": 6,
+    "moduleTitle": "Module 6: Deep Neural Networks - Perceptrons & Layers",
+    "moduleTag": "MODULE 06 \u2022 NEURAL NETS",
+    "isCheckpoint": false,
+    "headline": "Activation 4: Leaky ReLU",
+    "body": "Fixes Dying ReLU by adding a tiny slope \u03b1 (e.g. 0.01) for negative inputs, keeping gradients flowing.",
+    "code": "f(z) = max(0.01 * z, z)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 131,
+    "moduleId": 6,
+    "moduleTitle": "Module 6: Deep Neural Networks - Perceptrons & Layers",
+    "moduleTag": "MODULE 06 \u2022 NEURAL NETS",
+    "isCheckpoint": false,
+    "headline": "Activation 5: ELU & GELU",
+    "body": "GELU (Gaussian Error Linear Unit) smooths the ReLU kink around 0. Used modernly in Transformers like BERT and GPT-4.",
+    "code": "GELU(x) = x * \u03a6(x)  (Smooth probabilistic curve)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 132,
+    "moduleId": 6,
+    "moduleTitle": "Module 6: Deep Neural Networks - Perceptrons & Layers",
+    "moduleTag": "MODULE 06 \u2022 NEURAL NETS",
+    "isCheckpoint": false,
+    "headline": "Activation 6: Swish / SiLU",
+    "body": "Swish f(x) = x * \u03c3(\u03b2x) is a smooth, non-monotonic activation discovered by automated neural search. Used in EfficientNets.",
+    "code": "Swish(x) = x / (1 + e\u207b\u02e3)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 133,
+    "moduleId": 6,
+    "moduleTitle": "Module 6: Deep Neural Networks - Perceptrons & Layers",
+    "moduleTag": "MODULE 06 \u2022 NEURAL NETS",
+    "isCheckpoint": false,
+    "headline": "Width vs Depth in Deep Nets",
+    "body": "Width is number of neurons per layer. Depth is number of layers stacked. Deeper networks learn hierarchical feature abstractions.",
+    "code": "Depth: Pixels --> Edges --> Shapes --> Object Features",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 134,
+    "moduleId": 6,
+    "moduleTitle": "Module 6: Deep Neural Networks - Perceptrons & Layers",
+    "moduleTag": "MODULE 06 \u2022 NEURAL NETS",
+    "isCheckpoint": false,
+    "headline": "Layer Weight Tensor Shapes",
+    "body": "If Layer L-1 has 128 neurons and Layer L has 64 neurons, Weight matrix W has shape (64, 128) and Bias b has shape (64,).",
+    "code": "W.shape = (out_features, in_features) = (64, 128)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 135,
+    "moduleId": 6,
+    "moduleTitle": "Module 6: Deep Neural Networks - Perceptrons & Layers",
+    "moduleTag": "MODULE 06 \u2022 NEURAL NETS",
+    "isCheckpoint": false,
+    "headline": "Forward Pass Matrix Notation",
+    "body": "Compute entire layer's activations across batch of B samples in a single high-speed matrix multiplication.",
+    "code": "Z = X @ W\u1d40 + b  # Shape: (B, in_dim) @ (in_dim, out_dim) -> (B, out_dim)\nA = ReLU(Z)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 136,
+    "moduleId": 6,
+    "moduleTitle": "Module 6: Deep Neural Networks - Perceptrons & Layers",
+    "moduleTag": "MODULE 06 \u2022 NEURAL NETS",
+    "isCheckpoint": false,
+    "headline": "Solving XOR with Hidden Layer",
+    "body": "Adding a 2-neuron hidden layer bends coordinate space, making XOR linearly separable at output layer!",
+    "code": "Hidden Layer warps feature space so a straight line can split points",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 137,
+    "moduleId": 6,
+    "moduleTitle": "Module 6: Deep Neural Networks - Perceptrons & Layers",
+    "moduleTag": "MODULE 06 \u2022 NEURAL NETS",
+    "isCheckpoint": false,
+    "headline": "Weight Initialization Matters!",
+    "body": "Initializing all weights to 0 causes all neurons in a layer to compute identical gradients (symmetry trap). Weights MUST be randomized!",
+    "code": "Never initialize weights to zeros! Use small random numbers.",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 138,
+    "moduleId": 6,
+    "moduleTitle": "Module 6: Deep Neural Networks - Perceptrons & Layers",
+    "moduleTag": "MODULE 06 \u2022 NEURAL NETS",
+    "isCheckpoint": false,
+    "headline": "Xavier / Glorot Initialization",
+    "body": "Designed for Sigmoid/Tanh layers. Draws random weights with variance scaled by average of input and output neuron counts.",
+    "code": "Var(W) = 2 / (in_features + out_features)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 139,
+    "moduleId": 6,
+    "moduleTitle": "Module 6: Deep Neural Networks - Perceptrons & Layers",
+    "moduleTag": "MODULE 06 \u2022 NEURAL NETS",
+    "isCheckpoint": false,
+    "headline": "He / Kaiming Initialization",
+    "body": "Designed specifically for ReLU layers. Scales weight variance by 2 / in_features to account for half of inputs becoming zero.",
+    "code": "W = np.random.randn(out, in) * np.sqrt(2.0 / in)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 140,
+    "moduleId": 6,
+    "moduleTitle": "Module 6: Deep Neural Networks - Perceptrons & Layers",
+    "moduleTag": "MODULE 06 \u2022 NEURAL NETS",
+    "isCheckpoint": false,
+    "headline": "Network Parameter Count",
+    "body": "Total trainable parameters = sum of all weights (out_dim \u00d7 in_dim) + biases (out_dim) across all layers.",
+    "code": "Params = (1000*512 + 512) + (512*10 + 10) = 517,642",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 141,
+    "moduleId": 6,
+    "moduleTitle": "Module 6: Deep Neural Networks - Perceptrons & Layers",
+    "moduleTag": "MODULE 06 \u2022 NEURAL NETS",
+    "isCheckpoint": false,
+    "headline": "MLP Implementation from Scratch",
+    "body": "Building a 2-layer neural net forward pass in pure NumPy.",
+    "code": "def forward(X, W1, b1, W2, b2):\n  Z1 = X @ W1 + b1\n  A1 = np.maximum(0, Z1)  # ReLU\n  Z2 = A1 @ W2 + b2\n  return Z2",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 142,
+    "moduleId": 6,
+    "moduleTitle": "Module 6: Deep Neural Networks - Perceptrons & Layers",
+    "moduleTag": "MODULE 06 \u2022 NEURAL NETS",
+    "isCheckpoint": false,
+    "headline": "Representational Capacity",
+    "body": "As depth increases, network capacity grows exponentially with respect to parameter count, enabling rich hierarchical representations.",
+    "code": "Deep & Thin > Shallow & Super-Wide",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 143,
+    "moduleId": 6,
+    "moduleTitle": "Module 6: Deep Neural Networks - Perceptrons & Layers",
+    "moduleTag": "MODULE 06 \u2022 NEURAL NETS",
+    "isCheckpoint": false,
+    "headline": "The Mystery of Deep Networks",
+    "body": "How do we efficiently compute gradient updates for millions of hidden weights buried 50 layers deep? Answer: Backpropagation!",
+    "code": "Backprop = Computational Graph + Chain Rule",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 144,
+    "moduleId": 6,
+    "moduleTitle": "Module 6: Deep Neural Networks - Perceptrons & Layers",
+    "moduleTag": "MODULE 06 \u2022 NEURAL NETS",
+    "isCheckpoint": true,
+    "headline": "Module 6 Complete!",
+    "body": "",
+    "code": "",
+    "sub": "Deep Neural Networks",
+    "recap": "You mastered Perceptrons, MLP architecture, Activations (ReLU, GELU, Swish), Initialization, and Forward pass matrix math."
+  },
+  {
+    "number": 145,
+    "moduleId": 7,
+    "moduleTitle": "Module 7: Backpropagation & Computational Graphs",
+    "moduleTag": "MODULE 07 \u2022 BACKPROPAGATION",
+    "isCheckpoint": false,
+    "headline": "What is Backpropagation?",
+    "body": "Backprop is the algorithm that computes the exact gradient of the loss function with respect to EVERY weight and bias in a neural network.",
+    "code": "Objective: Compute \u2202Loss / \u2202W[l] for all layers l",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 146,
+    "moduleId": 7,
+    "moduleTitle": "Module 7: Backpropagation & Computational Graphs",
+    "moduleTag": "MODULE 07 \u2022 BACKPROPAGATION",
+    "isCheckpoint": false,
+    "headline": "What is a Computational Graph?",
+    "body": "A Directed Acyclic Graph (DAG) where nodes are operations (+, \u00d7, ReLU) and edges carry tensor values.",
+    "code": "x, y --> [*] --> z --> [+] --> Loss",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 147,
+    "moduleId": 7,
+    "moduleTitle": "Module 7: Backpropagation & Computational Graphs",
+    "moduleTag": "MODULE 07 \u2022 BACKPROPAGATION",
+    "isCheckpoint": false,
+    "headline": "Forward Pass vs Backward Pass",
+    "body": "Forward pass evaluates node outputs from inputs to loss. Backward pass computes gradients flowing backwards from loss to inputs.",
+    "code": "Forward:   Inputs  ======>  Loss\nBackward:  \u2202L/\u2202x   <======  \u2202L/\u2202Loss=1",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 148,
+    "moduleId": 7,
+    "moduleTitle": "Module 7: Backpropagation & Computational Graphs",
+    "moduleTag": "MODULE 07 \u2022 BACKPROPAGATION",
+    "isCheckpoint": false,
+    "headline": "Local Gradients at a Node",
+    "body": "Every operation node in a graph knows its own local derivative: how its output changes relative to its immediate inputs.",
+    "code": "Node f(x,y) knows \u2202f/\u2202x and \u2202f/\u2202y",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 149,
+    "moduleId": 7,
+    "moduleTitle": "Module 7: Backpropagation & Computational Graphs",
+    "moduleTag": "MODULE 07 \u2022 BACKPROPAGATION",
+    "isCheckpoint": false,
+    "headline": "The Backprop Multiplication Rule",
+    "body": "Incoming upstream gradient from right \u00d7 local node derivative = downstream gradient passed to left.",
+    "code": "\u2202Loss / \u2202x = (\u2202Loss / \u2202out) * (\u2202out / \u2202x)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 150,
+    "moduleId": 7,
+    "moduleTitle": "Module 7: Backpropagation & Computational Graphs",
+    "moduleTag": "MODULE 07 \u2022 BACKPROPAGATION",
+    "isCheckpoint": false,
+    "headline": "Backprop Primitive: Add Gate (+)",
+    "body": "The addition gate acts as an exact Gradient Router! It routes the incoming upstream gradient unchanged to all inputs.",
+    "code": "out = x + y  ==>  \u2202out/\u2202x = 1, \u2202out/\u2202y = 1",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 151,
+    "moduleId": 7,
+    "moduleTitle": "Module 7: Backpropagation & Computational Graphs",
+    "moduleTag": "MODULE 07 \u2022 BACKPROPAGATION",
+    "isCheckpoint": false,
+    "headline": "Backprop Primitive: Multiply Gate (\u00d7)",
+    "body": "The multiplication gate acts as a Gradient Switcher! It scales upstream gradient by the value of the OTHER input.",
+    "code": "out = x * y  ==>  \u2202Loss/\u2202x = Upstream * y",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 152,
+    "moduleId": 7,
+    "moduleTitle": "Module 7: Backpropagation & Computational Graphs",
+    "moduleTag": "MODULE 07 \u2022 BACKPROPAGATION",
+    "isCheckpoint": false,
+    "headline": "Backprop Primitive: Max Gate",
+    "body": "The max gate (e.g. ReLU) acts as a Gradient Switch! It routes incoming gradient ONLY to the input that had the maximum value.",
+    "code": "out = max(x, y)  ==>  Routes 100% gradient to winner",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 153,
+    "moduleId": 7,
+    "moduleTitle": "Module 7: Backpropagation & Computational Graphs",
+    "moduleTag": "MODULE 07 \u2022 BACKPROPAGATION",
+    "isCheckpoint": false,
+    "headline": "Branching Nodes (Gradient Accumulation)",
+    "body": "When a variable x splits and feeds into multiple downstream paths, SUM the incoming gradients from all branches during backprop!",
+    "code": "\u2202Loss / \u2202x = \u2211 (Incoming gradients from all branches)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 154,
+    "moduleId": 7,
+    "moduleTitle": "Module 7: Backpropagation & Computational Graphs",
+    "moduleTag": "MODULE 07 \u2022 BACKPROPAGATION",
+    "isCheckpoint": false,
+    "headline": "Vectorized Backprop: Weight Gradients",
+    "body": "For layer Z = X @ W + b, the weight gradient dW is the matrix product of input X transpose and output gradient dZ.",
+    "code": "dW = X\u1d40 @ dZ  |  db = sum_rows(dZ)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 155,
+    "moduleId": 7,
+    "moduleTitle": "Module 7: Backpropagation & Computational Graphs",
+    "moduleTag": "MODULE 07 \u2022 BACKPROPAGATION",
+    "isCheckpoint": false,
+    "headline": "Vectorized Backprop: Input Gradients",
+    "body": "To pass gradients back to previous layer, multiply output gradient dZ by Weight matrix transpose W\u1d40.",
+    "code": "dX = dZ @ W\u1d40",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 156,
+    "moduleId": 7,
+    "moduleTitle": "Module 7: Backpropagation & Computational Graphs",
+    "moduleTag": "MODULE 07 \u2022 BACKPROPAGATION",
+    "isCheckpoint": false,
+    "headline": "Dimensional Consistency Check",
+    "body": "GOLDEN RULE: The gradient tensor dW MUST always have the exact same shape as weight tensor W!",
+    "code": "W.shape == (64, 128)  ==>  dW.shape MUST be (64, 128)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 157,
+    "moduleId": 7,
+    "moduleTitle": "Module 7: Backpropagation & Computational Graphs",
+    "moduleTag": "MODULE 07 \u2022 BACKPROPAGATION",
+    "isCheckpoint": false,
+    "headline": "Step 1 Backprop: Output Layer Loss",
+    "body": "Start at loss L. For Softmax + Cross-Entropy, the loss gradient w.r.t logits Z_last is simply (y_hat - y).",
+    "code": "dZ_last = y_hat - y  # Vector of residual errors",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 158,
+    "moduleId": 7,
+    "moduleTitle": "Module 7: Backpropagation & Computational Graphs",
+    "moduleTag": "MODULE 07 \u2022 BACKPROPAGATION",
+    "isCheckpoint": false,
+    "headline": "Step 2 Backprop: Hidden Layer Gradients",
+    "body": "Propagate backwards: multiply dZ_next by W_next\u1d40, then multiply elementwise by activation derivative f'(Z_curr).",
+    "code": "dA_curr = dZ_next @ W_next\u1d40\ndZ_curr = dA_curr * (Z_curr > 0)  # ReLU derivative",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 159,
+    "moduleId": 7,
+    "moduleTitle": "Module 7: Backpropagation & Computational Graphs",
+    "moduleTag": "MODULE 07 \u2022 BACKPROPAGATION",
+    "isCheckpoint": false,
+    "headline": "Step 3 Backprop: Compute Weight Derivatives",
+    "body": "Use dZ_curr and previous activation A_prev to compute weight and bias update gradients.",
+    "code": "dW_curr = A_prev\u1d40 @ dZ_curr\ndb_curr = np.sum(dZ_curr, axis=0)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 160,
+    "moduleId": 7,
+    "moduleTitle": "Module 7: Backpropagation & Computational Graphs",
+    "moduleTag": "MODULE 07 \u2022 BACKPROPAGATION",
+    "isCheckpoint": false,
+    "headline": "Vanishing Gradient Problem",
+    "body": "If local derivatives are < 1 (e.g. Sigmoid \u2264 0.25), multiplying them through 30 layers shrinks gradients exponentially to 0!",
+    "code": "0.25\u00b3\u2070 \u2248 8.6 \u00d7 10\u207b\u00b9\u2079  (Front layers stop learning completely!)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 161,
+    "moduleId": 7,
+    "moduleTitle": "Module 7: Backpropagation & Computational Graphs",
+    "moduleTag": "MODULE 07 \u2022 BACKPROPAGATION",
+    "isCheckpoint": false,
+    "headline": "Exploding Gradient Problem",
+    "body": "If weight matrices are > 1, multiplying them repeatedly causes gradients to explode to NaN / Infinity, crashing training.",
+    "code": "2.0\u00b3\u2070 \u2248 1,073,741,824  (Weights explode to NaN!)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 162,
+    "moduleId": 7,
+    "moduleTitle": "Module 7: Backpropagation & Computational Graphs",
+    "moduleTag": "MODULE 07 \u2022 BACKPROPAGATION",
+    "isCheckpoint": false,
+    "headline": "Gradient Clipping Defense",
+    "body": "If gradient L2 norm exceeds threshold max_norm (e.g. 1.0), rescale gradient vector down to prevent exploding steps.",
+    "code": "if ||g|| > threshold:  g = g * (threshold / ||g||)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 163,
+    "moduleId": 7,
+    "moduleTitle": "Module 7: Backpropagation & Computational Graphs",
+    "moduleTag": "MODULE 07 \u2022 BACKPROPAGATION",
+    "isCheckpoint": false,
+    "headline": "Automatic Differentiation (Autograd)",
+    "body": "Modern frameworks (PyTorch) dynamically construct computational graphs during forward pass, then execute backprop automatically!",
+    "code": "loss.backward()  # Computes all gradients automatically!",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 164,
+    "moduleId": 7,
+    "moduleTitle": "Module 7: Backpropagation & Computational Graphs",
+    "moduleTag": "MODULE 07 \u2022 BACKPROPAGATION",
+    "isCheckpoint": false,
+    "headline": "Numerical Gradient Checking",
+    "body": "Verify analytical backprop code accuracy by comparing against finite-difference numerical slopes.",
+    "code": "df/dx \u2248 [ f(x + \u03b5) - f(x - \u03b5) ] / (2 * \u03b5)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 165,
+    "moduleId": 7,
+    "moduleTitle": "Module 7: Backpropagation & Computational Graphs",
+    "moduleTag": "MODULE 07 \u2022 BACKPROPAGATION",
+    "isCheckpoint": false,
+    "headline": "Memory Footprint of Backprop",
+    "body": "During forward pass, hidden layer activations MUST be saved in GPU memory to compute backward derivatives later. This consumes GPU VRAM!",
+    "code": "GPU Memory = Model Weights + Saved Forward Activations",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 166,
+    "moduleId": 7,
+    "moduleTitle": "Module 7: Backpropagation & Computational Graphs",
+    "moduleTag": "MODULE 07 \u2022 BACKPROPAGATION",
+    "isCheckpoint": false,
+    "headline": "Gradient Checkpointing Trick",
+    "body": "Trade compute for memory: discard intermediate activations during forward pass, and recompute them on-the-fly during backward pass!",
+    "code": "Saves 70%+ GPU VRAM at cost of 20% slower training speed",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 167,
+    "moduleId": 7,
+    "moduleTitle": "Module 7: Backpropagation & Computational Graphs",
+    "moduleTag": "MODULE 07 \u2022 BACKPROPAGATION",
+    "isCheckpoint": false,
+    "headline": "Full Backprop Algorithm Summary",
+    "body": "1. Forward Pass (save activations) \u2192 2. Compute Loss \u2192 3. Backward Pass (Chain rule right-to-left) \u2192 4. Store dW, db.",
+    "code": "Chain rule backwards is the ultimate computational engine of AI",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 168,
+    "moduleId": 7,
+    "moduleTitle": "Module 7: Backpropagation & Computational Graphs",
+    "moduleTag": "MODULE 07 \u2022 BACKPROPAGATION",
+    "isCheckpoint": true,
+    "headline": "Module 7 Complete!",
+    "body": "",
+    "code": "",
+    "sub": "Backpropagation & Autograd",
+    "recap": "You mastered Computational Graphs, Add/Multiply gates, Vectorized dW/dX math, Vanishing/Exploding gradients, and Autograd."
+  },
+  {
+    "number": 169,
+    "moduleId": 8,
+    "moduleTitle": "Module 8: Optimization Techniques & Loss Functions",
+    "moduleTag": "MODULE 08 \u2022 OPTIMIZATION",
+    "isCheckpoint": false,
+    "headline": "Batch Gradient Descent",
+    "body": "Computes loss gradient using ALL N samples in dataset before making 1 weight update step. Very stable, but painfully slow for big data.",
+    "code": "dw = (1/N) * \u2211 \u2207L(x_i)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 170,
+    "moduleId": 8,
+    "moduleTitle": "Module 8: Optimization Techniques & Loss Functions",
+    "moduleTag": "MODULE 08 \u2022 OPTIMIZATION",
+    "isCheckpoint": false,
+    "headline": "Stochastic Gradient Descent (SGD)",
+    "body": "Computes loss gradient using ONLY 1 random sample at a time. Extremely fast, but updates bounce erratically around loss landscape.",
+    "code": "dw = \u2207L(x_random_single_sample)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 171,
+    "moduleId": 8,
+    "moduleTitle": "Module 8: Optimization Techniques & Loss Functions",
+    "moduleTag": "MODULE 08 \u2022 OPTIMIZATION",
+    "isCheckpoint": false,
+    "headline": "Mini-Batch Gradient Descent",
+    "body": "The gold standard sweet spot! Computes loss gradient on small random batches (e.g., batch_size = 32, 64, 256).",
+    "code": "dw = (1 / batch_size) * \u2211 \u2207L(x_batch)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 172,
+    "moduleId": 8,
+    "moduleTitle": "Module 8: Optimization Techniques & Loss Functions",
+    "moduleTag": "MODULE 08 \u2022 OPTIMIZATION",
+    "isCheckpoint": false,
+    "headline": "SGD with Momentum",
+    "body": "Accumulates a moving average velocity vector v of past gradients like a heavy ball rolling down a hill, dampening oscillations.",
+    "code": "v = \u03b2 * v + \u03b1 * dw\nw = w - v",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 173,
+    "moduleId": 8,
+    "moduleTitle": "Module 8: Optimization Techniques & Loss Functions",
+    "moduleTag": "MODULE 08 \u2022 OPTIMIZATION",
+    "isCheckpoint": false,
+    "headline": "Nesterov Accelerated Momentum",
+    "body": "Measures gradient not at current location, but at predicted future position (w - \u03b2v). Looks ahead to brake before overshooting valleys.",
+    "code": "v = \u03b2 * v + \u03b1 * \u2207L(w - \u03b2 * v)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 174,
+    "moduleId": 8,
+    "moduleTitle": "Module 8: Optimization Techniques & Loss Functions",
+    "moduleTag": "MODULE 08 \u2022 OPTIMIZATION",
+    "isCheckpoint": false,
+    "headline": "AdaGrad: Adaptive Learning Rates",
+    "body": "Divides learning rate by square root of sum of squared past gradients. Frequently updated weights slow down, rare weights get larger steps.",
+    "code": "cache += dw\u00b2\nw -= \u03b1 * dw / (sqrt(cache) + \u03b5)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 175,
+    "moduleId": 8,
+    "moduleTitle": "Module 8: Optimization Techniques & Loss Functions",
+    "moduleTag": "MODULE 08 \u2022 OPTIMIZATION",
+    "isCheckpoint": false,
+    "headline": "RMSprop Optimizer",
+    "body": "Fixes AdaGrad's decaying learning rate by using an exponentially decaying moving average of squared gradients instead of infinite sum.",
+    "code": "cache = decay * cache + (1 - decay) * dw\u00b2\nw -= \u03b1 * dw / (sqrt(cache) + \u03b5)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 176,
+    "moduleId": 8,
+    "moduleTitle": "Module 8: Optimization Techniques & Loss Functions",
+    "moduleTag": "MODULE 08 \u2022 OPTIMIZATION",
+    "isCheckpoint": false,
+    "headline": "Adam Optimizer (Adaptive Moment Estimation)",
+    "body": "Combines Momentum (1st moment m) and RMSprop (2nd moment v). The default, most widely used optimizer in modern deep learning!",
+    "code": "m = \u03b21*m + (1-\u03b21)*dw  (1st moment)\nv = \u03b22*v + (1-\u03b22)*dw\u00b2 (2nd moment)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 177,
+    "moduleId": 8,
+    "moduleTitle": "Module 8: Optimization Techniques & Loss Functions",
+    "moduleTag": "MODULE 08 \u2022 OPTIMIZATION",
+    "isCheckpoint": false,
+    "headline": "Adam Bias Correction",
+    "body": "Since m and v are initialized to zeros, they are biased towards 0 at start. Correct them by dividing by (1 - \u03b2\u1d57).",
+    "code": "m_hat = m / (1 - \u03b21\u1d57)\nv_hat = v / (1 - \u03b22\u1d57)\nw -= \u03b1 * m_hat / (sqrt(v_hat) + \u03b5)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 178,
+    "moduleId": 8,
+    "moduleTitle": "Module 8: Optimization Techniques & Loss Functions",
+    "moduleTag": "MODULE 08 \u2022 OPTIMIZATION",
+    "isCheckpoint": false,
+    "headline": "AdamW: Weight Decay Corrected",
+    "body": "Decouples L2 regularization weight decay directly from gradient updates. AdamW outperforms standard Adam for modern Transformers!",
+    "code": "w = w - \u03b1 * (m_hat / (sqrt(v_hat) + \u03b5) + decay * w)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 179,
+    "moduleId": 8,
+    "moduleTitle": "Module 8: Optimization Techniques & Loss Functions",
+    "moduleTag": "MODULE 08 \u2022 OPTIMIZATION",
+    "isCheckpoint": false,
+    "headline": "Learning Rate Warmup Schedule",
+    "body": "Start training with very small learning rate for first N steps, linearly increasing to target \u03b1, preventing early gradient destruction.",
+    "code": "lr = target_lr * min(1.0, current_step / warmup_steps)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 180,
+    "moduleId": 8,
+    "moduleTitle": "Module 8: Optimization Techniques & Loss Functions",
+    "moduleTag": "MODULE 08 \u2022 OPTIMIZATION",
+    "isCheckpoint": false,
+    "headline": "Cosine Annealing Schedule",
+    "body": "Smoothly decays learning rate following a cosine curve down to near zero at end of training, helping weights settle into deep minima.",
+    "code": "lr_t = lr_min + 0.5 * (lr_max - lr_min) * (1 + cos(t / T * \u03c0))",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 181,
+    "moduleId": 8,
+    "moduleTitle": "Module 8: Optimization Techniques & Loss Functions",
+    "moduleTag": "MODULE 08 \u2022 OPTIMIZATION",
+    "isCheckpoint": false,
+    "headline": "Regularization: L2 (Ridge / Weight Decay)",
+    "body": "Adds penalty proportional to sum of squared weights ||W||\u00b2 to loss, forcing weights to stay small and preventing over-reliance on single features.",
+    "code": "Loss_total = Loss_data + (\u03bb / 2) * \u2211 w\u1d62\u00b2",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 182,
+    "moduleId": 8,
+    "moduleTitle": "Module 8: Optimization Techniques & Loss Functions",
+    "moduleTag": "MODULE 08 \u2022 OPTIMIZATION",
+    "isCheckpoint": false,
+    "headline": "Regularization: L1 (Lasso)",
+    "body": "Adds penalty proportional to absolute weights |W|. Forces uninformative feature weights to become EXACT ZERO (sparse feature selection).",
+    "code": "Loss_total = Loss_data + \u03bb * \u2211 |w\u1d62|",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 183,
+    "moduleId": 8,
+    "moduleTitle": "Module 8: Optimization Techniques & Loss Functions",
+    "moduleTag": "MODULE 08 \u2022 OPTIMIZATION",
+    "isCheckpoint": false,
+    "headline": "Dropout Regularization",
+    "body": "During training, randomly zero out neuron outputs with probability p (e.g. 0.5) each step. Prevents co-adaptation of neurons!",
+    "code": "# Training: mask = (rand > p) / (1 - p); out = in * mask\n# Inference: out = in (Identity)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 184,
+    "moduleId": 8,
+    "moduleTitle": "Module 8: Optimization Techniques & Loss Functions",
+    "moduleTag": "MODULE 08 \u2022 OPTIMIZATION",
+    "isCheckpoint": false,
+    "headline": "Batch Normalization (BatchNorm)",
+    "body": "Normalizes layer activations across mini-batch to mean 0 and variance 1, then scales and shifts with learnable \u03b3 and \u03b2 parameters.",
+    "code": "x_hat = (x - \u03bc_batch) / sqrt(\u03c3\u00b2_batch + \u03b5)\ny = \u03b3 * x_hat + \u03b2",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 185,
+    "moduleId": 8,
+    "moduleTitle": "Module 8: Optimization Techniques & Loss Functions",
+    "moduleTag": "MODULE 08 \u2022 OPTIMIZATION",
+    "isCheckpoint": false,
+    "headline": "Why BatchNorm Speeds Up Training",
+    "body": "Eliminates internal covariate shift, keeps hidden layer activation distributions stable, and acts as a mild regularizer.",
+    "code": "BatchNorm allows 10x higher learning rates without exploding!",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 186,
+    "moduleId": 8,
+    "moduleTitle": "Module 8: Optimization Techniques & Loss Functions",
+    "moduleTag": "MODULE 08 \u2022 OPTIMIZATION",
+    "isCheckpoint": false,
+    "headline": "Layer Normalization (LayerNorm)",
+    "body": "Normalizes features across CHANNELS for each individual sample independently of batch size. Crucial for sequence models & Transformers!",
+    "code": "BatchNorm: across Batch | LayerNorm: across Features/Channels",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 187,
+    "moduleId": 8,
+    "moduleTitle": "Module 8: Optimization Techniques & Loss Functions",
+    "moduleTag": "MODULE 08 \u2022 OPTIMIZATION",
+    "isCheckpoint": false,
+    "headline": "Huber Loss (Robust Regression)",
+    "body": "Behaves like MSE for small errors (smooth quadratic) and like L1 for large errors (linear), making it resistant to wild dataset outliers.",
+    "code": "Loss = 0.5*e\u00b2 if |e| <= \u03b4 else \u03b4*(|e| - 0.5*\u03b4)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 188,
+    "moduleId": 8,
+    "moduleTitle": "Module 8: Optimization Techniques & Loss Functions",
+    "moduleTag": "MODULE 08 \u2022 OPTIMIZATION",
+    "isCheckpoint": false,
+    "headline": "Focal Loss for Imbalanced Data",
+    "body": "Modifies Cross-Entropy by down-weighting easy, well-classified examples, focusing model attention strictly on hard ambiguous samples.",
+    "code": "FL = - (1 - p_t)^\u03b3 * log(p_t)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 189,
+    "moduleId": 8,
+    "moduleTitle": "Module 8: Optimization Techniques & Loss Functions",
+    "moduleTag": "MODULE 08 \u2022 OPTIMIZATION",
+    "isCheckpoint": false,
+    "headline": "Label Smoothing",
+    "body": "Replaces hard binary target labels [0, 1] with soft targets [0.05, 0.95], preventing model from becoming overconfident in predictions.",
+    "code": "y_smooth = (1 - \u03b5) * y_onehot + (\u03b5 / K)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 190,
+    "moduleId": 8,
+    "moduleTitle": "Module 8: Optimization Techniques & Loss Functions",
+    "moduleTag": "MODULE 08 \u2022 OPTIMIZATION",
+    "isCheckpoint": false,
+    "headline": "Early Stopping",
+    "body": "Monitor validation set loss every epoch. Stop training when validation loss stops improving for N consecutive epochs (patience threshold).",
+    "code": "if val_loss > best_val_loss for 10 epochs: BREAK",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 191,
+    "moduleId": 8,
+    "moduleTitle": "Module 8: Optimization Techniques & Loss Functions",
+    "moduleTag": "MODULE 08 \u2022 OPTIMIZATION",
+    "isCheckpoint": false,
+    "headline": "Gradient Accumulation Trick",
+    "body": "If GPU VRAM can only fit batch size 8, run forward/backward pass 4 times without zeroing gradients to simulate batch size 32!",
+    "code": "for i, batch in enumerate(batches):\n  loss = model(batch) / 4\n  loss.backward()\n  if (i + 1) % 4 == 0:\n    optimizer.step()\n    optimizer.zero_grad()",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 192,
+    "moduleId": 8,
+    "moduleTitle": "Module 8: Optimization Techniques & Loss Functions",
+    "moduleTag": "MODULE 08 \u2022 OPTIMIZATION",
+    "isCheckpoint": true,
+    "headline": "Module 8 Complete!",
+    "body": "",
+    "code": "",
+    "sub": "Optimizers & Regularization",
+    "recap": "You mastered AdamW, Momentum, Cosine Schedules, L1/L2, Dropout, BatchNorm/LayerNorm, and Gradient Accumulation."
+  },
+  {
+    "number": 193,
+    "moduleId": 9,
+    "moduleTitle": "Module 9: Computer Vision & Convolutional Neural Networks (CNNs)",
+    "moduleTag": "MODULE 09 \u2022 CNNS & VISION",
+    "isCheckpoint": false,
+    "headline": "Why MLPs Fail on Images",
+    "body": "A 1024\u00d71024 RGB image has 3 million pixels! A single MLP hidden layer with 1000 neurons would require 3 BILLION weights, losing all 2D spatial relationships.",
+    "code": "MLP flattens pixels --> Destroys 2D spatial spatial structure",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 194,
+    "moduleId": 9,
+    "moduleTitle": "Module 9: Computer Vision & Convolutional Neural Networks (CNNs)",
+    "moduleTag": "MODULE 09 \u2022 CNNS & VISION",
+    "isCheckpoint": false,
+    "headline": "The Convolution Operation",
+    "body": "Slide a small matrix filter/kernel (e.g. 3\u00d73) across an image, computing dot products with local pixel patches to create feature maps.",
+    "code": "Feature_Map[i, j] = \u2211 \u2211 Image[i+m, j+n] * Kernel[m, n]",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 195,
+    "moduleId": 9,
+    "moduleTitle": "Module 9: Computer Vision & Convolutional Neural Networks (CNNs)",
+    "moduleTag": "MODULE 09 \u2022 CNNS & VISION",
+    "isCheckpoint": false,
+    "headline": "Key CNN Properties: Spatial Locality",
+    "body": "Nearby pixels are strongly correlated. Convolutions operate locally on small receptive fields instead of connected global pixels.",
+    "code": "3x3 Kernel looks at immediate 3x3 local neighborhood",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 196,
+    "moduleId": 9,
+    "moduleTitle": "Module 9: Computer Vision & Convolutional Neural Networks (CNNs)",
+    "moduleTag": "MODULE 09 \u2022 CNNS & VISION",
+    "isCheckpoint": false,
+    "headline": "Key CNN Properties: Weight Sharing",
+    "body": "The SAME kernel weights are reused across every location in the image, drastically reducing total parameter counts!",
+    "code": "1 Kernel of 3x3x3 = only 27 trainable parameters!",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 197,
+    "moduleId": 9,
+    "moduleTitle": "Module 9: Computer Vision & Convolutional Neural Networks (CNNs)",
+    "moduleTag": "MODULE 09 \u2022 CNNS & VISION",
+    "isCheckpoint": false,
+    "headline": "CNN Kernel Feature Detection",
+    "body": "Early layer kernels automatically learn primitive visual features like horizontal edges, vertical lines, color gradients, and textures.",
+    "code": "Layer 1: Edges  -->  Layer 2: Shapes  -->  Layer 3: Object Parts",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 198,
+    "moduleId": 9,
+    "moduleTitle": "Module 9: Computer Vision & Convolutional Neural Networks (CNNs)",
+    "moduleTag": "MODULE 09 \u2022 CNNS & VISION",
+    "isCheckpoint": false,
+    "headline": "Stride Parameter",
+    "body": "Stride S is the step size the kernel moves across the image. Stride 1 slides 1 pixel at a time. Stride 2 jumps 2 pixels, halving spatial resolution.",
+    "code": "Out_Width = (In_Width - Kernel_Width) / Stride + 1",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 199,
+    "moduleId": 9,
+    "moduleTitle": "Module 9: Computer Vision & Convolutional Neural Networks (CNNs)",
+    "moduleTag": "MODULE 09 \u2022 CNNS & VISION",
+    "isCheckpoint": false,
+    "headline": "Padding Parameter",
+    "body": "Convolutions shrink image borders. Zero-padding P wraps image edges with zeros so spatial height and width remain constant.",
+    "code": "Same Padding: Out_Dim == In_Dim  (P = (K - 1) / 2)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 200,
+    "moduleId": 9,
+    "moduleTitle": "Module 9: Computer Vision & Convolutional Neural Networks (CNNs)",
+    "moduleTag": "MODULE 09 \u2022 CNNS & VISION",
+    "isCheckpoint": false,
+    "headline": "CNN Feature Map Tensor Shape Math",
+    "body": "Formula for output dimension of convolution given Input W, Kernel K, Padding P, and Stride S.",
+    "code": "W_out = \u230a (W - K + 2P) / S \u230b + 1",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 201,
+    "moduleId": 9,
+    "moduleTitle": "Module 9: Computer Vision & Convolutional Neural Networks (CNNs)",
+    "moduleTag": "MODULE 09 \u2022 CNNS & VISION",
+    "isCheckpoint": false,
+    "headline": "Multi-Channel Convolutions",
+    "body": "Input tensor has C_in channels (e.g. 3 for RGB). Kernel shape is (C_out, C_in, K_h, K_w). It sums dot products across all input channels.",
+    "code": "Conv2d(in_channels=3, out_channels=64, kernel_size=3)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 202,
+    "moduleId": 9,
+    "moduleTitle": "Module 9: Computer Vision & Convolutional Neural Networks (CNNs)",
+    "moduleTag": "MODULE 09 \u2022 CNNS & VISION",
+    "isCheckpoint": false,
+    "headline": "Max Pooling Layers",
+    "body": "Downsamples feature maps by taking the MAXIMUM value in each local window (e.g. 2\u00d72 window with stride 2), providing translation invariance.",
+    "code": "Max_Pool([[1, 3], [2, 8]]) = 8  (Keeps dominant activation)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 203,
+    "moduleId": 9,
+    "moduleTitle": "Module 9: Computer Vision & Convolutional Neural Networks (CNNs)",
+    "moduleTag": "MODULE 09 \u2022 CNNS & VISION",
+    "isCheckpoint": false,
+    "headline": "Average Pooling Layers",
+    "body": "Downsamples feature maps by computing the AVERAGE value in each window. Used in Global Average Pooling at output layers.",
+    "code": "GlobalAveragePooling2D: (B, C, H, W) --> (B, C)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 204,
+    "moduleId": 9,
+    "moduleTitle": "Module 9: Computer Vision & Convolutional Neural Networks (CNNs)",
+    "moduleTag": "MODULE 09 \u2022 CNNS & VISION",
+    "isCheckpoint": false,
+    "headline": "Receptive Field Expansion",
+    "body": "As you stack deeper convolution layers interspersed with pooling, deeper neurons view larger regions of the original raw input image.",
+    "code": "Layer 1: 3x3 pixels | Layer 5: 35x35 pixels | Layer 20: Entire Image!",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 205,
+    "moduleId": 9,
+    "moduleTitle": "Module 9: Computer Vision & Convolutional Neural Networks (CNNs)",
+    "moduleTag": "MODULE 09 \u2022 CNNS & VISION",
+    "isCheckpoint": false,
+    "headline": "1\u00d71 Convolutions (Pointwise Conv)",
+    "body": "Convolutions with 1\u00d71 kernel size slide across channels without spatial mixing, used to compress or expand channel dimension C at low cost.",
+    "code": "Conv2d(in_channels=256, out_channels=64, kernel_size=1)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 206,
+    "moduleId": 9,
+    "moduleTitle": "Module 9: Computer Vision & Convolutional Neural Networks (CNNs)",
+    "moduleTag": "MODULE 09 \u2022 CNNS & VISION",
+    "isCheckpoint": false,
+    "headline": "Depthwise Separable Convolutions",
+    "body": "Splits 3D convolution into Depthwise (spatial conv per channel) + Pointwise (1x1 conv across channels). Saves 80%+ compute (MobileNet)!",
+    "code": "Cost: K\u00b2 * C * H * W + C * Out_C * H * W",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 207,
+    "moduleId": 9,
+    "moduleTitle": "Module 9: Computer Vision & Convolutional Neural Networks (CNNs)",
+    "moduleTag": "MODULE 09 \u2022 CNNS & VISION",
+    "isCheckpoint": false,
+    "headline": "Classic Architecture: LeNet-5 (1998)",
+    "body": "Yann LeCun's pioneering network for digit recognition: Conv \u2192 Pool \u2192 Conv \u2192 Pool \u2192 FC \u2192 FC.",
+    "code": "Input 28x28 --> Conv 5x5 --> MaxPool --> Conv 5x5 --> FC",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 208,
+    "moduleId": 9,
+    "moduleTitle": "Module 9: Computer Vision & Convolutional Neural Networks (CNNs)",
+    "moduleTag": "MODULE 09 \u2022 CNNS & VISION",
+    "isCheckpoint": false,
+    "headline": "Breakthrough Architecture: AlexNet (2012)",
+    "body": "Ignited modern deep learning boom! Used 8 layers, ReLU activations, Dropout, and GPU training to crush ImageNet benchmark.",
+    "code": "Won ImageNet 2012 with 15.3% error (vs 26% runner-up)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 209,
+    "moduleId": 9,
+    "moduleTitle": "Module 9: Computer Vision & Convolutional Neural Networks (CNNs)",
+    "moduleTag": "MODULE 09 \u2022 CNNS & VISION",
+    "isCheckpoint": false,
+    "headline": "Modern Standard: VGG Networks",
+    "body": "Proved that stacking simple 3\u00d73 convolutions deeply (16-19 layers) beats using large 7\u00d77 or 11\u00d711 kernels.",
+    "code": "Two 3x3 convs have same receptive field as one 5x5, but fewer weights!",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 210,
+    "moduleId": 9,
+    "moduleTitle": "Module 9: Computer Vision & Convolutional Neural Networks (CNNs)",
+    "moduleTag": "MODULE 09 \u2022 CNNS & VISION",
+    "isCheckpoint": false,
+    "headline": "The Degradation Problem in Very Deep Nets",
+    "body": "Plain neural networks with 50+ layers perform WORSE than 20-layer nets due to vanishing gradient signals during backprop.",
+    "code": "Plain 56-layer net has HIGHER training error than 20-layer net!",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 211,
+    "moduleId": 9,
+    "moduleTitle": "Module 9: Computer Vision & Convolutional Neural Networks (CNNs)",
+    "moduleTag": "MODULE 09 \u2022 CNNS & VISION",
+    "isCheckpoint": false,
+    "headline": "Residual Connections (ResNet Skip Connection)",
+    "body": "Kaiming He's revolutionary fix: add input x directly to layer output f(x). Network learns residual delta F(x) = H(x) - x.",
+    "code": "y = f(x) + x  (Residual Block)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 212,
+    "moduleId": 9,
+    "moduleTitle": "Module 9: Computer Vision & Convolutional Neural Networks (CNNs)",
+    "moduleTag": "MODULE 09 \u2022 CNNS & VISION",
+    "isCheckpoint": false,
+    "headline": "Why Residual Skip Connections Work",
+    "body": "Gradients can bypass layers and flow backwards directly through the identity addition connection (+ x) with ZERO gradient degradation!",
+    "code": "\u2202(f(x) + x) / \u2202x = \u2202f/\u2202x + 1.0  (Gradient can never vanish to 0!)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 213,
+    "moduleId": 9,
+    "moduleTitle": "Module 9: Computer Vision & Convolutional Neural Networks (CNNs)",
+    "moduleTag": "MODULE 09 \u2022 CNNS & VISION",
+    "isCheckpoint": false,
+    "headline": "DenseNet Architecture",
+    "body": "Connects EVERY layer to EVERY subsequent layer via concatenation. Feature maps are reused everywhere, maximizing information flow.",
+    "code": "x_l = H_l( [x_0, x_1, ..., x_{l-1}] )",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 214,
+    "moduleId": 9,
+    "moduleTitle": "Module 9: Computer Vision & Convolutional Neural Networks (CNNs)",
+    "moduleTag": "MODULE 09 \u2022 CNNS & VISION",
+    "isCheckpoint": false,
+    "headline": "Transfer Learning in Computer Vision",
+    "body": "Take a ResNet pre-trained on 1 million ImageNet photos, freeze early convolutional feature layers, and fine-tune final layer on your custom data.",
+    "code": "model = torchvision.models.resnet50(pretrained=True)\nmodel.fc = nn.Linear(2048, num_custom_classes)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 215,
+    "moduleId": 9,
+    "moduleTitle": "Module 9: Computer Vision & Convolutional Neural Networks (CNNs)",
+    "moduleTag": "MODULE 09 \u2022 CNNS & VISION",
+    "isCheckpoint": false,
+    "headline": "Data Augmentation",
+    "body": "Artificially expand training data by randomly flipping, cropping, rotating, and color-jittering input images during mini-batch loading.",
+    "code": "Transforms: RandomHorizontalFlip, RandomCrop, ColorJitter",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 216,
+    "moduleId": 9,
+    "moduleTitle": "Module 9: Computer Vision & Convolutional Neural Networks (CNNs)",
+    "moduleTag": "MODULE 09 \u2022 CNNS & VISION",
+    "isCheckpoint": true,
+    "headline": "Module 9 Complete!",
+    "body": "",
+    "code": "",
+    "sub": "CNNs & Computer Vision",
+    "recap": "You mastered Convolution math, Stride, Padding, Max Pooling, ResNet Skip Connections (y=f(x)+x), and Transfer Learning."
+  },
+  {
+    "number": 217,
+    "moduleId": 10,
+    "moduleTitle": "Module 10: Sequence Models & Attention Mechanisms",
+    "moduleTag": "MODULE 10 \u2022 SEQUENCES & ATTENTION",
+    "isCheckpoint": false,
+    "headline": "The Challenge of Sequential Data",
+    "body": "Text sentences, time-series stock prices, and audio waveforms have variable lengths where ordering strictly dictates meaning.",
+    "code": "Order Matters: \"Dog bites man\" vs \"Man bites dog\"",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 218,
+    "moduleId": 10,
+    "moduleTitle": "Module 10: Sequence Models & Attention Mechanisms",
+    "moduleTag": "MODULE 10 \u2022 SEQUENCES & ATTENTION",
+    "isCheckpoint": false,
+    "headline": "Recurrent Neural Networks (RNN)",
+    "body": "RNNs process sequences token-by-token, maintaining a hidden state vector h_t that acts as internal memory passed from step to step.",
+    "code": "h_t = tanh( W_hh @ h_{t-1} + W_xh @ x_t + b )",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 219,
+    "moduleId": 10,
+    "moduleTitle": "Module 10: Sequence Models & Attention Mechanisms",
+    "moduleTag": "MODULE 10 \u2022 SEQUENCES & ATTENTION",
+    "isCheckpoint": false,
+    "headline": "Unrolling an RNN Through Time",
+    "body": "Unrolling an RNN across T timesteps reveals it as a very deep network sharing the exact same weight matrices (W_hh, W_xh) at every step.",
+    "code": "x\u2081->[RNN]->x\u2082->[RNN]->x\u2083->[RNN] --> Output",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 220,
+    "moduleId": 10,
+    "moduleTitle": "Module 10: Sequence Models & Attention Mechanisms",
+    "moduleTag": "MODULE 10 \u2022 SEQUENCES & ATTENTION",
+    "isCheckpoint": false,
+    "headline": "Backpropagation Through Time (BPTT)",
+    "body": "Gradients are backpropagated through time from last step T all the way back to step 1. Causes severe vanishing gradients over long sequences!",
+    "code": "W_hh multiplied T times --> Gradients vanish if seq length > 50",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 221,
+    "moduleId": 10,
+    "moduleTitle": "Module 10: Sequence Models & Attention Mechanisms",
+    "moduleTag": "MODULE 10 \u2022 SEQUENCES & ATTENTION",
+    "isCheckpoint": false,
+    "headline": "Long Short-Term Memory (LSTM)",
+    "body": "Introduces a Cell State c_t constant memory highway alongside hidden state h_t, regulated by 3 neural gating mechanisms.",
+    "code": "LSTM Gates: Forget Gate, Input Gate, Output Gate",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 222,
+    "moduleId": 10,
+    "moduleTitle": "Module 10: Sequence Models & Attention Mechanisms",
+    "moduleTag": "MODULE 10 \u2022 SEQUENCES & ATTENTION",
+    "isCheckpoint": false,
+    "headline": "LSTM Forget Gate",
+    "body": "Decides what information to throw away from the cell state using a Sigmoid layer bounded between 0 (forget) and 1 (remember).",
+    "code": "f_t = \u03c3( W_f @ [h_{t-1}, x_t] + b_f )",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 223,
+    "moduleId": 10,
+    "moduleTitle": "Module 10: Sequence Models & Attention Mechanisms",
+    "moduleTag": "MODULE 10 \u2022 SEQUENCES & ATTENTION",
+    "isCheckpoint": false,
+    "headline": "LSTM Input Gate & Candidate State",
+    "body": "Decides which new information to store in the cell state.",
+    "code": "i_t = \u03c3( W_i @ [h_{t-1}, x_t] + b_i )\nc\u0303_t = tanh( W_c @ [h_{t-1}, x_t] + b_c )",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 224,
+    "moduleId": 10,
+    "moduleTitle": "Module 10: Sequence Models & Attention Mechanisms",
+    "moduleTag": "MODULE 10 \u2022 SEQUENCES & ATTENTION",
+    "isCheckpoint": false,
+    "headline": "LSTM Cell State Update",
+    "body": "Update old cell state c_{t-1} to new state c_t: multiply by forget gate + add input gate * candidate state.",
+    "code": "c_t = f_t * c_{t-1} + i_t * c\u0303_t",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 225,
+    "moduleId": 10,
+    "moduleTitle": "Module 10: Sequence Models & Attention Mechanisms",
+    "moduleTag": "MODULE 10 \u2022 SEQUENCES & ATTENTION",
+    "isCheckpoint": false,
+    "headline": "LSTM Output Gate",
+    "body": "Decides what final hidden output h_t to produce based on filtered cell state passed through Tanh.",
+    "code": "o_t = \u03c3( W_o @ [h_{t-1}, x_t] + b_o )\nh_t = o_t * tanh(c_t)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 226,
+    "moduleId": 10,
+    "moduleTitle": "Module 10: Sequence Models & Attention Mechanisms",
+    "moduleTag": "MODULE 10 \u2022 SEQUENCES & ATTENTION",
+    "isCheckpoint": false,
+    "headline": "Gated Recurrent Unit (GRU)",
+    "body": "A simplified faster alternative to LSTM that merges cell state and hidden state, using only 2 gates: Reset gate and Update gate.",
+    "code": "Reset Gate r_t  |  Update Gate z_t  (Fewer parameters than LSTM)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 227,
+    "moduleId": 10,
+    "moduleTitle": "Module 10: Sequence Models & Attention Mechanisms",
+    "moduleTag": "MODULE 10 \u2022 SEQUENCES & ATTENTION",
+    "isCheckpoint": false,
+    "headline": "Bidirectional RNNs",
+    "body": "Process sequence simultaneously forward (left-to-right) and backward (right-to-left) to capture full context from past and future tokens.",
+    "code": "h_combined = [ h_forward ; h_backward ]",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 228,
+    "moduleId": 10,
+    "moduleTitle": "Module 10: Sequence Models & Attention Mechanisms",
+    "moduleTag": "MODULE 10 \u2022 SEQUENCES & ATTENTION",
+    "isCheckpoint": false,
+    "headline": "Encoder-Decoder (Seq2Seq) Model",
+    "body": "Encoder compresses input sentence into fixed-length vector h_final. Decoder unrolls h_final to generate translated target sentence.",
+    "code": "Input Sequence --> [Encoder] --> Context Vector --> [Decoder] --> Output",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 229,
+    "moduleId": 10,
+    "moduleTitle": "Module 10: Sequence Models & Attention Mechanisms",
+    "moduleTag": "MODULE 10 \u2022 SEQUENCES & ATTENTION",
+    "isCheckpoint": false,
+    "headline": "The Information Bottleneck",
+    "body": "Compressing a 100-word paragraph into one single fixed vector h_final loses details. Performance drops sharply on long sentences!",
+    "code": "Fixed Context Vector = Loss of long-range details",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 230,
+    "moduleId": 10,
+    "moduleTitle": "Module 10: Sequence Models & Attention Mechanisms",
+    "moduleTag": "MODULE 10 \u2022 SEQUENCES & ATTENTION",
+    "isCheckpoint": false,
+    "headline": "The Attention Mechanism Idea (Bahdanau 2014)",
+    "body": "Instead of squashing sequence into 1 vector, let the decoder look back dynamically at ALL encoder hidden states and attend to relevant words!",
+    "code": "Attention = Dynamic weighted lookup over all input sequence states",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 231,
+    "moduleId": 10,
+    "moduleTitle": "Module 10: Sequence Models & Attention Mechanisms",
+    "moduleTag": "MODULE 10 \u2022 SEQUENCES & ATTENTION",
+    "isCheckpoint": false,
+    "headline": "Query, Key, Value (Q, K, V) Mental Model",
+    "body": "Think of a database search: Query (what you search for) is matched against Keys (index titles) to calculate weights, returning weighted average of Values.",
+    "code": "Search Query Q vs Database Keys K ==> Weights \u03b1 ==> Weighted Values V",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 232,
+    "moduleId": 10,
+    "moduleTitle": "Module 10: Sequence Models & Attention Mechanisms",
+    "moduleTag": "MODULE 10 \u2022 SEQUENCES & ATTENTION",
+    "isCheckpoint": false,
+    "headline": "Step 1 Attention: Dot Product Score",
+    "body": "Compute raw similarity score between Query vector Q and Key vector K using dot product.",
+    "code": "Score(Q, K) = Q \u00b7 K = Q K\u1d40",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 233,
+    "moduleId": 10,
+    "moduleTitle": "Module 10: Sequence Models & Attention Mechanisms",
+    "moduleTag": "MODULE 10 \u2022 SEQUENCES & ATTENTION",
+    "isCheckpoint": false,
+    "headline": "Step 2 Attention: Softmax Weighting",
+    "body": "Pass similarity scores through Softmax to get normalized attention weights \u03b1 summing to 1.0.",
+    "code": "\u03b1 = Softmax( Q K\u1d40 )",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 234,
+    "moduleId": 10,
+    "moduleTitle": "Module 10: Sequence Models & Attention Mechanisms",
+    "moduleTag": "MODULE 10 \u2022 SEQUENCES & ATTENTION",
+    "isCheckpoint": false,
+    "headline": "Step 3 Attention: Weighted Sum of Values",
+    "body": "Multiply attention weights \u03b1 by Value vectors V to produce final context vector.",
+    "code": "Context = \u2211 \u03b1\u1d62 * V\u1d62 = \u03b1 @ V",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 235,
+    "moduleId": 10,
+    "moduleTitle": "Module 10: Sequence Models & Attention Mechanisms",
+    "moduleTag": "MODULE 10 \u2022 SEQUENCES & ATTENTION",
+    "isCheckpoint": false,
+    "headline": "Self-Attention Defined",
+    "body": "In Self-Attention, Query, Key, and Value all come from the SAME input sequence! Every word attends to every other word in the sentence.",
+    "code": "Sentence: \"The animal didn't cross the street because it was too tired.\"\nSelf-Attention connects \"it\" directly to \"animal\"!",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 236,
+    "moduleId": 10,
+    "moduleTitle": "Module 10: Sequence Models & Attention Mechanisms",
+    "moduleTag": "MODULE 10 \u2022 SEQUENCES & ATTENTION",
+    "isCheckpoint": false,
+    "headline": "Scaled Dot-Product Attention Formula",
+    "body": "The core mathematical formula driving all modern Transformer AI models!",
+    "code": "Attention(Q, K, V) = Softmax( (Q @ K\u1d40) / \u221ad_k ) @ V",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 237,
+    "moduleId": 10,
+    "moduleTitle": "Module 10: Sequence Models & Attention Mechanisms",
+    "moduleTag": "MODULE 10 \u2022 SEQUENCES & ATTENTION",
+    "isCheckpoint": false,
+    "headline": "Why Scale by \u221ad_k?",
+    "body": "For large projection dimensions d_k (e.g. 128), dot products grow large, pushing Softmax into flat regions with tiny vanishing gradients!",
+    "code": "Dividing by \u221ad_k keeps variance at 1.0, preserving gradient flow.",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 238,
+    "moduleId": 10,
+    "moduleTitle": "Module 10: Sequence Models & Attention Mechanisms",
+    "moduleTag": "MODULE 10 \u2022 SEQUENCES & ATTENTION",
+    "isCheckpoint": false,
+    "headline": "Why Self-Attention Beats RNNs",
+    "body": "RNNs process tokens sequentially (O(N) sequential steps, non-parallelizable). Self-Attention connects ALL token pairs in 1 parallel matrix step (O(1) sequential steps)!",
+    "code": "RNN: Sequential O(N) steps  |  Self-Attention: Parallel O(1) step!",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 239,
+    "moduleId": 10,
+    "moduleTitle": "Module 10: Sequence Models & Attention Mechanisms",
+    "moduleTag": "MODULE 10 \u2022 SEQUENCES & ATTENTION",
+    "isCheckpoint": false,
+    "headline": "Attention Heatmaps",
+    "body": "Plotting attention weight matrix \u03b1 provides full interpretability, showing visually which words the AI focuses on during generation.",
+    "code": "Visual 2D Matrix of Word-to-Word Attention Weights",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 240,
+    "moduleId": 10,
+    "moduleTitle": "Module 10: Sequence Models & Attention Mechanisms",
+    "moduleTag": "MODULE 10 \u2022 SEQUENCES & ATTENTION",
+    "isCheckpoint": true,
+    "headline": "Module 10 Complete!",
+    "body": "",
+    "code": "",
+    "sub": "Sequence Models & Attention",
+    "recap": "You mastered RNNs, LSTMs, GRUs, Seq2Seq bottlenecks, Q/K/V vectors, and Scaled Dot-Product Attention."
+  },
+  {
+    "number": 241,
+    "moduleId": 11,
+    "moduleTitle": "Module 11: Modern Transformers & Large Language Models",
+    "moduleTag": "MODULE 11 \u2022 TRANSFORMERS & LLMS",
+    "isCheckpoint": false,
+    "headline": "The Transformer Architecture (Vaswani 2017)",
+    "body": "'Attention Is All You Need'. Abandoned RNNs completely in favor of stacked Self-Attention and Feed-Forward Neural Networks.",
+    "code": "Input Tokens --> Embeddings + Positional Encoding --> Transformer Blocks",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 242,
+    "moduleId": 11,
+    "moduleTitle": "Module 11: Modern Transformers & Large Language Models",
+    "moduleTag": "MODULE 11 \u2022 TRANSFORMERS & LLMS",
+    "isCheckpoint": false,
+    "headline": "Multi-Head Attention (MHA)",
+    "body": "Instead of 1 attention calculation, split Q, K, V into H parallel heads (e.g., 8 or 16 heads) so model attends to different relationship types simultaneously.",
+    "code": "Head_i = Attention(Q W_i^Q, K W_i^K, V W_i^V)\nMHA = Concat(Head_1, ..., Head_H) @ W^O",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 243,
+    "moduleId": 11,
+    "moduleTitle": "Module 11: Modern Transformers & Large Language Models",
+    "moduleTag": "MODULE 11 \u2022 TRANSFORMERS & LLMS",
+    "isCheckpoint": false,
+    "headline": "Why Multi-Head Attention is Powerful",
+    "body": "Head 1 focuses on grammar syntax. Head 2 focuses on pronoun references. Head 3 tracks spatial relationships. They learn in parallel!",
+    "code": "Multiple attention heads capture diverse contextual relationships",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 244,
+    "moduleId": 11,
+    "moduleTitle": "Module 11: Modern Transformers & Large Language Models",
+    "moduleTag": "MODULE 11 \u2022 TRANSFORMERS & LLMS",
+    "isCheckpoint": false,
+    "headline": "Positional Encodings",
+    "body": "Self-Attention is permutation invariant (order-blind!). We MUST add positional vectors to token embeddings so model knows word positions.",
+    "code": "Input_Embedding = Word_Vector + Positional_Vector",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 245,
+    "moduleId": 11,
+    "moduleTitle": "Module 11: Modern Transformers & Large Language Models",
+    "moduleTag": "MODULE 11 \u2022 TRANSFORMERS & LLMS",
+    "isCheckpoint": false,
+    "headline": "Sinusoidal Positional Encoding Formula",
+    "body": "Uses sine and cosine functions of different frequencies to encode continuous token positions in space.",
+    "code": "PE(pos, 2i)   = sin(pos / 10000^(2i/d_model))\nPE(pos, 2i+1) = cos(pos / 10000^(2i/d_model))",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 246,
+    "moduleId": 11,
+    "moduleTitle": "Module 11: Modern Transformers & Large Language Models",
+    "moduleTag": "MODULE 11 \u2022 TRANSFORMERS & LLMS",
+    "isCheckpoint": false,
+    "headline": "Rotary Position Embedding (RoPE)",
+    "body": "Modern standard used in Llama 3! Rotates Q and K vectors in complex 2D planes by an angle proportional to their sequence position.",
+    "code": "Rotates Q and K vectors in space to preserve relative distance",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 247,
+    "moduleId": 11,
+    "moduleTitle": "Module 11: Modern Transformers & Large Language Models",
+    "moduleTag": "MODULE 11 \u2022 TRANSFORMERS & LLMS",
+    "isCheckpoint": false,
+    "headline": "The Transformer Block Structure",
+    "body": "A standard Transformer layer consists of: Multi-Head Attention \u2192 Add & LayerNorm \u2192 Position-wise Feedforward Net (FFN) \u2192 Add & LayerNorm.",
+    "code": "x1 = LayerNorm(x + SelfAttention(x))\nx2 = LayerNorm(x1 + FFN(x1))",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 248,
+    "moduleId": 11,
+    "moduleTitle": "Module 11: Modern Transformers & Large Language Models",
+    "moduleTag": "MODULE 11 \u2022 TRANSFORMERS & LLMS",
+    "isCheckpoint": false,
+    "headline": "Position-Wise Feed-Forward Network (FFN)",
+    "body": "A 2-layer MLP applied independently to each token position, expanding channel dimension by 4x then projecting back down.",
+    "code": "FFN(x) = GELU(x @ W1 + b1) @ W2 + b2  (Dim: d_model -> 4*d_model -> d_model)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 249,
+    "moduleId": 11,
+    "moduleTitle": "Module 11: Modern Transformers & Large Language Models",
+    "moduleTag": "MODULE 11 \u2022 TRANSFORMERS & LLMS",
+    "isCheckpoint": false,
+    "headline": "Encoder-Only Transformers (BERT)",
+    "body": "Processes entire sentence bidirectionally at once. Trained on Masked Language Modeling (fill-in-the-blank). Best for classification & embeddings.",
+    "code": "BERT: Bidirectional Encoder Representations from Transformers",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 250,
+    "moduleId": 11,
+    "moduleTitle": "Module 11: Modern Transformers & Large Language Models",
+    "moduleTag": "MODULE 11 \u2022 TRANSFORMERS & LLMS",
+    "isCheckpoint": false,
+    "headline": "Decoder-Only Transformers (GPT Series)",
+    "body": "Uses Causal Masked Attention so tokens can ONLY attend to past tokens. Trained to predict the very next token. Powers LLMs like ChatGPT!",
+    "code": "GPT: Generative Pre-trained Transformer",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 251,
+    "moduleId": 11,
+    "moduleTitle": "Module 11: Modern Transformers & Large Language Models",
+    "moduleTag": "MODULE 11 \u2022 TRANSFORMERS & LLMS",
+    "isCheckpoint": false,
+    "headline": "Causal Masking (Lower Triangular Mask)",
+    "body": "In Decoders, add a mask of -\u221e to upper triangle of Q K\u1d40 score matrix before Softmax so future tokens receive ZERO attention weight.",
+    "code": "Mask Matrix = [[0, -\u221e, -\u221e], [0, 0, -\u221e], [0, 0, 0]]",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 252,
+    "moduleId": 11,
+    "moduleTitle": "Module 11: Modern Transformers & Large Language Models",
+    "moduleTag": "MODULE 11 \u2022 TRANSFORMERS & LLMS",
+    "isCheckpoint": false,
+    "headline": "Tokenization & Byte-Pair Encoding (BPE)",
+    "body": "LLMs do not process raw strings. BPE breaks text into subword token IDs based on statistical frequency (e.g. 'unhelpfulness' \u2192 ['un', 'help', 'fulness']).",
+    "code": "\"Hello World\" --> Token IDs: [15496, 2159]",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 253,
+    "moduleId": 11,
+    "moduleTitle": "Module 11: Modern Transformers & Large Language Models",
+    "moduleTag": "MODULE 11 \u2022 TRANSFORMERS & LLMS",
+    "isCheckpoint": false,
+    "headline": "Pre-Training: Next Token Prediction",
+    "body": "Trained on trillions of internet text tokens using Cross-Entropy loss to predict word N+1 given words 1 through N.",
+    "code": "Loss = -log P( Token_{N+1} | Token_1, ..., Token_N )",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 254,
+    "moduleId": 11,
+    "moduleTitle": "Module 11: Modern Transformers & Large Language Models",
+    "moduleTag": "MODULE 11 \u2022 TRANSFORMERS & LLMS",
+    "isCheckpoint": false,
+    "headline": "Autoregressive Text Generation Loop",
+    "body": "Generate 1 token \u2192 append new token to input prompt sequence \u2192 feed expanded sequence back into model to generate next token.",
+    "code": "prompt += next_token; repeat until <END> token",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 255,
+    "moduleId": 11,
+    "moduleTitle": "Module 11: Modern Transformers & Large Language Models",
+    "moduleTag": "MODULE 11 \u2022 TRANSFORMERS & LLMS",
+    "isCheckpoint": false,
+    "headline": "Sampling Parameter: Temperature",
+    "body": "Divides logits z by scalar Temperature T before Softmax. T=0.1 makes output strict & deterministic. T=1.2 increases creativity and randomness.",
+    "code": "Softmax_Adjusted = Softmax( z / Temperature )",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 256,
+    "moduleId": 11,
+    "moduleTitle": "Module 11: Modern Transformers & Large Language Models",
+    "moduleTag": "MODULE 11 \u2022 TRANSFORMERS & LLMS",
+    "isCheckpoint": false,
+    "headline": "Top-k & Top-p (Nucleus) Sampling",
+    "body": "Top-k restricts sampling to top K highest-probability tokens. Top-p samples from smallest set of top tokens whose cumulative probability exceeds p (e.g. 0.9).",
+    "code": "Top-p dynamic truncation avoids selecting tail garbage tokens",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 257,
+    "moduleId": 11,
+    "moduleTitle": "Module 11: Modern Transformers & Large Language Models",
+    "moduleTag": "MODULE 11 \u2022 TRANSFORMERS & LLMS",
+    "isCheckpoint": false,
+    "headline": "KV Cache Acceleration in Inference",
+    "body": "During text generation, store computed Key and Value tensors for past tokens in GPU memory so you don't recompute past attention steps!",
+    "code": "KV Cache turns generation speed from O(N\u00b2) down to O(N)!",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 258,
+    "moduleId": 11,
+    "moduleTitle": "Module 11: Modern Transformers & Large Language Models",
+    "moduleTag": "MODULE 11 \u2022 TRANSFORMERS & LLMS",
+    "isCheckpoint": false,
+    "headline": "Context Window Scaling (KV Memory)",
+    "body": "As context window length expands (e.g. 128k tokens), KV Cache memory dominates GPU VRAM! Solutions: Multi-Query Attention (MQA) & Grouped-Query Attention (GQA).",
+    "code": "GQA: Multiple Query heads share 1 Key/Value head",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 259,
+    "moduleId": 11,
+    "moduleTitle": "Module 11: Modern Transformers & Large Language Models",
+    "moduleTag": "MODULE 11 \u2022 TRANSFORMERS & LLMS",
+    "isCheckpoint": false,
+    "headline": "Fine-Tuning: Instruction Tuning (SFT)",
+    "body": "Supervised Fine-Tuning trains a raw pre-trained LLM on curated Question/Answer instruction pairs to behave as a helpful assistant.",
+    "code": "Instruction Prompt + Expected Response Dataset",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 260,
+    "moduleId": 11,
+    "moduleTitle": "Module 11: Modern Transformers & Large Language Models",
+    "moduleTag": "MODULE 11 \u2022 TRANSFORMERS & LLMS",
+    "isCheckpoint": false,
+    "headline": "Alignment: RLHF & DPO",
+    "body": "Reinforcement Learning from Human Feedback (RLHF) and Direct Preference Optimization (DPO) align model outputs with human preferences & safety.",
+    "code": "DPO Loss optimizes preferred response over dispreferred response",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 261,
+    "moduleId": 11,
+    "moduleTitle": "Module 11: Modern Transformers & Large Language Models",
+    "moduleTag": "MODULE 11 \u2022 TRANSFORMERS & LLMS",
+    "isCheckpoint": false,
+    "headline": "Parameter-Efficient Fine-Tuning: LoRA",
+    "body": "Low-Rank Adaptation freezes pre-trained weight matrix W and injects 2 small trainable rank-r matrices A and B: W_new = W + A @ B.",
+    "code": "Reduces fine-tuning trainable parameters by 99.9%!",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 262,
+    "moduleId": 11,
+    "moduleTitle": "Module 11: Modern Transformers & Large Language Models",
+    "moduleTag": "MODULE 11 \u2022 TRANSFORMERS & LLMS",
+    "isCheckpoint": false,
+    "headline": "Quantization (FP16, INT8, INT4)",
+    "body": "Converts 32-bit float model weights down to 8-bit or 4-bit integers, shrinking model GPU memory size by 4x with minimal accuracy loss.",
+    "code": "70B parameter model: FP16 = 140GB VRAM | INT4 = 35GB VRAM!",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 263,
+    "moduleId": 11,
+    "moduleTitle": "Module 11: Modern Transformers & Large Language Models",
+    "moduleTag": "MODULE 11 \u2022 TRANSFORMERS & LLMS",
+    "isCheckpoint": false,
+    "headline": "The LLM Scaling Laws (Chinchilla)",
+    "body": "Model performance follows smooth power-law scaling with compute (FLOPs), dataset size (Tokens), and parameter count (N).",
+    "code": "Optimal compute allocation: Scale Tokens and Parameters equally!",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 264,
+    "moduleId": 11,
+    "moduleTitle": "Module 11: Modern Transformers & Large Language Models",
+    "moduleTag": "MODULE 11 \u2022 TRANSFORMERS & LLMS",
+    "isCheckpoint": true,
+    "headline": "Module 11 Complete!",
+    "body": "",
+    "code": "",
+    "sub": "Transformers & LLMs",
+    "recap": "You mastered Multi-Head Attention, Positional Encodings (RoPE), BERT vs GPT, BPE Tokenization, KV Caching, and LoRA."
+  },
+  {
+    "number": 265,
+    "moduleId": 12,
+    "moduleTitle": "Module 12: Practical Deep Learning Engineering & PyTorch Mastery",
+    "moduleTag": "MODULE 12 \u2022 PYTORCH & PRODUCTION",
+    "isCheckpoint": false,
+    "headline": "What is PyTorch?",
+    "body": "An open-source machine learning framework providing GPU-accelerated tensor computation and dynamic computational graph autograd engine.",
+    "code": "import torch\nimport torch.nn as nn",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 266,
+    "moduleId": 12,
+    "moduleTitle": "Module 12: Practical Deep Learning Engineering & PyTorch Mastery",
+    "moduleTag": "MODULE 12 \u2022 PYTORCH & PRODUCTION",
+    "isCheckpoint": false,
+    "headline": "PyTorch Tensor Creation",
+    "body": "Create tensors from Python lists or NumPy arrays with specified data types and device allocation.",
+    "code": "x = torch.tensor([1.0, 2.0, 3.0], dtype=torch.float32, device='cuda')",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 267,
+    "moduleId": 12,
+    "moduleTitle": "Module 12: Practical Deep Learning Engineering & PyTorch Mastery",
+    "moduleTag": "MODULE 12 \u2022 PYTORCH & PRODUCTION",
+    "isCheckpoint": false,
+    "headline": "Enabling Autograd: requires_grad",
+    "body": "Set `requires_grad=True` on a tensor to tell PyTorch to track all operations on it for automatic backward gradient tracking.",
+    "code": "w = torch.randn(10, 5, requires_grad=True)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 268,
+    "moduleId": 12,
+    "moduleTitle": "Module 12: Practical Deep Learning Engineering & PyTorch Mastery",
+    "moduleTag": "MODULE 12 \u2022 PYTORCH & PRODUCTION",
+    "isCheckpoint": false,
+    "headline": "The PyTorch Dynamic Graph",
+    "body": "PyTorch constructs computational graphs dynamically during forward pass. Graphs can change conditionally line-by-line in python loop code!",
+    "code": "Dynamic (PyTorch) vs Static Graph (Old TensorFlow)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 269,
+    "moduleId": 12,
+    "moduleTitle": "Module 12: Practical Deep Learning Engineering & PyTorch Mastery",
+    "moduleTag": "MODULE 12 \u2022 PYTORCH & PRODUCTION",
+    "isCheckpoint": false,
+    "headline": "PyTorch nn.Module Blueprint",
+    "body": "Custom neural network classes inherit from `nn.Module`. Define layers in `__init__` and forward execution in `forward(self, x)`.",
+    "code": "class Net(nn.Module):\n  def __init__(self):\n    super().__init__()\n    self.fc = nn.Linear(784, 10)\n  def forward(self, x):\n    return self.fc(x)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 270,
+    "moduleId": 12,
+    "moduleTitle": "Module 12: Practical Deep Learning Engineering & PyTorch Mastery",
+    "moduleTag": "MODULE 12 \u2022 PYTORCH & PRODUCTION",
+    "isCheckpoint": false,
+    "headline": "Standard PyTorch Training Loop Pattern",
+    "body": "The 5 mandatory canonical steps inside every PyTorch epoch loop!",
+    "code": "optimizer.zero_grad()  # 1. Clear past gradients\nout = model(inputs)    # 2. Forward pass\nloss = criterion(out, targets) # 3. Compute loss\nloss.backward()        # 4. Backward pass\noptimizer.step()       # 5. Update weights",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 271,
+    "moduleId": 12,
+    "moduleTitle": "Module 12: Practical Deep Learning Engineering & PyTorch Mastery",
+    "moduleTag": "MODULE 12 \u2022 PYTORCH & PRODUCTION",
+    "isCheckpoint": false,
+    "headline": "Why optimizer.zero_grad() is Critical",
+    "body": "PyTorch ACCUMULATES gradients on every `.backward()` call by default. If you forget `zero_grad()`, past step gradients add together!",
+    "code": "w.grad += new_grad  <-- Danger if zero_grad() is omitted!",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 272,
+    "moduleId": 12,
+    "moduleTitle": "Module 12: Practical Deep Learning Engineering & PyTorch Mastery",
+    "moduleTag": "MODULE 12 \u2022 PYTORCH & PRODUCTION",
+    "isCheckpoint": false,
+    "headline": "PyTorch DataLoader & Dataset",
+    "body": "Wrap datasets in `DataLoader` to automatically handle shuffling, multi-threaded batch fetching, and memory pinning.",
+    "code": "loader = DataLoader(dataset, batch_size=64, shuffle=True, num_workers=4)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 273,
+    "moduleId": 12,
+    "moduleTitle": "Module 12: Practical Deep Learning Engineering & PyTorch Mastery",
+    "moduleTag": "MODULE 12 \u2022 PYTORCH & PRODUCTION",
+    "isCheckpoint": false,
+    "headline": "Device Agnostic PyTorch Code",
+    "body": "Write device-agnostic code that seamlessly runs on CUDA GPUs, Apple MPS, or CPU.",
+    "code": "device = 'cuda' if torch.cuda.is_available() else 'cpu'\nmodel.to(device); inputs = inputs.to(device)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 274,
+    "moduleId": 12,
+    "moduleTitle": "Module 12: Practical Deep Learning Engineering & PyTorch Mastery",
+    "moduleTag": "MODULE 12 \u2022 PYTORCH & PRODUCTION",
+    "isCheckpoint": false,
+    "headline": "Model Evaluation Mode: model.eval()",
+    "body": "Call `model.eval()` and `with torch.no_grad():` during validation/testing to disable Dropout and freeze BatchNorm running statistics.",
+    "code": "model.eval()\nwith torch.no_grad():\n  preds = model(x_test)  # Saves massive GPU VRAM!",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 275,
+    "moduleId": 12,
+    "moduleTitle": "Module 12: Practical Deep Learning Engineering & PyTorch Mastery",
+    "moduleTag": "MODULE 12 \u2022 PYTORCH & PRODUCTION",
+    "isCheckpoint": false,
+    "headline": "Mixed Precision Training (AMP)",
+    "body": "Use 16-bit floating point (FP16 / BF16) for tensor multiplication to double training speed and halve GPU memory usage.",
+    "code": "with torch.cuda.amp.autocast():\n  loss = model(inputs)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 276,
+    "moduleId": 12,
+    "moduleTitle": "Module 12: Practical Deep Learning Engineering & PyTorch Mastery",
+    "moduleTag": "MODULE 12 \u2022 PYTORCH & PRODUCTION",
+    "isCheckpoint": false,
+    "headline": "Understanding Number Formats: FP32 vs FP16 vs BF16",
+    "body": "FP32 = 32-bit standard. FP16 = 16-bit (can overflow). BF16 (Bfloat16) retains FP32 exponent dynamic range, becoming standard on Modern GPUs!",
+    "code": "BF16: 1 sign, 8 exponent, 7 mantissa bits (Stable & Fast)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 277,
+    "moduleId": 12,
+    "moduleTitle": "Module 12: Practical Deep Learning Engineering & PyTorch Mastery",
+    "moduleTag": "MODULE 12 \u2022 PYTORCH & PRODUCTION",
+    "isCheckpoint": false,
+    "headline": "Saving & Loading Model Weights",
+    "body": "Always save model state_dict (weights dictionary) rather than pickling entire Python model object class.",
+    "code": "torch.save(model.state_dict(), 'model.pt')\nmodel.load_state_dict(torch.load('model.pt'))",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 278,
+    "moduleId": 12,
+    "moduleTitle": "Module 12: Practical Deep Learning Engineering & PyTorch Mastery",
+    "moduleTag": "MODULE 12 \u2022 PYTORCH & PRODUCTION",
+    "isCheckpoint": false,
+    "headline": "Distributed Data Parallel (DDP)",
+    "body": "Scale training across multiple GPUs! DDP spawns 1 process per GPU, copying model weights and synchronizing gradients across ranks.",
+    "code": "torch.nn.parallel.DistributedDataParallel(model)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 279,
+    "moduleId": 12,
+    "moduleTitle": "Module 12: Practical Deep Learning Engineering & PyTorch Mastery",
+    "moduleTag": "MODULE 12 \u2022 PYTORCH & PRODUCTION",
+    "isCheckpoint": false,
+    "headline": "TorchScript & ONNX Export",
+    "body": "Compile PyTorch model graphs into standalone TorchScript or ONNX format for zero-overhead C++ production deployment engines.",
+    "code": "torch.onnx.export(model, dummy_input, 'model.onnx')",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 280,
+    "moduleId": 12,
+    "moduleTitle": "Module 12: Practical Deep Learning Engineering & PyTorch Mastery",
+    "moduleTag": "MODULE 12 \u2022 PYTORCH & PRODUCTION",
+    "isCheckpoint": false,
+    "headline": "vLLM & TensorRT-LLM Engines",
+    "body": "Production inference servers use PagedAttention and CUDA kernel fusion to serve 10x more concurrent user LLM requests per second.",
+    "code": "PagedAttention manages KV cache memory like OS virtual memory",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 281,
+    "moduleId": 12,
+    "moduleTitle": "Module 12: Practical Deep Learning Engineering & PyTorch Mastery",
+    "moduleTag": "MODULE 12 \u2022 PYTORCH & PRODUCTION",
+    "isCheckpoint": false,
+    "headline": "Debugging Tensor Shape Errors",
+    "body": "90% of deep learning bugs are tensor shape mismatches! Inspect tensor shapes using `.shape` printouts at every layer junction.",
+    "code": "print(f\"X: {x.shape}, W: {w.shape}\")  # Essential debugging line!",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 282,
+    "moduleId": 12,
+    "moduleTitle": "Module 12: Practical Deep Learning Engineering & PyTorch Mastery",
+    "moduleTag": "MODULE 12 \u2022 PYTORCH & PRODUCTION",
+    "isCheckpoint": false,
+    "headline": "The PyTorch Reshape Rules: view vs reshape",
+    "body": "`view()` requires contiguous memory layout. `reshape()` handles non-contiguous memory automatically by cloning when necessary.",
+    "code": "x = x.contiguous().view(batch_size, -1)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 283,
+    "moduleId": 12,
+    "moduleTitle": "Module 12: Practical Deep Learning Engineering & PyTorch Mastery",
+    "moduleTag": "MODULE 12 \u2022 PYTORCH & PRODUCTION",
+    "isCheckpoint": false,
+    "headline": "Tensor Permutations & Transposes",
+    "body": "Use `permute()` or `transpose()` to swap tensor dimensions (e.g. converting channels-last to channels-first).",
+    "code": "img_chw = img_hwc.permute(2, 0, 1)  # (H, W, C) -> (C, H, W)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 284,
+    "moduleId": 12,
+    "moduleTitle": "Module 12: Practical Deep Learning Engineering & PyTorch Mastery",
+    "moduleTag": "MODULE 12 \u2022 PYTORCH & PRODUCTION",
+    "isCheckpoint": false,
+    "headline": "Profiling GPU Bottlenecks",
+    "body": "Use `torch.profiler` to identify whether your model is CPU-bound (slow data loading) or GPU compute-bound.",
+    "code": "with torch.profiler.profile() as prof:\n  model(inputs)",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 285,
+    "moduleId": 12,
+    "moduleTitle": "Module 12: Practical Deep Learning Engineering & PyTorch Mastery",
+    "moduleTag": "MODULE 12 \u2022 PYTORCH & PRODUCTION",
+    "isCheckpoint": false,
+    "headline": "The Golden Rules of AI Engineering",
+    "body": "1. Overfit a tiny batch of 2 samples first. 2. Monitor loss curves. 3. Standardize inputs. 4. Never trust default learning rates blindly.",
+    "code": "Sanity Check: Can your model achieve 0 loss on 2 samples?",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 286,
+    "moduleId": 12,
+    "moduleTitle": "Module 12: Practical Deep Learning Engineering & PyTorch Mastery",
+    "moduleTag": "MODULE 12 \u2022 PYTORCH & PRODUCTION",
+    "isCheckpoint": false,
+    "headline": "Your Deep Learning Odyssey Ahead",
+    "body": "You now possess the foundational intuition, linear algebra, calculus, architecture knowledge, and engineering skills to master AI!",
+    "code": "From zero math background --> Deep Neural Network Master!",
+    "sub": "",
+    "recap": ""
+  },
+  {
+    "number": 287,
+    "moduleId": 12,
+    "moduleTitle": "Module 12: Practical Deep Learning Engineering & PyTorch Mastery",
+    "moduleTag": "MODULE 12 \u2022 PYTORCH & PRODUCTION",
+    "isCheckpoint": true,
+    "headline": "CONGRATULATIONS!",
+    "body": "",
+    "code": "",
+    "sub": "Mastery Achieved",
+    "recap": "You completed all 288 micro-cards across 12 Modules! You have built deep technical mastery from scratch."
+  }
+];
+
+  // State
+  let currentIndex = 0;
+  let soundEnabled = true;
+  const STORAGE_KEY = 'ml_doomscroll_card_index_v2';
+
+  // DOM Elements
+  const scrollContainer = document.getElementById('scrollContainer');
+  const hudCounterText = document.getElementById('hudCounterText');
+  const hudProgressFill = document.getElementById('hudProgressFill');
+  const hudSoundBtn = document.getElementById('hudSoundBtn');
+  const hudCounterBtn = document.getElementById('hudCounterBtn');
+  const jumpModal = document.getElementById('jumpModal');
+  const modalCloseBtn = document.getElementById('modalCloseBtn');
+  const modalNumInput = document.getElementById('modalNumInput');
+  const modalJumpBtn = document.getElementById('modalJumpBtn');
+  const modalSearchInput = document.getElementById('modalSearchInput');
+  const chapterQuickList = document.getElementById('chapterQuickList');
+  const confettiCanvas = document.getElementById('confetti-canvas');
+  const ctx = confettiCanvas.getContext('2d');
+
+  // Resize confetti canvas
+  function resizeCanvas() {
+    confettiCanvas.width = confettiCanvas.offsetWidth;
+    confettiCanvas.height = confettiCanvas.offsetHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  // Render Cards into DOM
+  function renderCards() {
+    const fragment = document.createDocumentFragment();
+    cardsData.forEach((c, idx) => {
+      const cardEl = document.createElement('div');
+      cardEl.className = 'micro-card' + (c.isCheckpoint ? ' checkpoint-card' : '');
+      cardEl.id = `card-${idx + 1}`;
+      cardEl.dataset.index = idx;
+
+      if (c.isCheckpoint) {
+        cardEl.innerHTML = `
+          <div class="checkpoint-badge">🏆</div>
+          <div class="card-headline">${c.headline}</div>
+          <div class="checkpoint-sub">${c.sub || ''}</div>
+          <div class="checkpoint-recap-box">${c.recap || ''}</div>
+          <div class="card-footer-number">CARD ${c.number} / ${cardsData.length}</div>
+        `;
+      } else {
+        cardEl.innerHTML = `
+          <div class="card-module-tag">${c.moduleTag}</div>
+          <h1 class="card-headline">${c.headline}</h1>
+          <p class="card-body">${c.body}</p>
+          ${c.code ? `<div class="card-code-pill">${escapeHtml(c.code)}</div>` : ''}
+          <div class="card-footer-number">CARD ${c.number} / ${cardsData.length}</div>
+        `;
+      }
+      fragment.appendChild(cardEl);
+    });
+    scrollContainer.appendChild(fragment);
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+
+  // Populate Jump Modal Chapters
+  function renderModalChapters(filterQuery = '') {
+    chapterQuickList.innerHTML = '';
+    
+    if (filterQuery.trim() !== '') {
+      const query = filterQuery.toLowerCase();
+      const filtered = cardsData.filter(c => 
+        c.headline.toLowerCase().includes(query) || 
+        (c.body && c.body.toLowerCase().includes(query)) ||
+        (c.code && c.code.toLowerCase().includes(query))
+      );
+      
+      if (filtered.length === 0) {
+        chapterQuickList.innerHTML = '<div style="color:var(--text-dim); text-align:center; padding:20px;">No matching cards found</div>';
+        return;
+      }
+      
+      filtered.forEach(c => {
+        const item = document.createElement('div');
+        item.className = 'chapter-item';
+        item.innerHTML = `
+          <div class="chapter-item-title">${c.number}. ${c.headline}</div>
+          <div class="chapter-item-range">M${c.moduleId}</div>
+        `;
+        item.addEventListener('click', () => {
+          jumpToCard(c.number);
+          closeModal();
+        });
+        chapterQuickList.appendChild(item);
+      });
+      return;
+    }
+
+    // Default Module Chapter List
+    const modulesMap = [];
+    cardsData.forEach(c => {
+      if (!modulesMap[c.moduleId]) {
+        modulesMap[c.moduleId] = {
+          id: c.moduleId,
+          title: c.moduleTitle,
+          start: c.number,
+          end: c.number
+        };
+      } else {
+        modulesMap[c.moduleId].end = c.number;
+      }
+    });
+
+    modulesMap.forEach(m => {
+      if (!m) return;
+      const item = document.createElement('div');
+      item.className = 'chapter-item';
+      item.innerHTML = `
+        <div class="chapter-item-title">${m.title}</div>
+        <div class="chapter-item-range">#${m.start}-#${m.end}</div>
+      `;
+      item.addEventListener('click', () => {
+        jumpToCard(m.start);
+        closeModal();
+      });
+      chapterQuickList.appendChild(item);
+    });
+  }
+
+  // Web Audio Synth for Checkpoints
+  let audioCtx = null;
+  function playCheckpointChime() {
+    if (!soundEnabled) return;
+    try {
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      
+      const now = audioCtx.currentTime;
+      const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+      
+      notes.forEach((freq, i) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now + i * 0.08);
+        
+        gain.gain.setValueAtTime(0.001, now + i * 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.15, now + i * 0.08 + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.08 + 0.4);
+        
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        
+        osc.start(now + i * 0.08);
+        osc.stop(now + i * 0.08 + 0.45);
+      });
+    } catch(e) {
+      console.log('Audio error:', e);
+    }
+  }
+
+  // Confetti Particle Engine
+  let particles = [];
+  function launchConfetti() {
+    particles = [];
+    const colors = ['#00F3FF', '#10B981', '#A855F7', '#F59E0B', '#FFFFFF'];
+    const count = 70;
+    
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: confettiCanvas.width / 2 + (Math.random() - 0.5) * 100,
+        y: confettiCanvas.height / 2 + 50,
+        vx: (Math.random() - 0.5) * 12,
+        vy: -Math.random() * 14 - 6,
+        size: Math.random() * 6 + 4,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        rotation: Math.random() * 360,
+        rSpeed: (Math.random() - 0.5) * 10,
+        opacity: 1.0
+      });
+    }
+    requestAnimationFrame(updateConfetti);
+  }
+
+  function updateConfetti() {
+    ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+    let active = false;
+    
+    particles.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += 0.4; // gravity
+      p.opacity -= 0.012;
+      p.rotation += p.rSpeed;
+      
+      if (p.opacity > 0) {
+        active = true;
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate((p.rotation * Math.PI) / 180);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = Math.max(0, p.opacity);
+        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+        ctx.restore();
+      }
+    });
+    
+    if (active) {
+      requestAnimationFrame(updateConfetti);
+    }
+  }
+
+  // IntersectionObserver to detect active card
+  let lastTriggeredCheckpoint = -1;
+  
+  function setupObserver() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const idx = parseInt(entry.target.dataset.index, 10);
+          currentIndex = idx;
+          updateHUD(idx);
+          saveProgress(idx);
+
+          // Trigger quiet celebration on checkpoint cards
+          if (cardsData[idx].isCheckpoint && lastTriggeredCheckpoint !== idx) {
+            lastTriggeredCheckpoint = idx;
+            playCheckpointChime();
+            launchConfetti();
+          }
+        }
+      });
+    }, {
+      root: scrollContainer,
+      threshold: 0.6
+    });
+
+    document.querySelectorAll('.micro-card').forEach(card => observer.observe(card));
+  }
+
+  function updateHUD(idx) {
+    const currentNum = idx + 1;
+    const total = cardsData.length;
+    hudCounterText.textContent = `Card ${currentNum} / ${total}`;
+    const pct = (currentNum / total) * 100;
+    hudProgressFill.style.width = `${pct}%`;
+  }
+
+  function saveProgress(idx) {
+    try {
+      localStorage.setItem(STORAGE_KEY, idx);
+    } catch(e) {}
+  }
+
+  function loadProgress() {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved !== null) {
+        const idx = parseInt(saved, 10);
+        if (!isNaN(idx) && idx >= 0 && idx < cardsData.length) {
+          jumpToCard(idx + 1, false);
+        }
+      }
+    } catch(e) {}
+  }
+
+  function jumpToCard(num, smooth = true) {
+    const targetNum = Math.max(1, Math.min(cardsData.length, num));
+    const targetEl = document.getElementById(`card-${targetNum}`);
+    if (targetEl) {
+      targetEl.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto' });
+    }
+  }
+
+  // Jump Modal Handlers
+  function openModal() {
+    renderModalChapters();
+    jumpModal.classList.add('active');
+    modalNumInput.value = currentIndex + 1;
+    modalSearchInput.value = '';
+    modalNumInput.focus();
+  }
+
+  function closeModal() {
+    jumpModal.classList.remove('active');
+  }
+
+  hudCounterBtn.addEventListener('click', openModal);
+  modalCloseBtn.addEventListener('click', closeModal);
+  
+  jumpModal.addEventListener('click', (e) => {
+    if (e.target === jumpModal) closeModal();
+  });
+
+  modalJumpBtn.addEventListener('click', () => {
+    const val = parseInt(modalNumInput.value, 10);
+    if (!isNaN(val)) {
+      jumpToCard(val);
+      closeModal();
+    }
+  });
+
+  modalNumInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      modalJumpBtn.click();
+    }
+  });
+
+  modalSearchInput.addEventListener('input', (e) => {
+    renderModalChapters(e.target.value);
+  });
+
+  // Sound Toggle
+  hudSoundBtn.addEventListener('click', () => {
+    soundEnabled = !soundEnabled;
+    hudSoundBtn.textContent = soundEnabled ? '🔊' : '🔇';
+  });
+
+  // Keyboard Shortcuts
+  window.addEventListener('keydown', (e) => {
+    if (e.target.tagName === 'INPUT') return; // Don't interrupt typing in inputs
+    
+    if (e.key === 'j' || e.key === 'J') {
+      e.preventDefault();
+      if (jumpModal.classList.contains('active')) {
+        closeModal();
+      } else {
+        openModal();
+      }
+    } else if (e.key === 'Escape') {
+      closeModal();
+    } else if (e.key === 'm' || e.key === 'M') {
+      hudSoundBtn.click();
+    } else if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+      e.preventDefault();
+      jumpToCard(currentIndex + 2);
+    } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+      e.preventDefault();
+      jumpToCard(currentIndex);
+    }
+  });
+
+  // Init App
+  renderCards();
+  setupObserver();
+  loadProgress();
+
+</script>
+</body>
+</html>

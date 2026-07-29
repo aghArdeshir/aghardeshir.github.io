@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>WebGL Micro-Doomscroll</title>
+  <meta name="description" content="Master WebGL from scratch with 280+ ultra-micro atomic cards.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-black: #050507;
+      --accent-cyan: #00f3ff;
+      --accent-green: #10b981;
+      --accent-purple: #a855f7;
+      --text-white: #ffffff;
+      --text-dim: #a1a1aa;
+      --font-main: 'Inter', -apple-system, system-ui, sans-serif;
+      --font-mono: 'Fira Code', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    body {
+      background-color: #000000;
+      color: var(--text-white);
+      font-family: var(--font-main);
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* MOBILE VIEWPORT FRAME */
+    .app-frame {
+      position: relative;
+      width: 100%;
+      max-width: 430px;
+      height: 100vh;
+      max-height: 920px;
+      background: var(--bg-black);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
+      border-radius: 0px;
+    }
+
+    @media (min-width: 600px) {
+      .app-frame {
+        height: 92vh;
+        border-radius: 36px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+    }
+
+    /* ULTRA-MINIMAL HUD HEADER */
+    .hud-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      padding: 14px 18px;
+      background: linear-gradient(180deg, rgba(5, 5, 7, 0.85) 0%, rgba(5, 5, 7, 0) 100%);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      pointer-events: none;
+    }
+
+    .hud-header * {
+      pointer-events: auto;
+    }
+
+    .hud-top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .hud-pill {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(8px);
+      color: var(--text-white);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .hud-pill:active {
+      transform: scale(0.95);
+      background: rgba(0, 243, 255, 0.2);
+    }
+
+    .icon-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(8px);
+      color: var(--text-white);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .icon-btn:active {
+      transform: scale(0.92);
+      background: rgba(0, 243, 255, 0.2);
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 1px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--accent-cyan);
+      transition: width 0.2s ease;
+    }
+
+    /* SCROLL CONTAINER WITH MANDATORY SNAP */
+    .slides-container {
+      width: 100%;
+      height: 100%;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .slides-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* ULTRA-MICRO SLIDE CARD */
+    .slide-card {
+      width: 100%;
+      height: 100%;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      padding: 95px 28px 45px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: var(--bg-black);
+      position: relative;
+    }
+
+    .slide-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      max-width: 100%;
+    }
+
+    .micro-headline {
+      font-size: 2.2rem;
+      font-weight: 800;
+      line-height: 1.18;
+      letter-spacing: -0.03em;
+      color: var(--text-white);
+    }
+
+    .micro-body {
+      font-size: 1.15rem;
+      line-height: 1.5;
+      color: var(--text-dim);
+      font-weight: 400;
+    }
+
+    .code-pill {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-left: 4px solid var(--accent-green);
+      border-radius: 14px;
+      padding: 14px 18px;
+      font-family: var(--font-mono);
+      font-size: 0.92rem;
+      color: #34d399;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    /* CHECKPOINT CELEBRATION CARDS */
+    .checkpoint-card {
+      background: radial-gradient(circle at center, #140d2b 0%, #050507 100%);
+      text-align: center;
+      align-items: center;
+    }
+
+    .checkpoint-badge {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2.4rem;
+      margin: 0 auto 10px auto;
+      box-shadow: 0 0 35px var(--accent-purple);
+    }
+
+    .slide-footer {
+      position: absolute;
+      bottom: 22px;
+      left: 28px;
+      right: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.3);
+      font-weight: 600;
+    }
+
+    /* JUMP MODAL */
+    .modal-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(14px);
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: #0d0e14;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 360px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .jump-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    .jump-input {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      padding: 12px;
+      color: #fff;
+      font-size: 1rem;
+      font-family: var(--font-mono);
+      text-align: center;
+    }
+
+    .jump-btn {
+      background: var(--accent-cyan);
+      border: none;
+      color: #000;
+      font-weight: 800;
+      padding: 0 20px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .chapter-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 240px;
+      overflow-y: auto;
+    }
+
+    .chapter-item {
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 8px;
+      font-size: 0.82rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .chapter-item:hover {
+      background: rgba(0, 243, 255, 0.1);
+      color: var(--accent-cyan);
+    }
+
+    #confettiCanvas {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 99;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-frame">
+    <canvas id="confettiCanvas"></canvas>
+
+    <!-- ULTRA-MINIMAL HUD HEADER -->
+    <header class="hud-header">
+      <div class="hud-top-bar">
+        <button class="hud-pill" id="jumpBtn" title="Jump to Card">
+          <span style="color: var(--accent-cyan);">Card</span> <span id="slideCounter">1 / 280</span> ▾
+        </button>
+        <button class="icon-btn" id="soundBtn" title="Toggle Sound">🔊</button>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressBar"></div>
+      </div>
+    </header>
+
+    <!-- SLIDES CONTAINER -->
+    <div class="slides-container" id="slidesContainer"></div>
+
+    <!-- JUMP MODAL -->
+    <div class="modal-overlay" id="jumpModal">
+      <div class="modal-card">
+        <div class="modal-header">
+          <span>Jump to Card</span>
+          <button class="modal-close" id="closeModalBtn">&times;</button>
+        </div>
+        <div class="jump-group">
+          <input type="number" class="jump-input" id="jumpInput" placeholder="1-280" min="1" max="280">
+          <button class="jump-btn" id="execJumpBtn">GO</button>
+        </div>
+        <div style="font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; font-weight: 700;">Curriculum Modules</div>
+        <div class="chapter-list" id="chapterList"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ==========================================
+    // SOFT CELEBRATION AUDIO & CONFETTI
+    // ==========================================
+    class CelebrationAudio {
+      constructor() { this.ctx = null; this.enabled = true; }
+      init() {
+        if (!this.ctx) {
+          const AC = window.AudioContext || window.webkitAudioContext;
+          if (AC) this.ctx = new AC();
+        }
+      }
+      playSoftCelebration() {
+        if (!this.enabled) return;
+        this.init(); if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        [523.25, 659.25, 783.99].forEach((freq, i) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, now + i * 0.09);
+          gain.gain.setValueAtTime(0.08, now + i * 0.09);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.09 + 0.25);
+          osc.connect(gain); gain.connect(this.ctx.destination);
+          osc.start(now + i * 0.09); osc.stop(now + i * 0.09 + 0.25);
+        });
+      }
+    }
+    const audio = new CelebrationAudio();
+
+    const cCanvas = document.getElementById('confettiCanvas');
+    const cCtx = cCanvas.getContext('2d');
+    let particles = [];
+    function resizeConfetti() {
+      cCanvas.width = cCanvas.parentElement.clientWidth;
+      cCanvas.height = cCanvas.parentElement.clientHeight;
+    }
+    window.addEventListener('resize', resizeConfetti);
+    resizeConfetti();
+
+    function triggerConfetti() {
+      particles = [];
+      const colors = ['#00f3ff', '#a855f7', '#10b981', '#f59e0b'];
+      for (let i = 0; i < 45; i++) {
+        particles.push({
+          x: cCanvas.width / 2, y: cCanvas.height / 2,
+          vx: (Math.random() - 0.5) * 8, vy: (Math.random() - 0.8) * 8,
+          size: Math.random() * 5 + 3, color: colors[Math.floor(Math.random() * colors.length)],
+          opacity: 1
+        });
+      }
+      renderConfetti();
+    }
+    function renderConfetti() {
+      cCtx.clearRect(0, 0, cCanvas.width, cCanvas.height);
+      let alive = false;
+      particles.forEach(p => {
+        if (p.opacity <= 0) return;
+        alive = true; p.x += p.vx; p.y += p.vy; p.vy += 0.25; p.opacity -= 0.02;
+        cCtx.fillStyle = p.color; cCtx.globalAlpha = Math.max(0, p.opacity);
+        cCtx.fillRect(p.x, p.y, p.size, p.size);
+      });
+      if (alive) requestAnimationFrame(renderConfetti);
+    }
+
+    // ==========================================
+    // 280+ DEEP ATOMIC MICRO-SLIDES CURRICULUM
+    // ==========================================
+    const MODULES = [
+      { id: 1, title: 'The Mental Model', start: 1 },
+      { id: 2, title: 'HTML5 Canvas & Context', start: 25 },
+      { id: 3, title: 'The GPU Pipeline', start: 50 },
+      { id: 4, title: 'Shaders & GLSL Syntax', start: 75 },
+      { id: 5, title: 'Vertex Buffers (VBOs)', start: 100 },
+      { id: 6, title: 'Attributes & Pointers', start: 125 },
+      { id: 7, title: 'Drawing & NDC Space', start: 150 },
+      { id: 8, title: 'Index Buffers (IBO) & Quads', start: 175 },
+      { id: 9, title: 'Uniforms & Time Animation', start: 200 },
+      { id: 10, title: '3D Math & MVP Matrices', start: 225 },
+      { id: 11, title: 'Textures & UV Mapping', start: 250 },
+      { id: 12, title: 'Framebuffers & Mastery', start: 270 }
+    ];
+
+    const CARDS = [];
+
+    function buildCurriculumData() {
+      const data = [
+        // MODULE 1: THE MENTAL MODEL (1-24)
+        { h: "WebGL draws triangles.", b: "That’s it. Everything else is decoration on top of that one fact." },
+        { h: "Squares are two triangles.", b: "Every rectangle, every image on screen, every UI panel. Split down a diagonal." },
+        { h: "Everything 3D is a triangle mesh.", b: "Characters, terrain, cars, spheres. Millions of tiny triangles stitched together in space." },
+        { h: "The CPU speaks logic.\nThe GPU speaks math.", b: "A CPU has a few fast sequential cores. A GPU has thousands of small parallel cores." },
+        { h: "Rasterization turns points into pixels.", b: "You give the GPU 3 corner coordinates. The GPU figures out which screen pixels fall inside." },
+        { h: "WebGL is a state machine.", b: "You pick your active paint color, brush, and buffer first. Then you pull the trigger to draw." },
+        { h: "JavaScript drives.\nThe GPU executes.", b: "JS prepares arrays of data, sends them across the bus to VRAM, and issues draw commands." },
+        { h: "WebGL is low level.", b: "Unlike 2D Canvas, WebGL has no drawCircle() or drawRect(). You build everything from points." },
+        { h: "2D Canvas vs WebGL.", b: '2D Canvas ("2d") gives you shapes and text. WebGL ("webgl2") gives you direct raw GPU access.' },
+        { h: "There are no lights by default.", b: "WebGL has no default ambient light or camera. 3D shading is math you write in GLSL." },
+        { h: "There are no 3D objects by default.", b: "WebGL has no concepts of a Cube, Mesh, or Scene object natively. You manage byte buffers." },
+        { h: "Triangles are rigid.", b: "A triangle is the simplest 2D polygon. 3 points always lie on a flat plane." },
+        { h: "Winding order matters.", b: "The order you list triangle vertices (Clockwise vs Counter-Clockwise) tells the GPU which side is the front face." },
+        { h: "Back-face Culling.", b: "GPUs skip drawing back-facing triangles to double rendering performance." },
+        { h: "WebGL isn't just 3D.", b: "Many fast 2D game engines (Pixi.js) use WebGL purely to batch-render 2D sprites at 120 FPS." },
+        { h: "WebGL 1.0 vs WebGL 2.0.", b: "WebGL 1 is based on OpenGL ES 2.0. WebGL 2 is based on OpenGL ES 3.0, adding modern GPU features." },
+        { h: "Every browser supports WebGL 2.", b: "Chrome, Safari 15+, Firefox, Edge, and mobile browsers support WebGL 2 natively." },
+        { h: "Hardware acceleration.", b: "Your computer's graphics card (NVIDIA, AMD, Apple Silicon) executes WebGL shader code directly." },
+        { h: "VRAM: Video RAM.", b: "GPU memory separate from system RAM. Data must be uploaded to VRAM before drawing." },
+        { h: "Graphics Drivers.", b: "WebGL translates your JS and GLSL calls into OS driver commands (ANGLE, Direct3D, Metal, Vulkan)." },
+        { h: "The Framebuffer.", b: "The final memory grid holding pixel colors displayed on your physical monitor." },
+        { h: "Double Buffering.", b: "WebGL draws into a back buffer off-screen, then swaps it to the front screen buffer to prevent screen tearing." },
+        { h: "60 to 120 Frames Per Second.", b: "To maintain smooth motion, your WebGL draw loop must execute in under 16.6ms per frame." },
+        { id: 24, type: "checkpoint", h: "🎉 Module 1 Complete!", b: "You understand the WebGL Mental Model!" },
+
+        // MODULE 2: CANVAS & CONTEXT (25-49)
+        { h: "Start with an HTML canvas.", c: `<canvas id="gl-canvas"></canvas>`, b: "The canvas element is the physical window where your WebGL GPU scene is drawn." },
+        { h: "Request the WebGL context.", c: `const gl = canvas.getContext("webgl2")`, b: 'Asks the browser for the WebGL 2 rendering context. Returns null if unsupported.' },
+        { h: "Check for failure.", c: `if (!gl) {\n  console.error("WebGL 2 not supported!");\n}`, b: "Always provide fallback checks when initializing GPU contexts." },
+        { h: "Mismatched sizes look blurry.", b: "A 300-pixel canvas stretched across 900 screen pixels invents missing detail. It smears." },
+        { h: "Internal size vs Display size.", b: "canvas.width/height is internal pixel resolution. CSS width/height is layout display size." },
+        { h: "Sync internal canvas resolution.", c: `canvas.width = canvas.clientWidth * window.devicePixelRatio\ncanvas.height = canvas.clientHeight * window.devicePixelRatio`, b: "Always match internal buffer size to physical device pixels." },
+        { h: "Context attributes.", c: `canvas.getContext("webgl2", {\n  alpha: false,\n  depth: true,\n  antialias: true\n})`, b: "Configuration flags passed during context creation." },
+        { h: "Set clear color.", c: `gl.clearColor(0.05, 0.05, 0.08, 1.0)`, b: "Sets the RGBA color used when clearing the screen (normalized 0.0 to 1.0 values)." },
+        { h: "Wipe the screen.", c: `gl.clear(gl.COLOR_BUFFER_BIT)`, b: "Clears the active color buffer to the active clearColor." },
+        { h: "Normalized RGBA values.", b: "In WebGL, color channels range from 0.0 (dark) to 1.0 (full brightness), NOT 0 to 255!" },
+        { h: "Convert 0-255 RGB to WebGL.", c: `const red = 255 / 255.0;   // 1.0\nconst green = 128 / 255.0; // 0.501`, b: "Divide standard RGB values by 255.0." },
+        { h: "The Viewport.", c: `gl.viewport(0, 0, canvas.width, canvas.height)`, b: "Tells WebGL how to map Normalized Device Coordinates to canvas pixel bounds." },
+        { h: "Resize observer pattern.", c: `const ro = new ResizeObserver(entries => {\n  // Rescale canvas buffer on window resize\n});`, b: "Keep WebGL viewport updated when browser windows resize." },
+        { h: "Depth Buffer (Z-Buffer).", b: "A parallel memory buffer tracking pixel distance from the camera." },
+        { h: "Enable Depth Testing.", c: `gl.enable(gl.DEPTH_TEST)`, b: "Prevents objects further away from drawing over closer objects." },
+        { h: "Clear Depth & Color together.", c: `gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT)`, b: "Clear both color and depth buffers before every frame." },
+        { h: "Context Loss.", b: "Operating systems destroy WebGL contexts if VRAM runs out or laptop lids close." },
+        { h: "Listen for context loss.", c: `canvas.addEventListener("webglcontextlost", e => {\n  e.preventDefault();\n});`, b: "Prevents default browser destruction so your app can recover." },
+        { h: "Listen for context restoration.", c: `canvas.addEventListener("webglcontextrestored", () => {\n  rebuildGPUResources();\n});`, b: "Re-initialize shaders and buffers after GPU context restores." },
+        { h: "Web Audio / Canvas integration.", b: "Combine WebGL canvas rendering with Web Audio API for interactive visualizers." },
+        { h: "WebGL Extensions.", c: `const ext = gl.getExtension("EXT_color_buffer_float");`, b: "Unlocks extra hardware capabilities beyond standard core specs." },
+        { h: "Clean up GPU resources.", c: `gl.deleteBuffer(buffer);\ngl.deleteProgram(program);`, b: "GPU resources are NOT garbage collected by JavaScript automatically. Delete unused handles!" },
+        { h: "RequestAnimationFrame loop.", c: `function render(time) {\n  // Render frame\n  requestAnimationFrame(render);\n}\nrequestAnimationFrame(render);`, b: "Standard browser loop for 60fps WebGL rendering." },
+        { id: 49, type: "checkpoint", h: "🎉 Module 2 Complete!", b: "You have mastered HTML5 Canvas & Context Management!" },
+
+        // MODULE 3: THE GPU PIPELINE (50-74)
+        { h: "The 5 Stages of the Pipeline.", b: "1. Input Assembler -> 2. Vertex Shader -> 3. Rasterizer -> 4. Fragment Shader -> 5. Output Merger." },
+        { h: "1. Input Assembler.", b: "Reads raw byte streams from VRAM buffers and structures them into vertex point streams." },
+        { h: "2. Vertex Shader Stage.", b: "Runs once per vertex point. Calculates 3D positions in clip space." },
+        { h: "Primitive Assembly.", b: "Groups processed vertices into geometric primitives (Triangles, Lines, Points)." },
+        { h: "3. Rasterizer Stage.", b: "Determines which pixel centers fall inside each primitive polygon." },
+        { h: "Fragment Generation.", b: "The rasterizer generates 'Fragments' (candidate pixels) for each covered pixel." },
+        { h: "4. Fragment Shader Stage.", b: "Runs once per fragment. Computes final RGBA color per pixel." },
+        { h: "5. Output Merger Stage.", b: "Performs depth testing, stencil testing, and alpha blending before writing to the screen." },
+        { h: "Everything is parallel.", b: "If a triangle covers 1,000,000 pixels, 1,000,000 fragment shader threads run concurrently." },
+        { h: "Programmable vs Fixed Function.", b: "Shaders are programmable. Clipping, rasterization, and depth tests are fixed hardware." },
+        { h: "Vertex Shader output: gl_Position.", c: `gl_Position = vec4(x, y, z, 1.0);`, b: "Built-in GLSL variable required in every Vertex Shader." },
+        { h: "Fragment Shader output: outColor.", c: `out vec4 outColor;\noutColor = vec4(1.0, 0.0, 0.0, 1.0);`, b: "Sets the final pixel RGBA output color." },
+        { h: "Shader Compilation.", b: "JS passes GLSL source code string to WebGL driver. GPU compiles it at runtime." },
+        { h: "Shader Linking.", b: "Combines compiled Vertex Shader and Fragment Shader into a single WebGLProgram." },
+        { h: "Shader Attributes.", b: "Per-vertex inputs passed into the Vertex Shader." },
+        { h: "Shader Uniforms.", b: "Global constant inputs passed into Vertex & Fragment Shaders." },
+        { h: "Shader Varyings.", b: "Interpolated values passed from Vertex Shader to Fragment Shader across polygon surfaces." },
+        { h: "Linear Interpolation (Barycentric).", b: "If vertex A is Red and vertex B is Blue, pixels between them blend smoothly from Red to Blue." },
+        { h: "Perspective Division.", b: "GPU automatically divides gl_Position.xyz by gl_Position.w after Vertex Shader finishes." },
+        { h: "Viewport Transformation.", b: "Converts clip space (-1 to +1) to window pixel coordinates (0 to 800)." },
+        { h: "Scissor Test.", c: `gl.enable(gl.SCISSOR_TEST);\ngl.scissor(0, 0, 100, 100);`, b: "Restricts all drawing operations to a specific rectangular sub-region." },
+        { h: "Alpha Blending.", c: `gl.enable(gl.BLEND);\ngl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);`, b: "Blends transparent fragments with existing screen colors." },
+        { h: "Additive Blending for Glow.", c: `gl.blendFunc(gl.SRC_ALPHA, gl.ONE);`, b: "Overlapping pixels add brightness, creating fire, lasers, and particle glow." },
+        { id: 74, type: "checkpoint", h: "🎉 Module 3 Complete!", b: "You understand the full GPU Render Pipeline!" },
+
+        // MODULE 4: SHADERS & GLSL SYNTAX (75-99)
+        { h: "GLSL: OpenGL Shading Language.", b: "A C-like strongly typed language executed directly on graphics cards." },
+        { h: "Declare WebGL 2 version.", c: `#version 300 es`, b: "Must be the very FIRST line of every WebGL 2 GLSL shader! No spaces or comments before it." },
+        { h: "Precision Qualifiers.", c: `precision mediump float;`, b: "Sets float calculation precision in Fragment Shaders (lowp, mediump, highp)." },
+        { h: "GLSL Primitive Data Types.", b: "float, int, bool, vec2, vec3, vec4, mat2, mat3, mat4, sampler2D." },
+        { h: "No implicit type casting in GLSL!", c: `float a = 1.0; // Correct\nfloat b = 1;   // ERROR! Integer assigned to float`, b: "GLSL forces explicit floats: write 1.0 instead of 1." },
+        { h: "Vector constructors.", c: `vec2 p = vec2(0.5, -0.5);\nvec3 c = vec3(1.0, 0.0, 0.0);\nvec4 v = vec4(c, 1.0);`, b: "Construct higher-dimension vectors easily from scalar floats or smaller vectors." },
+        { h: "Vector Swizzling.", c: `vec4 color = vec4(1, 2, 3, 4);\nvec2 xy = color.xy;   // vec2(1, 2)\nvec3 rgb = color.rgb; // vec3(1, 2, 3)\nvec3 bgr = color.bgr; // vec3(3, 2, 1)`, b: "Re-order and extract vector components using .xyzw or .rgba accessor notation." },
+        { h: "Vector arithmetic is parallel.", c: `vec3 a = vec3(1.0, 2.0, 3.0);\nvec3 b = vec3(2.0, 2.0, 2.0);\nvec3 c = a * b; // vec3(2.0, 4.0, 6.0)`, b: "Operations apply to all vector components simultaneously." },
+        { h: "Built-in GLSL Math functions.", c: `sin(x), cos(x), tan(x), sqrt(x), abs(x), pow(x, y), exp(x), log(x)`, b: "Hardware-accelerated intrinsic mathematical operations." },
+        { h: "GLSL clamp().", c: `float val = clamp(x, 0.0, 1.0);`, b: "Restricts value x between min (0.0) and max (1.0)." },
+        { h: "GLSL mix() (Linear Interpolation).", c: `vec3 col = mix(colorA, colorB, t);`, b: "Blends smoothly between colorA and colorB based on factor t (0.0 to 1.0)." },
+        { h: "GLSL step().", c: `float edge = step(0.5, x); // 0.0 if x < 0.5, else 1.0`, b: "Hard step thresholding function. Replaces costly if/else branches!" },
+        { h: "GLSL smoothstep().", c: `float edge = smoothstep(0.2, 0.8, x);`, b: "Smooth Hermite interpolation curve between 0.0 and 1.0." },
+        { h: "Avoid if/else branches on GPU.", b: "GPU cores execute threads in warps. Branch divergence slows down parallel threads!" },
+        { h: "Create shader handle.", c: `const shader = gl.createShader(gl.VERTEX_SHADER);`, b: "Creates an uncompiled shader object handle." },
+        { h: "Set shader source code.", c: `gl.shaderSource(shader, sourceCodeString);`, b: "Loads your GLSL code string into the shader handle." },
+        { h: "Compile the shader.", c: `gl.compileShader(shader);`, b: "Compiles GLSL string into GPU hardware binary." },
+        { h: "Check for GLSL compile errors.", c: `if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {\n  console.error(gl.getShaderInfoLog(shader));\n}`, b: "Always inspect shader info logs when GLSL compilation fails." },
+        { h: "Create program handle.", c: `const program = gl.createProgram();`, b: "Creates a shader container program handle." },
+        { h: "Attach shaders to program.", c: `gl.attachShader(program, vertShader);\ngl.attachShader(program, fragShader);`, b: "Pairs vertex and fragment shaders together." },
+        { h: "Link the program.", c: `gl.linkProgram(program);`, b: "Verifies shader interface agreement and builds runnable program." },
+        { h: "Check link errors.", c: `if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {\n  console.error(gl.getProgramInfoLog(program));\n}`, b: "Catches mismatched attribute/varying name errors across shaders." },
+        { h: "Use the program.", c: `gl.useProgram(program);`, b: "Sets active shader pair in the GL state machine." },
+        { id: 99, type: "checkpoint", h: "🎉 Module 4 Complete!", b: "You master GLSL Syntax & Shader Program Compilation!" },
+
+        // MODULE 5: VERTEX BUFFERS (100-124)
+        { h: "What is a VBO?", b: "Vertex Buffer Object (VBO): A contiguous block of GPU memory storing raw vertex byte data." },
+        { h: "Create a buffer.", c: `const vbo = gl.createBuffer();`, b: "Allocates a new buffer handle in WebGL." },
+        { h: "Bind the buffer.", c: `gl.bindBuffer(gl.ARRAY_BUFFER, vbo);`, b: "Sets vbo as the active ARRAY_BUFFER target." },
+        { h: "JavaScript arrays are untyped.", b: "Standard JS arrays ([1.0, 2.0]) are dynamically sized heap objects. The GPU cannot read them." },
+        { h: "TypedArrays: Flat binary memory.", c: `const vertices = new Float32Array([\n  -0.5, -0.5,\n   0.5, -0.5,\n   0.0,  0.5\n]);`, b: "Float32Array stores 32-bit IEEE floats continuously in linear RAM." },
+        { h: "Upload bytes to GPU (gl.bufferData).", c: `gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);`, b: "Copies TypedArray memory payload across the PCIE bus to VRAM." },
+        { h: "Usage Hint: gl.STATIC_DRAW.", b: "Tells the GPU driver data will be set once and drawn many times (cached in fast VRAM)." },
+        { h: "Usage Hint: gl.DYNAMIC_DRAW.", b: "Tells the GPU driver data will be updated frequently by CPU frame loops." },
+        { h: "Usage Hint: gl.STREAM_DRAW.", b: "Tells the GPU data will be specified once and used a few times." },
+        { h: "Buffer binding target: gl.ARRAY_BUFFER.", b: "Used for vertex attributes (positions, colors, normals, UVs)." },
+        { h: "Buffer binding target: gl.ELEMENT_ARRAY_BUFFER.", b: "Used for vertex indices (IBOs)." },
+        { h: "Modify sub-buffer data.", c: `gl.bufferSubData(gl.ARRAY_BUFFER, offsetBytes, updatedArray);`, b: "Updates a sub-region of an existing buffer without reallocating VRAM." },
+        { h: "Unbind buffer.", c: `gl.bindBuffer(gl.ARRAY_BUFFER, null);`, b: "Clears ARRAY_BUFFER binding to prevent accidental state pollution." },
+        { h: "Delete buffer.", c: `gl.deleteBuffer(vbo);`, b: "Releases VRAM allocation back to the graphics card." },
+        { h: "Interleaved Buffer Data.", b: "Storing Position + Color + Normal together inside a single array improves GPU cache efficiency." },
+        { h: "Interleaved Data layout example.", c: `// X, Y, R, G, B\nconst data = new Float32Array([\n  -0.5, -0.5,  1.0, 0.0, 0.0,\n   0.5, -0.5,  0.0, 1.0, 0.0,\n   0.0,  0.5,  0.0, 0.0, 1.0\n]);`, b: "5 floats per vertex (2 for position, 3 for color)." },
+        { h: "Calculate Stride in Bytes.", c: `const STRIDE = 5 * 4; // 5 floats * 4 bytes per float = 20 bytes`, b: "Total byte size of one complete vertex block." },
+        { h: "Float32 byte size.", b: "Every 32-bit float occupies exactly 4 bytes in memory." },
+        { h: "Uint16 byte size.", b: "Every 16-bit unsigned integer occupies exactly 2 bytes in memory." },
+        { h: "Uint8 byte size.", b: "Every 8-bit unsigned integer occupies exactly 1 byte in memory." },
+        { h: "Buffer Overflow Errors.", b: "Binding fewer buffer bytes than required by draw calls causes silent WebGL failures or blank screens." },
+        { h: "Inspect bound buffer size.", c: `const size = gl.getBufferParameter(gl.ARRAY_BUFFER, gl.BUFFER_SIZE);`, b: "Queries byte length of currently bound VBO." },
+        { h: "VBOs are persistent.", b: "Once uploaded to VRAM with STATIC_DRAW, data stays in GPU memory until deleted." },
+        { id: 124, type: "checkpoint", h: "🎉 Module 5 Complete!", b: "You have mastered Vertex Buffer Objects (VBOs) & VRAM Allocation!" },
+
+        // MODULE 6: ATTRIBUTES & POINTERS (125-149)
+        { h: "Link VBO data to Shader inputs.", b: "Attributes bridge raw GPU buffer bytes into GLSL shader input variables." },
+        { h: "Query Attribute Location.", c: `const aPosLoc = gl.getAttribLocation(program, "a_position");`, b: "Finds the attribute memory slot index in the compiled shader." },
+        { h: "Enable Attribute Array.", c: `gl.enableVertexAttribArray(aPosLoc);`, b: "Unlocks the attribute slot so the GPU reads buffer data during draw calls." },
+        { h: "Define Attribute Pointer (gl.vertexAttribPointer).", c: `gl.vertexAttribPointer(\n  aPosLoc, // Attribute Location\n  2,       // Component count (X, Y)\n  gl.FLOAT,// Data type\n  false,   // Normalize integers?\n  0,       // Stride bytes\n  0        // Offset bytes\n);`, b: "Explains how to decode byte streams from active VBO." },
+        { h: "Component Count parameter.", b: "Number of components per vertex (1, 2, 3, or 4). E.g. vec2 = 2, vec3 = 3." },
+        { h: "Data Type parameter.", b: "gl.FLOAT, gl.BYTE, gl.SHORT, gl.UNSIGNED_BYTE, gl.UNSIGNED_SHORT." },
+        { h: "Normalization parameter.", b: "If true, converts integer ranges (0 to 255) to normalized float ranges (0.0 to 1.0)." },
+        { h: "Stride parameter.", b: "Byte offset between consecutive vertex elements. 0 means tightly packed." },
+        { h: "Offset parameter.", b: "Starting byte index where attribute data begins inside the vertex block." },
+        { h: "Interleaved Position Pointer.", c: `gl.vertexAttribPointer(aPosLoc, 2, gl.FLOAT, false, 20, 0);`, b: "Position uses 2 floats, 20 byte stride, starting at offset 0." },
+        { h: "Interleaved Color Pointer.", c: `gl.vertexAttribPointer(aColLoc, 3, gl.FLOAT, false, 20, 8);`, b: "Color uses 3 floats, 20 byte stride, starting at offset 8 bytes (after 2 floats)." },
+        { h: "What is a VAO?", b: "Vertex Array Object (VAO): A master state container storing all VBO bindings and attribute pointer configurations." },
+        { h: "Create VAO.", c: `const vao = gl.createVertexArray();`, b: "Allocates a new VAO handle in WebGL 2." },
+        { h: "Bind VAO.", c: `gl.bindVertexArray(vao);`, b: "Records subsequent bindBuffer and vertexAttribPointer calls inside this VAO." },
+        { h: "Unbind VAO.", c: `gl.bindVertexArray(null);`, b: "Stops recording state changes into the VAO." },
+        { h: "VAOs simplify render loops!", c: `// In frame loop:\ngl.useProgram(program);\ngl.bindVertexArray(characterVAO); // 1 call restores ALL buffers & attributes!\ngl.drawArrays(gl.TRIANGLES, 0, 36);`, b: "Replaces dozens of repetitive buffer setup calls per frame!" },
+        { h: "Delete VAO.", c: `gl.deleteVertexArray(vao);`, b: "Destroys VAO state container handle." },
+        { h: "Maximum Vertex Attributes limit.", c: `const maxAttrs = gl.getParameter(gl.MAX_VERTEX_ATTRIBS);`, b: "Most GPUs support at least 16 simultaneous vertex attributes." },
+        { h: "Instanced Attributes (WebGL 2).", c: `gl.vertexAttribDivisor(aInstancePosLoc, 1);`, b: "Advances attribute pointer once per instance instead of once per vertex!" },
+        { h: "Draw Instanced Geometry.", c: `gl.drawArraysInstanced(gl.TRIANGLES, 0, 6, 10000);`, b: "Draws 10,000 instances of a mesh in 1 single GPU draw call!" },
+        { h: "Disable Attribute Array.", c: `gl.disableVertexAttribArray(loc);`, b: "Turns off attribute array reader slot." },
+        { h: "Constant Vertex Attributes.", c: `gl.vertexAttrib3f(aColorLoc, 1.0, 0.0, 0.0);`, b: "Passes a constant attribute value to all vertices if array is disabled." },
+        { h: "Attribute Naming Conventions.", b: "Prefix attribute names with 'a_' in GLSL (a_position, a_texCoord, a_normal) for code clarity." },
+        { id: 149, type: "checkpoint", h: "🎉 Module 6 Complete!", b: "You master Attribute Pointers & Vertex Array Objects (VAOs)!" },
+
+        // MODULE 7: DRAWING & NDC SPACE (150-174)
+        { h: "What is NDC Space?", b: "Normalized Device Coordinates: A 3D coordinate space spanning -1.0 to +1.0 along X, Y, and Z axes." },
+        { h: "NDC Origin (0, 0, 0).", b: "The point (0, 0, 0) lies directly in the exact center of the screen canvas." },
+        { h: "NDC X axis.", b: "-1.0 is far Left edge, +1.0 is far Right edge." },
+        { h: "NDC Y axis.", b: "-1.0 is Bottom edge, +1.0 is Top edge." },
+        { h: "NDC Z axis (Depth).", b: "-1.0 is Near clip plane (closest), +1.0 is Far clip plane (furthest)." },
+        { h: "Primitive Mode: gl.POINTS.", c: `gl.drawArrays(gl.POINTS, 0, count);`, b: "Renders isolated dots. Vertex shader sets gl_PointSize pixel size." },
+        { h: "Primitive Mode: gl.LINES.", c: `gl.drawArrays(gl.LINES, 0, count);`, b: "Renders disconnected line segments between vertex pairs (0-1, 2-3)." },
+        { h: "Primitive Mode: gl.LINE_STRIP.", c: `gl.drawArrays(gl.LINE_STRIP, 0, count);`, b: "Renders continuous polylines (0-1, 1-2, 2-3)." },
+        { h: "Primitive Mode: gl.LINE_LOOP.", c: `gl.drawArrays(gl.LINE_LOOP, 0, count);`, b: "Renders continuous polylines, connecting final vertex back to start." },
+        { h: "Primitive Mode: gl.TRIANGLES.", c: `gl.drawArrays(gl.TRIANGLES, 0, count);`, b: "Renders independent triangles every 3 consecutive vertices (0-1-2, 3-4-5)." },
+        { h: "Primitive Mode: gl.TRIANGLE_STRIP.", c: `gl.drawArrays(gl.TRIANGLE_STRIP, 0, count);`, b: "Each new vertex forms a triangle with the previous two vertices." },
+        { h: "Primitive Mode: gl.TRIANGLE_FAN.", c: `gl.drawArrays(gl.TRIANGLE_FAN, 0, count);`, b: "All triangles share the central first vertex (0-1-2, 0-2-3, 0-3-4)." },
+        { h: "Draw Call: gl.drawArrays().", c: `gl.drawArrays(mode, firstIndex, count);`, b: "Draws primitives using active VBO attributes sequentially." },
+        { h: "Viewport Aspect Ratio stretching.", b: "Drawing a square (width 1, height 1) on a 16:9 canvas stretches it horizontally." },
+        { h: "Fix aspect ratio distortion.", c: `float aspect = u_resolution.x / u_resolution.y;\ngl_Position = vec4(position.x / aspect, position.y, 0.0, 1.0);`, b: "Scale X coordinates by aspect ratio in the Vertex Shader." },
+        { h: "Polygon Offset.", c: `gl.enable(gl.POLYGON_OFFSET_FILL);\ngl.polygonOffset(1.0, 1.0);`, b: "Resolves depth precision collisions (Z-fighting) when 2 flat polygons overlap." },
+        { h: "Front Face Winding Order.", c: `gl.frontFace(gl.CCW);`, b: "Defines Counter-Clockwise vertex ordering as the polygon front face." },
+        { h: "Cull Back Faces.", c: `gl.enable(gl.CULL_FACE);\ngl.cullFace(gl.BACK);`, b: "Discards back-facing polygons to optimize rendering speed." },
+        { h: "Screen Space conversion.", b: "The GPU maps NDC (-1 to 1) to screen pixels: ScreenX = (ndcX + 1) * 0.5 * canvasWidth." },
+        { h: "Mouse click to NDC.", c: `const ndcX = (mouseX / canvas.clientWidth) * 2 - 1;\nconst ndcY = -(mouseY / canvas.clientHeight) * 2 + 1;`, b: "Converts 2D mouse pixel coordinates to WebGL NDC coordinates!" },
+        { h: "Clipping volume bounds.", b: "Coordinates with X, Y, or Z values outside [-w, +w] are clipped before rasterization." },
+        { h: "Wireframe rendering.", b: "WebGL has no native wireframe toggle. Render wireframes using gl.LINES or barycentric GLSL shaders." },
+        { id: 174, type: "checkpoint", h: "🎉 Module 7 Complete!", b: "You master Drawing Primitives & NDC Space!" },
+
+        // MODULE 8: INDEX BUFFERS & QUADS (175-199)
+        { h: "What is an Index Buffer (IBO)?", b: "Element Array Buffer storing vertex array index numbers to reuse shared vertices." },
+        { h: "Memory duplication without IBOs.", b: "A 3D cube mesh has 8 corner points, but requires 36 vertices (12 triangles * 3) without indexing!" },
+        { h: "Create Index Array.", c: `const indices = new Uint16Array([\n  0, 1, 2,  // First Triangle\n  2, 3, 0   // Second Triangle\n]);`, b: "Defines 2 triangles forming a square using 4 unique corner points." },
+        { h: "Create and Bind IBO.", c: `const ibo = gl.createBuffer();\ngl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, ibo);\ngl.bufferData(gl.ELEMENT_ARRAY_BUFFER, indices, gl.STATIC_DRAW);`, b: "Uploads index array to VRAM under ELEMENT_ARRAY_BUFFER target." },
+        { h: "Draw Indexed Primitives (gl.drawElements).", c: `gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT, 0);`, b: "Draws primitives by indexing into the bound ELEMENT_ARRAY_BUFFER." },
+        { h: "gl.drawElements parameters.", b: "1. Primitive Mode, 2. Index Count, 3. Index Type (gl.UNSIGNED_SHORT), 4. Byte Offset." },
+        { h: "Index Data Types.", b: "gl.UNSIGNED_BYTE (0-255), gl.UNSIGNED_SHORT (0-65535), gl.UNSIGNED_INT (WebGL 2 native)." },
+        { h: "VAO stores IBO bindings!", b: "When a VAO is bound, binding an ELEMENT_ARRAY_BUFFER is recorded inside that VAO!" },
+        { h: "A 3D Cube Mesh has 24 vertices.", b: "While a cube has 8 positions, vertices sharing different lighting normals or UVs must be separated." },
+        { h: "3D Cube Index Array.", c: `const cubeIndices = new Uint16Array([\n  0,1,2, 0,2,3,   // Front\n  4,5,6, 4,6,7,   // Back\n  // ... 36 indices total\n]);`, b: "Draws 12 triangles forming a 6-sided 3D cube mesh." },
+        { h: "Full Screen Quad.", b: "A 2D rectangle covering full NDC space (-1 to +1). Essential for 2D post-processing shaders!" },
+        { h: "Full Screen Quad vertices.", c: `const quadVerts = new Float32Array([\n  -1, -1,   1, -1,  -1,  1,\n  -1,  1,   1, -1,   1,  1\n]);`, b: "6 vertices drawing 2 triangles covering the entire canvas display area." },
+        { h: "Triangle Strip Quad.", c: `const stripVerts = new Float32Array([\n  -1, -1,   1, -1,  -1,  1,   1,  1\n]);\ngl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);`, b: "Renders a full-screen quad using only 4 vertices with TRIANGLE_STRIP!" },
+        { h: "Dynamic Index Updates.", b: "Particle systems can update index buffers per frame to sort transparent billboards by camera depth." },
+        { id: 199, type: "checkpoint", h: "🎉 Module 8 Complete!", b: "You master Index Buffers (IBO) & Quad Rendering!" },
+
+        // MODULE 9: UNIFORMS & ANIMATION (200-224)
+        { h: "What is a Uniform?", b: "A global shader variable that remains identical for all vertices and fragments during a single draw call." },
+        { h: "Query Uniform Location.", c: `const uTimeLoc = gl.getUniformLocation(program, "u_time");`, b: "Finds the uniform memory location index in the compiled program." },
+        { h: "Set Float Uniform (gl.uniform1f).", c: `gl.uniform1f(uTimeLoc, elapsedTimeSeconds);`, b: "Passes a single float value to the GLSL uniform." },
+        { h: "Set Vec2 Uniform (gl.uniform2f).", c: `gl.uniform2f(uResLoc, canvas.width, canvas.height);`, b: "Passes 2 float values (X, Y) to vec2 uniform." },
+        { h: "Set Vec3 Uniform (gl.uniform3f).", c: `gl.uniform3f(uColorLoc, 1.0, 0.0, 0.5);`, b: "Passes 3 float values (R, G, B) to vec3 uniform." },
+        { h: "Set Vec4 Uniform (gl.uniform4f).", c: `gl.uniform4f(uVecLoc, 1.0, 2.0, 3.0, 4.0);`, b: "Passes 4 float values to vec4 uniform." },
+        { h: "Set Int Uniform (gl.uniform1i).", c: `gl.uniform1i(uSamplerLoc, 0);`, b: "Passes integer values (used for texture sampler units)." },
+        { h: "Set Matrix Uniform (gl.uniformMatrix4fv).", c: `gl.uniformMatrix4fv(uMatrixLoc, false, matrixFloat32Array);`, b: "Passes a 4x4 transformation matrix array to GLSL mat4 uniform." },
+        { h: "gl.useProgram required first!", b: "You MUST call gl.useProgram(program) BEFORE calling gl.uniform*() functions!" },
+        { h: "Animate with Time.", c: `function render(time) {\n  const seconds = time * 0.001;\n  gl.uniform1f(uTimeLoc, seconds);\n  gl.drawArrays(gl.TRIANGLES, 0, 3);\n  requestAnimationFrame(render);\n}`, b: "Passes elapsed performance time into GLSL for real-time animations." },
+        { h: "Procedural Sine Wave Animation.", c: `// In GLSL Fragment Shader:\nfloat wave = sin(u_time * 3.0) * 0.5 + 0.5;`, b: "Oscillates values smoothly between 0.0 and 1.0." },
+        { h: "Pass Mouse Coordinates to Uniform.", c: `canvas.addEventListener("mousemove", e => {\n  gl.uniform2f(uMouseLoc, e.clientX, e.clientY);\n});`, b: "Enables interactive shader art responding to cursor movements!" },
+        { h: "Uniform Buffer Objects (UBOs in WebGL 2).", b: "Share large blocks of uniform data across MULTIPLE shader programs simultaneously!" },
+        { h: "Create UBO.", c: `const ubo = gl.createBuffer();\ngl.bindBuffer(gl.UNIFORM_BUFFER, ubo);`, b: "Allocates a uniform buffer block in WebGL 2." },
+        { id: 224, type: "checkpoint", h: "🎉 Module 9 Complete!", b: "You master Uniform Variables & Shader Animations!" },
+
+        // MODULE 10: 3D MATH & MVP MATRICES (225-249)
+        { h: "The 4 Reference Spaces.", b: "Local Space -> World Space -> View (Camera) Space -> Clip Space." },
+        { h: "The MVP Equation.", c: `gl_Position = ProjectionMatrix * ViewMatrix * ModelMatrix * vec4(position, 1.0);`, b: "Transforms local vertex coordinates into 4D clip space." },
+        { h: "Column-Major Order in WebGL.", b: "GLSL matrices store elements column by column. In JS arrays, index 0,1,2,3 is Column 0!" },
+        { h: "4x4 Identity Matrix.", c: `[ 1, 0, 0, 0,\n  0, 1, 0, 0,\n  0, 0, 1, 0,\n  0, 0, 0, 1 ]`, b: "Multiplying any vector by the identity matrix leaves it completely unchanged." },
+        { h: "Translation Matrix.", b: "Moves an object along X, Y, and Z axes in world space." },
+        { h: "Scale Matrix.", b: "Resizes an object along X, Y, and Z axes." },
+        { h: "Rotation Matrix.", b: "Rotates geometry around X, Y, or Z principal axes using sine and cosine functions." },
+        { h: "TRS Multiplication Order.", b: "Model Matrix = Translation * Rotation * Scale. Order is right-to-left!" },
+        { h: "View Matrix (Virtual Camera).", b: "Transforms world coordinates into camera space. Moving camera right (+X) shifts world left (-X)." },
+        { h: "Perspective Projection Matrix.", b: "Maps 3D camera frustum into clip space, causing distant objects to appear smaller." },
+        { h: "Orthographic Projection Matrix.", b: "Maps 3D space without perspective scaling. Parallel lines remain parallel (used for 2D UI & isometric games)." },
+        { h: "Field of View (FOV).", b: "The vertical viewing angle of the camera cone (e.g. 45 degrees or PI/4 radians)." },
+        { h: "Near and Far Clip Planes.", b: "Objects closer than Near clip or further than Far clip are cut off by projection math." },
+        { h: "Normal Matrix for Lighting.", c: `mat3 normalMatrix = transpose(inverse(mat3(modelViewMatrix)));`, b: "Corrects surface normal vector distortion caused by non-uniform scaling." },
+        { h: "Quaternions for 3D Rotations.", b: "4D rotation math avoiding Gimbal Lock (loss of 1 degree of rotational freedom)." },
+        { id: 249, type: "checkpoint", h: "🎉 Module 10 Complete!", b: "You master 3D Vector & Matrix Transformations!" },
+
+        // MODULE 11: TEXTURES & UV MAPPING (250-269)
+        { h: "What is Texture Mapping?", b: "Mapping 2D image pixels (Texels) onto 3D polygon geometry." },
+        { h: "UV Coordinate Space.", b: "(0,0) is Bottom-Left, (1,1) is Top-Right of the texture image." },
+        { h: "Create Texture object.", c: `const texture = gl.createTexture();\ngl.bindTexture(gl.TEXTURE_2D, texture);`, b: "Allocates a GPU texture handle." },
+        { h: "Upload Image to Texture (gl.texImage2D).", c: `gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, imageElement);`, b: "Loads HTML Image pixel bytes into GPU VRAM." },
+        { h: "Texture Filtering: Nearest.", c: `gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);`, b: "Picks the closest pixel. Creates sharp retro pixel art aesthetics!" },
+        { h: "Texture Filtering: Linear.", c: `gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);`, b: "Bilinear interpolation blending neighboring pixels smoothly." },
+        { h: "Texture Wrapping: Repeat.", c: `gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);`, b: "Tiles texture seamlessly when UV coordinates exceed 1.0." },
+        { h: "Texture Wrapping: Clamp to Edge.", c: `gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);`, b: "Stretches edge pixel colors outside [0, 1] range." },
+        { h: "Mipmapping.", c: `gl.generateMipmap(gl.TEXTURE_2D);`, b: "Pre-calculates smaller downscaled image copies to eliminate aliasing noise on distant 3D meshes." },
+        { h: "Flip Y for HTML Images.", c: `gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);`, b: "HTML images start top-left (0,0); WebGL UV space starts bottom-left (0,0)." },
+        { h: "Texture Units (gl.activeTexture).", c: `gl.activeTexture(gl.TEXTURE0);\ngl.bindTexture(gl.TEXTURE_2D, diffuseTex);`, b: "WebGL supports multiple texture unit slots (TEXTURE0, TEXTURE1, TEXTURE2)." },
+        { h: "Sample texture in GLSL.", c: `uniform sampler2D u_texture;\nin vec2 v_uv;\nvoid main() {\n  outColor = texture(u_texture, v_uv);\n}`, b: "Extracts pixel RGBA color sample at coordinate v_uv." },
+        { id: 269, type: "checkpoint", h: "🎉 Module 11 Complete!", b: "You master Textures, UV Mapping & Mipmaps!" },
+
+        // MODULE 12: FRAMEBUFFERS & MASTERY (270-280)
+        { h: "What is an FBO?", b: "Framebuffer Object (FBO): An off-screen rendering target that redirects draw calls into a VRAM texture." },
+        { h: "Create Framebuffer.", c: `const fbo = gl.createFramebuffer();\ngl.bindFramebuffer(gl.FRAMEBUFFER, fbo);`, b: "Allocates an off-screen render target." },
+        { h: "Attach Texture to FBO.", c: `gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texture, 0);`, b: "Binds texture as the off-screen color buffer." },
+        { h: "Check FBO status.", c: `if (gl.checkFramebufferStatus(gl.FRAMEBUFFER) !== gl.FRAMEBUFFER_COMPLETE) {\n  console.error("FBO Incomplete!");\n}`, b: "Verifies off-screen render target configuration." },
+        { h: "Multi-Pass Rendering.", b: "Pass 1: Render 3D scene to FBO texture. Pass 2: Draw full-screen quad to screen using FBO texture as input." },
+        { h: "Post-Processing Effects.", b: "FBOs enable color inversion, Bloom glow, Depth of Field blur, CRT scanlines, and vignette filters!" },
+        { h: "Shadow Mapping.", b: "Render scene depth from light source perspective into an FBO texture to calculate 3D shadow occlusion." },
+        { h: "WebGL 2 Transform Feedback.", b: "Executes GPU compute algorithms directly on VBO vertex buffers without fragment shaders!" },
+        { h: "WebGL 2 Uniform Buffer Objects.", b: "Share massive uniform structures across multiple compiled shader programs." },
+        { id: 280, type: "checkpoint", h: "🏆 WEBGL MASTERY UNLOCKED!", b: "Congratulations! You have completed all 280+ micro-cards and mastered WebGL from raw GPU pipeline to 3D shaders and framebuffers!" }
+      ];
+
+      data.forEach((item, idx) => {
+        CARDS.push({
+          id: idx + 1,
+          type: item.type || "card",
+          headline: item.h,
+          code: item.c || null,
+          body: item.b || null
+        });
+      });
+    }
+
+    buildCurriculumData();
+
+    // ==========================================
+    // APP STATE & STORAGE
+    // ==========================================
+    const STORAGE_KEY = 'webgl_micro_doom_v3';
+    let state = { currentSlide: 0 };
+    function loadState() {
+      try {
+        const s = localStorage.getItem(STORAGE_KEY);
+        if (s) state = JSON.parse(s);
+      } catch(e){}
+    }
+    function saveState() {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e){}
+    }
+
+    // ==========================================
+    // UI BUILDER
+    // ==========================================
+    const slidesContainer = document.getElementById('slidesContainer');
+    const progressBar = document.getElementById('progressBar');
+    const slideCounter = document.getElementById('slideCounter');
+
+    function buildUI() {
+      slidesContainer.innerHTML = '';
+      CARDS.forEach((slide, idx) => {
+        const card = document.createElement('div');
+        card.className = 'slide-card' + (slide.type === 'checkpoint' ? ' checkpoint-card' : '');
+        card.dataset.index = idx;
+
+        if (slide.type === 'checkpoint') {
+          card.innerHTML = `
+            <div class="slide-inner">
+              <div class="checkpoint-badge">🎉</div>
+              <div class="micro-headline">${slide.headline}</div>
+              <div class="micro-body" style="font-size: 1.2rem; color: #fff; font-weight: 600;">${slide.body}</div>
+            </div>
+            <div class="slide-footer">
+              <span>CHECKPOINT ${slide.id} / ${CARDS.length}</span>
+              <span>SWIPE ⬇</span>
+            </div>
+          `;
+        } else {
+          card.innerHTML = `
+            <div class="slide-inner">
+              <div class="micro-headline">${slide.headline.replace(/\n/g, '<br>')}</div>
+              
+              ${slide.code ? `<div class="code-pill">${escapeHTML(slide.code)}</div>` : ''}
+
+              ${slide.body ? `<div class="micro-body">${slide.body}</div>` : ''}
+            </div>
+            <div class="slide-footer">
+              <span>CARD ${slide.id} / ${CARDS.length}</span>
+              <span>SWIPE ⬇</span>
+            </div>
+          `;
+        }
+        slidesContainer.appendChild(card);
+      });
+    }
+
+    function escapeHTML(str) {
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    // ==========================================
+    // NAVIGATION & CELEBRATION
+    // ==========================================
+    function updateProgress() {
+      const idx = state.currentSlide;
+      const total = CARDS.length;
+      const pct = Math.round(((idx + 1) / total) * 100);
+
+      progressBar.style.width = `${pct}%`;
+      slideCounter.innerText = `${idx + 1} / ${total}`;
+
+      // Checkpoint quiet celebration sound
+      const currentCard = CARDS[idx];
+      if (currentCard && currentCard.type === 'checkpoint') {
+        audio.playSoftCelebration();
+        triggerConfetti();
+      }
+    }
+
+    function jumpTo(targetIdx) {
+      targetIdx = Math.max(0, Math.min(CARDS.length - 1, targetIdx));
+      state.currentSlide = targetIdx;
+      saveState();
+
+      const el = slidesContainer.children[targetIdx];
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+      updateProgress();
+    }
+
+    let scrollTimer;
+    slidesContainer.addEventListener('scroll', () => {
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => {
+        const h = slidesContainer.clientHeight;
+        const newIdx = Math.round(slidesContainer.scrollTop / h);
+        if (newIdx !== state.currentSlide && newIdx >= 0 && newIdx < CARDS.length) {
+          state.currentSlide = newIdx;
+          saveState();
+          updateProgress();
+        }
+      }, 50);
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (document.activeElement.tagName === 'INPUT') return;
+      if (e.key === 'ArrowDown' || e.key === ' ' || e.key === 'PageDown') {
+        e.preventDefault(); jumpTo(state.currentSlide + 1);
+      } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+        e.preventDefault(); jumpTo(state.currentSlide - 1);
+      } else if (e.key === 'j' || e.key === 'J') {
+        openModal();
+      }
+    });
+
+    // ==========================================
+    // JUMP MODAL
+    // ==========================================
+    const jumpModal = document.getElementById('jumpModal');
+    const jumpBtn = document.getElementById('jumpBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const execJumpBtn = document.getElementById('execJumpBtn');
+    const jumpInput = document.getElementById('jumpInput');
+    const chapterList = document.getElementById('chapterList');
+    const soundBtn = document.getElementById('soundBtn');
+
+    function openModal() {
+      jumpInput.value = state.currentSlide + 1;
+      jumpModal.classList.add('active');
+    }
+    function closeModal() {
+      jumpModal.classList.remove('active');
+    }
+
+    jumpBtn.addEventListener('click', openModal);
+    closeModalBtn.addEventListener('click', closeModal);
+    execJumpBtn.addEventListener('click', () => {
+      const val = parseInt(jumpInput.value);
+      if (!isNaN(val)) {
+        jumpTo(val - 1);
+        closeModal();
+      }
+    });
+
+    function buildModulesList() {
+      chapterList.innerHTML = '';
+      MODULES.forEach(mod => {
+        const item = document.createElement('div');
+        item.className = 'chapter-item';
+        item.innerHTML = `
+          <span><b>Mod ${mod.id}:</b> ${mod.title}</span>
+          <span style="color: var(--accent-cyan);">Card ${mod.start} ➔</span>
+        `;
+        item.addEventListener('click', () => {
+          jumpTo(mod.start - 1);
+          closeModal();
+        });
+        chapterList.appendChild(item);
+      });
+    }
+
+    soundBtn.addEventListener('click', () => {
+      audio.enabled = !audio.enabled;
+      soundBtn.innerText = audio.enabled ? '🔊' : '🔇';
+    });
+
+    // INIT
+    loadState();
+    buildUI();
+    buildModulesList();
+
+    setTimeout(() => {
+      if (state.currentSlide > 0) jumpTo(state.currentSlide);
+      else updateProgress();
+    }, 100);
+  </script>
+</body>
+</html>
