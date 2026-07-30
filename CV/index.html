@@ -1,810 +1,654 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ardeshir Izadi CV</title>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ardeshir Izadi - Software Engineer CV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0f0f0f;
+      --bg-card: #1f1f1f;
+      --bg-card-alt: #2a2929;
+      --border-color: #444342;
+      --yellow-primary: #ffd000;
+      --yellow-secondary: #ffca28;
+      --text-main: #ffffff;
+      --text-muted: #e0e0e0;
+      --text-subtle: #b8b8b8;
+    }
 
-    <style type="text/css">
-      body {
-        max-width: 1300px;
-        padding: 80px;
-        font-family: sans-serif;
-        display: flex;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        a {
-          text-decoration: none;
-          color: rgb(0, 0, 238);
-        }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.5;
+      font-size: 14px;
+      padding: 20px;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* Distinguishable Link Styles */
+    a {
+      color: var(--yellow-primary);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      font-weight: 500;
+      transition: color 0.15s ease, text-decoration-color 0.15s ease;
+    }
+
+    a:hover {
+      color: #ffffff;
+      text-decoration-color: var(--yellow-primary);
+    }
+
+    .external-link::after {
+      content: " ↗";
+      font-size: 0.75em;
+      display: inline-block;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    /* Sidebar */
+    aside {
+      background: var(--bg-dark);
+      padding: 24px 20px;
+      border-right: 1px solid var(--border-color);
+    }
+
+    .profile-header {
+      text-align: center;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .profile-img {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 12px;
+      border: 2px solid var(--yellow-primary);
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-size: 0.85rem;
+      color: var(--yellow-primary);
+      font-weight: 500;
+      margin-top: 4px;
+    }
+
+    .remote-badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      background: var(--bg-card-alt);
+      border: 1px solid var(--border-color);
+      padding: 2px 8px;
+      border-radius: 12px;
+      margin-top: 8px;
+      font-weight: 500;
+    }
+
+    .info-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .info-list li {
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      word-break: break-word;
+    }
+
+    .info-list li span:first-child {
+      color: var(--text-subtle);
+    }
+
+    .info-list li strong {
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    .sidebar-section {
+      margin-bottom: 20px;
+    }
+
+    .sidebar-section h3 {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--yellow-primary);
+      margin-bottom: 10px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .tag {
+      background: var(--bg-card-alt);
+      color: var(--text-main);
+      font-size: 0.75rem;
+      padding: 3px 7px;
+      border-radius: 4px;
+      border: 1px solid var(--border-color);
+      font-family: 'Fira Code', monospace;
+    }
+
+    /* Main Content */
+    main {
+      padding: 24px 24px 24px 10px;
+    }
+
+    section {
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--yellow-primary);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 6px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Experience */
+    .job-card {
+      background: var(--bg-card-alt);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 14px 16px;
+      margin-bottom: 14px;
+    }
+
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+    }
+
+    .job-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .job-company {
+      font-size: 0.85rem;
+      color: var(--yellow-primary);
+      font-weight: 500;
+    }
+
+    .job-dates {
+      font-size: 0.75rem;
+      color: var(--text-subtle);
+      text-align: right;
+      font-family: 'Fira Code', monospace;
+    }
+
+    .job-desc {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    .job-desc p {
+      margin-bottom: 6px;
+    }
+
+    .job-desc p:last-child {
+      margin-bottom: 0;
+    }
+
+    .tech-stack {
+      margin-top: 8px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .tech-stack strong {
+      color: var(--yellow-secondary);
+      font-weight: 600;
+    }
+
+    .note-box {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      background: var(--bg-dark);
+      border: 1px dashed var(--border-color);
+      padding: 10px 12px;
+      border-radius: 6px;
+      margin-bottom: 14px;
+    }
+
+    .note-box ul {
+      margin-left: 18px;
+      margin-top: 4px;
+    }
+
+    /* Skills Grid */
+    .skills-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .skill-item {
+      background: var(--bg-card-alt);
+      border: 1px solid var(--border-color);
+      padding: 12px 14px;
+      border-radius: 6px;
+    }
+
+    .skill-name {
+      font-weight: 600;
+      color: var(--yellow-primary);
+      font-size: 0.85rem;
+      margin-bottom: 6px;
+    }
+
+    .skill-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin-top: 6px;
+    }
+
+    /* Other list */
+    .misc-list {
+      list-style-type: square;
+      margin-left: 18px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .misc-list li {
+      margin-bottom: 8px;
+      line-height: 1.45;
+    }
+
+    /* PRINT STYLES */
+    @media print {
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      html, body {
+        background-color: #0f0f0f !important;
+        color: #ffffff !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        width: 100%;
+      }
+
+      .container {
+        border: none !important;
+        border-radius: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        background: #1f1f1f !important;
+        grid-template-columns: 260px 1fr !important;
       }
 
       aside {
-        padding: 20px;
-        display: flex;
-        flex-direction: column;
-        background-color: #eeeeee;
-        min-width: 230px;
-        text-align: left;
-        font-size: 0.8rem;
-        line-height: 1.5rem;
-        white-space: nowrap;
-
-        > img {
-          border-radius: 50%;
-          align-self: center;
-        }
-
-        & h1 {
-          font-size: 1rem;
-          padding-top: 20px;
-          margin: 0;
-        }
-
-        > div {
-          display: flex;
-          gap: 2px;
-          margin-bottom: 10px;
-        }
+        background: #0f0f0f !important;
+        border-right: 1px solid #444342 !important;
+        padding: 20px 16px !important;
       }
 
-      .main-column {
-        margin-left: 40px;
-
-        & section {
-          padding-bottom: 40px;
-
-          & h2 {
-            font-size: 1rem;
-            text-transform: uppercase;
-            color: #145fa8;
-          }
-
-          & .job-experience-entry {
-            padding-top: 30px;
-            line-height: 1.4rem;
-
-            & .work-experience-brief {
-              display: grid;
-              grid-gap: 5px;
-              grid-template-rows: 1fr 1fr;
-              grid-template-columns: [time] 120px 30px [image] 80px [details] 1fr;
-              height: 80px;
-
-              & .start-date {
-                grid-row: 2;
-                grid-column: time;
-                align-self: end;
-                text-align: right;
-              }
-
-              & .end-date {
-                grid-row: 1;
-                grid-column: time;
-                align-self: start;
-                text-align: right;
-              }
-
-              & .timeline-border {
-                grid-row: 1 / span 2;
-                grid-column: 2 / span 1;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-
-                & .border-top-circle,
-                & .border-bottom-circle {
-                  display: block;
-                  width: 15px;
-                  height: 15px;
-                  background-color: transparent;
-                  border: 5px solid black;
-                  border-radius: 50%;
-                  position: relative;
-                  box-sizing: border-box;
-                }
-
-                & .border-vertical-line {
-                  display: block;
-                  background-color: black;
-                  width: 5px;
-                  height: 70%;
-                  position: relative;
-                }
-
-                & .border-bottom-circle {
-                  background-color: black;
-                }
-              }
-
-              & img {
-                grid-row: 1 / span 2;
-                grid-column: image;
-                border-radius: 50%;
-                background-color: #eeeeee;
-                align-self: center;
-              }
-
-              & .details-title-duration {
-                grid-row: 1;
-                grid-column: details;
-                align-self: end;
-              }
-
-              & .details-company-location {
-                grid-row: 2;
-                grid-column: details;
-              }
-
-              .details-title-duration,
-              .details-company-location {
-                b {
-                  margin-right: 5px;
-                }
-              }
-            }
-
-            .job-description {
-              padding-left: 160px;
-              text-align: justify;
-            }
-          }
-
-          .gap-indicator {
-            border-left: 5px solid black;
-            margin-left: 133px;
-            padding: 20px;
-            position: relative;
-            margin-top: 60px;
-            margin-bottom: 40px;
-            text-align: justify;
-
-            ::before {
-              content: '🢙';
-              top: -15px;
-            }
-
-            ::before,
-            ::after {
-              width: 10px;
-              height: 10px;
-              font-size: 21px;
-              position: absolute;
-              left: -8px;
-            }
-
-            ::after {
-              content: '🢛';
-              bottom: 2px;
-            }
-          }
-
-          .tools-and-skills {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            text-align: justify;
-
-            & > * {
-              width: 50%;
-              margin-top: 10px;
-              padding-bottom: 20px;
-            }
-          }
-
-          .other-stuff {
-            line-height: 1.5rem;
-            text-align: justify;
-
-            > li {
-              padding-bottom: 20px;
-            }
-          }
-        }
+      main {
+        padding: 20px 20px 20px 10px !important;
       }
-    </style>
-  </head>
-  <body>
+
+      .job-card, .skill-item {
+        background: #2a2929 !important;
+        border: 1px solid #444342 !important;
+        page-break-inside: avoid;
+      }
+
+      .note-box {
+        background: #0f0f0f !important;
+        page-break-inside: avoid;
+      }
+
+      .tag, .remote-badge {
+        background: #2a2929 !important;
+        border: 1px solid #444342 !important;
+        color: #ffffff !important;
+      }
+
+      a {
+        color: #ffd000 !important;
+        text-decoration: underline !important;
+      }
+
+      .external-link::after {
+        content: "" !important;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+      aside {
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+      }
+      main {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Sidebar -->
     <aside>
-      <img width="80" height="80" src="./ardeshir.jpeg" />
-      <h1>Ardeshir Izadi</h1>
-      <div>Software Engineer @ StoryTeq</div>
-
-      <hr />
-      <div>Years of experience: <b>10 years</b></div>
-
-      <div>Age: <b>32 years old</b></div>
-      <div>Marital Status: <b>Married</b></div>
-      <div>Living in: <b>🇳🇱 Netherlands</b></div>
-      <div>Languages: <b>English, Farsi, JavaScript!</b></div>
-
-      <div>
-        Phone Number:
-        <img width="18" src="telegram.svg" />
-        <img width="18" src="whatsapp.svg" />
-        <a href="tel:+31629139341"><b>+31629139341</b></a>
-      </div>
-      <div>
-        Email:
-        <a href="mailto:ardeshirizadinl@gmail.com"
-          ><b>ardeshirizadinl@gmail.com</b></a
-        >
+      <div class="profile-header">
+        <img src="./ardeshir.jpeg" alt="Ardeshir Izadi" class="profile-img">
+        <h1>Ardeshir Izadi</h1>
+        <div class="subtitle">Software Engineer @ Storyteq</div>
+        <div class="remote-badge">🌐 Open to Remote / Hybrid</div>
       </div>
 
-      <div>
-        LinkedIn:
-        <img width="18" src="linkedin.svg" />
-        <a href="https://www.linkedin.com/in/ardeshir-izadi/"
-          ><b>in/ardeshir-izadi</b></a
-        >
-      </div>
+      <ul class="info-list">
+        <li><span>Experience</span> <strong>10 Years</strong></li>
+        <li><span>Age</span> <strong>32</strong></li>
+        <li><span>Status</span> <strong>Married</strong></li>
+        <li><span>Location</span> <strong>🇳🇱 Netherlands</strong></li>
+        <li><span>Languages</span> <strong>English, Farsi, JS!</strong></li>
+        <li><span>Email</span> <a href="mailto:ardeshirizadinl@gmail.com">ardeshirizadinl@gmail.com</a></li>
+        <li><span>Phone</span> <a href="tel:+31629139341">+31 6 2913 9341</a></li>
+        <li><span>LinkedIn</span> <a href="https://www.linkedin.com/in/ardeshir-izadi/" target="_blank" class="external-link">in/ardeshir-izadi</a></li>
+        <li><span>GitHub</span> <a href="https://github.com/aghArdeshir" target="_blank" class="external-link">aghArdeshir</a></li>
+      </ul>
 
-      <div>
-        GitHub:
-        <img width="18" src="github.svg" />
-        <a href="https://github.com/aghArdeshir"><b>GitHub/aghArdeshir</b></a>
+      <div class="sidebar-section">
+        <h3>Primary Tech</h3>
+        <div class="tags">
+          <span class="tag">JavaScript</span>
+          <span class="tag">TypeScript</span>
+          <span class="tag">Vue 2 / Vue 3</span>
+          <span class="tag">React</span>
+          <span class="tag">Next.js</span>
+          <span class="tag">Node.js</span>
+          <span class="tag">Nuxt 2 / 3</span>
+          <span class="tag">Tailwind CSS</span>
+          <span class="tag">Cypress</span>
+          <span class="tag">Playwright</span>
+          <span class="tag">Jest</span>
+          <span class="tag">NGINX</span>
+          <span class="tag">Git</span>
+          <span class="tag">Linux</span>
+        </div>
       </div>
     </aside>
 
-    <div class="main-column">
-      <!-- WORK EXPERIENCE -->
+    <!-- Main Content -->
+    <main>
+      <!-- Work Experience -->
       <section>
-        <h2>
-          <img src="briefcase-svgrepo-com.svg" width="16" /> Work Experience
-        </h2>
+        <h2 class="section-title">Work Experience</h2>
 
-        <!-- STORYTEQ -->
-        <div class="job-experience-entry">
-          <div class="work-experience-brief">
-            <span class="end-date">Present</span>
-            <span class="start-date">December 2022</span>
-            <span class="timeline-border">
-              <span class="border-top-circle"></span>
-              <span class="border-vertical-line"></span>
-              <span class="border-bottom-circle"></span>
-            </span>
-            <img width="60" height="60" src="storyteq.png" alt="Ucraft" />
-            <span class="details-title-duration">
-              <b>Software Engineer</b>
-              <span>3 Year 6 Months . and counting...</span>
-            </span>
-            <span class="details-company-location">
-              <b>Storyteq</b>
-              <span>Amsterdam . Netherlands</span>
-            </span>
+        <!-- Storyteq -->
+        <div class="job-card">
+          <div class="job-header">
+            <div>
+              <div class="job-title">Software Engineer</div>
+              <div class="job-company">Storyteq • Amsterdam, Netherlands</div>
+            </div>
+            <div class="job-dates">Dec 2022 – Present<br>(3 yrs 6 mos)</div>
           </div>
-          <div class="job-description">
-            <p>
-              I came to the Netherlands for this job. I love the culture at
-              Storyteq. Also, the professional people I got the chance to be
-              working with here. Additionally, the product itself, Storyteq, is
-              so interesting that keeps me awake at night and gets me out of bed
-              in morning. This is a large-scale product with lots of important
-              customers: Heineken, KFC, McDonald's, and BMW to name a few.
-            </p>
-            <p>
-              <b>Business:</b> Imagine Nivea wants to launch an advertising
-              campaign. They want the same ad on 20 channels (YouTube Desktop,
-              YouTube Mobile, Instageam Reels, ...), in 100 different countries
-              (languages) promoting 5 of their products, etc.... With each new
-              option the number of variations become higher, think 10,000 media
-              (image/video) needed for the same campaign. Storyteq allows them
-              to create a "template" in an editor, make parts of it "dynamic",
-              and provide a CSV, which outputs 10,000 medias. Of course with all
-              the featurs you would expect (user management, analytics, asset
-              management, brands, output formats, etc...)
-            </p>
-            <p>
-              <b>My First Time Using:</b> Vue 2, Vue 3, Typesense, a
-              professional HTML5 Canvas library, Vuex, Pinia, Nuxt 2, Nuxt 3,
-              Vite, Vitest, Selenium, Cypress, Keycloak, Element UI, Element
-              Plus, Tailwind CSS, OpenIDConnect, Sentry, Google Cloud,
-              Kubernetes,
-            </p>
-            <p>
-              <b>Concept/Business Domain:</b> Advertising, Marketing, Engine +
-              Renderer, AI, Unified Identity across different Products
-            </p>
+          <div class="job-desc">
+            <p>I moved to the Netherlands for this role. Storyteq simply creates dynamic ads that can produce tens of thousands of media variations (images/videos) from a single design template and a CSV file, serving brands like Heineken, KFC, McDonald's, and BMW.</p>
+            <p>My work involves connecting complex state logic to dynamic HTML5 Canvas rendering engines, extensive component development with Element UI & Element Plus, and migrating legacy Vue 2 / Nuxt 2 modules over to Vue 3 / Nuxt 3 with Pinia.</p>
+            <p>Deep-dived into the OpenID Connect (OIDC) protocol specs to implement secure authentication flows. Leveraged strong domain knowledge to lead technical onboarding for new engineering hires.</p>
+            <div class="tech-stack">
+              <strong>Tech / Tools:</strong> Vue 2/3, Nuxt 2/3, Element UI / Element Plus, OIDC, Keycloak, Typesense, Canvas, Pinia, Vite, Vitest, Cypress, Tailwind CSS, Sentry, Google Cloud, Kubernetes.
+            </div>
           </div>
         </div>
 
-        <!-- UCRAFT -->
-        <div class="job-experience-entry">
-          <div class="work-experience-brief">
-            <span class="end-date">December 2022</span>
-            <span class="start-date">May 2021</span>
-            <span class="timeline-border">
-              <span class="border-top-circle"></span>
-              <span class="border-vertical-line"></span>
-              <span class="border-bottom-circle"></span>
-            </span>
-            <img width="60" height="60" src="ucraft.png" alt="Ucraft" />
-            <span class="details-title-duration">
-              <b>Software Engineer</b>
-              <span>1 Year . 8 Months</span>
-            </span>
-            <span class="details-company-location">
-              <b>Ucraft</b>
-              <span>Yerevan . Armenia</span>
-            </span>
+        <!-- Ucraft -->
+        <div class="job-card">
+          <div class="job-header">
+            <div>
+              <div class="job-title">Software Engineer</div>
+              <div class="job-company">Ucraft • Yerevan, Armenia</div>
+            </div>
+            <div class="job-dates">May 2021 – Dec 2022<br>(1 yr 8 mos)</div>
           </div>
-          <div class="job-description">
-            <p>
-              This role was my first international job experience. New things I
-              learned here are large-scale project management and maintaining
-              stable design/UI/UX across multiple products. And the challenge of
-              software internationalization here was far more serious than the
-              internationalization experiences I had before. Additionally using
-              English as the primary language in the office significantly
-              improved my language and communication skills. Plus, Working on a
-              Website Builder was one of the most interesting experiences in my
-              career.
-            </p>
-            <p>
-              <b>Business:</b> Its a Website Builder. We had an editor with drag
-              and drop capabiliteis, with so many components. Responsive design.
-              Theme/Brand creation and management. Statistics. Rendering the
-              same website that user designed for public web with performance
-              and accessibility in mind.
-            </p>
-            <p>
-              <b>My First Time Using:</b> Ant Design, Segment, DialogFlow,
-              GraphQL, Lerna, Intercom, Transifex, Mono Repos
-            </p>
-            <p>
-              <b>Concept/Business Domain:</b> Website Builder, Engine +
-              Renderer, Test-Driven Development/Design, AI, DialogFlow
-            </p>
+          <div class="job-desc">
+            <p>My first international role. Worked on a drag-and-drop website builder, handling drag-and-drop components, responsive design, theme systems, and rendering public-facing websites efficiently. Improved my English and communication skills significantly while working in an English-speaking team.</p>
+            <div class="tech-stack">
+              <strong>Tech / Tools:</strong> React, Ant Design, Segment, DialogFlow, GraphQL, Lerna, Intercom, Transifex, Monorepos.
+            </div>
           </div>
         </div>
 
-        <!-- FARAZ PAJOHAN -->
-        <div class="job-experience-entry">
-          <div class="work-experience-brief">
-            <span class="end-date">May 2021</span>
-            <span class="start-date">May 2019</span>
-            <span class="timeline-border">
-              <span class="border-top-circle"></span>
-              <span class="border-vertical-line"></span>
-              <span class="border-bottom-circle"></span>
-            </span>
-            <img
-              width="60"
-              height="60"
-              src="faraz-pajohan.png"
-              alt="Faraz Pajohan"
-            />
-            <span class="details-title-duration">
-              <b>Full Stack Developer/ Team Lead</b>
-              <span>2 Years</span>
-            </span>
-            <span class="details-company-location">
-              <b>Faraz Pajohan</b>
-              <span>Tehran . Iran</span>
-            </span>
+        <!-- Faraz Pajohan -->
+        <div class="job-card">
+          <div class="job-header">
+            <div>
+              <div class="job-title">Full Stack Developer / Team Lead</div>
+              <div class="job-company">Faraz Pajohan • Tehran, Iran</div>
+            </div>
+            <div class="job-dates">May 2019 – May 2021<br>(2 yrs)</div>
           </div>
-          <div class="job-description">
-            <p>
-              My role here was Full Stack Web-Application developer, Front-end
-              weighted and later I got promoted to Frontend team lead after 1
-              year. The main benefit of working at Faraz Pajohan was working
-              with expert people and experiencing well-structured team
-              management and project planning. This was my first time
-              bootstrapping and completing a professional-grade Web Application
-              from the ground up. I constantly applied best practices alongside
-              developing features as the whole team was always encouraged
-              against technical debts. Making it the cleanest codebase I've ever
-              worked with. Mentored an intern who successfully completed their
-              training period under my guidance. New things I enjoyed learning
-              and getting done here are extreme use of WebSockets for real-time
-              data, designing customizable dashboards, running and managing
-              child processes from NodeJS, and creating filterable, searchable,
-              sortable, pageable SQL queries, and practicing Test Driven
-              Development for frontend. As the rest of the team was building a
-              customized OS forked from Debian, I was responsible for installing
-              and running the web application on it. So I got to configure the
-              NGINX, install InfluxDB, run the NodeJS app, and also serve the
-              frontend SPA admin panel on that OS.
-            </p>
-            <p>
-              <b>Business:</b> We created routers and other more specialized
-              network devices. My role here was always on the admin panel of
-              those devices. And also kind of designing the UI/UX alongside with
-              the team (no in-house UI/UX specialist). It included tables that
-              could have thousands of rows, so performance was always first
-              class citizen. And also modular customizable dashboards.
-            </p>
-            <p>
-              <b>My First Time Using:</b> React, ExtJS, Material-UI, NodeJS,
-              Socket.IO, React-GridLayout, DBUS, InfluxDB, SQL, Jest, JSDOM,
-              Testing Library, Debian, Scrum, CGI (Common Gateway Interface),
-              Prettier, Husky, Git Hooks
-            </p>
-            <p>
-              <b>Concept/Business Domain:</b> A little of Networking &
-              Network-Security, Customized OS, Configuration Management,
-              Real-Time data
-            </p>
+          <div class="job-desc">
+            <p>Bootstrapped full stack web applications from the ground up for specialized routers and network devices, developing a React frontend paired with a Node.js backend. Built CGI endpoints in C and DBus interfaces for low-level system communication, while managing release workflows with Git hooks. Promoted to Frontend Team Lead after 1 year, building modular dashboards handling high-frequency WebSocket streams and configuring NGINX web servers within a custom Debian OS fork.</p>
+            <div class="tech-stack">
+              <strong>Tech / Tools:</strong> React, Node.js, CGI (C), DBus, ExtJS, Material-UI, Socket.IO, Git Hooks, React-GridLayout, InfluxDB, SQL, NGINX, Debian, Jest.
+            </div>
           </div>
         </div>
 
-        <div class="gap-indicator">
-          <small>
-            I omitted two roles from this resume because I left after the
-            probation period in both cases:
-            <ul>
-              <li>
-                One role was at a large company that specialized in stock
-                trading and investment platforms. I worked on a product for
-                future exchanges. The reason I left was I did not see any growth
-                opportunities there. I felt like smartest person in the room.
-              </li>
-              <li>
-                The other one was a small company working on a management app
-                with document-sharing features, a calendar, a to-do list, and
-                more. It was built for 3 platforms: Web, Android, and Windows
-                separately. I was working on the Web. Despite the previous one I
-                was surrounded by really genius people here, and I learned a lot
-                even in those short ~1.5 months. The problem though was the
-                excessive working culture there. Working for 12 hours is OK if
-                it happens from time to time, but do it every day and it starts
-                harming your life.
-              </li>
-            </ul>
-            Both of these ~1.5 months experiences happened in 2019, between
-            "Hasin" 👇 and "Faraz Pajohan" ☝.
-          </small>
+        <!-- Short Roles Note -->
+        <div class="note-box">
+          <em>Note: Omitted two ~1.5-month roles in 2019 during probation:</em>
+          <ul>
+            <li>Stock trading platform (left due to lack of technical growth opportunities).</li>
+            <li>Document-sharing management app (left due to unhealthy 12+ hour daily work culture).</li>
+          </ul>
         </div>
 
-        <!-- HASIN -->
-        <div class="job-experience-entry">
-          <div class="work-experience-brief">
-            <span class="end-date">February 2019</span>
-            <span class="start-date">May 2017</span>
-            <span class="timeline-border">
-              <span class="border-top-circle"></span>
-              <span class="border-vertical-line"></span>
-              <span class="border-bottom-circle"></span>
-            </span>
-            <img width="60" height="60" src="hasin.png" alt="Hasin" />
-            <span class="details-title-duration">
-              <b>Frontend Developer</b>
-              <span>1 Year . 10 Months</span>
-            </span>
-            <span class="details-company-location">
-              <b>Hasin</b>
-              <span>Tehran . Iran</span>
-            </span>
+        <!-- Hasin -->
+        <div class="job-card">
+          <div class="job-header">
+            <div>
+              <div class="job-title">Frontend Developer</div>
+              <div class="job-company">Hasin • Tehran, Iran</div>
+            </div>
+            <div class="job-dates">May 2017 – Feb 2019<br>(1 yr 10 mos)</div>
           </div>
-          <div class="job-description">
-            <p>
-              I began my professional full-time career here in Hasin as a
-              Front-end developer. I had the opportunity of working on a very
-              challenging and complex product, called UbiProcess/Bizotop,
-              alongside a very knowledgeable team. Our same web app codebase was
-              ported to Android & iOS using Cordova. I learned material design
-              basics here for the first time.
-            </p>
-            <p>
-              <b>Business:</b> It was a product used by banks/municipalities/institutes for
-              creating user-facing portals. They could create forms and processes by creating BPMN/BPMS diagrams,
-              (drag drop elements/steps and connect them together) and we created their fully managed portals
-              which included all basic necessities (user signup/login, form rendering, customization, following brands, etc...).
-            </p>
-            <p>
-              <b>My First Time Using:</b> Angular, TypeScript, Cordova, Material
-              Design, Angular-Material, JointJs, SaSS, WebStorm, Git, XCode,
-              MacOS, JIRA, GitLab, ESLint
-            </p>
-            <p>
-              <b>Concept/Business Domain:</b> BPMS & BPMN, Website & App Engine
-              + Renderer, Form Generator/Builder, Hybrid Web Apps
-            </p>
+          <div class="job-desc">
+            <p>Started my full-time career here working on a BPMN/BPMS workflow engine (UbiProcess/Bizotop) used by banks and municipalities to create custom portals, dynamic forms, and automated process flows using only visual design tools like UML charts and diagrams. Built and maintained clients across AngularJS and Angular frameworks, and ported web apps to mobile using Cordova.</p>
+            <div class="tech-stack">
+              <strong>Tech / Tools:</strong> AngularJS, Angular, TypeScript, Cordova, Material Design, JointJS, Sass, Git, JIRA.
+            </div>
           </div>
         </div>
 
-        <!-- Freelancing -->
-        <div class="job-experience-entry">
-          <div class="work-experience-brief">
-            <span class="end-date">May 2017</span>
-            <span class="start-date">November 2016</span>
-            <span class="timeline-border">
-              <span class="border-top-circle"></span>
-              <span class="border-vertical-line"></span>
-              <span class="border-bottom-circle"></span>
-            </span>
-            <img width="60" height="60" src="freelancer.svg" alt="Freelancer" />
-            <span class="details-title-duration">
-              <b>Freelancer</b>
-              <span>6 Months</span>
-            </span>
-            <span class="details-company-location">
-              <b>-</b>
-              <span>Hamedan . Iran</span>
-            </span>
+        <!-- Freelancer -->
+        <div class="job-card">
+          <div class="job-header">
+            <div>
+              <div class="job-title">Freelancer</div>
+              <div class="job-company">Hamedan, Iran</div>
+            </div>
+            <div class="job-dates">Nov 2016 – May 2017<br>(6 mos)</div>
           </div>
-          <div class="job-description">
-            <p>
-              Freelanced on a variety of web-related projects, as well as a
-              C++/CUDA project.
-              <br />
-              The most notable one was developing a full-featured frontend for a
-              hotel in Hamedan, including reservation, admin panel, payment, and
-              more.
-              <br />
-              Another one was a network packet classifier using C++ and CUDA. It
-              was an experimental project to find out if using GPUs in internet
-              routers with CUDA could help us with classifying internet packets
-              in real time.
-            </p>
-            <p>
-              <b>My First Time Using:</b> C++, CUDA, SFML, AngularJS, Bootstrap,
-              Visual Studio
-            </p>
-            <p>
-              <b>Concept/Business Domain:</b> Packet Classification for Routers,
-              Aggregated Bit Vectors Algorithm, Game Development, CRUD/RESTful
-              APIs
-            </p>
+          <div class="job-desc">
+            <p>Built web portals (including a hotel reservation system) and designed an Aggregated Bit Vector Algorithm on GPU/CUDA for a real-time internet packet classifier written in C++ to optimize packet processing on routers.</p>
           </div>
-        </div>
-
-        <div class="gap-indicator">
-          <small>
-            The gap here is the mandatory military service I did in Iran for 2
-            years.
-          </small>
         </div>
 
         <!-- Susha -->
-        <div class="job-experience-entry">
-          <div class="work-experience-brief">
-            <span class="end-date">December 2013</span>
-            <span class="start-date">July 2013</span>
-            <span class="timeline-border">
-              <span class="border-top-circle"></span>
-              <span class="border-vertical-line"></span>
-              <span class="border-bottom-circle"></span>
-            </span>
-            <img
-              width="60"
-              height="60"
-              src="susha.svg"
-              alt="Susha Design Group"
-            />
-            <span class="details-title-duration">
-              <b>Full Stack Web Developer</b>
-              <span>6 Months</span>
-            </span>
-            <span class="details-company-location">
-              <b>Susha Design Group</b>
-              <span>Hamedan . Iran</span>
-            </span>
+        <div class="job-card">
+          <div class="job-header">
+            <div>
+              <div class="job-title">Full Stack Web Developer</div>
+              <div class="job-company">Susha Design Group • Hamedan, Iran</div>
+            </div>
+            <div class="job-dates">Jul 2013 – Dec 2013<br>(6 mos)</div>
           </div>
-          <div class="job-description">
-            <p>
-              Worked on various projects, mostly with WordPress and OpenCart. My
-              responsibilities were fixing PHP and JavaScript issues and some
-              HTML/CSS tweaks. We created various online shops and a handful of
-              websites for local businesses in Hamedan with eye-catching landing
-              pages.
-              <br />
-              My most satisfying experience was on a headphone shop. They asked
-              for a 3D preview of headphones, which we could not deliver (lack of expertise, and WebGL wasn't that common and supported back then), but
-              instead, we brought every headphone in, one by one, took 30-40
-              pictures of each, and created a 360° preview on the website that you could rotate. I
-              used a JQuery plugin to accomplish this.
-            </p>
-            <p>
-              <b>My First Time Using:</b> PHP, JavaScript, HTML, CSS, JQuery,
-              Dom, WordPress, OpenCart, Notepad++
-            </p>
-            <p>
-              <b>Concept/Business Domain:</b> Online Shops, Beautiful Landing
-              Pages, Payment Gateways
-            </p>
+          <div class="job-desc">
+            <p>Built e-commerce sites and custom business websites using WordPress and OpenCart. Created an interactive 360° product view for a headphone store taking 30–40 photos per product and rendering them with a JS viewer plugin.</p>
           </div>
         </div>
       </section>
 
-      <!-- TECH SKILLS -->
+      <!-- Tools & Skills -->
       <section>
-        <h2><img src="tools-wrench.svg" width="16" /> Tools & Skills</h2>
+        <h2 class="section-title">Tools & Skills</h2>
+        <div class="skills-grid">
 
-        <div class="tools-and-skills">
-          <b>JavaScript</b>
-          <small>
-            Confident enough to know I can build everything I see with it.
-          </small>
+          <div class="skill-item">
+            <div class="skill-name">Frontend Ecosystem</div>
+            <div class="tags">
+              <span class="tag">JavaScript (ES6+)</span>
+              <span class="tag">TypeScript</span>
+              <span class="tag">Vue 2 / Vue 3</span>
+              <span class="tag">Nuxt 2 / 3</span>
+              <span class="tag">Element UI / Element Plus</span>
+              <span class="tag">Pinia / Vuex</span>
+              <span class="tag">React</span>
+              <span class="tag">Next.js</span>
+              <span class="tag">AngularJS</span>
+              <span class="tag">Angular</span>
+              <span class="tag">HTML5 Canvas</span>
+              <span class="tag">Tailwind CSS</span>
+              <span class="tag">Ant Design</span>
+              <span class="tag">Material-UI</span>
+              <span class="tag">Sass/SCSS</span>
+            </div>
+            <div class="skill-desc">Deep framework experience across Vue, React, & Angular ecosystems, component libraries, dynamic DOM/Canvas rendering, and state management.</div>
+          </div>
 
-          <b>TypeScript</b>
-          <small>
-            I am comfortable with it. Never got deep with it. But never was also
-            left hanging with it. I can make good use of utility types, type
-            guards, and template types where necessary.
-          </small>
+          <div class="skill-item">
+            <div class="skill-name">Backend, Auth & System Interfacing</div>
+            <div class="tags">
+              <span class="tag">Node.js</span>
+              <span class="tag">Express</span>
+              <span class="tag">RESTful APIs</span>
+              <span class="tag">GraphQL</span>
+              <span class="tag">OIDC (OpenID Connect)</span>
+              <span class="tag">Keycloak</span>
+              <span class="tag">DBus</span>
+              <span class="tag">CGI (C)</span>
+              <span class="tag">Socket.IO</span>
+              <span class="tag">Typesense</span>
+              <span class="tag">InfluxDB</span>
+              <span class="tag">SQL</span>
+            </div>
+            <div class="skill-desc">Building clean REST & GraphQL services, standard OIDC/OAuth authentication specs, real-time WebSocket streams, and IPC via DBus and CGI.</div>
+          </div>
 
-          <b>DOM</b>
-          <small>
-            Know it and love it. I also love the challenge of re-implementing
-            everything that modern frameworks and UI libraries can do with pure
-            DOM.
-          </small>
+          <div class="skill-item">
+            <div class="skill-name">Testing & Quality Assurance</div>
+            <div class="tags">
+              <span class="tag">Cypress</span>
+              <span class="tag">Playwright</span>
+              <span class="tag">Selenium</span>
+              <span class="tag">Jest</span>
+              <span class="tag">Vitest</span>
+              <span class="tag">JSDOM</span>
+              <span class="tag">TDD</span>
+            </div>
+            <div class="skill-desc">Comprehensive test coverage via unit, integration, and E2E pipelines with a test-driven mindset.</div>
+          </div>
 
-          <b>React</b>
-          <small>
-            Have 4 years of full-time employed experience with it. Had to know
-            it deeply while working on a website builder. (especially around optimizing stuff)
-          </small>
+          <div class="skill-item">
+            <div class="skill-name">Modern Tooling & Infrastructure</div>
+            <div class="tags">
+              <span class="tag">Vite</span>
+              <span class="tag">Monorepos (pnpm / Lerna)</span>
+              <span class="tag">Git Hooks</span>
+              <span class="tag">Modular Architecture</span>
+              <span class="tag">Linux / Debian</span>
+              <span class="tag">NGINX</span>
+              <span class="tag">Google Cloud (GCP)</span>
+              <span class="tag">Kubernetes</span>
+            </div>
+            <div class="skill-desc">Designing modern build setups with Vite and monorepos (pnpm/Lerna), Git hooks automation, Linux administration, and cloud deployment pipelines.</div>
+          </div>
 
-          <b>Vue</b>
-          <small>
-            Had experience with it for more than 3 years now. Got enough knowledge
-            with it while migrating a complex project from Vue 2 to Vue 3. One
-            that involved communicating our declarative state to an imperative
-            canvas library and back!
-          </small>
+          <div class="skill-item">
+            <div class="skill-name">Workflows & Onboarding</div>
+            <div class="tags">
+              <span class="tag">Git</span>
+              <span class="tag">Git Reflog</span>
+              <span class="tag">Developer Onboarding</span>
+              <span class="tag">JIRA</span>
+              <span class="tag">Clean Code</span>
+              <span class="tag">Code Reviews</span>
+            </div>
+            <div class="skill-desc">Onboarding new engineers, maintaining clean merge histories, Git rescue troubleshooting, and agile team collaboration.</div>
+          </div>
 
-          <b>AngularJS</b>
-          <small>
-            Worked for 2 full years with it (but don't remember much now).
-          </small>
-
-          <b>Angular</b>
-          <small>
-            Not that much experience. I know the basics. Angular was the one that taught me TypeScript.
-            Have experience transforming codebase from AngularJS to Angular
-          </small>
-
-          <b>Node.js</b>
-          <small>
-            Confident enough with it. The only things I lack knowledge in Node.js
-            are the things that I lack knowledge in general: e.g. deep networking
-            protocols, crypto, internals, etc...
-          </small>
-
-          <b>React Native</b>
-          <small>
-            Most basic knowledge! Just have bootstrapped two projects with it
-            and abandoned them. Just enough to know the basic concepts of how it
-            works.
-          </small>
-
-          <b>Express</b>
-          <small>
-            Not too advanced. Not too basic. Enough to launch a full RESTful API
-            with enough complexity and still keep it clean and secure!
-          </small>
-
-          <b>Frontend E2E testing</b>
-          <small> Extensive experience using Cypress, Selenium and Playwright. </small>
-
-          <b>NGINX</b>
-          <small>
-            I've fired up a few random personal projects on Linux VPSs. And was
-            a Full Stack developer for one year at Faraz Pajohan and I set up
-            the web application there. (for production)
-          </small>
-
-          <b>Linux Administration</b>
-          <small>
-            Very very basic knowledge! But enough to be able to turn a
-            fresh-installed Linux distro (does not matter what distro) into a
-            working web server. And enough to find my way around problems by
-            searching for them online. My top-notch noticeable experiences are
-            building Ardour on my Ubuntu, and installing Arch Linux following
-            its documentation.
-          </small>
-
-          <b>RegEx</b>
-          <small>
-            Once I realized I knew nothing about them and went to HackerRank and
-            solved A LOT of challenges. Now I am most comfortable with it. The
-            best feeling is when a colleague asks for help on a RegEx and I can
-            help. 😎
-          </small>
-
-          <b>Git</b>
-          <small>
-            I love Git. I've used it almost everywhere I was (except for a few
-            months on a project I used SVN). I've been on GitHub, GitLab,
-            ButBucket, and just Git servers without a UI! I've worked in both
-            "rebasing" and "merging" teams and also a manual-squash enforcing
-            team. My top-notch experience is two times that I resurrected "lost"
-            commits from a colleague's deleted branch using
-            <code>git reflog</code>.
-          </small>
-
-          <b>MongoDB</b>
-          <small>
-            Most basic knowledge. Always loved it because it was easier than SQL 👀
-          </small>
-
-          <b>SQL</b>
-          <small>
-            Most basic knowledge. Just know the concepts and can find my way by
-            searching or using AI.
-          </small>
-
-          <b>HTML</b>
-          <small>YES!</small>
-
-          <b>CSS</b>
-          <small>
-            I always accomplished what I wanted with it, even if without knowing how.
-          </small>
-
-          <b>C++</b>
-          <small>
-            I've built a very basic 2D move-and-shoot game with SFML, wrote a
-            network packet classifier with CUDA, and modified a CGI web service
-            written in C here and there.
-          </small>
-
-          <b>CUDA</b>
-          <small>
-            I know the concepts behind it, why and how this whole computing on
-            GPU is cool, and implemented a network packet classifier with CUDA.
-          </small>
         </div>
       </section>
 
+      <!-- Other Stuff -->
       <section>
-        <h2><img src="stars.svg" width="16" /> Other Stuff</h2>
-
-        <ul class="other-stuff">
-          <li>
-            I have experiences transforming legacy code into new code. I
-            migrated 3 different projects from:
-            <ul>
-              <li>AngualarJS/JavaScript -> Angular/TypeScript</li>
-              <li>ExtJS -> React/MaterialUI -> TypeScript</li>
-              <li>Vue.js 2/Nuxt 2 -> Vue.js 3/Nuxt 3</li>
-            </ul>
-            So I can say I can find my way in legacy code, deep dive in, and
-            come out with a better code. I do trust in my taste in code, and I
-            believe my colleagues do as well.
-          </li>
-          <li>
-            I know my way in Audio: producing music, mixing & mastering, and
-            have worked with different professional DAWs: Ardour, Pro Tools,
-            Cubase, FL Studio, Ableton, GoldWave, Adobe Audition, and Audacity.
-            I also know enough of WebAudio API to produce and alter sound.
-          </li>
-          <li>
-            Education: I finished high school and then got accepted into Bu-Ali
-            Sina University (Hamedan). Its a good university. But after 4 semesters I got expelled for
-            bad grades 👀. But it turned out all good. I'm happy with my life
-            now. 😎
-          </li>
-          <li>
-            I wrote a blog post called "Merge Request Mastery" which is about
-            creating good merge requests. Including some tips and tricks I use
-            myself to create "reviewable" MRs:
-            <a
-              href="https://aghardeshir.github.io/blog/merge-request-mastery.html"
-            >
-              Merge Request Mastery
-            </a>
-          </li>
-          <li>
-            I've lived in:
-            <ul>
-              <li>Hamedan, Iran (my hometown)</li>
-              <li>Tehran, Iran</li>
-              <li>Yerevan, Armenia</li>
-              <li>Amstelveen, Netherlands</li>
-              <li>Rijswijk, Netherlands</li>
-              <li>Obdam, Netherlands (probably staying)</li>
-            </ul>
-          </li>
+        <h2 class="section-title">Other Stuff</h2>
+        <ul class="misc-list">
+          <li><strong>Legacy Migrations:</strong> Successfully migrated 3 major projects: AngularJS &rarr; Angular/TS, ExtJS &rarr; React/Material-UI, and Vue 2/Nuxt 2 &rarr; Vue 3/Nuxt 3. Comfortable diving into legacy code and refactoring cleanly.</li>
+          <li><strong>Audio Engineering:</strong> Hands-on with music production, mixing & mastering in DAWs (Ardour, Pro Tools, FL Studio, Ableton) and WebAudio API.</li>
+          <li><strong>Game Development & Gaming:</strong> Have experience building small hobby games, including multiplayer titles using SFML, Construct, and Game Maker and JavaScript.</li>
+          <li><strong>Blog & Writing:</strong> Author of <a href="https://aghardeshir.github.io/blog/merge-request-mastery.html" target="_blank" class="external-link">Merge Request Mastery</a> — practical tips on writing clean, reviewable merge requests.</li>
         </ul>
       </section>
-    </div>
-  </body>
+    </main>
+  </div>
+
+</body>
 </html>
-
-<!-- TODO: Double check to make sure durations and starting dates and ending dates are correct -->
-<!-- TODO: improve most parts of it with the help of ChatGPT -->
-<!-- TODO: Ask ChatGPT to give ideas to amke code cleaner -->
-<!-- TODO: Ask Gramamrly to fix grammatical issues -->
-
